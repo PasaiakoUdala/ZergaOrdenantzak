@@ -1,0 +1,67 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Eremua
+ *
+ * @ORM\Table(name="eremua", indexes={@ORM\Index(name="eremumota_id_idx", columns={"eremumota_id"}), @ORM\Index(name="formula_id_idx", columns={"formula_id"})})
+ * @ORM\Entity
+ */
+class Eremua
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izena", type="text", length=65535, nullable=true)
+     */
+    private $izena;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etiketaeu", type="text", length=65535, nullable=true)
+     */
+    private $etiketaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etiketaes", type="text", length=65535, nullable=true)
+     */
+    private $etiketaes;
+
+    /**
+     * @var \Eremumota
+     *
+     * @ORM\ManyToOne(targetEntity="Eremumota")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="eremumota_id", referencedColumnName="id")
+     * })
+     */
+    private $eremumota;
+
+    /**
+     * @var \Formula
+     *
+     * @ORM\ManyToOne(targetEntity="Formula")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="formula_id", referencedColumnName="id")
+     * })
+     */
+    private $formula;
+
+
+}
+

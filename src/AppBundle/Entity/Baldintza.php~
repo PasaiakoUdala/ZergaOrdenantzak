@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Baldintza
+ *
+ * @ORM\Table(name="baldintza")
+ * @ORM\Entity
+ */
+class Baldintza
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="baldintzaeu", type="text", length=65535, nullable=true)
+     */
+    private $baldintzaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="baldintzaes", type="text", length=65535, nullable=true)
+     */
+    private $baldintzaes;
+
+
+}
+

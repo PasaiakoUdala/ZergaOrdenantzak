@@ -1,0 +1,71 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Azpiatala
+ *
+ * @ORM\Table(name="azpiatala", indexes={@ORM\Index(name="atala_id_idx", columns={"atala_id"})})
+ * @ORM\Entity
+ */
+class Azpiatala
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
+     */
+    private $kodea;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
+     */
+    private $izenburuaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
+     */
+    private $izenburuaes;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * @var \Atala
+     *
+     * @ORM\ManyToOne(targetEntity="Atala")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
+     * })
+     */
+    private $atala;
+
+
+}
+

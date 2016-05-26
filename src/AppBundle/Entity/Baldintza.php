@@ -1,0 +1,104 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Baldintza
+ *
+ * @ORM\Table(name="baldintza")
+ * @ORM\Entity
+ */
+class Baldintza
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="baldintzaeu", type="text", length=65535, nullable=true)
+     */
+    private $baldintzaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="baldintzaes", type="text", length=65535, nullable=true)
+     */
+    private $baldintzaes;
+
+    public function __construct()
+    {
+    }
+
+    public function __toString()
+    {
+        return $this->getBaldintzaeu();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set baldintzaeu
+     *
+     * @param string $baldintzaeu
+     *
+     * @return Baldintza
+     */
+    public function setBaldintzaeu($baldintzaeu)
+    {
+        $this->baldintzaeu = $baldintzaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get baldintzaeu
+     *
+     * @return string
+     */
+    public function getBaldintzaeu()
+    {
+        return $this->baldintzaeu;
+    }
+
+    /**
+     * Set baldintzaes
+     *
+     * @param string $baldintzaes
+     *
+     * @return Baldintza
+     */
+    public function setBaldintzaes($baldintzaes)
+    {
+        $this->baldintzaes = $baldintzaes;
+
+        return $this;
+    }
+
+    /**
+     * Get baldintzaes
+     *
+     * @return string
+     */
+    public function getBaldintzaes()
+    {
+        return $this->baldintzaes;
+    }
+}

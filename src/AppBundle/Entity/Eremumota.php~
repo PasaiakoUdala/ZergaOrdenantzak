@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Eremumota
+ *
+ * @ORM\Table(name="eremumota")
+ * @ORM\Entity
+ */
+class Eremumota
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motaeu", type="text", length=65535, nullable=true)
+     */
+    private $motaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motaes", type="text", length=65535, nullable=true)
+     */
+    private $motaes;
+
+
+}
+

@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Kontzeptumota
+ *
+ * @ORM\Table(name="kontzeptumota")
+ * @ORM\Entity
+ */
+class Kontzeptumota
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motaeu", type="text", length=65535, nullable=true)
+     */
+    private $motaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motaes", type="text", length=65535, nullable=true)
+     */
+    private $motaes;
+
+
+}
+

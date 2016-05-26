@@ -1,0 +1,105 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Kontzeptua
+ *
+ * @ORM\Table(name="kontzeptua", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"}), @ORM\Index(name="baldintza_id_idx", columns={"baldintza_id"}), @ORM\Index(name="kontzeptumota_id_idx", columns={"kontzeptumota_id"})})
+ * @ORM\Entity
+ */
+class Kontzeptua
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
+     */
+    private $kodea;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kontzeptuaeu", type="text", length=65535, nullable=true)
+     */
+    private $kontzeptuaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kontzeptuaes", type="text", length=65535, nullable=true)
+     */
+    private $kontzeptuaes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kopurua", type="string", length=50, nullable=true)
+     */
+    private $kopurua;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unitatea", type="string", length=50, nullable=true)
+     */
+    private $unitatea;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    /**
+     * @var \Azpiatala
+     *
+     * @ORM\ManyToOne(targetEntity="Azpiatala")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="azpiatala_id", referencedColumnName="id")
+     * })
+     */
+    private $azpiatala;
+
+    /**
+     * @var \Baldintza
+     *
+     * @ORM\ManyToOne(targetEntity="Baldintza")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="baldintza_id", referencedColumnName="id")
+     * })
+     */
+    private $baldintza;
+
+    /**
+     * @var \Kontzeptumota
+     *
+     * @ORM\ManyToOne(targetEntity="Kontzeptumota")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="kontzeptumota_id", referencedColumnName="id")
+     * })
+     */
+    private $kontzeptumota;
+
+
+}
+

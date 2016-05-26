@@ -1,0 +1,353 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Historikoa
+ *
+ * @ORM\Table(name="historikoa")
+ * @ORM\Entity
+ */
+class Historikoa
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="onartzedata", type="date", nullable=true)
+     */
+    private $onartzedata;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="bogargitaratzedata", type="date", nullable=true)
+     */
+    private $bogargitaratzedata;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bogestekaeu", type="string", length=255, nullable=true)
+     */
+    private $bogestekaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bogestekaes", type="string", length=255, nullable=true)
+     */
+    private $bogestekaes;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="indarreandata", type="date", nullable=true)
+     */
+    private $indarreandata;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aldaketakeu", type="text", length=65535, nullable=true)
+     */
+    private $aldaketakeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aldaketakes", type="text", length=65535, nullable=true)
+     */
+    private $aldaketakes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fitxategia", type="string", length=255, nullable=true)
+     */
+    private $fitxategia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+    public function __construct()
+    {
+    }
+
+    public function __toString()
+    {
+        return $this->getOnartzedata()->format("Y-m-d");
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set onartzedata
+     *
+     * @param \DateTime $onartzedata
+     *
+     * @return Historikoa
+     */
+    public function setOnartzedata($onartzedata)
+    {
+        $this->onartzedata = $onartzedata;
+
+        return $this;
+    }
+
+    /**
+     * Get onartzedata
+     *
+     * @return \DateTime
+     */
+    public function getOnartzedata()
+    {
+        return $this->onartzedata;
+    }
+
+    /**
+     * Set bogargitaratzedata
+     *
+     * @param \DateTime $bogargitaratzedata
+     *
+     * @return Historikoa
+     */
+    public function setBogargitaratzedata($bogargitaratzedata)
+    {
+        $this->bogargitaratzedata = $bogargitaratzedata;
+
+        return $this;
+    }
+
+    /**
+     * Get bogargitaratzedata
+     *
+     * @return \DateTime
+     */
+    public function getBogargitaratzedata()
+    {
+        return $this->bogargitaratzedata;
+    }
+
+    /**
+     * Set bogestekaeu
+     *
+     * @param string $bogestekaeu
+     *
+     * @return Historikoa
+     */
+    public function setBogestekaeu($bogestekaeu)
+    {
+        $this->bogestekaeu = $bogestekaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get bogestekaeu
+     *
+     * @return string
+     */
+    public function getBogestekaeu()
+    {
+        return $this->bogestekaeu;
+    }
+
+    /**
+     * Set bogestekaes
+     *
+     * @param string $bogestekaes
+     *
+     * @return Historikoa
+     */
+    public function setBogestekaes($bogestekaes)
+    {
+        $this->bogestekaes = $bogestekaes;
+
+        return $this;
+    }
+
+    /**
+     * Get bogestekaes
+     *
+     * @return string
+     */
+    public function getBogestekaes()
+    {
+        return $this->bogestekaes;
+    }
+
+    /**
+     * Set indarreandata
+     *
+     * @param \DateTime $indarreandata
+     *
+     * @return Historikoa
+     */
+    public function setIndarreandata($indarreandata)
+    {
+        $this->indarreandata = $indarreandata;
+
+        return $this;
+    }
+
+    /**
+     * Get indarreandata
+     *
+     * @return \DateTime
+     */
+    public function getIndarreandata()
+    {
+        return $this->indarreandata;
+    }
+
+    /**
+     * Set aldaketakeu
+     *
+     * @param string $aldaketakeu
+     *
+     * @return Historikoa
+     */
+    public function setAldaketakeu($aldaketakeu)
+    {
+        $this->aldaketakeu = $aldaketakeu;
+
+        return $this;
+    }
+
+    /**
+     * Get aldaketakeu
+     *
+     * @return string
+     */
+    public function getAldaketakeu()
+    {
+        return $this->aldaketakeu;
+    }
+
+    /**
+     * Set aldaketakes
+     *
+     * @param string $aldaketakes
+     *
+     * @return Historikoa
+     */
+    public function setAldaketakes($aldaketakes)
+    {
+        $this->aldaketakes = $aldaketakes;
+
+        return $this;
+    }
+
+    /**
+     * Get aldaketakes
+     *
+     * @return string
+     */
+    public function getAldaketakes()
+    {
+        return $this->aldaketakes;
+    }
+
+    /**
+     * Set fitxategia
+     *
+     * @param string $fitxategia
+     *
+     * @return Historikoa
+     */
+    public function setFitxategia($fitxategia)
+    {
+        $this->fitxategia = $fitxategia;
+
+        return $this;
+    }
+
+    /**
+     * Get fitxategia
+     *
+     * @return string
+     */
+    public function getFitxategia()
+    {
+        return $this->fitxategia;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Historikoa
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Historikoa
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+}

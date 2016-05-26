@@ -1,0 +1,96 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Historikoa
+ *
+ * @ORM\Table(name="historikoa")
+ * @ORM\Entity
+ */
+class Historikoa
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="onartzedata", type="date", nullable=true)
+     */
+    private $onartzedata;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="bogargitaratzedata", type="date", nullable=true)
+     */
+    private $bogargitaratzedata;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bogestekaeu", type="string", length=255, nullable=true)
+     */
+    private $bogestekaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bogestekaes", type="string", length=255, nullable=true)
+     */
+    private $bogestekaes;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="indarreandata", type="date", nullable=true)
+     */
+    private $indarreandata;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aldaketakeu", type="text", length=65535, nullable=true)
+     */
+    private $aldaketakeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aldaketakes", type="text", length=65535, nullable=true)
+     */
+    private $aldaketakes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fitxategia", type="string", length=255, nullable=true)
+     */
+    private $fitxategia;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    private $updatedAt;
+
+
+}
+
