@@ -1,0 +1,18 @@
+easy_admin:
+    entities:
+        Atala:
+            class: AppBundle\Entity\Atala
+            label: 'Atala'
+#            list:
+#                title: '%%entity_label%%k'
+#                actions:
+#                    - { name: 'show', label: '', icon: 'search' }
+#                    - { name: 'edit', label: '', icon: 'edit' }
+#                    - { name: 'delete', label: '', icon: 'trash' }
+#                fields: ['id','izena']
+#
+#            show:
+#                fields: ['izena']
+#
+#            form:
+#                fields: ['izena']

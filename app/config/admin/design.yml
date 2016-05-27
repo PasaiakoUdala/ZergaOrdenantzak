@@ -1,0 +1,10 @@
+easy_admin:
+    site_name: 'Zerga Ordenantzak'
+    design:
+        form_theme:   'vertical'
+        color_scheme: 'dark'
+#        assets:
+#            css:
+#                - '/bundles/app/css/estiloa.css'
+#            js:
+#                - '/bundles/app/js/maplace.min.js'
