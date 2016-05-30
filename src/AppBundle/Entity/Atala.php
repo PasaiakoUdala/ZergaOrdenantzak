@@ -77,6 +77,8 @@ class Atala
         return $this->getKodea();
     }
 
+
+
     /**
      * Get id
      *

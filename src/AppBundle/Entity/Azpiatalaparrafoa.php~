@@ -66,6 +66,169 @@ class Azpiatalaparrafoa
      */
     private $azpiatala;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
+    public function __toString()
+    {
+        return $this->getTestuaeu();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set ordena
+     *
+     * @param integer $ordena
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setOrdena($ordena)
+    {
+        $this->ordena = $ordena;
+
+        return $this;
+    }
+
+    /**
+     * Get ordena
+     *
+     * @return integer
+     */
+    public function getOrdena()
+    {
+        return $this->ordena;
+    }
+
+    /**
+     * Set testuaeu
+     *
+     * @param string $testuaeu
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setTestuaeu($testuaeu)
+    {
+        $this->testuaeu = $testuaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaeu
+     *
+     * @return string
+     */
+    public function getTestuaeu()
+    {
+        return $this->testuaeu;
+    }
+
+    /**
+     * Set testuaes
+     *
+     * @param string $testuaes
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setTestuaes($testuaes)
+    {
+        $this->testuaes = $testuaes;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaes
+     *
+     * @return string
+     */
+    public function getTestuaes()
+    {
+        return $this->testuaes;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set azpiatala
+     *
+     * @param \AppBundle\Entity\Azpiatala $azpiatala
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setAzpiatala(\AppBundle\Entity\Azpiatala $azpiatala = null)
+    {
+        $this->azpiatala = $azpiatala;
+
+        return $this;
+    }
+
+    /**
+     * Get azpiatala
+     *
+     * @return \AppBundle\Entity\Azpiatala
+     */
+    public function getAzpiatala()
+    {
+        return $this->azpiatala;
+    }
 }
-

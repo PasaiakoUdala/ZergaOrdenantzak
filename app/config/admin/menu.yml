@@ -1,0 +1,7 @@
+easy_admin:
+    formats:
+        datetime: 'Y/m/d h:i A e'
+  #    design:
+  #        menu:
+  #            - { label: 'Atala', entity: 'Atala' }
+  #            - { label: 'Atalaparrafoa', entity: 'Atalaparrafoa',default: true }

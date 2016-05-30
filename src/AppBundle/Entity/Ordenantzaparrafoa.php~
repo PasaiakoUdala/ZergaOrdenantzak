@@ -66,6 +66,168 @@ class Ordenantzaparrafoa
      */
     private $ordenantza;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
+    public function __toString()
+    {
+        return $this->getTestuaeu();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set ordena
+     *
+     * @param integer $ordena
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setOrdena($ordena)
+    {
+        $this->ordena = $ordena;
+
+        return $this;
+    }
+
+    /**
+     * Get ordena
+     *
+     * @return integer
+     */
+    public function getOrdena()
+    {
+        return $this->ordena;
+    }
+
+    /**
+     * Set testuaeu
+     *
+     * @param string $testuaeu
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setTestuaeu($testuaeu)
+    {
+        $this->testuaeu = $testuaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaeu
+     *
+     * @return string
+     */
+    public function getTestuaeu()
+    {
+        return $this->testuaeu;
+    }
+
+    /**
+     * Set testuaes
+     *
+     * @param string $testuaes
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setTestuaes($testuaes)
+    {
+        $this->testuaes = $testuaes;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaes
+     *
+     * @return string
+     */
+    public function getTestuaes()
+    {
+        return $this->testuaes;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set ordenantza
+     *
+     * @param \AppBundle\Entity\Ordenantza $ordenantza
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setOrdenantza(\AppBundle\Entity\Ordenantza $ordenantza = null)
+    {
+        $this->ordenantza = $ordenantza;
+
+        return $this;
+    }
+
+    /**
+     * Get ordenantza
+     *
+     * @return \AppBundle\Entity\Ordenantza
+     */
+    public function getOrdenantza()
+    {
+        return $this->ordenantza;
+    }
 }
-

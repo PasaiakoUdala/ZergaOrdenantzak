@@ -35,6 +35,71 @@ class Kontzeptumota
      */
     private $motaes;
 
+    public function __construct()
+    {
 
+    }
+
+    public function __toString()
+    {
+        return $this->getMotaeu();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set motaeu
+     *
+     * @param string $motaeu
+     *
+     * @return Kontzeptumota
+     */
+    public function setMotaeu($motaeu)
+    {
+        $this->motaeu = $motaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get motaeu
+     *
+     * @return string
+     */
+    public function getMotaeu()
+    {
+        return $this->motaeu;
+    }
+
+    /**
+     * Set motaes
+     *
+     * @param string $motaes
+     *
+     * @return Kontzeptumota
+     */
+    public function setMotaes($motaes)
+    {
+        $this->motaes = $motaes;
+
+        return $this;
+    }
+
+    /**
+     * Get motaes
+     *
+     * @return string
+     */
+    public function getMotaes()
+    {
+        return $this->motaes;
+    }
 }
-

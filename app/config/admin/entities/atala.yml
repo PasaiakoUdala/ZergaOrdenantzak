@@ -9,7 +9,7 @@ easy_admin:
 #                    - { name: 'show', label: '', icon: 'search' }
 #                    - { name: 'edit', label: '', icon: 'edit' }
 #                    - { name: 'delete', label: '', icon: 'trash' }
-#                fields: ['id','izena']
+#                fields: ['kodea']
 #
 #            show:
 #                fields: ['izena']
