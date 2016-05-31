@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Atalaparrafoa list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ordena</th>
+                <th>Testuaeu</th>
+                <th>Testuaes</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for atalaparrafoa in atalaparrafoas %}
+            <tr>
+                <td><a href="{{ path('admin_atalaparrafoa_show', { 'id': atalaparrafoa.id }) }}">{{ atalaparrafoa.id }}</a></td>
+                <td>{{ atalaparrafoa.ordena }}</td>
+                <td>{{ atalaparrafoa.testuaeu }}</td>
+                <td>{{ atalaparrafoa.testuaes }}</td>
+                <td>{% if atalaparrafoa.createdAt %}{{ atalaparrafoa.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if atalaparrafoa.updatedAt %}{{ atalaparrafoa.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_atalaparrafoa_show', { 'id': atalaparrafoa.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_atalaparrafoa_edit', { 'id': atalaparrafoa.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_atalaparrafoa_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Historikoa</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ historikoa.id }}</td>
+            </tr>
+            <tr>
+                <th>Onartzedata</th>
+                <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Bogargitaratzedata</th>
+                <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Bogestekaeu</th>
+                <td>{{ historikoa.bogestekaeu }}</td>
+            </tr>
+            <tr>
+                <th>Bogestekaes</th>
+                <td>{{ historikoa.bogestekaes }}</td>
+            </tr>
+            <tr>
+                <th>Indarreandata</th>
+                <td>{% if historikoa.indarreandata %}{{ historikoa.indarreandata|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Aldaketakeu</th>
+                <td>{{ historikoa.aldaketakeu }}</td>
+            </tr>
+            <tr>
+                <th>Aldaketakes</th>
+                <td>{{ historikoa.aldaketakes }}</td>
+            </tr>
+            <tr>
+                <th>Fitxategia</th>
+                <td>{{ historikoa.fitxategia }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if historikoa.createdAt %}{{ historikoa.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if historikoa.updatedAt %}{{ historikoa.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_historikoa_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_historikoa_edit', { 'id': historikoa.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

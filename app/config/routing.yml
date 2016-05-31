@@ -1,3 +1,36 @@
+app_ordenantza:
+    resource: "@AppBundle/Controller/OrdenantzaController.php"
+    type:     annotation
+
+app_kontzeptua:
+    resource: "@AppBundle/Controller/KontzeptuaController.php"
+    type:     annotation
+
+app_historikoa:
+    resource: "@AppBundle/Controller/HistorikoaController.php"
+    type:     annotation
+
+app_kontzeptumota:
+    resource: "@AppBundle/Controller/KontzeptumotaController.php"
+    type:     annotation
+
+app_azpiatala:
+    resource: "@AppBundle/Controller/AzpiatalaController.php"
+    type:     annotation
+
+app_atalaparrafoa:
+    resource: "@AppBundle/Controller/AtalaparrafoaController.php"
+    type:     annotation
+
+app_atala:
+    resource: "@AppBundle/Controller/AtalaController.php"
+    type:     annotation
+
+api:
+    resource: "@ApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 frontend:
     resource: "@FrontendBundle/Controller/"
     type:     annotation
@@ -11,6 +44,12 @@ easy_admin_bundle:
     resource: "@EasyAdminBundle/Controller/"
     type:     annotation
     prefix:   /kudeatu
+
+api_atala:
+    type:     rest
+    resource: "@ApiBundle/Controller/AtalaController.php"
+    prefix:   /api
+
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"

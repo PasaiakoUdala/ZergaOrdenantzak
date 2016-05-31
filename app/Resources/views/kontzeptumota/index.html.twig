@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Kontzeptumota list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Motaeu</th>
+                <th>Motaes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for kontzeptumotum in kontzeptumotas %}
+            <tr>
+                <td><a href="{{ path('admin_kontzeptumota_show', { 'id': kontzeptumotum.id }) }}">{{ kontzeptumotum.id }}</a></td>
+                <td>{{ kontzeptumotum.motaeu }}</td>
+                <td>{{ kontzeptumotum.motaes }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_kontzeptumota_show', { 'id': kontzeptumotum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_kontzeptumota_edit', { 'id': kontzeptumotum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_kontzeptumota_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
