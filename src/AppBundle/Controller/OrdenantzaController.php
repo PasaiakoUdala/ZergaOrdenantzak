@@ -69,6 +69,7 @@ class OrdenantzaController extends Controller
     {
         $deleteForm = $this->createDeleteForm($ordenantza);
 
+//        dump($ordenantza);
         return $this->render('ordenantza/show.html.twig', array(
             'ordenantza' => $ordenantza,
             'delete_form' => $deleteForm->createView(),

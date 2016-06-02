@@ -56,6 +56,16 @@ class Azpiatala
      */
     private $updatedAt;
 
+
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
     /**
      * @var \Atala
      *
@@ -65,6 +75,18 @@ class Azpiatala
      * })
      */
     private $atala;
+
+    /**
+     * @var Azpiatalaparrafoa
+     * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+     */
+    protected $parrafoak;
+
+    /**
+     * @var Kontzeptua
+     * @ORM\OneToMany(targetEntity="Kontzeptua", mappedBy="azpiatala", cascade={"remove"})
+     */
+    protected $kontzeptuak;
 
     public function __construct()
     {
@@ -78,156 +100,12 @@ class Azpiatala
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    
 
-    /**
-     * Set kodea
-     *
-     * @param string $kodea
-     *
-     * @return Azpiatala
-     */
-    public function setKodea($kodea)
-    {
-        $this->kodea = $kodea;
-
-        return $this;
-    }
-
-    /**
-     * Get kodea
-     *
-     * @return string
-     */
-    public function getKodea()
-    {
-        return $this->kodea;
-    }
-
-    /**
-     * Set izenburuaeu
-     *
-     * @param string $izenburuaeu
-     *
-     * @return Azpiatala
-     */
-    public function setIzenburuaeu($izenburuaeu)
-    {
-        $this->izenburuaeu = $izenburuaeu;
-
-        return $this;
-    }
-
-    /**
-     * Get izenburuaeu
-     *
-     * @return string
-     */
-    public function getIzenburuaeu()
-    {
-        return $this->izenburuaeu;
-    }
-
-    /**
-     * Set izenburuaes
-     *
-     * @param string $izenburuaes
-     *
-     * @return Azpiatala
-     */
-    public function setIzenburuaes($izenburuaes)
-    {
-        $this->izenburuaes = $izenburuaes;
-
-        return $this;
-    }
-
-    /**
-     * Get izenburuaes
-     *
-     * @return string
-     */
-    public function getIzenburuaes()
-    {
-        return $this->izenburuaes;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Azpiatala
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Azpiatala
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set atala
-     *
-     * @param \AppBundle\Entity\Atala $atala
-     *
-     * @return Azpiatala
-     */
-    public function setAtala(\AppBundle\Entity\Atala $atala = null)
-    {
-        $this->atala = $atala;
-
-        return $this;
-    }
-
-    /**
-     * Get atala
-     *
-     * @return \AppBundle\Entity\Atala
-     */
-    public function getAtala()
-    {
-        return $this->atala;
-    }
 }

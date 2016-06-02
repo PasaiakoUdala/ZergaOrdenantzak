@@ -71,6 +71,14 @@ class Kontzeptua
     private $updatedAt;
 
     /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
+    /**
      * @var \Azpiatala
      *
      * @ORM\ManyToOne(targetEntity="Azpiatala")
@@ -112,252 +120,12 @@ class Kontzeptua
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
      */
-    public function getId()
-    {
-        return $this->id;
-    }
 
-    /**
-     * Set kodea
-     *
-     * @param string $kodea
-     *
-     * @return Kontzeptua
-     */
-    public function setKodea($kodea)
-    {
-        $this->kodea = $kodea;
 
-        return $this;
-    }
-
-    /**
-     * Get kodea
-     *
-     * @return string
-     */
-    public function getKodea()
-    {
-        return $this->kodea;
-    }
-
-    /**
-     * Set kontzeptuaeu
-     *
-     * @param string $kontzeptuaeu
-     *
-     * @return Kontzeptua
-     */
-    public function setKontzeptuaeu($kontzeptuaeu)
-    {
-        $this->kontzeptuaeu = $kontzeptuaeu;
-
-        return $this;
-    }
-
-    /**
-     * Get kontzeptuaeu
-     *
-     * @return string
-     */
-    public function getKontzeptuaeu()
-    {
-        return $this->kontzeptuaeu;
-    }
-
-    /**
-     * Set kontzeptuaes
-     *
-     * @param string $kontzeptuaes
-     *
-     * @return Kontzeptua
-     */
-    public function setKontzeptuaes($kontzeptuaes)
-    {
-        $this->kontzeptuaes = $kontzeptuaes;
-
-        return $this;
-    }
-
-    /**
-     * Get kontzeptuaes
-     *
-     * @return string
-     */
-    public function getKontzeptuaes()
-    {
-        return $this->kontzeptuaes;
-    }
-
-    /**
-     * Set kopurua
-     *
-     * @param string $kopurua
-     *
-     * @return Kontzeptua
-     */
-    public function setKopurua($kopurua)
-    {
-        $this->kopurua = $kopurua;
-
-        return $this;
-    }
-
-    /**
-     * Get kopurua
-     *
-     * @return string
-     */
-    public function getKopurua()
-    {
-        return $this->kopurua;
-    }
-
-    /**
-     * Set unitatea
-     *
-     * @param string $unitatea
-     *
-     * @return Kontzeptua
-     */
-    public function setUnitatea($unitatea)
-    {
-        $this->unitatea = $unitatea;
-
-        return $this;
-    }
-
-    /**
-     * Get unitatea
-     *
-     * @return string
-     */
-    public function getUnitatea()
-    {
-        return $this->unitatea;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Kontzeptua
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Kontzeptua
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set azpiatala
-     *
-     * @param \AppBundle\Entity\Azpiatala $azpiatala
-     *
-     * @return Kontzeptua
-     */
-    public function setAzpiatala(\AppBundle\Entity\Azpiatala $azpiatala = null)
-    {
-        $this->azpiatala = $azpiatala;
-
-        return $this;
-    }
-
-    /**
-     * Get azpiatala
-     *
-     * @return \AppBundle\Entity\Azpiatala
-     */
-    public function getAzpiatala()
-    {
-        return $this->azpiatala;
-    }
-
-    /**
-     * Set baldintza
-     *
-     * @param \AppBundle\Entity\Baldintza $baldintza
-     *
-     * @return Kontzeptua
-     */
-    public function setBaldintza(\AppBundle\Entity\Baldintza $baldintza = null)
-    {
-        $this->baldintza = $baldintza;
-
-        return $this;
-    }
-
-    /**
-     * Get baldintza
-     *
-     * @return \AppBundle\Entity\Baldintza
-     */
-    public function getBaldintza()
-    {
-        return $this->baldintza;
-    }
-
-    /**
-     * Set kontzeptumota
-     *
-     * @param \AppBundle\Entity\Kontzeptumota $kontzeptumota
-     *
-     * @return Kontzeptua
-     */
-    public function setKontzeptumota(\AppBundle\Entity\Kontzeptumota $kontzeptumota = null)
-    {
-        $this->kontzeptumota = $kontzeptumota;
-
-        return $this;
-    }
-
-    /**
-     * Get kontzeptumota
-     *
-     * @return \AppBundle\Entity\Kontzeptumota
-     */
-    public function getKontzeptumota()
-    {
-        return $this->kontzeptumota;
-    }
 }

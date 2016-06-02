@@ -56,6 +56,29 @@ class Ordenantza
      */
     private $updatedAt;
 
+
+
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
+    /**
+     * @var Ordenantza
+     * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
+     */
+    protected $parraforak;
+
+    /**
+     * @var Atala
+     * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
+     */
+    protected $atalak;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -66,6 +89,18 @@ class Ordenantza
     {
         return $this->getKodea();
     }
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
+
+
+
 
     /**
      * Get id
@@ -195,5 +230,73 @@ class Ordenantza
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Add parraforak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parraforak
+     *
+     * @return Ordenantza
+     */
+    public function addParraforak(\AppBundle\Entity\Ordenantzaparrafoa $parraforak)
+    {
+        $this->parraforak[] = $parraforak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parraforak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parraforak
+     */
+    public function removeParraforak(\AppBundle\Entity\Ordenantzaparrafoa $parraforak)
+    {
+        $this->parraforak->removeElement($parraforak);
+    }
+
+    /**
+     * Get parraforak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParraforak()
+    {
+        return $this->parraforak;
+    }
+
+    /**
+     * Add atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     *
+     * @return Ordenantza
+     */
+    public function addAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak[] = $atalak;
+
+        return $this;
+    }
+
+    /**
+     * Remove atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     */
+    public function removeAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak->removeElement($atalak);
+    }
+
+    /**
+     * Get atalak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAtalak()
+    {
+        return $this->atalak;
     }
 }

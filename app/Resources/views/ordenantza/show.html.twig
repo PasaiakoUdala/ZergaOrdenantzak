@@ -1,48 +1,109 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Ordenantza</h1>
+    <div class="row">&nbsp;</div>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ordenantza.id }}</td>
-            </tr>
-            <tr>
-                <th>Kodea</th>
-                <td>{{ ordenantza.kodea }}</td>
-            </tr>
-            <tr>
-                <th>Izenburuaeu</th>
-                <td>{{ ordenantza.izenburuaeu }}</td>
-            </tr>
-            <tr>
-                <th>Izenburuaes</th>
-                <td>{{ ordenantza.izenburuaes }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if ordenantza.createdAt %}{{ ordenantza.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Updatedat</th>
-                <td>{% if ordenantza.updatedAt %}{{ ordenantza.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>{{ ordenantza.izenburuaeu }}</h4>
+        </div>
+        <div class="col-md-6">
+            <h4>{{ ordenantza.izenburuaes }}</h4>
+        </div>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantza_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('admin_ordenantza_edit', { 'id': ordenantza.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row">&nbsp;</div>
+
+    {% for p in ordenantza.parraforak %}
+        <div class="row row{{ loop.index }}">
+            <div class="col-md-6">
+                <p>{{ p.testuaeu | raw  }}</p>
+            </div>
+            <div class="col-md-6">
+                <p>{{ p.testuaes | raw  }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">&nbsp;</div>
+
+    {% for atala in ordenantza.atalak %}
+        {% if atala.utsa != 1 %}
+            <div class="row row{{ loop.index }}">
+                <div class="col-md-6">
+                    <p>{{ atala.kodea ~ " - " ~ atala.getIzenburuaeu  }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p>{{ atala.kodea ~ " - " ~ atala.getIzenburuaes  }}</p>
+                </div>
+            </div>
+
+            {% for p in atala.parrafoak %}
+                <div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">
+                    <div class="col-md-6">
+                        <p>{{ p.testuaeu | raw }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ p.testuaes | raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
+
+        {% for azpiatala in atala.azpiatalak %}
+            {% for p in azpiatala.parrafoak %}
+                <div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">
+                    <div class="col-md-6">
+                        <p>{{ p.testuaeu | raw }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{ p.testuaes | raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <table class="table table-hover table-responsive table-bordered table-striped">
+                <th>{{ azpiatala.kodea ~ " - " ~ azpiatala.getIzenburuaeu }}</th>
+                <th></th>
+                <th>{{ azpiatala.kodea ~ " - " ~ azpiatala.getIzenburuaes  }}</th>
+
+                {#<div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">#}
+                    {#<div class="col-md-6">#}
+                        {#<p>{{ azpiatala.kodea ~ " - " ~ azpiatala.getIzenburuaeu }}</p>#}
+                    {#</div>#}
+                    {#<div class="col-md-6">#}
+                        {#<p>{{ azpiatala.kodea ~ " - " ~ azpiatala.getIzenburuaes  }}</p>#}
+                    {#</div>#}
+                {#</div>#}
+
+                <tbody>
+                    {% for k in azpiatala.kontzeptuak %}
+                        <tr>
+                            <td>{{ k.kontzeptuaeu }}</td>
+                            <td>{{ k.kopurua }}&nbsp;{{ k.unitatea }}</td>
+                            <td>{{ k.kontzeptuaes }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    {#{% for k in azpiatala.kontzeptuak %}#}
+                        {#<div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">#}
+                            {#<div class="col-md-4">#}
+                                {#<p>{{ k.kodea ~ " - " ~ k.kontzeptuaeu }}</p>#}
+                            {#</div>#}
+                            {#<div class="col-md-4">#}
+                                {#<p>{{ k.kopurua ~ " " ~ k.unitatea }}</p>#}
+                            {#</div>#}
+                            {#<div class="col-md-4">#}
+                                {#<p>{{ k.kodea ~ " - " ~ k.kontzeptuaeu  }}</p>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
+                </tbody>
+            </table>
+        {% endfor %}
+
+    {% endfor %}
+
 {% endblock %}

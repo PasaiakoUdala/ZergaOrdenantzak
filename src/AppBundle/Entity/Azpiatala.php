@@ -56,6 +56,16 @@ class Azpiatala
      */
     private $updatedAt;
 
+
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
     /**
      * @var \Atala
      *
@@ -65,6 +75,18 @@ class Azpiatala
      * })
      */
     private $atala;
+
+    /**
+     * @var Azpiatalaparrafoa
+     * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+     */
+    protected $parrafoak;
+
+    /**
+     * @var Kontzeptua
+     * @ORM\OneToMany(targetEntity="Kontzeptua", mappedBy="azpiatala", cascade={"remove"})
+     */
+    protected $kontzeptuak;
 
     public function __construct()
     {
@@ -76,6 +98,16 @@ class Azpiatala
     {
         return $this->getKodea();
     }
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+    
+
 
     /**
      * Get id
@@ -229,5 +261,73 @@ class Azpiatala
     public function getAtala()
     {
         return $this->atala;
+    }
+
+    /**
+     * Add parrafoak
+     *
+     * @param \AppBundle\Entity\Azpiatalaparrafoa $parrafoak
+     *
+     * @return Azpiatala
+     */
+    public function addParrafoak(\AppBundle\Entity\Azpiatalaparrafoa $parrafoak)
+    {
+        $this->parrafoak[] = $parrafoak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoak
+     *
+     * @param \AppBundle\Entity\Azpiatalaparrafoa $parrafoak
+     */
+    public function removeParrafoak(\AppBundle\Entity\Azpiatalaparrafoa $parrafoak)
+    {
+        $this->parrafoak->removeElement($parrafoak);
+    }
+
+    /**
+     * Get parrafoak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoak()
+    {
+        return $this->parrafoak;
+    }
+
+    /**
+     * Add kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     *
+     * @return Azpiatala
+     */
+    public function addKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak[] = $kontzeptuak;
+
+        return $this;
+    }
+
+    /**
+     * Remove kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     */
+    public function removeKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak->removeElement($kontzeptuak);
+    }
+
+    /**
+     * Get kontzeptuak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKontzeptuak()
+    {
+        return $this->kontzeptuak;
     }
 }

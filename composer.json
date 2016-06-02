@@ -42,7 +42,8 @@
         "symfony/assetic-bundle": "^2.8",
         "friendsofsymfony/rest-bundle": "^1.7",
         "jms/serializer-bundle": "^1.1",
-        "nelmio/api-doc-bundle": "^2.12"
+        "nelmio/api-doc-bundle": "^2.12",
+        "fortawesome/font-awesome": "~4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

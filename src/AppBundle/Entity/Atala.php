@@ -43,6 +43,13 @@ class Atala
     private $izenburuaes;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="utsa", type="boolean", nullable=true)
+     */
+    private $utsa;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -56,6 +63,15 @@ class Atala
      */
     private $updatedAt;
 
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
     /**
      * @var \Ordenantza
      *
@@ -66,6 +82,18 @@ class Atala
      */
     private $ordenantza;
 
+    /**
+     * @var Atalaparrafoa
+     * @ORM\OneToMany(targetEntity="Atalaparrafoa", mappedBy="atala", cascade={"remove"})
+     */
+    protected $parrafoak;
+
+    /**
+     * @var Azpiatala
+     * @ORM\OneToMany(targetEntity="Azpiatala", mappedBy="atala", cascade={"remove"})
+     */
+    protected $azpiatalak;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -74,9 +102,16 @@ class Atala
 
     public function __toString()
     {
-        return $this->getKodea();
+        return $this->getKodea() . " - " . $this->getIzenburuaeu();
     }
 
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
 
 
     /**
@@ -162,6 +197,30 @@ class Atala
     }
 
     /**
+     * Set utsa
+     *
+     * @param boolean $utsa
+     *
+     * @return Atala
+     */
+    public function setUtsa($utsa)
+    {
+        $this->utsa = $utsa;
+
+        return $this;
+    }
+
+    /**
+     * Get utsa
+     *
+     * @return boolean
+     */
+    public function getUtsa()
+    {
+        return $this->utsa;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -231,5 +290,73 @@ class Atala
     public function getOrdenantza()
     {
         return $this->ordenantza;
+    }
+
+    /**
+     * Add parrafoak
+     *
+     * @param \AppBundle\Entity\Atalaparrafoa $parrafoak
+     *
+     * @return Atala
+     */
+    public function addParrafoak(\AppBundle\Entity\Atalaparrafoa $parrafoak)
+    {
+        $this->parrafoak[] = $parrafoak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoak
+     *
+     * @param \AppBundle\Entity\Atalaparrafoa $parrafoak
+     */
+    public function removeParrafoak(\AppBundle\Entity\Atalaparrafoa $parrafoak)
+    {
+        $this->parrafoak->removeElement($parrafoak);
+    }
+
+    /**
+     * Get parrafoak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoak()
+    {
+        return $this->parrafoak;
+    }
+
+    /**
+     * Add azpiatalak
+     *
+     * @param \AppBundle\Entity\Azpiatala $azpiatalak
+     *
+     * @return Atala
+     */
+    public function addAzpiatalak(\AppBundle\Entity\Azpiatala $azpiatalak)
+    {
+        $this->azpiatalak[] = $azpiatalak;
+
+        return $this;
+    }
+
+    /**
+     * Remove azpiatalak
+     *
+     * @param \AppBundle\Entity\Azpiatala $azpiatalak
+     */
+    public function removeAzpiatalak(\AppBundle\Entity\Azpiatala $azpiatalak)
+    {
+        $this->azpiatalak->removeElement($azpiatalak);
+    }
+
+    /**
+     * Get azpiatalak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAzpiatalak()
+    {
+        return $this->azpiatalak;
     }
 }

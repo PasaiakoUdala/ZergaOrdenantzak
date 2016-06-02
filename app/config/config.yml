@@ -76,16 +76,21 @@ assetic:
     filters:
         cssrewrite: ~
         less:
-            node: /usr/local/bin/node
-            node_paths: [/usr/local/lib/node_modules]
-            apply_to: '\.less$'
+            node: /usr/bin/node
+            node_paths: [ /usr/lib/node_modules]
+            apply_to: \\.less$
+        yui_css:
+            jar: '%kernel.root_dir%/bin/yuicompressor.jar'
+        yui_js:
+            jar: '%kernel.root_dir%/bin/yuicompressor.jar'
 
 braincrafted_bootstrap:
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
-    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.11.1.js
     css_preprocessor: less # "less", "lessphp", "sass" or "none"
     fonts_dir: %kernel.root_dir%/../web/fonts
+    icon_prefix: fa
     auto_configure:
         assetic: true
         twig: true
@@ -97,6 +102,9 @@ braincrafted_bootstrap:
         bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig
 
 nelmio_api_doc: ~
+
+
+
 
 fos_rest:
     disable_csrf_role: ROLE_API
