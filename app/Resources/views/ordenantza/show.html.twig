@@ -17,7 +17,9 @@
     {% for p in ordenantza.parraforak %}
         <div class="row row{{ loop.index }}">
             <div class="col-md-6">
-                <p>{{ p.testuaeu | raw  }}</p>
+                <div id="note" data-pk="1" data-type="wysihtml5"  data-title="Enter notes" data-placement="right" class="editable" tabindex="-1" style="display: block;">
+                    {{ p.testuaeu | raw  }}
+                </div>
             </div>
             <div class="col-md-6">
                 <p>{{ p.testuaes | raw  }}</p>
@@ -105,5 +107,34 @@
         {% endfor %}
 
     {% endfor %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $.fn.editable.defaults.mode = 'inline';
+        $(document).ready(function() {
+
+
+            $('#note').editable({
+                url: '/post',
+                title: 'Enter comments',
+                showbuttons: 'top',
+                onblur: 'ignore',
+                wysihtml5: {
+                    "image": false,
+                    "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                    "emphasis": true, //Italics, bold, etc. Default true
+                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                    "html": false, //Button which allows you to edit the generated HTML. Default false
+                    "link": false, //Button to insert a link. Default true
+                },
+            });
+
+        });
+    </script>
+
 
 {% endblock %}
