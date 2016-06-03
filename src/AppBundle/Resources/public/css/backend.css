@@ -5,3 +5,10 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
+
+. {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -52px;
+    zoom: 1;
+}

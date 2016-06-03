@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Ordenantza;
 use AppBundle\Form\OrdenantzaType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 /**
  * Ordenantza controller.
@@ -16,6 +18,40 @@ use AppBundle\Form\OrdenantzaType;
  */
 class OrdenantzaController extends Controller
 {
+
+    /**
+     * @Route("/eguneratu/{id}", name="admin_ordenantza_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "izenburuaeu":
+                $ordenantza->setIzenburuaeu($value);
+        break;
+            case "izenburuaes":
+                $ordenantza->setIzenburuaes($value);
+        break;
+            case label3:
+
+        break;
+        }
+
+        $em->persist($ordenantza);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'restul' => "OK"
+        ));
+        return $response;
+    }
+
     /**
      * Lists all Ordenantza entities.
      *
@@ -69,7 +105,6 @@ class OrdenantzaController extends Controller
     {
         $deleteForm = $this->createDeleteForm($ordenantza);
 
-//        dump($ordenantza);
         return $this->render('ordenantza/show.html.twig', array(
             'ordenantza' => $ordenantza,
             'delete_form' => $deleteForm->createView(),

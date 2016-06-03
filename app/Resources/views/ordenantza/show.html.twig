@@ -5,10 +5,16 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h4>{{ ordenantza.izenburuaeu }}</h4>
+            <div class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                <h4>
+                    {{ ordenantza.izenburuaeu }}
+                </h4>
+            </div>
         </div>
         <div class="col-md-6">
-            <h4>{{ ordenantza.izenburuaes }}</h4>
+            <div class="editable2" data-name="izenburuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                <h4>{{ ordenantza.izenburuaes }}</h4>
+            </div>
         </div>
     </div>
 
@@ -17,12 +23,14 @@
     {% for p in ordenantza.parraforak %}
         <div class="row row{{ loop.index }}">
             <div class="col-md-6">
-                <div id="note" data-pk="1" data-type="wysihtml5"  data-title="Enter notes" data-placement="right" class="editable" tabindex="-1" style="display: block;">
+                <div class="editable2" data-name="testuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
                     {{ p.testuaeu | raw  }}
                 </div>
             </div>
             <div class="col-md-6">
-                <p>{{ p.testuaes | raw  }}</p>
+                <div class="editable2" data-name="testuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <p>{{ p.testuaes | raw  }}</p>
+                </div>
             </div>
         </div>
     {% endfor %}
@@ -116,13 +124,12 @@
     <script>
         $.fn.editable.defaults.mode = 'inline';
         $(document).ready(function() {
-
-
-            $('#note').editable({
-                url: '/post',
+            $('.editable').editable();
+            $('.editable2').editable({
                 title: 'Enter comments',
                 showbuttons: 'top',
                 onblur: 'ignore',
+                inputclass:'editable-buttons-ezker',
                 wysihtml5: {
                     "image": false,
                     "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
@@ -131,6 +138,13 @@
                     "html": false, //Button which allows you to edit the generated HTML. Default false
                     "link": false, //Button to insert a link. Default true
                 },
+//                params: function(params) {  //params already contain `name`, `value` and `pk`
+//                    console.log(params);
+//                    var data = {};
+//                    data['id'] = params.pk;
+//                    data[params.name] = params.value;
+//                    return data;
+//                }
             });
 
         });
