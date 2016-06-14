@@ -45,7 +45,8 @@
         "nelmio/api-doc-bundle": "^2.12",
         "fortawesome/font-awesome": "~4.0",
         "phpoffice/phpword": "^0.12.1",
-        "tecnickcom/tcpdf": "^6.2"
+        "tecnickcom/tcpdf": "^6.2",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
 
     },
     "require-dev": {
