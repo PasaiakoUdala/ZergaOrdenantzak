@@ -71,7 +71,7 @@ class Ordenantza
      * @var Ordenantza
      * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
      */
-    protected $parraforak;
+    protected $parrafoak;
 
     /**
      * @var Atala
@@ -298,5 +298,39 @@ class Ordenantza
     public function getAtalak()
     {
         return $this->atalak;
+    }
+
+    /**
+     * Add parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     *
+     * @return Ordenantza
+     */
+    public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak[] = $parrafoak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     */
+    public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak->removeElement($parrafoak);
+    }
+
+    /**
+     * Get parrafoak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoak()
+    {
+        return $this->parrafoak;
     }
 }

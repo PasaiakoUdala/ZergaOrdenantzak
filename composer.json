@@ -43,7 +43,10 @@
         "friendsofsymfony/rest-bundle": "^1.7",
         "jms/serializer-bundle": "^1.1",
         "nelmio/api-doc-bundle": "^2.12",
-        "fortawesome/font-awesome": "~4.0"
+        "fortawesome/font-awesome": "~4.0",
+        "phpoffice/phpword": "^0.12.1",
+        "tecnickcom/tcpdf": "^6.2"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

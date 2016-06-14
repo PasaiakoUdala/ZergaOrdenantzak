@@ -71,7 +71,7 @@ class Ordenantza
      * @var Ordenantza
      * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
      */
-    protected $parraforak;
+    protected $parrafoak;
 
     /**
      * @var Atala

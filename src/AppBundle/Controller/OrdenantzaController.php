@@ -34,20 +34,214 @@ class OrdenantzaController extends Controller
         switch ($name) {
             case "izenburuaeu":
                 $ordenantza->setIzenburuaeu($value);
-        break;
+                break;
             case "izenburuaes":
                 $ordenantza->setIzenburuaes($value);
-        break;
-            case label3:
-
-        break;
+                break;
+            case "testuaeu":
+                $ordenantza->setTestuaeu($value);
+                break;
+            case "testuaes":
+                $ordenantza->setTestuaes($value);
+                break;
         }
 
         $em->persist($ordenantza);
         $em->flush();
         $response = new JsonResponse();
         $response->setData(array(
-            'restul' => "OK"
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+    /**
+     * @Route("/eguneratuparrafoa/{id}", name="admin_ordenantza_parrafoak_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuparrafoakAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzaparrafoa = $em->getRepository('AppBundle:Ordenantzaparrafoa')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "testuaeu":
+                $ordenantzaparrafoa->setTestuaeu($value);
+                break;
+            case "testuaes":
+                $ordenantzaparrafoa->setTestuaes($value);
+                break;
+        }
+
+        $em->persist($ordenantzaparrafoa);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+    /**
+     * @Route("/eguneratuatala/{id}", name="admin_ordenantza_atala_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuatalaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $atala = $em->getRepository('AppBundle:Atala')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "kodea":
+                $atala->setKodea($value);
+                break;
+            case "izenburuaeu":
+                $atala->setIzenburuaeu($value);
+                break;
+            case "izenburuaes":
+                $atala->setIzenburuaes($value);
+                break;
+        }
+
+        $em->persist($atala);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+
+    /**
+     * @Route("/eguneratuatalaparrafoa/{id}", name="admin_ordenantza_atalaparrafoa_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuatalaparrafoaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $atalap = $em->getRepository('AppBundle:Atalaparrafoa')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "testuaeu":
+                $atalap->setTestuaeu($value);
+                break;
+            case "testuaes":
+                $atalap->setTestuaes($value);
+                break;
+        }
+
+        $em->persist($atalap);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+    /**
+     * @Route("/eguneratuazpiatala/{id}", name="admin_ordenantza_azpiatala_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuazpiatalaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "izenburuaeu":
+                $azpiatala->setIzenburuaeu($value);
+                break;
+            case "izenburuaes":
+                $azpiatala->setIzenburuaes($value);
+                break;
+        }
+
+        $em->persist($azpiatala);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+    /**
+ * @Route("/eguneratuazpiatalaparrafoa/{id}", name="admin_ordenantza_azpiatalaparrafoa_eguneratu")
+ * @Method("POST")
+ */
+    public function eguneratuazpiatalaparrafoaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $azpiatalap = $em->getRepository('AppBundle:Azpiatalaparrafoa')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "testuaeu":
+                $azpiatalap->setTestuaeu($value);
+                break;
+            case "testuaes":
+                $azpiatalap->setTestuaes($value);
+                break;
+        }
+
+        $em->persist($azpiatalap);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
+        ));
+        return $response;
+    }
+
+    /**
+     * @Route("/eguneratuazpiatalakontzeptuoa/{id}", name="admin_ordenantza_azpiatalakontzeptua_eguneratu")
+     * @Method("POST")
+     */
+    public function eguneratuazpiatalakontzeptuaAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $azpiatalap = $em->getRepository('AppBundle:Kontzeptua')->findOneById($id);
+        $name = $request->request->get('name');
+        $value = $request->request->get('value');
+
+
+        switch ($name) {
+            case "kontzeptuaeu":
+                $azpiatalap->setKontzeptuaeu($value);
+                break;
+            case "kontzeptuaes":
+                $azpiatalap->setKontzeptuaes($value);
+                break;
+            case "kopurua":
+                $azpiatalap->setKopurua($value);
+                break;
+            case "kontzeptuaes":
+                $azpiatalap->setUnitatea($value);
+                break;
+
+        }
+
+        $em->persist($azpiatalap);
+        $em->flush();
+        $response = new JsonResponse();
+        $response->setData(array(
+            'resul' => "OK"
         ));
         return $response;
     }
