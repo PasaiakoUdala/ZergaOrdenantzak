@@ -61,18 +61,6 @@
                 {% block nav %}
                 {% endblock %}
             </ul>
-            {#<ul class="nav navbar-nav navbar-right">#}
-                {#<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Exportatu <b class="caret"></b></a>#}
-                    {#<ul class="dropdown-menu">#}
-                        {#<li><a href="{{ path('exportatu', {'id': ordenanatza.id}) }}">Odt</a></li>#}
-                        {#<li><a href="#">Pdf</a></li>#}
-                    {#</ul>#}
-                {#</li>#}
-            {#</ul>#}
-                {#<li class="active"><a href="./">Export <span class="sr-only">(current)</span></a></li>#}
-                {#<li><a href="#">Static top</a></li>#}
-                {#<li><a href="../navbar-fixed-top/">Fixed top</a></li>#}
-            {#</ul>#}
         </div><!-- /.navbar-collapse -->
     </nav>
 
@@ -102,9 +90,6 @@
                     $(this).parent().siblings().removeClass('open');
                     $(this).parent().toggleClass('open');
                 });
-//                var shiftWindow = function() { scrollBy(0, -50) };
-//                if (location.hash) shiftWindow();
-//                window.addEventListener("hashchange", shiftWindow);
                 $('body').scrollspy({ target: '#navbar-example' })
             });
         })(jQuery);

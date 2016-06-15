@@ -46,7 +46,8 @@
         "fortawesome/font-awesome": "~4.0",
         "phpoffice/phpword": "^0.12.1",
         "tecnickcom/tcpdf": "^6.2",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "guzzlehttp/guzzle": "^6.2"
 
     },
     "require-dev": {

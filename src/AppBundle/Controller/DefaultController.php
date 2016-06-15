@@ -13,7 +13,6 @@ use AppBundle\Entity\Ordenantza;
 use AppBundle\Form\OrdenantzaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Dompdf\Dompdf;
 
 class DefaultController extends Controller
 {
