@@ -15,7 +15,6 @@
 
         public function loginAction ( Request $request )
         {
-            $valget = "";
             /***
              * IZFE-rako login da ?
              * Baldin eta parametroa badu bai
