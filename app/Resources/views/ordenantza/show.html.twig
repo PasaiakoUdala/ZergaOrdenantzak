@@ -1,16 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block nav %}
-    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Atalak (Euskeraz) <b class="caret"></b></a>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Atalak (Euskeraz) <b
+                    class="caret"></b></a>
         <ul class="dropdown-menu">
             {% for atala in ordenantza.atalak %}
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
-                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle"
+                                                             data-toggle="dropdown">{{ atala.kodea }}
+                            - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
                             {% for azpiatala in atala.azpiatalak %}
-                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
+                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }}
+                                        - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
                             {% endfor %}
-                        </ul>                        
+                        </ul>
                     </li>
                 {% else %}
                     <li><a href="#{{ atala.kodea }}">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a></li>
@@ -18,14 +22,18 @@
             {% endfor %}
         </ul>
     </li>
-    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Apartados (Erdaraz) <b class="caret"></b></a>
+    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Apartados (Erdaraz) <b
+                    class="caret"></b></a>
         <ul class="dropdown-menu">
             {% for atala in ordenantza.atalak %}
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
-                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaes|capitalize }}</a>
+                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle"
+                                                             data-toggle="dropdown">{{ atala.kodea }}
+                            - {{ atala.izenburuaes|capitalize }}</a>
                         <ul class="dropdown-menu">
                             {% for azpiatala in atala.azpiatalak %}
-                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes|capitalize }}</a></li>
+                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }}
+                                        - {{ azpiatala.izenburuaes|capitalize }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -43,12 +51,16 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h4  class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
+            <h4 class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
+                data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                data-type="wysihtml5" tabindex="-1" style="display: block;">
                 {{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}
             </h4>
         </div>
         <div class="col-md-6">
-            <h4  class="editable2" data-name="izenburuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5"  tabindex="-1" style="display: block;">
+            <h4 class="editable2" data-name="izenburuaes" data-pk="{{ ordenantza.id }}"
+                data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                data-type="wysihtml5" tabindex="-1" style="display: block;">
                 {{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}
             </h4>
         </div>
@@ -59,13 +71,17 @@
     {% for p in ordenantza.parrafoak %}
         <div class="row row{{ loop.index }}">
             <div class="col-md-6">
-                <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
-                    {{ p.testuaeu | raw  }}
+                <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                     data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
+                     tabindex="-1" style="display: block;">
+                    {{ p.testuaeu | raw }}
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
-                    {{ p.testuaes | raw  }}
+                <div class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                     data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
+                     tabindex="-1" style="display: block;">
+                    {{ p.testuaes | raw }}
                 </div>
             </div>
         </div>
@@ -78,22 +94,30 @@
             <div class="row row{{ loop.index }}">
                 <div class="col-md-6">
                     <h3 class="row-fluid col-md-12" id="{{ atala.kodea }}">
-                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.kodea }}
                         </span>
                         <span class="col-md-1 text-left">-</span>
-                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.izenburuaeu }}
                         </span>
                     </h3>
                 </div>
                 <div class="col-md-6">
                     <h3 class="row-fluid col-md-12">
-                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.kodea }}
                         </span>
                         <span class="col-md-1 text-left">-</span>
-                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.izenburuaes }}
                         </span>
                     </h3>
@@ -102,10 +126,14 @@
 
             {% for p in atala.parrafoak %}
                 <div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">
-                    <div class="editable2 col-md-6"  data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <div class="editable2 col-md-6" data-name="testuaeu" data-pk="{{ p.id }}"
+                         data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                         data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ p.testuaeu | raw }}
                     </div>
-                    <div class="editable2 col-md-6" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <div class="editable2 col-md-6" data-name="testuaes" data-pk="{{ p.id }}"
+                         data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                         data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ p.testuaes | raw }}
                     </div>
                 </div>
@@ -117,67 +145,90 @@
         {% for azpiatala in atala.azpiatalak %}
             {% for p in azpiatala.parrafoak %}
                 <div class="row row{{ loop.parent.loop.index }} row{{ loop.index }}">
-                    <div class="col-md-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <div class="col-md-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                         data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                         data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ p.testuaeu | raw }}
                     </div>
-                    <div class="col-md-6 editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <div class="col-md-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                         data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                         data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ p.testuaes | raw }}
                     </div>
                 </div>
             {% endfor %}
 
-            <table class="table table-hover table-responsive table-bordered table-striped" >
+            <table class="table table-hover table-responsive table-bordered table-striped">
                 <th class="row-fluid col-md-6" id="{{ atala.kodea ~ azpiatala.kodea }}">
-                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}" data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                          data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ azpiatala.kodea }}
                     </span>
                     <span class="col-md-1 text-left">-</span>
-                    <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}" data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}"
+                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                          data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ azpiatala.izenburuaeu }}
                     </span>
                 </th>
                 <th></th>
                 <th></th>
                 <th class="row-fluid col-md-6">
-                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}" data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                          data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ azpiatala.kodea }}
                     </span>
                     <span class="col-md-1 text-left">-</span>
-                    <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ azpiatala.id }}" data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
+                    <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ azpiatala.id }}"
+                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                          data-type="wysihtml5" tabindex="-1" style="display: block;">
                         {{ azpiatala.izenburuaes }}
                     </span>
                 </th>
                 <tbody>
-                    {% for k in azpiatala.kontzeptuak %}
-                        <tr>
-                            <td class="col-md-4">
-                                <div href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}" data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"  data-type="wysihtml5">
-                                    {{ k.kontzeptuaeu }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="editable-popup text-left" data-name="kopurua" data-pk="{{ k.id }}" data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
-                                    {{ k.kopurua }}
-                                </div>
-                            <td>
-                                <div class="editable-popup text-left" data-name="unitatea" data-pk="{{ k.id }}" data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
-                                    &nbsp;{{ k.unitatea }}
-                                </div>
-                            </td>
-                            <td class="col-md-5">
-                                <div id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}" data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"  data-type="wysihtml5"  tabindex="-1" style="display: block;">
-                                    {{ k.kontzeptuaes }}
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                {% for k in azpiatala.kontzeptuak %}
+                    <tr>
+                        <td class="col-md-4">
+                            <div href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
+                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                 data-type="wysihtml5">
+                                {{ k.kontzeptuaeu }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="editable-popup text-left" data-name="kopurua" data-pk="{{ k.id }}"
+                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                {{ k.kopurua }}
+                            </div>
+                        <td>
+                            <div class="editable-popup text-left" data-name="unitatea" data-pk="{{ k.id }}"
+                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                &nbsp;{{ k.unitatea }}
+                            </div>
+                        </td>
+                        <td class="col-md-5">
+                            <div id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
+                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                {{ k.kontzeptuaes }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
 
         {% endfor %}
 
     {% endfor %}
-    <button id="pencil">pencil</button>
+    <div style="">
+        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text"
+                                                   value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -185,51 +236,57 @@
 
     <script>
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $.fn.editable.defaults.mode = 'inline';
+            var isAdmin = $('#isAdmin').val();
 
-            $('.editable').editable();
-            $('.editable2').on('mouseover',function(){
-                $(this).addClass('gainean');
-            })
-            .on('mouseleave',function(){
-                $(this).removeClass('gainean');
-            }).editable({
-                toggle: 'dblclick',
-                title: 'Enter comments',
-                showbuttons: 'top',
-                onblur: 'ignore',
-                inputclass:'editable-buttons-ezker',
-                wysihtml5: {
-                    "image": false,
-                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                    "emphasis": true, //Italics, bold, etc. Default true
-                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": false, //Button to insert a link. Default true
-                }
-            });
-            $('.editable-popup').on('mouseover',function(){
-                $(this).addClass('gainean');
-            })
-            .on('mouseleave',function(){
-                $(this).removeClass('gainean');
-            }).editable({
-                mode: 'popup',
-                title: 'Enter comments',
-                showbuttons: 'top',
-                onblur: 'ignore',
-                inputclass:'editable-buttons-ezker',
-                wysihtml5: {
-                    "image": false,
-                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                    "emphasis": true, //Italics, bold, etc. Default true
-                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": false, //Button to insert a link. Default true
-                }
-            });
+            if ( isAdmin === "0" ) {
+                $('.editable').editable('toggleDisabled');
+                $('.editable2').editable('toggleDisabled');
+            } else {
+                $('.editable').editable();
+                $('.editable2').on('mouseover', function () {
+                    $(this).addClass('gainean');
+                })
+                        .on('mouseleave', function () {
+                            $(this).removeClass('gainean');
+                        }).editable({
+                    toggle: 'dblclick',
+                    title: 'Enter comments',
+                    showbuttons: 'top',
+                    onblur: 'ignore',
+                    inputclass: 'editable-buttons-ezker',
+                    wysihtml5: {
+                        "image": false,
+                        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, //Italics, bold, etc. Default true
+                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": false, //Button which allows you to edit the generated HTML. Default false
+                        "link": false, //Button to insert a link. Default true
+                    }
+                });
 
+                $('.editable-popup').on('mouseover', function () {
+                    $(this).addClass('gainean');
+                })
+                        .on('mouseleave', function () {
+                            $(this).removeClass('gainean');
+                        }).editable({
+                    mode: 'popup',
+                    title: 'Enter comments',
+                    showbuttons: 'top',
+                    onblur: 'ignore',
+                    inputclass: 'editable-buttons-ezker',
+                    wysihtml5: {
+                        "image": false,
+                        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, //Italics, bold, etc. Default true
+                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": false, //Button which allows you to edit the generated HTML. Default false
+                        "link": false, //Button to insert a link. Default true
+                    }
+                });
+            }
         });
     </script>
 
