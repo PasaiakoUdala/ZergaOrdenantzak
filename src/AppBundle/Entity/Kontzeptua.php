@@ -108,6 +108,12 @@ class Kontzeptua
      */
     private $kontzeptumota;
 
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -377,5 +383,29 @@ class Kontzeptua
     public function getKontzeptumota()
     {
         return $this->kontzeptumota;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Kontzeptua
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
     }
 }

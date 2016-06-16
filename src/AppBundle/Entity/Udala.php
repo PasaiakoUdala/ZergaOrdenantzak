@@ -1,0 +1,340 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Udala
+ *
+ * @ORM\Table(name="udala")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UdalaRepository")
+ */
+class Udala
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izenaeu", type="string", length=255)
+     */
+    private $izenaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izenaes", type="string", length=255)
+     */
+    private $izenaes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kodea", type="string", length=255)
+     */
+    private $kodea;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logoa", type="string", length=255)
+     */
+    private $logoa;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ifk", type="string", length=255)
+     */
+    private $ifk;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izendapenaeu", type="string", length=255)
+     */
+    private $izendapenaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izendapenaes", type="string", length=255)
+     */
+    private $izendapenaes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lopdeu", type="text", length=65535, nullable=true)
+     */
+    private $lopdeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lopdes", type="text", length=65535, nullable=true)
+     */
+    private $lopdes;
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
+    public function __construct()
+    {
+    }
+
+    public function __toString()
+    {
+        return $this->getIzenaeu();
+    }
+    
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set izenaeu
+     *
+     * @param string $izenaeu
+     *
+     * @return Udala
+     */
+    public function setIzenaeu($izenaeu)
+    {
+        $this->izenaeu = $izenaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get izenaeu
+     *
+     * @return string
+     */
+    public function getIzenaeu()
+    {
+        return $this->izenaeu;
+    }
+
+    /**
+     * Set izenaes
+     *
+     * @param string $izenaes
+     *
+     * @return Udala
+     */
+    public function setIzenaes($izenaes)
+    {
+        $this->izenaes = $izenaes;
+
+        return $this;
+    }
+
+    /**
+     * Get izenaes
+     *
+     * @return string
+     */
+    public function getIzenaes()
+    {
+        return $this->izenaes;
+    }
+
+    /**
+     * Set kodea
+     *
+     * @param string $kodea
+     *
+     * @return Udala
+     */
+    public function setKodea($kodea)
+    {
+        $this->kodea = $kodea;
+
+        return $this;
+    }
+
+    /**
+     * Get kodea
+     *
+     * @return string
+     */
+    public function getKodea()
+    {
+        return $this->kodea;
+    }
+
+    /**
+     * Set logoa
+     *
+     * @param string $logoa
+     *
+     * @return Udala
+     */
+    public function setLogoa($logoa)
+    {
+        $this->logoa = $logoa;
+
+        return $this;
+    }
+
+    /**
+     * Get logoa
+     *
+     * @return string
+     */
+    public function getLogoa()
+    {
+        return $this->logoa;
+    }
+
+    /**
+     * Set ifk
+     *
+     * @param string $ifk
+     *
+     * @return Udala
+     */
+    public function setIfk($ifk)
+    {
+        $this->ifk = $ifk;
+
+        return $this;
+    }
+
+    /**
+     * Get ifk
+     *
+     * @return string
+     */
+    public function getIfk()
+    {
+        return $this->ifk;
+    }
+
+    /**
+     * Set izendapenaeu
+     *
+     * @param string $izendapenaeu
+     *
+     * @return Udala
+     */
+    public function setIzendapenaeu($izendapenaeu)
+    {
+        $this->izendapenaeu = $izendapenaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get izendapenaeu
+     *
+     * @return string
+     */
+    public function getIzendapenaeu()
+    {
+        return $this->izendapenaeu;
+    }
+
+    /**
+     * Set izendapenaes
+     *
+     * @param string $izendapenaes
+     *
+     * @return Udala
+     */
+    public function setIzendapenaes($izendapenaes)
+    {
+        $this->izendapenaes = $izendapenaes;
+
+        return $this;
+    }
+
+    /**
+     * Get izendapenaes
+     *
+     * @return string
+     */
+    public function getIzendapenaes()
+    {
+        return $this->izendapenaes;
+    }
+
+    /**
+     * Set lopdeu
+     *
+     * @param string $lopdeu
+     *
+     * @return Udala
+     */
+    public function setLopdeu($lopdeu)
+    {
+        $this->lopdeu = $lopdeu;
+
+        return $this;
+    }
+
+    /**
+     * Get lopdeu
+     *
+     * @return string
+     */
+    public function getLopdeu()
+    {
+        return $this->lopdeu;
+    }
+
+    /**
+     * Set lopdes
+     *
+     * @param string $lopdes
+     *
+     * @return Udala
+     */
+    public function setLopdes($lopdes)
+    {
+        $this->lopdes = $lopdes;
+
+        return $this;
+    }
+
+    /**
+     * Get lopdes
+     *
+     * @return string
+     */
+    public function getLopdes()
+    {
+        return $this->lopdes;
+    }
+}

@@ -74,6 +74,12 @@ class Azpiatalaparrafoa
      */
     private $azpiatala;
 
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
+    
     public function __construct()
     {
         $this->createdAt = new \DateTime();

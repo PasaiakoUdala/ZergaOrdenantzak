@@ -79,6 +79,12 @@ class Ordenantza
      */
     protected $atalak;
 
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -97,9 +103,6 @@ class Ordenantza
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
      */
-
-
-
 
 
     /**
@@ -233,37 +236,37 @@ class Ordenantza
     }
 
     /**
-     * Add parraforak
+     * Add parrafoak
      *
-     * @param \AppBundle\Entity\Ordenantzaparrafoa $parraforak
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
      *
      * @return Ordenantza
      */
-    public function addParraforak(\AppBundle\Entity\Ordenantzaparrafoa $parraforak)
+    public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
     {
-        $this->parraforak[] = $parraforak;
+        $this->parrafoak[] = $parrafoak;
 
         return $this;
     }
 
     /**
-     * Remove parraforak
+     * Remove parrafoak
      *
-     * @param \AppBundle\Entity\Ordenantzaparrafoa $parraforak
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
      */
-    public function removeParraforak(\AppBundle\Entity\Ordenantzaparrafoa $parraforak)
+    public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
     {
-        $this->parraforak->removeElement($parraforak);
+        $this->parrafoak->removeElement($parrafoak);
     }
 
     /**
-     * Get parraforak
+     * Get parrafoak
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getParraforak()
+    public function getParrafoak()
     {
-        return $this->parraforak;
+        return $this->parrafoak;
     }
 
     /**
@@ -301,36 +304,26 @@ class Ordenantza
     }
 
     /**
-     * Add parrafoak
+     * Set udala
      *
-     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     * @param \AppBundle\Entity\Udala $udala
      *
      * @return Ordenantza
      */
-    public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
     {
-        $this->parrafoak[] = $parrafoak;
+        $this->udala = $udala;
 
         return $this;
     }
 
     /**
-     * Remove parrafoak
+     * Get udala
      *
-     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     * @return \AppBundle\Entity\Udala
      */
-    public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    public function getUdala()
     {
-        $this->parrafoak->removeElement($parrafoak);
-    }
-
-    /**
-     * Get parrafoak
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getParrafoak()
-    {
-        return $this->parrafoak;
+        return $this->udala;
     }
 }

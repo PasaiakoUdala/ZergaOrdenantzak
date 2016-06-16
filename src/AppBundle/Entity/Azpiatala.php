@@ -88,6 +88,12 @@ class Azpiatala
      */
     protected $kontzeptuak;
 
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -329,5 +335,29 @@ class Azpiatala
     public function getKontzeptuak()
     {
         return $this->kontzeptuak;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Azpiatala
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
     }
 }

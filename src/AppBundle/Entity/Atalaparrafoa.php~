@@ -57,6 +57,14 @@ class Atalaparrafoa
     private $updatedAt;
 
     /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+ * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+    
+    /**
      * @var \Atala
      *
      * @ORM\ManyToOne(targetEntity="Atala")
@@ -65,6 +73,12 @@ class Atalaparrafoa
      * })
      */
     private $atala;
+
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
 
     public function __construct()
     {
@@ -76,159 +90,12 @@ class Atalaparrafoa
     {
         return $this->getTestuaeu();
     }
-
-
     /**
-     * Get id
-     *
-     * @return integer
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set ordena
-     *
-     * @param integer $ordena
-     *
-     * @return Atalaparrafoa
-     */
-    public function setOrdena($ordena)
-    {
-        $this->ordena = $ordena;
-
-        return $this;
-    }
-
-    /**
-     * Get ordena
-     *
-     * @return integer
-     */
-    public function getOrdena()
-    {
-        return $this->ordena;
-    }
-
-    /**
-     * Set testuaeu
-     *
-     * @param string $testuaeu
-     *
-     * @return Atalaparrafoa
-     */
-    public function setTestuaeu($testuaeu)
-    {
-        $this->testuaeu = $testuaeu;
-
-        return $this;
-    }
-
-    /**
-     * Get testuaeu
-     *
-     * @return string
-     */
-    public function getTestuaeu()
-    {
-        return $this->testuaeu;
-    }
-
-    /**
-     * Set testuaes
-     *
-     * @param string $testuaes
-     *
-     * @return Atalaparrafoa
-     */
-    public function setTestuaes($testuaes)
-    {
-        $this->testuaes = $testuaes;
-
-        return $this;
-    }
-
-    /**
-     * Get testuaes
-     *
-     * @return string
-     */
-    public function getTestuaes()
-    {
-        return $this->testuaes;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Atalaparrafoa
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Atalaparrafoa
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set atala
-     *
-     * @param \AppBundle\Entity\Atala $atala
-     *
-     * @return Atalaparrafoa
-     */
-    public function setAtala(\AppBundle\Entity\Atala $atala = null)
-    {
-        $this->atala = $atala;
-
-        return $this;
-    }
-
-    /**
-     * Get atala
-     *
-     * @return \AppBundle\Entity\Atala
-     */
-    public function getAtala()
-    {
-        return $this->atala;
-    }
+    
 }

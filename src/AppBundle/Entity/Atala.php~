@@ -94,6 +94,12 @@ class Atala
      */
     protected $azpiatalak;
 
+    /**
+     * @var Udala
+     * @ORM\ManyToOne(targetEntity="Udala")
+     */
+    private $udala;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -358,5 +364,29 @@ class Atala
     public function getAzpiatalak()
     {
         return $this->azpiatalak;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Atala
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
     }
 }
