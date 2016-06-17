@@ -1,16 +1,23 @@
-{% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Atala creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        {{ form_start(form) }}
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Atal berria</h4>
+        </div>
+        <div class="modal-body">
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_atala_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+
+                {{ form_widget(form) }}
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+            <button type="submit" class="btn btn-primary">Gorde</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+</div>

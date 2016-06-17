@@ -18,8 +18,6 @@ class AtalaType extends AbstractType
             ->add('kodea')
             ->add('izenburuaeu')
             ->add('izenburuaes')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
             ->add('ordenantza')
         ;
     }
