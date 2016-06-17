@@ -11,17 +11,17 @@ body {
     border: 1px dashed ;
 }
 
-/*.editable-buttons {*/
-    /*display: inline-block;*/
-    /*vertical-align: top;*/
-    /*margin-left: -90px !important;*/
-    /*zoom: 1;*/
-/*}*/
+.editable-buttons {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -90px !important;
+    zoom: 1;
+}
 
 /*.editable-input {*/
     /*min-height: 350px !important;*/
 /*}*/
 
-/*.wysihtml5-sandbox {*/
-    /*min-height: 350px !important;*/
-/*}*/
+.wysihtml5-sandbox {
+    min-height: 350px !important;
+}

@@ -344,10 +344,15 @@ class OrdenantzaController extends Controller
         $form = $this->createDeleteForm($ordenantza);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+//        if ($form->isSubmitted() && $form->isValid()) {
+        if ( $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($ordenantza);
             $em->flush();
+        } else {
+
+            $string = (string) $form->getErrors(true, false);
+            dump($form->getErrors(true, false));
         }
 
         return $this->redirectToRoute('admin_ordenantza_index');
