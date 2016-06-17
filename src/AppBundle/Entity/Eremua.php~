@@ -95,4 +95,158 @@ class Eremua
      * ************************************************************************************************************************************************************************
      */
     
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set izena
+     *
+     * @param string $izena
+     *
+     * @return Eremua
+     */
+    public function setIzena($izena)
+    {
+        $this->izena = $izena;
+
+        return $this;
+    }
+
+    /**
+     * Get izena
+     *
+     * @return string
+     */
+    public function getIzena()
+    {
+        return $this->izena;
+    }
+
+    /**
+     * Set etiketaeu
+     *
+     * @param string $etiketaeu
+     *
+     * @return Eremua
+     */
+    public function setEtiketaeu($etiketaeu)
+    {
+        $this->etiketaeu = $etiketaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get etiketaeu
+     *
+     * @return string
+     */
+    public function getEtiketaeu()
+    {
+        return $this->etiketaeu;
+    }
+
+    /**
+     * Set etiketaes
+     *
+     * @param string $etiketaes
+     *
+     * @return Eremua
+     */
+    public function setEtiketaes($etiketaes)
+    {
+        $this->etiketaes = $etiketaes;
+
+        return $this;
+    }
+
+    /**
+     * Get etiketaes
+     *
+     * @return string
+     */
+    public function getEtiketaes()
+    {
+        return $this->etiketaes;
+    }
+
+    /**
+     * Set eremumota
+     *
+     * @param \AppBundle\Entity\Eremumota $eremumota
+     *
+     * @return Eremua
+     */
+    public function setEremumota(\AppBundle\Entity\Eremumota $eremumota = null)
+    {
+        $this->eremumota = $eremumota;
+
+        return $this;
+    }
+
+    /**
+     * Get eremumota
+     *
+     * @return \AppBundle\Entity\Eremumota
+     */
+    public function getEremumota()
+    {
+        return $this->eremumota;
+    }
+
+    /**
+     * Set formula
+     *
+     * @param \AppBundle\Entity\Formula $formula
+     *
+     * @return Eremua
+     */
+    public function setFormula(\AppBundle\Entity\Formula $formula = null)
+    {
+        $this->formula = $formula;
+
+        return $this;
+    }
+
+    /**
+     * Get formula
+     *
+     * @return \AppBundle\Entity\Formula
+     */
+    public function getFormula()
+    {
+        return $this->formula;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Eremua
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
 }

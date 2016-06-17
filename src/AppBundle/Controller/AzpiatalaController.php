@@ -43,6 +43,7 @@ class AzpiatalaController extends Controller
     {
         $azpiatala = new Azpiatala();
         $form = $this->createForm('AppBundle\Form\AzpiatalaType', $azpiatala);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

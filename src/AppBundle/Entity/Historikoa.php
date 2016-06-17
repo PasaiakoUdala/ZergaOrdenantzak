@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotation\UdalaEgiaztatu;
 
 /**
  * Historikoa
  *
  * @ORM\Table(name="historikoa")
  * @ORM\Entity
+ * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Historikoa
 {

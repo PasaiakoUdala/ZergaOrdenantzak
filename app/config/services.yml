@@ -7,3 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.doctrine.filter.configurator:
+        class: AppBundle\Filter\Configurator
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "@annotation_reader"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }

@@ -273,6 +273,7 @@ class OrdenantzaController extends Controller
     {
         $ordenantza = new Ordenantza();
         $form = $this->createForm('AppBundle\Form\OrdenantzaType', $ordenantza);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

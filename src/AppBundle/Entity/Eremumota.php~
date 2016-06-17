@@ -67,4 +67,86 @@ class Eremumota
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
      */
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set motaeu
+     *
+     * @param string $motaeu
+     *
+     * @return Eremumota
+     */
+    public function setMotaeu($motaeu)
+    {
+        $this->motaeu = $motaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get motaeu
+     *
+     * @return string
+     */
+    public function getMotaeu()
+    {
+        return $this->motaeu;
+    }
+
+    /**
+     * Set motaes
+     *
+     * @param string $motaes
+     *
+     * @return Eremumota
+     */
+    public function setMotaes($motaes)
+    {
+        $this->motaes = $motaes;
+
+        return $this;
+    }
+
+    /**
+     * Get motaes
+     *
+     * @return string
+     */
+    public function getMotaes()
+    {
+        return $this->motaes;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Eremumota
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
 }

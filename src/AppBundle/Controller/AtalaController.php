@@ -43,6 +43,7 @@ class AtalaController extends Controller
     {
         $atala = new Atala();
         $form = $this->createForm('AppBundle\Form\AtalaType', $atala);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

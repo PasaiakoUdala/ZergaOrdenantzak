@@ -43,6 +43,7 @@ class KontzeptumotaController extends Controller
     {
         $kontzeptumotum = new Kontzeptumota();
         $form = $this->createForm('AppBundle\Form\KontzeptumotaType', $kontzeptumotum);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -43,6 +43,7 @@ class AtalaparrafoaController extends Controller
     {
         $atalaparrafoa = new Atalaparrafoa();
         $form = $this->createForm('AppBundle\Form\AtalaparrafoaType', $atalaparrafoa);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

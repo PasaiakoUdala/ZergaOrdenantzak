@@ -43,6 +43,7 @@ class HistorikoaController extends Controller
     {
         $historikoa = new Historikoa();
         $form = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

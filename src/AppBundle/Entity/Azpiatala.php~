@@ -336,4 +336,28 @@ class Azpiatala
     {
         return $this->kontzeptuak;
     }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Azpiatala
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
 }

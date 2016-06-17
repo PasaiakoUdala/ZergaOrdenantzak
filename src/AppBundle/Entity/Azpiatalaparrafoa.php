@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotation\UdalaEgiaztatu;
 
 /**
  * Azpiatalaparrafoa
  *
  * @ORM\Table(name="azpiatalaparrafoa", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"})})
  * @ORM\Entity
+ * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Azpiatalaparrafoa
 {

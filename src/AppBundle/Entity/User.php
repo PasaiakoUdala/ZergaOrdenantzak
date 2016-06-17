@@ -4,10 +4,12 @@
 
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
+    use AppBundle\Annotation\UdalaEgiaztatu;
 
     /**
      * @ORM\Entity
      * @ORM\Table(name="fos_user")
+     * @UdalaEgiaztatu(userFieldName="udala_id")
      */
     class User extends BaseUser
     {

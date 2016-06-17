@@ -104,4 +104,226 @@ class Ordenantza
      * ************************************************************************************************************************************************************************
      */
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set kodea
+     *
+     * @param string $kodea
+     *
+     * @return Ordenantza
+     */
+    public function setKodea($kodea)
+    {
+        $this->kodea = $kodea;
+
+        return $this;
+    }
+
+    /**
+     * Get kodea
+     *
+     * @return string
+     */
+    public function getKodea()
+    {
+        return $this->kodea;
+    }
+
+    /**
+     * Set izenburuaeu
+     *
+     * @param string $izenburuaeu
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaeu($izenburuaeu)
+    {
+        $this->izenburuaeu = $izenburuaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaeu
+     *
+     * @return string
+     */
+    public function getIzenburuaeu()
+    {
+        return $this->izenburuaeu;
+    }
+
+    /**
+     * Set izenburuaes
+     *
+     * @param string $izenburuaes
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaes($izenburuaes)
+    {
+        $this->izenburuaes = $izenburuaes;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaes
+     *
+     * @return string
+     */
+    public function getIzenburuaes()
+    {
+        return $this->izenburuaes;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Ordenantza
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Ordenantza
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Add parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     *
+     * @return Ordenantza
+     */
+    public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak[] = $parrafoak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     */
+    public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak->removeElement($parrafoak);
+    }
+
+    /**
+     * Get parrafoak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoak()
+    {
+        return $this->parrafoak;
+    }
+
+    /**
+     * Add atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     *
+     * @return Ordenantza
+     */
+    public function addAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak[] = $atalak;
+
+        return $this;
+    }
+
+    /**
+     * Remove atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     */
+    public function removeAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak->removeElement($atalak);
+    }
+
+    /**
+     * Get atalak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAtalak()
+    {
+        return $this->atalak;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Ordenantza
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
 }

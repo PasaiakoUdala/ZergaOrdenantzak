@@ -43,6 +43,7 @@ class KontzeptuaController extends Controller
     {
         $kontzeptua = new Kontzeptua();
         $form = $this->createForm('AppBundle\Form\KontzeptuaType', $kontzeptua);
+        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
