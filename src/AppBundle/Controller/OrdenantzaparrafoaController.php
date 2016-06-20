@@ -32,7 +32,6 @@ class OrdenantzaparrafoaController extends Controller
         $ordenantzaparrafoa->setUdala( $this->getUser()->getUdala() );
 
         $form = $this->createForm('AppBundle\Form\OrdenantzaparrafoaType', $ordenantzaparrafoa);
-        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

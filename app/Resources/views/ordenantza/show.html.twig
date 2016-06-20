@@ -251,7 +251,7 @@
         {% endfor %}
 
     {% endfor %}
-    <div style="">
+    <div style="display: none;">
         <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text"
                                                    value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
     </div>
@@ -262,7 +262,7 @@
     Insert formularioak
     #}
     <div id="divAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        {{ render(controller('AppBundle:Atala:new')) }}
+        {{ render(controller('AppBundle:Atala:new', {'ordenantzaid': ordenantza.id })) }}
     </div>
 
     <div id="divOrdenantzaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

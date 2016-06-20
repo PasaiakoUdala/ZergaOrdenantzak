@@ -16,34 +16,23 @@ use AppBundle\Form\AtalaType;
  */
 class AtalaController extends Controller
 {
-    /**
-     * Lists all Atala entities.
-     *
-     * @Route("/", name="admin_atala_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $atalas = $em->getRepository('AppBundle:Atala')->findAll();
-
-        return $this->render('atala/index.html.twig', array(
-            'atalas' => $atalas,
-        ));
-    }
 
     /**
      * Creates a new Atala entity.
      *
-     * @Route("/new", name="admin_atala_new")
+     * @Route("/new/{ordenantzaid}", name="admin_atala_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $ordenantzaid)
     {
+        $em = $this->getDoctrine();
+
         $atala = new Atala();
+        $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $ordenantzaid );
+        $atala->setOrdenantza( $ordenantza );
+        $atala->setUdala( $this->getUser()->getUdala() );
+        
         $form = $this->createForm('AppBundle\Form\AtalaType', $atala);
-        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,55 +40,15 @@ class AtalaController extends Controller
             $em->persist($atala);
             $em->flush();
 
-            return $this->redirectToRoute('admin_atala_show', array('id' => $atala->getId()));
+            return $this->redirect($request->headers->get('referer'));
+        } else {
+            dump( "Hodor" );
         }
 
         return $this->render('atala/new.html.twig', array(
             'atala' => $atala,
+            'ordenantzaid' => $ordenantzaid,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Atala entity.
-     *
-     * @Route("/{id}", name="admin_atala_show")
-     * @Method("GET")
-     */
-    public function showAction(Atala $atala)
-    {
-        $deleteForm = $this->createDeleteForm($atala);
-
-        return $this->render('atala/show.html.twig', array(
-            'atala' => $atala,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Atala entity.
-     *
-     * @Route("/{id}/edit", name="admin_atala_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Atala $atala)
-    {
-        $deleteForm = $this->createDeleteForm($atala);
-        $editForm = $this->createForm('AppBundle\Form\AtalaType', $atala);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($atala);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_atala_edit', array('id' => $atala->getId()));
-        }
-
-        return $this->render('atala/edit.html.twig', array(
-            'atala' => $atala,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
