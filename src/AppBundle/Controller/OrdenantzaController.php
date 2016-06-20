@@ -299,6 +299,14 @@ class OrdenantzaController extends Controller
     public function showAction(Ordenantza $ordenantza)
     {
         $deleteForm = $this->createDeleteForm($ordenantza);
+        $deleteForms = array();
+
+        foreach ($ordenantza->getParrafoak() as $p) {
+            $deleteForms[$p->getId()] = $this->createFormBuilder()
+                ->setAction($this->generateUrl('admin_ordenantzaparrafoa_delete', array('id' => $p->getId())))
+                ->setMethod('DELETE')
+                ->getForm()->createView();
+        }
 
         return $this->render('ordenantza/show.html.twig', array(
             'ordenantza' => $ordenantza,
@@ -344,8 +352,7 @@ class OrdenantzaController extends Controller
         $form = $this->createDeleteForm($ordenantza);
         $form->handleRequest($request);
 
-//        if ($form->isSubmitted() && $form->isValid()) {
-        if ( $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($ordenantza);
             $em->flush();
@@ -373,4 +380,5 @@ class OrdenantzaController extends Controller
             ->getForm()
         ;
     }
+    
 }

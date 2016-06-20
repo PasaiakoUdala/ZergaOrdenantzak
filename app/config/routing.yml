@@ -1,3 +1,7 @@
+app_ordenantzaparrafoa:
+    resource: "@AppBundle/Controller/OrdenantzaparrafoaController.php"
+    type:     annotation
+
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
