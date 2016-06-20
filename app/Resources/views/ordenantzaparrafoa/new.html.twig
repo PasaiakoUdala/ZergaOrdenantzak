@@ -1,16 +1,47 @@
-{% extends 'base.html.twig' %}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form  name="form" method="post" action="{{ path('admin_ordenantzaparrafoa_new', {'ordenantzaid':ordenantzaid}) }}" role="form">
 
-{% block body %}
-    <h1>Ordenantzaparrafoa creation</h1>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Parrafo berria</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group  field-text">
+                    {{ form_label(form.ordena, 'ordena', { 'label_attr': {'class': 'control-label'} }) }}
+                    {{ form_errors(form.ordena) }}
+                    {{ form_widget(form.ordena, {'attr': {'class': 'form-control'}}) }}
+                </div>    
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group  field-text">
+                        {{ form_label(form.testuaeu, 'Testua', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.testuaeu) }}
+                        {{ form_widget(form.testuaeu, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>    
+                <div class="col-md-6">
+                    <div class="form-group  field-text">
+                        {{ form_label(form.testuaes, 'Texto', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.testuaes) }}
+                        {{ form_widget(form.testuaes, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+            <button type="submit" class="btn btn-primary">Gorde</button>
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantzaparrafoa_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+        <div style="display: none;">
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+</div>

@@ -143,3 +143,21 @@ fos_rest:
     body_listener: true
     routing_loader:
             default_format: json
+
+ivory_ck_editor:
+    configs:
+        my_config_1:
+            toolbar: "my_toolbar_1"
+            uiColor: "#cccccc"
+            # ...
+        my_config_2:
+            toolbar: "my_toolbar_2"
+            uiColor: "#ffffff"
+            # ...
+        my_config_2:
+            toolbar: "my_toolbar_1"
+            uiColor: "#cccccc"
+    toolbars:
+        configs:
+            my_toolbar_1: [ [ 'Bold', 'Italic', 'Underline', '-','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ]]
+            my_toolbar_2: [ [ "Source" ], "/", [ "Anchor" ], "/", [ "Maximize" ] ]

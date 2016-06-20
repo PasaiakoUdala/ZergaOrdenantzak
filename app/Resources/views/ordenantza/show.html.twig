@@ -30,6 +30,7 @@
             {% endfor %}
             <li role="separator" class="divider"></li>
             <li><a href="#" data-toggle="modal" data-target="#divAtalBerria">+ Atal berria</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria" >Parrafo berria</a></li>
         </ul>
     </li>
     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Apartados (Erdaraz) <b
@@ -55,6 +56,7 @@
             {% endfor %}
             <li role="separator" class="divider"></li>
             <li><a href="#">+ Nuevo Atala</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria" >Parrafo berria</a></li>
         </ul>
     </li>
 {% endblock %}
@@ -62,38 +64,6 @@
 
 {% block body %}
     <div class="row">&nbsp;</div>
-
-    {#
-    Insert formularioak
-    #}
-    <div id="divAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        {{ render(controller('AppBundle:Atala:new')) }}
-    </div>
-
-    {#
-    Ezabatze formularioak
-    #}
-    <div id="divEzabatuOrdenantza" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                {{ form_start(delete_form) }}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Ordenantza ezabatu</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Ziur zaude ezabatu nahi duzula?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ezeztatu</button>
-                    <button type="submit" class="btn btn-primary">Baiezabatu</button>
-                </div>
-                <div style="display: none;">{{ form_end(delete_form) }}</div>
-            </div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-xs-6">
             <h4 class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
@@ -116,7 +86,6 @@
             </h4>
         </div>
     </div>
-
     <div class="row">&nbsp;</div>
 
     {% for p in ordenantza.parrafoak %}
@@ -286,6 +255,46 @@
         <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text"
                                                    value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
     </div>
+
+
+
+    {#
+    Insert formularioak
+    #}
+    <div id="divAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        {{ render(controller('AppBundle:Atala:new')) }}
+    </div>
+
+    <div id="divOrdenantzaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        {{ render(controller('AppBundle:Ordenantzaparrafoa:new', {'ordenantzaid': ordenantza.id })) }}
+    </div>
+
+
+
+    {#
+    Ezabatze formularioak
+    #}
+    <div id="divEzabatuOrdenantza" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {{ form_start(delete_form) }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ordenantza ezabatu</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Ziur zaude ezabatu nahi duzula?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ezeztatu</button>
+                    <button type="submit" class="btn btn-primary">Baiezabatu</button>
+                </div>
+                <div style="display: none;">{{ form_end(delete_form) }}</div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}

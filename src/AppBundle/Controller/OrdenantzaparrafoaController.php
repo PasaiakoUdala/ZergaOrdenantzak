@@ -19,13 +19,20 @@ class OrdenantzaparrafoaController extends Controller
     /**
      * Creates a new Ordenantzaparrafoa entity.
      *
-     * @Route("/new", name="admin_ordenantzaparrafoa_new")
+     * @Route("/new/{ordenantzaid}", name="admin_ordenantzaparrafoa_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $ordenantzaid)
     {
+        $em = $this->getDoctrine();
+
         $ordenantzaparrafoa = new Ordenantzaparrafoa();
+        $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $ordenantzaid );
+        $ordenantzaparrafoa->setOrdenantza( $ordenantza );
+        $ordenantzaparrafoa->setUdala( $this->getUser()->getUdala() );
+
         $form = $this->createForm('AppBundle\Form\OrdenantzaparrafoaType', $ordenantzaparrafoa);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -33,11 +40,14 @@ class OrdenantzaparrafoaController extends Controller
             $em->persist($ordenantzaparrafoa);
             $em->flush();
 
-            return $this->redirectToRoute('admin_ordenantzaparrafoa_show', array('id' => $ordenantzaparrafoa->getId()));
+            return $this->redirect($request->headers->get('referer'));
+        } else {
+            dump( "Hodor" );
         }
 
         return $this->render('ordenantzaparrafoa/new.html.twig', array(
             'ordenantzaparrafoa' => $ordenantzaparrafoa,
+            'ordenantzaid' => $ordenantzaid,
             'form' => $form->createView(),
         ));
     }
@@ -74,10 +84,6 @@ class OrdenantzaparrafoaController extends Controller
             $em->flush();
         }
 
-//        dump($request);
-//        dump($request->headers->get('referer'));
-
-//        return $this->redirectToRoute('admin_ordenantzaparrafoa_index');
         return $this->redirect($request->headers->get('referer'));
     }
 
