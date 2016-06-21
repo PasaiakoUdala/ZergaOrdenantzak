@@ -40,10 +40,8 @@ class OrdenantzaparrafoaController extends Controller
             $em->flush();
 
             return $this->redirect($request->headers->get('referer'));
-        } else {
-            dump( "Hodor" );
-        }
-
+        } 
+        
         return $this->render('ordenantzaparrafoa/new.html.twig', array(
             'ordenantzaparrafoa' => $ordenantzaparrafoa,
             'ordenantzaid' => $ordenantzaid,

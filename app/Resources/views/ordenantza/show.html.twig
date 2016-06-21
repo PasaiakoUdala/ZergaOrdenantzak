@@ -7,56 +7,29 @@
             {% for atala in ordenantza.atalak %}
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
                     <li class="dropdown dropdown-submenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }}
-                            - {{ atala.izenburuaeu|capitalize }}</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
                             {% for azpiatala in atala.azpiatalak %}
-                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }}
-                                        - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
+                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
                             {% endfor %}
                             <li role="separator" class="divider"></li>
                             <li><a href="#">+ Azpiatal Berria</a></li>
+                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
+
                 {% else %}
                     <li class="dropdown dropdown-submenu">
-                        <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }}
-                            - {{ atala.izenburuaeu|capitalize }}</a>
+                        <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">+ Azpiatal Berria</a></li>
+                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
                 {% endif %}
             {% endfor %}
             <li role="separator" class="divider"></li>
             <li><a href="#" data-toggle="modal" data-target="#divAtalBerria">+ Atal berria</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria" >Parrafo berria</a></li>
-        </ul>
-    </li>
-    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Apartados (Erdaraz) <b
-                    class="caret"></b></a>
-        <ul class="dropdown-menu">
-            {% for atala in ordenantza.atalak %}
-                {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
-                    <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle"
-                                                             data-toggle="dropdown">{{ atala.kodea }}
-                            - {{ atala.izenburuaes|capitalize }}</a>
-                        <ul class="dropdown-menu">
-                            {% for azpiatala in atala.azpiatalak %}
-                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }}
-                                        - {{ azpiatala.izenburuaes|capitalize }}</a></li>
-                            {% endfor %}
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">+ Nuevo Azpiatal</a></li>
-                        </ul>
-                    </li>
-                {% else %}
-                    <li><a href="#{{ atala.kodea }}">{{ atala.kodea }} - {{ atala.izenburuaes|capitalize }}</a></li>
-                {% endif %}
-            {% endfor %}
-            <li role="separator" class="divider"></li>
-            <li><a href="#">+ Nuevo Atala</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria" >Parrafo berria</a></li>
         </ul>
     </li>
 {% endblock %}
@@ -64,6 +37,10 @@
 
 {% block body %}
     <div class="row">&nbsp;</div>
+
+    {#<a href="#" class="btnAtalaparrafoBerria btn btn-primary" data-atalaid="5">FROGA</a>#}
+
+
     <div class="row">
         <div class="col-xs-6">
             <h4 class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
@@ -295,6 +272,10 @@
         </div>
     </div>
 
+    <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -303,6 +284,15 @@
     <script>
 
         $(document).ready(function () {
+
+            $('.btnAtalaparrafoBerria').on("click", function(e){
+                $('#divAtalaparrafoBerria').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_atalaparrafoa_new', { atalaid: miid });
+                $('#divAtalaparrafoBerria').load(url);
+                $('#divAtalaparrafoBerria').modal('toggle');
+            });
+
             $.fn.editable.defaults.mode = 'inline';
             var isAdmin = $('#isAdmin').val();
 
@@ -315,10 +305,10 @@
                     $(this).addClass('gainean');
                     $(this).find('.btnEzabatu').removeClass('hide');
                 })
-                        .on('mouseleave', function () {
-                            $(this).removeClass('gainean');
-                            $(this).children('.btnEzabatu').addClass('hide');
-                        }).editable({
+                .on('mouseleave', function () {
+                    $(this).removeClass('gainean');
+                    $(this).children('.btnEzabatu').addClass('hide');
+                }).editable({
                     toggle: 'dblclick',
                     title: 'Enter comments',
                     showbuttons: 'top',
@@ -337,9 +327,9 @@
                 $('.editable-popup').on('mouseover', function () {
                     $(this).addClass('gainean');
                 })
-                        .on('mouseleave', function () {
-                            $(this).removeClass('gainean');
-                        }).editable({
+                .on('mouseleave', function () {
+                    $(this).removeClass('gainean');
+                }).editable({
                     mode: 'popup',
                     title: 'Enter comments',
                     showbuttons: 'top',

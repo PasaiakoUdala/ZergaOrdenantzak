@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,10 +17,12 @@ class AtalaparrafoaType extends AbstractType
     {
         $builder
             ->add('ordena')
-            ->add('testuaeu')
-            ->add('testuaes')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
+            ->add('testuaeu',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
+            ->add('testuaes',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
             ->add('atala')
         ;
     }

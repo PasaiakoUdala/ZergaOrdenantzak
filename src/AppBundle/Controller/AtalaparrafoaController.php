@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Atala;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,34 +17,24 @@ use AppBundle\Form\AtalaparrafoaType;
  */
 class AtalaparrafoaController extends Controller
 {
-    /**
-     * Lists all Atalaparrafoa entities.
-     *
-     * @Route("/", name="admin_atalaparrafoa_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $atalaparrafoas = $em->getRepository('AppBundle:Atalaparrafoa')->findAll();
-
-        return $this->render('atalaparrafoa/index.html.twig', array(
-            'atalaparrafoas' => $atalaparrafoas,
-        ));
-    }
 
     /**
      * Creates a new Atalaparrafoa entity.
      *
-     * @Route("/new", name="admin_atalaparrafoa_new")
+     * @Route("/new/{atalaid}", options = { "expose" = true }, name="admin_atalaparrafoa_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $atalaid)
     {
+        $em = $this->getDoctrine();
+
+        $atala = $em->getRepository( 'AppBundle:Atala' )->find( $atalaid );
         $atalaparrafoa = new Atalaparrafoa();
+
+        $atalaparrafoa->setAtala( $atala );
+        $atalaparrafoa->setUdala($this->getUser()->getUdala());
+
         $form = $this->createForm('AppBundle\Form\AtalaparrafoaType', $atalaparrafoa);
-        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,55 +42,28 @@ class AtalaparrafoaController extends Controller
             $em->persist($atalaparrafoa);
             $em->flush();
 
-            return $this->redirectToRoute('admin_atalaparrafoa_show', array('id' => $atalaparrafoa->getId()));
+            return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->render('atalaparrafoa/new.html.twig', array(
             'atalaparrafoa' => $atalaparrafoa,
+            'atalaid' => $atalaid,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Atalaparrafoa entity.
      *
-     * @Route("/{id}", name="admin_atalaparrafoa_show")
+     * @Route("/ezabatu/{id}", name="admin_atalaparrafoa_ezabatu")
      * @Method("GET")
      */
-    public function showAction(Atalaparrafoa $atalaparrafoa)
+    public function ezabatuAction(Atalaparrafoa $atalaparrafoa)
     {
         $deleteForm = $this->createDeleteForm($atalaparrafoa);
 
-        return $this->render('atalaparrafoa/show.html.twig', array(
-            'atalaparrafoa' => $atalaparrafoa,
+        return $this->render('atalaparrafoa/_atalaparrafoadeleteform.html.twig', array(
             'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Atalaparrafoa entity.
-     *
-     * @Route("/{id}/edit", name="admin_atalaparrafoa_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Atalaparrafoa $atalaparrafoa)
-    {
-        $deleteForm = $this->createDeleteForm($atalaparrafoa);
-        $editForm = $this->createForm('AppBundle\Form\AtalaparrafoaType', $atalaparrafoa);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($atalaparrafoa);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_atalaparrafoa_edit', array('id' => $atalaparrafoa->getId()));
-        }
-
-        return $this->render('atalaparrafoa/edit.html.twig', array(
-            'atalaparrafoa' => $atalaparrafoa,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'id' => $atalaparrafoa->getId()
         ));
     }
 
