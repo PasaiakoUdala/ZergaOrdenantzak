@@ -10,7 +10,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
                             {% for azpiatala in atala.azpiatalak %}
-                                <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
+                                <li class="dropdown dropdown-submenu">
+                                    <a href="#{{ atala.kodea ~ azpiatala.kodea }}" class="dropdown-toggle" data-toggle="dropdown">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a>
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="#" class="btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
+                                    </ul>
+                                </li>
                             {% endfor %}
                             <li role="separator" class="divider"></li>
                             <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" >+ Azpiatal berria</a></li>
@@ -250,6 +256,9 @@
 
     </div>
 
+    <div id="divAzpiatalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    </div>
 
 
     {#
@@ -297,9 +306,18 @@
                 $('#divAtalaparrafoBerria').modal('toggle');
             });
 
+            $('.btnAzpiatalaparrafoBerria').on("click", function(e){
+                $('#divAzpiatalaparrafoBerria').empty();
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_azpiatalaparrafoa_new', { azpiatalaid: miid });
+                console.log(url);
+                $('#divAzpiatalaparrafoBerria').load(url);
+                $('#divAzpiatalaparrafoBerria').modal('toggle');
+            });
+
             $('.btnAzpiAtalBerria').on("click", function(e){
                 $('#divAzpiAtalBerria').empty();
-                var miid = $(this).data('atalaid');
+                var miid = $(this).data('azpiatalaid');
                 var url = Routing.generate('admin_azpiatala_new', { atalaid: miid });
                 $('#divAzpiAtalBerria').load(url);
                 $('#divAzpiAtalBerria').modal('toggle');
