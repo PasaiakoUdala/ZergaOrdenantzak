@@ -41,9 +41,7 @@ class AtalaController extends Controller
             $em->flush();
 
             return $this->redirect($request->headers->get('referer'));
-        } else {
-            dump( "Hodor" );
-        }
+        } 
 
         return $this->render('atala/new.html.twig', array(
             'atala' => $atala,

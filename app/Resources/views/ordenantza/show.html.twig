@@ -13,7 +13,7 @@
                                 <li><a href="#{{ atala.kodea ~ azpiatala.kodea }}">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a></li>
                             {% endfor %}
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">+ Azpiatal Berria</a></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" >+ Azpiatal berria</a></li>
                             <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
@@ -22,7 +22,7 @@
                     <li class="dropdown dropdown-submenu">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">+ Azpiatal Berria</a></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" >+ Azpiatal berria</a></li>
                             <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
@@ -246,6 +246,10 @@
         {{ render(controller('AppBundle:Ordenantzaparrafoa:new', {'ordenantzaid': ordenantza.id })) }}
     </div>
 
+    <div id="divAzpiAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    </div>
+
 
 
     {#
@@ -291,6 +295,14 @@
                 var url = Routing.generate('admin_atalaparrafoa_new', { atalaid: miid });
                 $('#divAtalaparrafoBerria').load(url);
                 $('#divAtalaparrafoBerria').modal('toggle');
+            });
+
+            $('.btnAzpiAtalBerria').on("click", function(e){
+                $('#divAzpiAtalBerria').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_azpiatala_new', { atalaid: miid });
+                $('#divAzpiAtalBerria').load(url);
+                $('#divAzpiAtalBerria').modal('toggle');
             });
 
             $.fn.editable.defaults.mode = 'inline';

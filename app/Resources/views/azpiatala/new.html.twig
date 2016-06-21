@@ -1,16 +1,45 @@
-{% extends 'base.html.twig' %}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form  name="form" method="post" action="{{ path('admin_azpiatala_new', {'atalaid':atalaid}) }}" role="form">
 
-{% block body %}
-    <h1>Azpiatala creation</h1>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Azpiatal berria</h4>
+            </div>
+            <div class="modal-body">
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                <div class="row">
+                    <div class="form-group  field-text">
+                        {{ form_label(form.kodea, 'Kodea', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.kodea) }}
+                        {{ form_widget(form.kodea, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.izenburuaeu, 'Izenburua', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.izenburuaeu) }}
+                            {{ form_widget(form.izenburuaeu, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.izenburuaes, 'Título', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.izenburuaes) }}
+                            {{ form_widget(form.izenburuaes, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_azpiatala_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                <button type="submit" class="btn btn-primary">Gorde</button>
+            </div>
+
+            <div style="display: none;">
+                {{ form_end(form) }}
+            </div>
+
+    </div>
+
+</div>
