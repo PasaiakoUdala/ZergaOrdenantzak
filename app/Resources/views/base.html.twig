@@ -14,31 +14,9 @@
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
     <style>
-        /* Make inline editables take the full width of their parents */
-        .editable-container.editable-inline,
-        .editable-container.editable-inline .control-group.form-group,
-        .editable-container.editable-inline .control-group.form-group .editable-input,
-        .editable-container.editable-inline .control-group.form-group .editable-input textarea,
-        .editable-container.editable-inline .control-group.form-group .editable-input select,
-        .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit])
-        {
-            width: 100%;
-        }
 
-        .editable-click, a.editable-click, a.editable-click:hover {
-            border-bottom:none;
-        }
-        .marginBottom-0 {margin-bottom:0;}
 
-        .dropdown-submenu{position:relative;}
-        .dropdown-submenu>.dropdown-menu{top:0;left:100%;margin-top:-6px;margin-left:-1px;-webkit-border-radius:0 6px 6px 6px;-moz-border-radius:0 6px 6px 6px;border-radius:0 6px 6px 6px;}
-        .dropdown-submenu>a:after{display:block;content:" ";float:right;width:0;height:0;border-color:transparent;border-style:solid;border-width:5px 0 5px 5px;border-left-color:#cccccc;margin-top:5px;margin-right:-10px;}
-        .dropdown-submenu:hover>a:after{border-left-color:#555;}
-        .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
-        body {
-            padding-top: 40px;
-            position: relative;
-        }
+
     </style>
 </head>
 
@@ -85,17 +63,29 @@
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
     <script>
-        (function($){
-            $(document).ready(function(){
-                $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    $(this).parent().siblings().removeClass('open');
-                    $(this).parent().toggleClass('open');
-                });
-                $('body').scrollspy({ target: '#navbar-example' })
-            });
-        })(jQuery);
+        var body = $('body');
+        body.scrollspy({
+            'target': '#nav',
+            'offset': 100 //this must match the window.scrollY below or you'll have a bad time mmkay
+        });
+
+        $(window).on("hashchange", function () {
+            window.scrollTo(window.scrollX, window.scrollY - 100);
+        });
+    </script>
+
+    <script>
+//        (function($){
+//            $(document).ready(function(){
+//                $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+//                    event.preventDefault();
+//                    event.stopPropagation();
+//                    $(this).parent().siblings().removeClass('open');
+//                    $(this).parent().toggleClass('open');
+//                });
+//                $('body').scrollspy({ target: '#navbar-example' })
+//            });
+//        })(jQuery);
     </script>
 
 {% endblock %}
