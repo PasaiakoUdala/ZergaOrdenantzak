@@ -19,7 +19,7 @@
                                 </li>
                             {% endfor %}
                             <li role="separator" class="divider"></li>
-                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" >+ Azpiatal berria</a></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-plus"></span> Azpiatal berria</a></li>
                             <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
@@ -28,14 +28,14 @@
                     <li class="dropdown dropdown-submenu">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" >+ Azpiatal berria</a></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-plus"></span> Azpiatal berria</a></li>
                             <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
                         </ul>
                     </li>
                 {% endif %}
             {% endfor %}
             <li role="separator" class="divider"></li>
-            <li><a href="#" data-toggle="modal" data-target="#divAtalBerria">+ Atal berria</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divAtalBerria"><span class="glyphicon glyphicon-plus"></span> Atal berria</a></li></a></li>
         </ul>
     </li>
 {% endblock %}
@@ -44,12 +44,9 @@
 {% block body %}
     <div class="row">&nbsp;</div>
 
-    {#<a href="#" class="btnAtalaparrafoBerria btn btn-primary" data-atalaid="5">FROGA</a>#}
-
-
-    <div class="row">
+    <div class="row ordenantza">
         <div class="col-xs-6">
-            <h4 class="editable2 ordenantza" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
+            <h4 class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
                 data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
                 data-type="wysihtml5" tabindex="-1" style="display: block;">
                 <button type="button" class="close btnEzabatu hide" data-toggle="modal"
@@ -72,8 +69,8 @@
     <div class="row">&nbsp;</div>
 
     {% for p in ordenantza.parrafoak %}
-        <div class="row row{{ loop.index }}">
-            <div class="col-xs-6 ordenantzaparrafoa">
+        <div class="row ordenantzaparrafoa">
+            <div class="col-xs-6">
                 <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
                      data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
                      tabindex="-1" style="display: block;">
@@ -84,7 +81,7 @@
                     {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
                 </div>
             </div>
-            <div class="col-xs-6 ordenantzaparrafoa">
+            <div class="col-xs-6">
                 <div class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
                      data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
                      tabindex="-1" style="display: block;">
@@ -100,8 +97,8 @@
 
         {% for atala in ordenantza.atalak %}
         {% if atala.utsa != 1 %}
-            <div class="row row{{ loop.index }}">
-                <div class="col-xs-6 atala">
+            <div class="row atala">
+                <div class="col-xs-6">
                     <h3 class="row-fluid col-md-12" id="{{ atala.kodea }}">
                         <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
                               data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
@@ -112,11 +109,13 @@
                         <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}"
                               data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            <button type="button" class="close btnEzabatuAtala" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
                             {{ atala.izenburuaeu }}
                         </span>
                     </h3>
                 </div>
-                <div class="col-xs-6 atala">
+                <div class="col-xs-6">
                     <h3 class="row-fluid col-md-12">
                         <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
                               data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
@@ -127,6 +126,8 @@
                         <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}"
                               data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            <button type="button" class="close btnEzabatuAtala" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
                             {{ atala.izenburuaes }}
                         </span>
                     </h3>
@@ -253,12 +254,14 @@
     </div>
 
     <div id="divAzpiAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
     </div>
 
     <div id="divAzpiatalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
     </div>
+
+    <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
 
 
     {#
@@ -285,8 +288,7 @@
         </div>
     </div>
 
-    <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
+    <div id="divEzabatuAtala" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
 {% endblock %}
@@ -296,18 +298,10 @@
 
     <script>
         function clickMe(obj){
-//            console.log("XIE");
-//            if($(obj).data('clicked') == 'true'){
-                location.href = $(obj).attr('href');
-//            }
-//            else {
-//                $(obj).data('clicked','true');
-//            }
+            location.href = $(obj).attr('href');
         }
 
         $(document).ready(function () {
-
-
 
             $('.btnAtalaparrafoBerria').on("click", function(e){
                 $('#divAtalaparrafoBerria').empty();
@@ -332,6 +326,19 @@
                 $('#divAzpiAtalBerria').load(url);
                 $('#divAzpiAtalBerria').modal('toggle');
             });
+
+            $('.btnEzabatuAtala').on('click', function(){
+
+                $('#divEzabatuAtala').empty();
+                var miid = $(this).data('miid');
+
+                var url = Routing.generate('admin_atala_ezabatu', { id: miid });
+                console.log(url);
+                $('#divEzabatuAtala').load(url);
+                $('#divEzabatuAtala').modal('toggle');
+
+            });
+
 
             $.fn.editable.defaults.mode = 'inline';
             var isAdmin = $('#isAdmin').val();

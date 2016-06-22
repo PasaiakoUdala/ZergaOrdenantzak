@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Proxies\__CG__\AppBundle\Entity\Atalaparrafoa;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -50,6 +51,25 @@ class AtalaController extends Controller
         ));
     }
 
+
+
+    /**
+     *
+     * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_atala_ezabatu")
+     * @Method("GET")
+     */
+    public function ezabatuAction(Atala $atala)
+    {
+
+        $deleteForm = $this->createDeleteForm($atala);
+
+        return $this->render('atala/_ataladeleteform.html.twig', array(
+            'delete_form' => $deleteForm->createView(),
+            'id' => $atala->getId()
+        ));
+    }
+    
+    
     /**
      * Deletes a Atala entity.
      *
@@ -67,7 +87,7 @@ class AtalaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_atala_index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
