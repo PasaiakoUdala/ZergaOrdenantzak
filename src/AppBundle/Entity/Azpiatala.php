@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Azpiatala
  *
  * @ORM\Table(name="azpiatala", indexes={@ORM\Index(name="atala_id_idx", columns={"atala_id"})})
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Azpiatala
@@ -19,12 +22,14 @@ class Azpiatala
      *
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
+     * @Expose
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -32,6 +37,7 @@ class Azpiatala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
      */
@@ -39,6 +45,7 @@ class Azpiatala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
      */
@@ -80,12 +87,14 @@ class Azpiatala
 
     /**
      * @var Azpiatalaparrafoa
+     * @expose
      * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
      */
     protected $parrafoak;
 
     /**
      * @var Kontzeptua
+     * @Expose
      * @ORM\OneToMany(targetEntity="Kontzeptua", mappedBy="azpiatala", cascade={"remove"})
      */
     protected $kontzeptuak;
@@ -104,7 +113,7 @@ class Azpiatala
 
     public function __toString()
     {
-        return $this->getKodea();
+        return $this->getIzenburuaeu();
     }
 
     /**

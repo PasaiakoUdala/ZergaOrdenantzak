@@ -51,8 +51,6 @@ class AtalaController extends Controller
         ));
     }
 
-
-
     /**
      *
      * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_atala_ezabatu")
@@ -60,7 +58,7 @@ class AtalaController extends Controller
      */
     public function ezabatuAction(Atala $atala)
     {
-
+            
         $deleteForm = $this->createDeleteForm($atala);
 
         return $this->render('atala/_ataladeleteform.html.twig', array(

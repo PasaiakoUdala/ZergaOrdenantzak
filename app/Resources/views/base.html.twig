@@ -14,7 +14,21 @@
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
     <style>
+        /* Make inline editables take the full width of their parents */
+        .editable-container.editable-inline,
+        .editable-container.editable-inline .control-group.form-group,
+        .editable-container.editable-inline .control-group.form-group .editable-input,
+        .editable-container.editable-inline .control-group.form-group .editable-input textarea,
+        .editable-container.editable-inline .control-group.form-group .editable-input select,
+        .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit])
+        {
+            width: 100%;
+        }
 
+        .editable-click, a.editable-click, a.editable-click:hover {
+            border-bottom:none !important;
+        }
+        .marginBottom-0 {margin-bottom:0;}
 
 
     </style>

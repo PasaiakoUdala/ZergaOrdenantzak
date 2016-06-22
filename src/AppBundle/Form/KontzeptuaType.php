@@ -20,8 +20,6 @@ class KontzeptuaType extends AbstractType
             ->add('kontzeptuaes')
             ->add('kopurua')
             ->add('unitatea')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
             ->add('azpiatala')
             ->add('baldintza')
             ->add('kontzeptumota')

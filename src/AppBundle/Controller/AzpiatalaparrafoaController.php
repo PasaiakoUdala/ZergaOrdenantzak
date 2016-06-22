@@ -55,7 +55,7 @@
 
         /**
          *
-         * @Route("/ezabatu/{id}", name="admin_azpiatalaparrafoa_ezabatu")
+         * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_azpiatalaparrafoa_ezabatu")
          * @Method("GET")
          */
         public function ezabatuAction(Azpiatalaparrafoa $azpiatalaparrafoa)
@@ -85,7 +85,7 @@
                 $em->flush();
             }
 
-            return $this->redirectToRoute( 'admin_azpiatalaparrafoa_index' );
+            return $this->redirect( $request->headers->get( 'referer' ) );
         }
 
         /**

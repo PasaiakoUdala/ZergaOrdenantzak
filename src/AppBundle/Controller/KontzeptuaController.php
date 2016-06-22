@@ -17,33 +17,21 @@ use AppBundle\Form\KontzeptuaType;
 class KontzeptuaController extends Controller
 {
     /**
-     * Lists all Kontzeptua entities.
-     *
-     * @Route("/", name="admin_kontzeptua_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $kontzeptuas = $em->getRepository('AppBundle:Kontzeptua')->findAll();
-
-        return $this->render('kontzeptua/index.html.twig', array(
-            'kontzeptuas' => $kontzeptuas,
-        ));
-    }
-
-    /**
      * Creates a new Kontzeptua entity.
      *
-     * @Route("/new", name="admin_kontzeptua_new")
+     * @Route("/new/{azpiatalaid}", options = { "expose" = true }, name="admin_kontzeptua_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $azpiatalaid)
     {
+        $em = $this->getDoctrine();
+
+        $azpiatala = $em->getRepository( 'AppBundle:Kontzeptua' )->find( $azpiatalaid );
         $kontzeptua = new Kontzeptua();
+        $kontzeptua->setAzpiatala( $azpiatala );
+        $kontzeptua->setUdala( $this->getUser()->getUdala() );
+
         $form = $this->createForm('AppBundle\Form\KontzeptuaType', $kontzeptua);
-        $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,55 +39,12 @@ class KontzeptuaController extends Controller
             $em->persist($kontzeptua);
             $em->flush();
 
-            return $this->redirectToRoute('admin_kontzeptua_show', array('id' => $kontzeptua->getId()));
+            return $this->redirect( $request->headers->get( 'referer' ) );
         }
 
         return $this->render('kontzeptua/new.html.twig', array(
             'kontzeptua' => $kontzeptua,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Kontzeptua entity.
-     *
-     * @Route("/{id}", name="admin_kontzeptua_show")
-     * @Method("GET")
-     */
-    public function showAction(Kontzeptua $kontzeptua)
-    {
-        $deleteForm = $this->createDeleteForm($kontzeptua);
-
-        return $this->render('kontzeptua/show.html.twig', array(
-            'kontzeptua' => $kontzeptua,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Kontzeptua entity.
-     *
-     * @Route("/{id}/edit", name="admin_kontzeptua_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Kontzeptua $kontzeptua)
-    {
-        $deleteForm = $this->createDeleteForm($kontzeptua);
-        $editForm = $this->createForm('AppBundle\Form\KontzeptuaType', $kontzeptua);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($kontzeptua);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_kontzeptua_edit', array('id' => $kontzeptua->getId()));
-        }
-
-        return $this->render('kontzeptua/edit.html.twig', array(
-            'kontzeptua' => $kontzeptua,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -120,7 +65,7 @@ class KontzeptuaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_kontzeptua_index');
+        return $this->redirect( $request->headers->get( 'referer' ) );
     }
 
     /**

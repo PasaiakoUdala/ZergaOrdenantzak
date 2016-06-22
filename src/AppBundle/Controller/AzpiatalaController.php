@@ -51,6 +51,22 @@ class AzpiatalaController extends Controller
     }
 
     /**
+     *
+     * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_azpiatala_ezabatu")
+     * @Method("GET")
+     */
+    public function ezabatuAction(Azpiatala $azpiatala)
+    {
+
+        $deleteForm = $this->createDeleteForm($azpiatala);
+
+        return $this->render('azpiatala/_azpiataladeleteform.html.twig', array(
+            'delete_form' => $deleteForm->createView(),
+            'id' => $azpiatala->getId()
+        ));
+    }
+
+    /**
      * Deletes a Azpiatala entity.
      *
      * @Route("/{id}", name="admin_azpiatala_delete")
@@ -67,7 +83,7 @@ class AzpiatalaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_azpiatala_index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**

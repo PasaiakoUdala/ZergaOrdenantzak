@@ -63,7 +63,7 @@ easy_admin_bundle:
 
 api_atala:
     type:     rest
-    resource: "@ApiBundle/Controller/AtalaController.php"
+    resource: "@ApiBundle/Controller/ApiController.php"
     prefix:   /api
 
 

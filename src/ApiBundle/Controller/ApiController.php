@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class AtalaController extends FOSRestController
+class ApiController extends FOSRestController
 {
     /**
      * Atal guztien zerrenda.
@@ -65,5 +65,33 @@ class AtalaController extends FOSRestController
         $atala = $em->getRepository('AppBundle:Atala')->findById($id);
         return $atala;
     }// "get_atala"            [GET] /atala/{id}
+
+
+    /**
+     * Azpiatal guztien zerrenda.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Azpiatal guztien zerrenda eskuratu",
+     *   statusCodes = {
+     *     200 = "Zuzena denean"
+     *   }
+     * )
+     *
+     *
+     * @return array data
+     *
+     * @Annotations\View()
+     */
+    public function getAzpiatalakAction()
+    {
+        $em         = $this->getDoctrine()->getManager();
+        $azpiatalak = $em->getRepository('AppBundle:Azpiatala')->findAll();
+        $view = View::create();
+        $view->setData($azpiatalak);
+        return $view;
+
+    }// "get_azpiatalak"            [GET] /azpiatalak
+
 
 }

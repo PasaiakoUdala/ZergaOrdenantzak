@@ -2,13 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Atala;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Atalaparrafoa;
 use AppBundle\Form\AtalaparrafoaType;
+use AppBundle\Entity\Atala;
 
 /**
  * Atalaparrafoa controller.
@@ -54,11 +54,12 @@ class AtalaparrafoaController extends Controller
 
     /**
      *
-     * @Route("/ezabatu/{id}", name="admin_atalaparrafoa_ezabatu")
+     * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_atalaparrafoa_ezabatu")
      * @Method("GET")
      */
     public function ezabatuAction(Atalaparrafoa $atalaparrafoa)
     {
+
         $deleteForm = $this->createDeleteForm($atalaparrafoa);
 
         return $this->render('atalaparrafoa/_atalaparrafoadeleteform.html.twig', array(
@@ -84,7 +85,7 @@ class AtalaparrafoaController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_atalaparrafoa_index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**

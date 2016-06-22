@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Atala
  *
  * @ORM\Table(name="atala", indexes={@ORM\Index(name="ordenantza_id_idx", columns={"ordenantza_id"})})
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Atala
@@ -25,6 +28,7 @@ class Atala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -32,6 +36,7 @@ class Atala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
@@ -39,6 +44,7 @@ class Atala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaes", type="string", length=255, nullable=true)
      */
