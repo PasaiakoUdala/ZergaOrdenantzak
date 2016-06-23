@@ -4,6 +4,20 @@ body {
     padding-top: 70px !important;
 }
 
+
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -168px; /* half width of the spinner gif */
+    margin-top: -177px; /* half height of the spinner gif */
+    text-align:center;
+    z-index:1234;
+    overflow: auto;
+    width: 336px; /* width of the spinner gif */
+    height: 354px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
+
 .starter-template {
     padding: 40px 15px;
     text-align: center;

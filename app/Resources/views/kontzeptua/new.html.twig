@@ -1,16 +1,65 @@
-{% extends 'base.html.twig' %}
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <form  name="form" method="post" action="{{ path('admin_kontzeptua_new', {'azpiatalaid':azpiatalaid}) }}" role="form">
 
-{% block body %}
-    <h1>Kontzeptua creation</h1>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Azpiatal berria</h4>
+            </div>
+            <div class="modal-body">
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                <div class="row">
+                    <div class="form-group  field-text">
+                        {{ form_label(form.kodea, 'Kodea', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.kodea) }}
+                        {{ form_widget(form.kodea, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.kontzeptuaeu, 'Kontzeptua', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.kontzeptuaeu) }}
+                            {{ form_widget(form.kontzeptuaeu, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.kontzeptuaes, 'Concepto', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.kontzeptuaes) }}
+                            {{ form_widget(form.kontzeptuaes, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group  field-text">
+                        {{ form_label(form.kopurua, 'kopurua', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.kopurua) }}
+                        {{ form_widget(form.kopurua, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group  field-text">
+                        {{ form_label(form.unitatea, 'unitatea', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.unitatea) }}
+                        {{ form_widget(form.unitatea, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group  field-text">
+                        {{ form_label(form.baldintza, 'baldintza', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.baldintza) }}
+                        {{ form_widget(form.baldintza, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group  field-text">
+                        {{ form_label(form.kontzeptumota, 'kontzeptumota', { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.kontzeptumota) }}
+                        {{ form_widget(form.kontzeptumota, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_kontzeptua_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                <button type="submit" class="btn btn-primary">Gorde</button>
+            </div>
+
+            <div style="display: vissible;">
+                {{ form_end(form) }}
+            </div>
+
+    </div>
+
+</div>

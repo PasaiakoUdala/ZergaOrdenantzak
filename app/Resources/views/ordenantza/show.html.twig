@@ -316,7 +316,9 @@
 
     <div id="divEzabatuAzpiAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
-
+    <div id="loading" style="display:none;">
+        <p><img src="{{ asset('bundles/app/img/loading.svg') }}" /> Kargatzen...</p>
+    </div>
 
 {% endblock %}
 
@@ -328,7 +330,29 @@
             location.href = $(obj).attr('href');
         }
 
+        $(document).ajaxStart(function(){
+            console.log("hasi");
+            $('#loading').show();
+        }).ajaxStop(function(){
+            console.log("amaitu");
+            $('#loading').hide();
+        });
+
         $(document).ready(function () {
+
+            $("#loading").bind("ajaxSend", function() {
+                $(this).show();
+            }).bind("ajaxStop", function() {
+                $(this).hide();
+            }).bind("ajaxError", function() {
+                $(this).hide();
+            });
+
+
+
+
+
+
 
             $('.btnAtalaparrafoBerria').on("click", function(e){
                 $('#divAtalaparrafoBerria').empty();
@@ -357,7 +381,7 @@
             $('.btnKontzeptuBerria').on("click", function(e){
                 $('#divKontzeptuBerria').empty();
                 var miid = $(this).data('azpiatalaid');
-                var url = Routing.generate('admin_kontzeptua_new', { azpiatala: miid });
+                var url = Routing.generate('admin_kontzeptua_new', { azpiatalaid: miid });
                 $('#divKontzeptuBerria').load(url);
                 $('#divKontzeptuBerria').modal('toggle');
             });
