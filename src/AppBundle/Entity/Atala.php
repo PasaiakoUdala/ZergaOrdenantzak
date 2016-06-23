@@ -38,9 +38,24 @@ class Atala
      * @var string
      * @Expose
      *
+     * @ORM\Column(name="kodea_real", type="string", length=9, nullable=true)
+     */
+    private $kodea_prod;
+
+    /**
+     * @var string
+     * @Expose
+     *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
     private $izenburuaeu;
+    /**
+     * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="izenburuaeu_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaeu_prod;
 
     /**
      * @var string
@@ -51,11 +66,26 @@ class Atala
     private $izenburuaes;
 
     /**
+     * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="izenburuaes_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaes_prod;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="utsa", type="boolean", nullable=true)
      */
     private $utsa;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="utsa_prod", type="boolean", nullable=true)
+     */
+    private $utsa_prod;
 
     /**
      * @var \DateTime

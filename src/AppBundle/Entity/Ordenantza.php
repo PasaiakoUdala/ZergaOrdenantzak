@@ -33,9 +33,23 @@ class Ordenantza
     /**
      * @var string
      *
+     * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
+     */
+    private $kodea_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
     private $izenburuaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="izenburuaeu_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaeu_prod;
 
     /**
      * @var string
@@ -44,7 +58,14 @@ class Ordenantza
      */
     private $izenburuaes;
 
-    /**
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="izenburuaes_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaes_prod;
+
+   /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)

@@ -39,6 +39,14 @@ class Azpiatala
      * @var string
      * @Expose
      *
+     * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
+     */
+    private $kodea_prod;
+
+    /**
+     * @var string
+     * @Expose
+     *
      * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
      */
     private $izenburuaeu;
@@ -47,9 +55,25 @@ class Azpiatala
      * @var string
      * @Expose
      *
+     * @ORM\Column(name="izenburuaeu_prod", type="text", length=65535, nullable=true)
+     */
+    private $izenburuaeu_prod;
+
+    /**
+     * @var string
+     * @Expose
+     *
      * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
      */
     private $izenburuaes;
+
+    /**
+     * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="izenburuaes_prod", type="text", length=65535, nullable=true)
+     */
+    private $izenburuaes_prod;
 
     /**
      * @var \DateTime

@@ -29,6 +29,13 @@ class Ordenantzaparrafoa
     private $ordena;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordena_prod", type="bigint", nullable=true)
+     */
+    private $ordena_prod;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="testuaeu", type="text", length=65535, nullable=true)
@@ -38,9 +45,23 @@ class Ordenantzaparrafoa
     /**
      * @var string
      *
+     * @ORM\Column(name="testuaeu_prod", type="text", length=65535, nullable=true)
+     */
+    private $testuaeu_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="testuaes", type="text", length=65535, nullable=true)
      */
     private $testuaes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="testuaes_prod", type="text", length=65535, nullable=true)
+     */
+    private $testuaes_prod;
 
     /**
      * @var \DateTime
