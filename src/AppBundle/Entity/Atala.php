@@ -88,6 +88,13 @@ class Atala
     private $utsa_prod;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
+     */
+    private $ezabatu;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -101,6 +108,7 @@ class Atala
      */
     private $updatedAt;
 
+    
 
     /**
      * ************************************************************************************************************************************************************************

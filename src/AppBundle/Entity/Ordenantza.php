@@ -65,6 +65,13 @@ class Ordenantza
      */
     private $izenburuaes_prod;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
+     */
+    private $ezabatu;
+
    /**
      * @var \DateTime
      *
