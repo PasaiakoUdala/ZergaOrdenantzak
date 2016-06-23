@@ -53,6 +53,23 @@
             );
         }
 
+
+        /**
+         *
+         * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_kontzeptua_ezabatu")
+         * @Method("GET")
+         */
+        public function ezabatuAction(Kontzeptua $kontzeptua)
+        {
+
+            $deleteForm = $this->createDeleteForm($kontzeptua);
+
+            return $this->render(':kontzeptua:_kontzeptuadeleteform.html.twig', array(
+                'delete_form' => $deleteForm->createView(),
+                'id' => $kontzeptua->getId()
+            ));
+        }
+        
         /**
          * Deletes a Kontzeptua entity.
          *

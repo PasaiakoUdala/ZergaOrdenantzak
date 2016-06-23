@@ -217,6 +217,8 @@
                             <div href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
                                  data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
                                  data-type="wysihtml5">
+                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
                                 {{ k.kontzeptuaeu }}
                             </div>
                         </td>
@@ -237,6 +239,8 @@
                             <div id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
                                  data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
                                  data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
                                 {{ k.kontzeptuaes }}
                             </div>
                         </td>
@@ -316,6 +320,10 @@
 
     <div id="divEzabatuAzpiAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
+
+    <div id="divEzabatuKontzeptua" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
     <div id="loading" style="display:none;">
         <p><img src="{{ asset('bundles/app/img/loading.svg') }}" /> Kargatzen...</p>
     </div>
@@ -339,20 +347,6 @@
         });
 
         $(document).ready(function () {
-
-            $("#loading").bind("ajaxSend", function() {
-                $(this).show();
-            }).bind("ajaxStop", function() {
-                $(this).hide();
-            }).bind("ajaxError", function() {
-                $(this).hide();
-            });
-
-
-
-
-
-
 
             $('.btnAtalaparrafoBerria').on("click", function(e){
                 $('#divAtalaparrafoBerria').empty();
@@ -416,11 +410,17 @@
                 $('#divEzabatuAzpiAtalaParrafoa').empty();
                 var miid = $(this).data('miid');
                 var url = Routing.generate('admin_azpiatalaparrafoa_ezabatu', { id: miid });
-                console.log(url);
                 $('#divEzabatuAzpiAtalaParrafoa').load(url);
                 $('#divEzabatuAzpiAtalaParrafoa').modal('toggle');
             });
 
+            $('.btnEzabatuKontzeptua').on('click', function(){
+                $('#divEzabatuKontzeptua').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_kontzeptua_ezabatu', { id: miid });
+                $('#divEzabatuKontzeptua').load(url);
+                $('#divEzabatuKontzeptua').modal('toggle');
+            });
 
 
             $.fn.editable.defaults.mode = 'inline';
