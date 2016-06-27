@@ -10,8 +10,6 @@
                 <th>Kodea</th>
                 <th>Izenburuaeu</th>
                 <th>Izenburuaes</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,8 +20,6 @@
                 <td>{{ ordenantza.kodea }}</td>
                 <td>{{ ordenantza.izenburuaeu }}</td>
                 <td>{{ ordenantza.izenburuaes }}</td>
-                <td>{% if ordenantza.createdAt %}{{ ordenantza.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if ordenantza.updatedAt %}{{ ordenantza.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                     <ul>
                         <li>
