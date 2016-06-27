@@ -43,6 +43,7 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>
         <li><a href="{{ path('admin_historikoa_new', {'ordenantzaid': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>
         <li>&nbspp;</li>
     </ul>

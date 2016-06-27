@@ -139,7 +139,7 @@ class HistorikoaController extends Controller
             $em->persist($historikoa);
             $em->flush();
 
-            return $this->redirectToRoute('admin_historikoa_show', array('id' => $historikoa->getId()));
+            return $this->redirectToRoute('admin_historikoa_index');
         }
 
         return $this->render('historikoa/new.html.twig', array(

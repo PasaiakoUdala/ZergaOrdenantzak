@@ -1,57 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Historikoa list</h1>
+    <h1>Historikoa</h1>
 
-    <table>
+    <table class="table table-striped table-striped table-hover">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Onartzedata</th>
-                <th>Bogargitaratzedata</th>
-                <th>Bogestekaeu</th>
-                <th>Bogestekaes</th>
-                <th>Indarreandata</th>
-                <th>Aldaketakeu</th>
-                <th>Aldaketakes</th>
+                <th>Onartze Data</th>
+                <th>B.O.G. Argitaratze Data</th>
+                <th>Aldaketak</th>
                 <th>Fitxategia</th>
-                <th>Createdat</th>
-                <th>Updatedat</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for historikoa in historikoas %}
             <tr>
-                <td><a href="{{ path('admin_historikoa_show', { 'id': historikoa.id }) }}">{{ historikoa.id }}</a></td>
-                <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ historikoa.bogestekaeu }}</td>
-                <td>{{ historikoa.bogestekaes }}</td>
-                <td>{% if historikoa.indarreandata %}{{ historikoa.indarreandata|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ historikoa.aldaketakeu }}</td>
-                <td>{{ historikoa.aldaketakes }}</td>
-                <td>{{ historikoa.fitxategia }}</td>
-                <td>{% if historikoa.createdAt %}{{ historikoa.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if historikoa.updatedAt %}{{ historikoa.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_historikoa_show', { 'id': historikoa.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_historikoa_edit', { 'id': historikoa.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y/m/d') }}{% endif %}</td>
+                <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}</td>
+                <td>{{ historikoa.aldaketakeu |raw}}</td>
+                <td><a href="#">PDF</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_historikoa_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

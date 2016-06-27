@@ -109,6 +109,8 @@ class Historikoa
     
     public function __construct()
     {
+        $this->createdAt = New \DateTime();
+        $this->updatedAt = New \DateTime();
     }
 
     public function __toString()

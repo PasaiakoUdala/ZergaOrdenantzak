@@ -51,8 +51,8 @@ class DefaultController extends Controller
 
 //        $file = file_put_contents('doc/froga.html', $html);
 
-        $reader = IOFactory::createReader('HTML');
-        $phpWord = $reader->load("doc/froga.html");
+//        $reader = IOFactory::createReader('HTML');
+//        $phpWord = $reader->load("doc/froga.html");
 
 //        $section->addText('By default, when you insert an image, it adds a textbreak after its content.');
 //        $section->addText('If we want a simple border around an image, we wrap the image inside a table->row->cell');
