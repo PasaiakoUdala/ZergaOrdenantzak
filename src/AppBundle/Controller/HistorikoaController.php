@@ -2,6 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Atala;
+use AppBundle\Entity\Atalaparrafoa;
+use AppBundle\Entity\Azpiatala;
+use AppBundle\Entity\Azpiatalaparrafoa;
+use AppBundle\Entity\Kontzeptua;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -36,18 +41,101 @@ class HistorikoaController extends Controller
     /**
      * Creates a new Historikoa entity.
      *
-     * @Route("/new", name="admin_historikoa_new")
+     * @Route("/new/{ordenantzaid}", name="admin_historikoa_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $ordenantzaid)
     {
+        /* PDF-a sortu */
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $ordenantzaid );
+
+        /* Begiratu ezabatze marka duen, baldin badu ezabatu */
+
+        if ( $ordenantza->getEzabatu() == 1 ){
+            $em->remove( $ordenantza );
+        } else {
+
+            /* Historikora pasa, hau da prod eremuetara */
+
+            $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
+            $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
+
+            foreach ( $ordenantza->getAtalak() as $atala  ) {
+
+                if ( $atala->getEzabatu() == 1 ) {
+                    $em->remove( $atala );
+                } else {
+                    $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
+                    $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
+                    $atala->setKodeaProd( $atala->getKodea() );
+                    $atala->setUtsaProd( $atala->getUtsa() );
+
+                    foreach ($atala->getParrafoak() as $atalaparrafoa ) {
+                        if ($atalaparrafoa->getEzabatu()==1){
+                            $em->remove( $atalaparrafoa );
+                        } else {
+                            $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
+                            $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
+                            $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
+                        }
+                    }
+
+
+                    foreach ($atala->getAzpiatalak() as $azpiatala) {
+                        if ($azpiatala->getEzabatu()==1){
+                            $em->remove( $azpiatala );
+                        } else {
+                            $azpiatala->setKodeaProd( $azpiatala->getKodea() );
+                            $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
+                            $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
+                            foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
+
+                                if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
+                                    $em->remove( $azpiatalaparrafoa );
+                                } else {
+                                    $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
+                                    $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
+                                    $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
+
+                                }
+                            }
+
+
+                            foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+
+                                if ( $kontzeptua->getEzabatu() == 1 ) {
+                                    $em->remove( $kontzeptua );
+                                } else {
+                                    $kontzeptua = new Kontzeptua();
+                                    $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
+                                    $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
+                                    $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
+                                    $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
+                                    $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        $em->flush();
+        
+        
+        
+        
         $historikoa = new Historikoa();
         $form = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
         $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($historikoa);
             $em->flush();
 

@@ -11,6 +11,7 @@
 
     <link href="{{ asset('bundles/app/css/bootstrap-editable.css') }}" rel="stylesheet" href="">
     <link href="{{ asset('bundles/app/css/3/bootstrap-wysihtml5-0.0.3.css') }}" rel="stylesheet" href="">
+    <link href="{{ asset('bundles/app/css/calendar/bootstrap-datepicker3.min.css') }}" rel="stylesheet" href="">
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
     <style>
@@ -53,6 +54,10 @@
                 {% block nav %}
                 {% endblock %}
             </ul>
+            {% block navright %}
+
+            {% endblock %}
+
         </div><!-- /.navbar-collapse -->
     </nav>
 
@@ -72,6 +77,10 @@
     <script src="{{ asset('bundles/app/js/3/wysihtml5-0.3.0.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/3/bootstrap-wysihtml5-0.0.3.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/3/wysihtml5-0.0.3.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/calendar/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/calendar/bootstrap-datepicker.es.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/calendar/bootstrap-datepicker.eu.min.js') }}"></script>
+
 
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -85,6 +94,16 @@
 
         $(window).on("hashchange", function () {
             window.scrollTo(window.scrollX, window.scrollY - 100);
+        });
+
+        $(document).ready(function(){
+            $('.js-datepicker').datepicker({
+                format: 'yyyy/mm/dd',
+                todayBtn: "linked",
+                language: "eu",
+                autoclose: true,
+                todayHighlight: true
+            });
         });
     </script>
 

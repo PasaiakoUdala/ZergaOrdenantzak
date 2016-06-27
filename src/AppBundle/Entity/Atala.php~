@@ -3,12 +3,17 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Atala
  *
  * @ORM\Table(name="atala", indexes={@ORM\Index(name="ordenantza_id_idx", columns={"ordenantza_id"})})
  * @ORM\Entity
+ * @ExclusionPolicy("all")
+ * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Atala
 {
@@ -23,6 +28,7 @@ class Atala
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -30,17 +36,42 @@ class Atala
 
     /**
      * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="kodea_real", type="string", length=9, nullable=true)
+     */
+    private $kodea_prod;
+
+    /**
+     * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
     private $izenburuaeu;
+    /**
+     * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="izenburuaeu_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaeu_prod;
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaes", type="string", length=255, nullable=true)
      */
     private $izenburuaes;
+
+    /**
+     * @var string
+     * @Expose
+     *
+     * @ORM\Column(name="izenburuaes_prod", type="string", length=255, nullable=true)
+     */
+    private $izenburuaes_prod;
 
     /**
      * @var bool
@@ -48,6 +79,20 @@ class Atala
      * @ORM\Column(name="utsa", type="boolean", nullable=true)
      */
     private $utsa;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="utsa_prod", type="boolean", nullable=true)
+     */
+    private $utsa_prod;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
+     */
+    private $ezabatu;
 
     /**
      * @var \DateTime
@@ -63,6 +108,7 @@ class Atala
      */
     private $updatedAt;
 
+    
 
     /**
      * ************************************************************************************************************************************************************************

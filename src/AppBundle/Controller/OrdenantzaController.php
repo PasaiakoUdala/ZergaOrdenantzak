@@ -118,7 +118,6 @@ class OrdenantzaController extends Controller
         return $response;
     }
 
-
     /**
      * @Route("/eguneratuatalaparrafoa/{id}", name="admin_ordenantza_atalaparrafoa_eguneratu")
      * @Method("POST")

@@ -31,9 +31,23 @@ class Kontzeptua
     /**
      * @var string
      *
+     * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
+     */
+    private $kodea_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="kontzeptuaeu", type="text", length=65535, nullable=true)
      */
     private $kontzeptuaeu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="kontzeptuaeu_prod", type="text", length=65535, nullable=true)
+     */
+    private $kontzeptuaeu_prod;
 
     /**
      * @var string
@@ -45,6 +59,13 @@ class Kontzeptua
     /**
      * @var string
      *
+     * @ORM\Column(name="kontzeptuaes_prod", type="text", length=65535, nullable=true)
+     */
+    private $kontzeptuaes_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="kopurua", type="string", length=50, nullable=true)
      */
     private $kopurua;
@@ -52,9 +73,30 @@ class Kontzeptua
     /**
      * @var string
      *
+     * @ORM\Column(name="kopurua_prod", type="string", length=50, nullable=true)
+     */
+    private $kopurua_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="unitatea", type="string", length=50, nullable=true)
      */
     private $unitatea;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unitatea_prod", type="string", length=50, nullable=true)
+     */
+    private $unitatea_prod;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
+     */
+    private $ezabatu;
 
     /**
      * @var \DateTime

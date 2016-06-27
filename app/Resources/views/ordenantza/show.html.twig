@@ -5,12 +5,12 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ordenantza.izenburuaeu | capitalize }} <b
                     class="caret"></b></a>
         <ul class="dropdown-menu">
-            {% for atala in ordenantza.atalak %}
+            {% for atala in ordenantza.atalak  if atala.ezabatu != 1 %}
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
                     <li class="dropdown dropdown-submenu ">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);"  >{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
                         <ul class="dropdown-menu">
-                            {% for azpiatala in atala.azpiatalak %}
+                            {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu != 1 %}
                                 <li class="dropdown dropdown-submenu">
                                     <a href="#{{ atala.kodea ~ azpiatala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a>
                                     <ul class="dropdown-menu">
@@ -41,6 +41,12 @@
     </li>
 {% endblock %}
 
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('admin_historikoa_new', {'ordenantzaid': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
 
 {% block body %}
     <div class="row">&nbsp;</div>
@@ -69,7 +75,7 @@
     </div>
     <div class="row">&nbsp;</div>
 
-    {% for p in ordenantza.parrafoak %}
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
         <div class="row ordenantzaparrafoa">
             <div class="col-xs-6">
                 <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
@@ -96,7 +102,7 @@
 
     <div class="row">&nbsp;</div>
 
-        {% for atala in ordenantza.atalak %}
+        {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
         {% if atala.utsa != 1 %}
             <div class="row atala">
                 <div class="col-xs-6">
@@ -135,7 +141,7 @@
                 </div>
             </div>
 
-            {% for p in atala.parrafoak %}
+            {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
                 <div class="row atalaparrafoa">
                     <div class="editable2 col-xs-6" data-name="testuaeu" data-pk="{{ p.id }}"
                          data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
@@ -157,8 +163,8 @@
 
         {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
 
-        {% for azpiatala in atala.azpiatalak %}
-            {% for p in azpiatala.parrafoak %}
+        {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
                 <div class="row azpiatala">
                     <div class="col-xs-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}"
                          data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
@@ -211,7 +217,7 @@
                     </span>
                 </th>
                 <tbody>
-                {% for k in azpiatala.kontzeptuak %}
+                {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                     <tr>
                         <td class="col-md-4">
                             <div href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"

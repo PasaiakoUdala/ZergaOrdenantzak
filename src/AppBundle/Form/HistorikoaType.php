@@ -2,9 +2,11 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class HistorikoaType extends AbstractType
 {
@@ -15,16 +17,41 @@ class HistorikoaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('onartzedata', 'date')
-            ->add('bogargitaratzedata', 'date')
+            ->add('onartzedata', DateType::class, array(
+                'widget' => 'single_text',
+
+                // do not render as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // add a class that can eb selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],
+            ))
+            ->add('bogargitaratzedata', DateType::class, array(
+                'widget' => 'single_text',
+
+                // do not render as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // add a class that can eb selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],
+            ))
             ->add('bogestekaeu')
             ->add('bogestekaes')
-            ->add('indarreandata', 'date')
-            ->add('aldaketakeu')
-            ->add('aldaketakes')
-            ->add('fitxategia')
-            ->add('createdAt', 'datetime')
-            ->add('updatedAt', 'datetime')
+            ->add('indarreandata', DateType::class, array(
+                'widget' => 'single_text',
+
+                // do not render as type="date", to avoid HTML5 date pickers
+                'html5' => false,
+
+                // add a class that can eb selected in JavaScript
+                'attr' => ['class' => 'js-datepicker'],
+            ))
+            ->add('aldaketakeu',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
+            ->add('aldaketakes',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
         ;
     }
     

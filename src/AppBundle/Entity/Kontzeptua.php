@@ -450,4 +450,148 @@ class Kontzeptua
     {
         return $this->udala;
     }
+
+    /**
+     * Set kodeaProd
+     *
+     * @param string $kodeaProd
+     *
+     * @return Kontzeptua
+     */
+    public function setKodeaProd($kodeaProd)
+    {
+        $this->kodea_prod = $kodeaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kodeaProd
+     *
+     * @return string
+     */
+    public function getKodeaProd()
+    {
+        return $this->kodea_prod;
+    }
+
+    /**
+     * Set kontzeptuaeuProd
+     *
+     * @param string $kontzeptuaeuProd
+     *
+     * @return Kontzeptua
+     */
+    public function setKontzeptuaeuProd($kontzeptuaeuProd)
+    {
+        $this->kontzeptuaeu_prod = $kontzeptuaeuProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kontzeptuaeuProd
+     *
+     * @return string
+     */
+    public function getKontzeptuaeuProd()
+    {
+        return $this->kontzeptuaeu_prod;
+    }
+
+    /**
+     * Set kontzeptuaesProd
+     *
+     * @param string $kontzeptuaesProd
+     *
+     * @return Kontzeptua
+     */
+    public function setKontzeptuaesProd($kontzeptuaesProd)
+    {
+        $this->kontzeptuaes_prod = $kontzeptuaesProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kontzeptuaesProd
+     *
+     * @return string
+     */
+    public function getKontzeptuaesProd()
+    {
+        return $this->kontzeptuaes_prod;
+    }
+
+    /**
+     * Set kopuruaProd
+     *
+     * @param string $kopuruaProd
+     *
+     * @return Kontzeptua
+     */
+    public function setKopuruaProd($kopuruaProd)
+    {
+        $this->kopurua_prod = $kopuruaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kopuruaProd
+     *
+     * @return string
+     */
+    public function getKopuruaProd()
+    {
+        return $this->kopurua_prod;
+    }
+
+    /**
+     * Set unitateaProd
+     *
+     * @param string $unitateaProd
+     *
+     * @return Kontzeptua
+     */
+    public function setUnitateaProd($unitateaProd)
+    {
+        $this->unitatea_prod = $unitateaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get unitateaProd
+     *
+     * @return string
+     */
+    public function getUnitateaProd()
+    {
+        return $this->unitatea_prod;
+    }
+
+    /**
+     * Set ezabatu
+     *
+     * @param boolean $ezabatu
+     *
+     * @return Kontzeptua
+     */
+    public function setEzabatu($ezabatu)
+    {
+        $this->ezabatu = $ezabatu;
+
+        return $this;
+    }
+
+    /**
+     * Get ezabatu
+     *
+     * @return boolean
+     */
+    public function getEzabatu()
+    {
+        return $this->ezabatu;
+    }
 }

@@ -435,4 +435,124 @@ class Atala
     {
         return $this->udala;
     }
+
+    /**
+     * Set kodeaProd
+     *
+     * @param string $kodeaProd
+     *
+     * @return Atala
+     */
+    public function setKodeaProd($kodeaProd)
+    {
+        $this->kodea_prod = $kodeaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kodeaProd
+     *
+     * @return string
+     */
+    public function getKodeaProd()
+    {
+        return $this->kodea_prod;
+    }
+
+    /**
+     * Set izenburuaeuProd
+     *
+     * @param string $izenburuaeuProd
+     *
+     * @return Atala
+     */
+    public function setIzenburuaeuProd($izenburuaeuProd)
+    {
+        $this->izenburuaeu_prod = $izenburuaeuProd;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaeuProd
+     *
+     * @return string
+     */
+    public function getIzenburuaeuProd()
+    {
+        return $this->izenburuaeu_prod;
+    }
+
+    /**
+     * Set izenburuaesProd
+     *
+     * @param string $izenburuaesProd
+     *
+     * @return Atala
+     */
+    public function setIzenburuaesProd($izenburuaesProd)
+    {
+        $this->izenburuaes_prod = $izenburuaesProd;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaesProd
+     *
+     * @return string
+     */
+    public function getIzenburuaesProd()
+    {
+        return $this->izenburuaes_prod;
+    }
+
+    /**
+     * Set utsaProd
+     *
+     * @param boolean $utsaProd
+     *
+     * @return Atala
+     */
+    public function setUtsaProd($utsaProd)
+    {
+        $this->utsa_prod = $utsaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get utsaProd
+     *
+     * @return boolean
+     */
+    public function getUtsaProd()
+    {
+        return $this->utsa_prod;
+    }
+
+    /**
+     * Set ezabatu
+     *
+     * @param boolean $ezabatu
+     *
+     * @return Atala
+     */
+    public function setEzabatu($ezabatu)
+    {
+        $this->ezabatu = $ezabatu;
+
+        return $this;
+    }
+
+    /**
+     * Get ezabatu
+     *
+     * @return boolean
+     */
+    public function getEzabatu()
+    {
+        return $this->ezabatu;
+    }
 }

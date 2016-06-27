@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotation\UdalaEgiaztatu;
 
 /**
  * Azpiatalaparrafoa
  *
  * @ORM\Table(name="azpiatalaparrafoa", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"})})
  * @ORM\Entity
+ * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Azpiatalaparrafoa
 {
@@ -29,6 +31,13 @@ class Azpiatalaparrafoa
     private $ordena;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordena_prod", type="bigint", nullable=true)
+     */
+    private $ordena_prod;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="testuaeu", type="text", length=65535, nullable=true)
@@ -38,9 +47,30 @@ class Azpiatalaparrafoa
     /**
      * @var string
      *
+     * @ORM\Column(name="testuaeu_prod", type="text", length=65535, nullable=true)
+     */
+    private $testuaeu_prod;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="testuaes", type="text", length=65535, nullable=true)
      */
     private $testuaes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="testuaes_prod", type="text", length=65535, nullable=true)
+     */
+    private $testuaes_prod;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
+     */
+    private $ezabatu;
 
     /**
      * @var \DateTime

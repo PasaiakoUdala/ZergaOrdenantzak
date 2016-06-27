@@ -81,7 +81,15 @@ class AtalaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($atala);
+            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+            bestela marka ezarri */
+            if ( $atala->getEzabatu() == 1 ) {
+                $em->remove($atala);
+            } else {
+                $atala->setEzabatu( 1 );
+                $em->persist( $atala );
+            }
+
             $em->flush();
         }
 
