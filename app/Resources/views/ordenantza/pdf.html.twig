@@ -1,0 +1,65 @@
+
+<table style="border: 0px;" cellspacing="0" cellpadding="4">
+    <tr>
+        <td>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</td>
+        <td>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</td>
+    </tr>
+
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+        <tr>
+            <td>{{ p.testuaeu | raw }}</td>
+            <td>{{ p.testuaes | raw }}</td>
+        </tr>
+    {% endfor %}
+
+    {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
+        {% if atala.utsa != 1 %}
+            <tr>
+                <td>{{ atala.kodea }} - {{ atala.izenburuaeu }}</td>
+                <td>{{ atala.kodea }} - {{ atala.izenburuaes }}</td>
+            </tr>
+
+            {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
+                <tr>
+                    <td>{{ p.testuaeu | raw }}</td>
+                    <td>{{ p.testuaes | raw }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+        {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                <tr>
+                    <td>{{ p.testuaeu | raw }}</td>
+                    <td>{{ p.testuaes | raw }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">
+                    <table style="border: 1px solid #c3c3c3; width: 100%;">
+                        <thead>
+                            <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu }}</th>
+                            <th style="width:10%;">&nbsp;</th>
+                            <th style="width:10%;">&nbsp;</th>
+                            <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes }}</th>
+                        </thead>
+                        <tbody>
+                        {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                            <tr>
+                                <td style="border: 1px solid #c3c3c3; width:40%;">{{ k.kontzeptuaeu }}</td>
+                                <td style="border: 1px solid #c3c3c3; width:10%;">{{ k.kopurua }}</td>
+                                <td style="border: 1px solid #c3c3c3; width:10%;">{{ k.unitatea }}</td>
+                                <td style="border: 1px solid #c3c3c3; width:40%;">{{ k.kontzeptuaes }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+
+        {% endfor %}
+
+    {% endfor %}
+
+</table>

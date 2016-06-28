@@ -45,10 +45,12 @@
         "nelmio/api-doc-bundle": "^2.12",
         "fortawesome/font-awesome": "~4.0",
         "phpoffice/phpword": "^0.12.1",
+        "tecnickcom/tcpdf": "^6.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "guzzlehttp/guzzle": "^6.2",
         "egeloen/ckeditor-bundle": "^4.0",
-        "friendsofsymfony/jsrouting-bundle": "^1.6"
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
+        "whiteoctober/tcpdf-bundle": "^1.0"
 
     },
     "require-dev": {

@@ -314,6 +314,32 @@ class OrdenantzaController extends Controller
     }
 
     /**
+     * Finds and displays a Ordenantza entity.
+     *
+     * @Route("/pdf/{id}", name="admin_ordenantza_show_pdf")
+     * @Method("GET")
+     */
+    public function showpdfAction(Ordenantza $ordenantza)
+    {
+        return $this->render('ordenantza/pdf.html.twig', array(
+            'ordenantza' => $ordenantza
+        ));
+
+        
+        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetAuthor($this->getUser()->getUdala());
+//        $pdf->SetTitle(('Our Code World Title'));
+        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('helvetica', '', 11, '', true);
+        //$pdf->SetMargins(20,20,40, true);
+        $pdf->AddPage();
+        $filename = 'zzoo';
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
+    }
+
+    /**
      * Displays a form to edit an existing Ordenantza entity.
      *
      * @Route("/{id}/edit", name="admin_ordenantza_edit")

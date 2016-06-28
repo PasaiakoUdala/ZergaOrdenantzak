@@ -3,6 +3,12 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Atala;
+use AppBundle\Entity\Atalaparrafoa;
+use AppBundle\Entity\Azpiatala;
+use AppBundle\Entity\Azpiatalaparrafoa;
+use AppBundle\Entity\Kontzeptua;
+use AppBundle\Entity\Ordenantzaparrafoa;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,59 +35,79 @@ class DefaultController extends Controller
 
         $section = $phpWord->addSection();
 
-        $html = '<html><body><h1>froga</h1><table><tbody>';
-
-        foreach ($ordenantza->getParrafoak() as $par) {
-
-            $html = $html . '<tr><td>';
-            $t = str_replace("<br>", "<br />", $par->getTestuaeu());
-            $html = $html . $t . '</td>';
-//            dump($html);
-//            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-            $html = $html . '<td>';
-            $t = str_replace("<br>", "<br />", $par->getTestuaes());
-            $html = $html . $t . '</td></tr>';
-//            dump($html);
-//            \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-        }
-        $html = $html . '</tbody></table></body></html>';
-
-//        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
         $filename = "zzoo";
 
-//        $file = file_put_contents('doc/froga.html', $html);
+        $table1 = $section->addTable(array('cellMargin' => 0, 'cellMarginRight' => 0, 'cellMarginBottom' => 0, 'cellMarginLeft' => 0));
 
-//        $reader = IOFactory::createReader('HTML');
-//        $phpWord = $reader->load("doc/froga.html");
+        $table1->addRow(3750);
+        $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+        $cell1->addText($ordenantza->getKodea() . " " . $ordenantza->getIzenburuaeu());
 
-//        $section->addText('By default, when you insert an image, it adds a textbreak after its content.');
-//        $section->addText('If we want a simple border around an image, we wrap the image inside a table->row->cell');
-//        $section->addText(
-//            'On the image with the red border, even if we set the row height to the height of the image, '
-//            . 'the textbreak is still there:'
-//        );
-//        $table1 = $section->addTable(array('cellMargin' => 0, 'cellMarginRight' => 0, 'cellMarginBottom' => 0, 'cellMarginLeft' => 0));
-//        $table1->addRow(3750);
-//        $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 30, 'borderColor' => 'ff0000'));
-//        $cell1->addText($html);
-//
-//        $section->addTextBreak();
-//        $section->addText("But if we set the rowStyle 'exactHeight' to true, the real row height is used, removing the textbreak:");
-//        $table2 = $section->addTable(
-//            array(
-//                'cellMargin'       => 0,
-//                'cellMarginRight'  => 0,
-//                'cellMarginBottom' => 0,
-//                'cellMarginLeft'   => 0,
-//            )
-//        );
-//        $table2->addRow(3750, array('exactHeight' => true));
-//        $cell2 = $table2->addCell(null, array('valign' => 'top', 'borderSize' => 30, 'borderColor' => '00ff00'));
-////        $cell2->addHtml($html);
-//        \PhpOffice\PhpWord\Shared\Html::addHtml($cell2, $html);
-//        $section->addTextBreak();
-//        $section->addText('In this example, image is 250px height. Rows are calculated in twips, and 1px = 15twips.');
-//        $section->addText('So: $' . "table2->addRow(3750, array('exactHeight'=>true));");
+        $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+        $cell2->addText($ordenantza->getKodea() . " " . $ordenantza->getIzenburuaes());
+
+        foreach ($ordenantza->getParrafoak() as $parrafoa) {
+            $table1->addRow(3750);
+            $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+            $cell1->addText($parrafoa->getTestuaeu());
+
+            $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+            $cell2->addText($parrafoa->getTestuaes());
+        }
+
+        foreach ($ordenantza->getAtalak() as $atala) {
+            $table1->addRow(3750);
+            $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+            $cell1->addText($atala->getKodea() . " " . $atala->getIzenburuaeu());
+
+            $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+            $cell2->addText($atala->getKodea() . " " . $atala->getIzenburuaes());
+
+            foreach ($atala->getParrafoak() as $atalaparrafoa) {
+                $table1->addRow(3750);
+                $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                $cell1->addText($atalaparrafoa->getTestuaeu());
+
+                $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                $cell2->addText($atalaparrafoa->getTestuaes());
+            }
+
+            foreach ( $atala->getAzpiatalak() as $azpiatala  ) {
+                $table1->addRow(3750);
+                $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                $cell1->addText($azpiatala->getKodea() . " " . $azpiatala->getIzenburuaeu());
+
+                $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                $cell2->addText($azpiatala->getKodea() . " " . $azpiatala->getIzenburuaes());
+
+                foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
+                    $table1->addRow(3750);
+                    $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                    $cell1->addText($azpiatalaparrafoa->getTestuaeu());
+
+                    $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                    $cell2->addText($azpiatalaparrafoa->getTestuaeu());
+                }
+
+                foreach ($azpiatala->getKontzeptuak() as $kontzeptua) {
+                    $table1->addRow(3750);
+                    $cell1 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                    $cell1->addText($kontzeptua->getKontzeptuaeu());
+
+                    $cell2 = $table1->addCell(null, array('valign' => 'top', 'borderSize' => 0, 'borderColor' => 'ffffff'));
+                    $cell2->addText($kontzeptua->getKontzeptuaes());
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+
 
         $properties = $phpWord->getDocInfo();
         $properties->setCreator('Pasaiako Udala');
