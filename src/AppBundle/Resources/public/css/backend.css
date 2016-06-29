@@ -170,3 +170,16 @@ body {
 .containermenua {
     margin-top: 50px;
 }
+
+.litext {
+    width: 90% !important;
+}
+
+.btnsubmenu {
+    display: initial;
+    padding: 12px;
+}
+
+.btnsubmenu:hover {
+    border: 1px solid #8c8c8c;
+}

@@ -5,12 +5,44 @@
         {% for ordenantza in ordenantzas %}
 
             <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
-                <div>
-                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu }}
-                </div>
+                <ul class="list-inline">
+                    <li class="litext">
+                        {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu }}
+                    </li>
+                    <li class="pull-right">
+                        <span class="btnsubmenu glyphicon glyphicon-euro" data-ordenantzaid="{{ ordenantza.id }}"></span>
+                    </li>
+                </ul>
             </a>
+
+            <div id="divSubmenu"></div>
 
         {% endfor %}
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ajaxStart(function(){
+            $('#loading').show();
+        }).ajaxStop(function(){
+            $('#loading').hide();
+        });
+
+        $(document).ready(function () {
+
+            $('.btnsubmenu').on("click", function (e) {
+                e.preventDefault();
+                $('#divSubmenu').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_atalaparrafoa_new', {ordenantzaid: miid});
+                $('#divSubmenu').load(url);
+                $('#divSubmenu').modal('toggle');
+            });
+        });
+    </script>
 {% endblock %}
