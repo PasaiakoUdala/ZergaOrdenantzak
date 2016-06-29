@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Historikoa;
 use AppBundle\Form\HistorikoaType;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 /**
  * Historikoa controller.
@@ -46,12 +48,27 @@ class HistorikoaController extends Controller
      */
     public function newAction(Request $request, $ordenantzaid)
     {
-        /* PDF-a sortu */
-
-
         $em = $this->getDoctrine()->getManager();
-
         $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $ordenantzaid );
+
+
+        /* PDF-a sortu eta web/doc/{UDALKODEA}/pdf karpetan gorde */
+//        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+//
+//        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+//        $pdf->SetAuthor($this->getUser()->getUdala());
+//        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+//        $pdf->setFontSubsetting(true);
+//        $pdf->SetFont('helvetica', '', 11, '', true);
+//        $pdf->AddPage();
+//        $path = $this->get('kernel')->getRootDir() . '/../web/doc/';
+//        $filename = $path. $this->getUser()->getUdala()->getKodea() . '/pdf/' . $ordenantza->getKodea();
+
+        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+        
+            
+//        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+//        $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
         /* Begiratu ezabatze marka duen, baldin badu ezabatu */
 
@@ -225,5 +242,23 @@ class HistorikoaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function getFilename($udala, $ordenantzaKodea)
+    {
+        $fs = new Filesystem();
+
+        $base = $this->get('kernel')->getRootDir() . '/../web/doc/';
+
+        try {
+            if ( $fs->exists($base . $udala) == false ) {
+                $fs->mkdir($udala, 0755);
+            }
+        } catch (IOExceptionInterface $e) {
+            echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
+        }
+
+        return $base.$udala.$ordenantzaKodea;
+
     }
 }

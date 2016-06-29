@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Ordenantza;
 use AppBundle\Form\OrdenantzaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 
 /**
@@ -316,7 +318,7 @@ class OrdenantzaController extends Controller
     /**
      * Finds and displays a Ordenantza entity.
      *
-     * @Route("/pdf/{id}", name="admin_ordenantza_show_pdf")
+     * @Route("/pdf/show/{id}", name="admin_ordenantza_show_pdf")
      * @Method("GET")
      */
     public function showpdfAction(Ordenantza $ordenantza)
@@ -330,11 +332,43 @@ class OrdenantzaController extends Controller
         $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('helvetica', '', 11, '', true);
-        //$pdf->SetMargins(20,20,40, true);
+        
         $pdf->AddPage();
-        $filename = 'zzoo';
+        $path = $this->get('kernel')->getRootDir() . '/../web/doc/';
+        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
+    }
+
+    /**
+     * Finds and displays a Ordenantza entity.
+     *
+     * @Route("/pdf/export/{id}", name="admin_ordenantza_export_pdf")
+     * @Method("GET")
+     */
+    public function exportpdfAction(Ordenantza $ordenantza)
+    {
+
+        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+
+
+        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf->SetAuthor($this->getUser()->getUdala());
+        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('helvetica', '', 11, '', true);
+
+        $pdf->AddPage();
+        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
+
+        return $this->redirectToRoute(
+            'admin_historikoa_new',
+            array (
+                'ordenantzaid' => $ordenantza->getId(),
+            )
+        );
     }
 
     /**
@@ -402,6 +436,24 @@ class OrdenantzaController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function getFilename($udala, $ordenantzaKodea)
+    {
+        $fs = new Filesystem();
+
+        $base = $this->get('kernel')->getRootDir() . '/../web/doc/';
+
+        try {
+            if ( $fs->exists($base . $udala) == false ) {
+                $fs->mkdir($udala, 0755);
+            }
+        } catch (IOExceptionInterface $e) {
+            echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
+        }
+
+        return $base.$udala.$ordenantzaKodea;
+
     }
     
 }
