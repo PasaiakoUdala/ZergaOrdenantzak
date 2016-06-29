@@ -1,43 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Ordenantza list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Kodea</th>
-                <th>Izenburuaeu</th>
-                <th>Izenburuaes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="containermenua">
         {% for ordenantza in ordenantzas %}
-            <tr>
-                <td><a href="{{ path('admin_ordenantza_show', { 'id': ordenantza.id }) }}">{{ ordenantza.id }}</a></td>
-                <td>{{ ordenantza.kodea }}</td>
-                <td>{{ ordenantza.izenburuaeu }}</td>
-                <td>{{ ordenantza.izenburuaes }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_ordenantza_show', { 'id': ordenantza.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_ordenantza_edit', { 'id': ordenantza.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantza_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
+                <div>
+                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu }}
+                </div>
+            </a>
+
+        {% endfor %}
+    </div>
+
 {% endblock %}
