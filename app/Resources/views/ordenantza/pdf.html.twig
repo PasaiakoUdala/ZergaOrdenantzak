@@ -1,22 +1,28 @@
 
-<table style="border: 0px;" cellspacing="0" cellpadding="4">
-    <tr>
-        <td>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</td>
-        <td>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</td>
-    </tr>
-
-    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+<table  border="0"  cellpadding="4">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</th>
+            <th>{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</th>
+        </tr>
+        {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
         <tr>
             <td>{{ p.testuaeu | raw }}</td>
             <td>{{ p.testuaes | raw }}</td>
         </tr>
     {% endfor %}
 
-    {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
+        {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
         {% if atala.utsa != 1 %}
             <tr>
-                <td>{{ atala.kodea }} - {{ atala.izenburuaeu }}</td>
-                <td>{{ atala.kodea }} - {{ atala.izenburuaes }}</td>
+                <td><h2>{{ atala.kodea }} - {{ atala.izenburuaeu }}</h2></td>
+                <td><h2>{{ atala.kodea }} - {{ atala.izenburuaes }}</h2></td>
             </tr>
 
             {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
@@ -35,31 +41,35 @@
                 </tr>
             {% endfor %}
             <tr>
-                <td colspan="2">
-                    <table style="border: 1px solid #c3c3c3; width: 100%;">
-                        <thead>
-                            <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu }}</th>
-                            <th style="width:10%;">&nbsp;</th>
-                            <th style="width:10%;">&nbsp;</th>
-                            <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes }}</th>
-                        </thead>
-                        <tbody>
-                        {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                <td colspan="2" align="center">
+                    <div style="margin: auto; width: 80%">
+                        <table border="1">
+                            <thead>
                             <tr>
-                                <td style="border: 1px solid #c3c3c3; width:40%;">{{ k.kontzeptuaeu }}</td>
-                                <td style="border: 1px solid #c3c3c3; width:10%;">{{ k.kopurua }}</td>
-                                <td style="border: 1px solid #c3c3c3; width:10%;">{{ k.unitatea }}</td>
-                                <td style="border: 1px solid #c3c3c3; width:40%;">{{ k.kontzeptuaes }}</td>
+                                <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu }}</th>
+                                <th style="width:10%;">&nbsp;</th>
+                                <th style="width:10%;">&nbsp;</th>
+                                <th style="width:40%;">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes }}</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                                <tr>
+                                    <td width="40%">{{ k.kontzeptuaeu }}</td>
+                                    <td width="10%">{{ k.kopurua }}</td>
+                                    <td width="10%">{{ k.unitatea }}</td>
+                                    <td width="40%">{{ k.kontzeptuaes }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
             </tr>
-
+            <tr><td>&nbsp;</td></tr>
 
         {% endfor %}
 
     {% endfor %}
-
+    </tbody>
 </table>

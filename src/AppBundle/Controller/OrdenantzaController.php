@@ -321,14 +321,12 @@ class OrdenantzaController extends Controller
      */
     public function showpdfAction(Ordenantza $ordenantza)
     {
-        return $this->render('ordenantza/pdf.html.twig', array(
-            'ordenantza' => $ordenantza
-        ));
+
+        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
 
         
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor($this->getUser()->getUdala());
-//        $pdf->SetTitle(('Our Code World Title'));
         $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('helvetica', '', 11, '', true);
