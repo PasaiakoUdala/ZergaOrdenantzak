@@ -155,7 +155,7 @@ body {
     line-height: 3.5;
     margin: 0 0 10px;
     padding: 9px 14px;
-    word-break: break-all;
+    word-break: break-word;
     word-wrap: break-word;
 }
 

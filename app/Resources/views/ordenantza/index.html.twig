@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
+        <li><a href="#"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
+        <li><a href="#"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
+
 {% block body %}
     <div class="containermenua">
         {% for ordenantza in ordenantzas %}
@@ -7,7 +17,7 @@
             <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
                 <ul class="list-inline">
                     <li class="litext">
-                        {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu }}
+                        {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
                     </li>
                     <li class="pull-right">
                         <span class="btnsubmenu glyphicon glyphicon-euro" data-ordenantzaid="{{ ordenantza.id }}"></span>
