@@ -455,5 +455,5 @@ class OrdenantzaController extends Controller
         return $base.$udala.$ordenantzaKodea;
 
     }
-    
+
 }

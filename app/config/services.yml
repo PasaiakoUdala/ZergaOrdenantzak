@@ -15,3 +15,8 @@ services:
             - "@annotation_reader"
         tags:
             - { name: kernel.event_listener, event: kernel.request }
+
+    app.language.kernel_request_listener:
+        class: AppBundle\EventListener\LanguageListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: setLocale }

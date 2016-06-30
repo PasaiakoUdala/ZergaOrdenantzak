@@ -27,7 +27,7 @@ class DefaultController extends Controller
      * Finds and displays a Ordenantza entity.
      *
      * @Route("/admin/exportatu/{id}", name="exportatu")
-     * @Method("GET")
+     * @Method("GET")º
      */
     public function exportatuAction(Ordenantza $ordenantza)
     {
@@ -144,6 +144,31 @@ class DefaultController extends Controller
         
         return new Response("<a href=\"http://zergaordenantzak.dev/doc/helloWorld.odt\">hemen</a>");
 
+    }
+
+
+    /**
+     * Lists all Ordenantza entities.
+     *
+     * @Route("/hizkuntza", name="hizkuntza_aldatu")
+     * @Method("GET")
+     */
+    public function hizkuntzaAction(Request $request)
+    {
+        $locale = $request->getLocale();
+        dump($locale);
+        if ($locale == "eu") {
+            dump("hemen");
+            $this->get('session')->set('_locale', 'es');
+        } else {
+            dump("han");
+            $this->get('session')->set('_locale', 'eu');
+        }
+        dump($request->getLocale());
+//        dump($request->headers->get('referer'));
+
+        return $this->redirect($request->headers->get('referer'));
+//        return $this->redirectToRoute('admin_ordenantza_index');
     }
 
     function xmlEntities($str)
