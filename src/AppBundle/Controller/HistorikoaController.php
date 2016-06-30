@@ -141,12 +141,8 @@ class HistorikoaController extends Controller
             }
         }
 
-
         $em->flush();
-        
-        
-        
-        
+
         $historikoa = new Historikoa();
         $form = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
         $form->getData()->setUdala($this->getUser()->getUdala());
@@ -252,7 +248,7 @@ class HistorikoaController extends Controller
 
         try {
             if ( $fs->exists($base . $udala) == false ) {
-                $fs->mkdir($udala, 0755);
+                $fs->mkdir($base .$udala);
             }
         } catch (IOExceptionInterface $e) {
             echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
