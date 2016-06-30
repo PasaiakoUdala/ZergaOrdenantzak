@@ -1,43 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Ordenantza list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Kodea</th>
-                <th>Izenburuaeu</th>
-                <th>Izenburuaes</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ordenantza in ordenantzas %}
-            <tr>
-                <td><a href="{{ path('admin_ordenantza_show', { 'id': ordenantza.id }) }}">{{ ordenantza.id }}</a></td>
-                <td>{{ ordenantza.kodea }}</td>
-                <td>{{ ordenantza.izenburuaeu }}</td>
-                <td>{{ ordenantza.izenburuaes }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_ordenantza_show', { 'id': ordenantza.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_ordenantza_edit', { 'id': ordenantza.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantza_new') }}">Create a new entry</a>
-        </li>
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
+        <li><a href="#"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
+        <li><a href="#"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
+        <li>&nbspp;</li>
     </ul>
+{% endblock %}
+
+{% block body %}
+    <div class="containermenua">
+        {% for ordenantza in ordenantzas %}
+
+            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
+                <ul class="list-inline">
+                    <li class="litext">
+                        {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+                    </li>
+                    <li class="pull-right">
+                        <span class="btnsubmenu glyphicon glyphicon-euro" data-ordenantzaid="{{ ordenantza.id }}"></span>
+                    </li>
+                </ul>
+            </a>
+
+            <div id="divSubmenu"></div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ajaxStart(function(){
+            $('#loading').show();
+        }).ajaxStop(function(){
+            $('#loading').hide();
+        });
+
+        $(document).ready(function () {
+
+            $('.btnsubmenu').on("click", function (e) {
+                e.preventDefault();
+                $('#divSubmenu').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_atalaparrafoa_new', {ordenantzaid: miid});
+                $('#divSubmenu').load(url);
+                $('#divSubmenu').modal('toggle');
+            });
+        });
+    </script>
 {% endblock %}

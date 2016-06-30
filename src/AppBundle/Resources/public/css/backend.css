@@ -143,3 +143,43 @@ body {
         text-align: center;
     }
 }
+
+.menuordenantza {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333333;
+    display: block;
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    font-size: 12px;
+    line-height: 3.5;
+    margin: 0 0 10px;
+    padding: 9px 14px;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+.menuordenantza:hover {
+    text-decoration: none;
+}
+
+.menuordenantza:hover {
+    background-color: #e1ebb3;
+}
+
+.containermenua {
+    margin-top: 50px;
+}
+
+.litext {
+    width: 90% !important;
+}
+
+.btnsubmenu {
+    display: initial;
+    padding: 12px;
+}
+
+.btnsubmenu:hover {
+    border: 1px solid #8c8c8c;
+}
