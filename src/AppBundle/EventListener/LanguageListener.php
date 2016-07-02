@@ -14,11 +14,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class LanguageListener
 {
-    private $session;
-
+//    private $session;
+//
     public function setSession(Session $session)
     {
-        $this->session = $session;
+//        $this->session = $session;
     }
 
     public function setLocale(GetResponseEvent $event)
@@ -28,7 +28,16 @@ class LanguageListener
         }
 
         $request = $event->getRequest();
-        $request->setLocale($request->getPreferredLanguage(array('eu', 'es')));
+        var_dump("listener =>".$request->getPreferredLanguage());
+        if ( $request->getPreferredLanguage()=="eu") {
+            dump('es jartzen');
+            $request->setLocale('es');
+        }else {
+            dump('EU jartzen');
+            $request->setLocale('eu');
+        }
+
+//        $request->setLocale($request->getPreferredLanguage(array('es', 'eu')));
 
     }
 }

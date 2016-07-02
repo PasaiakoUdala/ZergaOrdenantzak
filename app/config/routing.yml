@@ -16,6 +16,7 @@ fos_user:
 
 app_ordenantza:
     resource: "@AppBundle/Controller/OrdenantzaController.php"
+    defaults: { _locale: eu }
     type:     annotation
 
 app_kontzeptua:
