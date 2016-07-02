@@ -1,3 +1,9 @@
+frontend:
+    resource: "@FrontendBundle/Controller/"
+    type:     annotation
+    defaults: { _locale: eu }
+    prefix:   /
+
 app_azpiatalaparrafoa:
     resource: "@AppBundle/Controller/AzpiatalaparrafoaController.php"
     type:     annotation
@@ -16,7 +22,6 @@ fos_user:
 
 app_ordenantza:
     resource: "@AppBundle/Controller/OrdenantzaController.php"
-    defaults: { _locale: eu }
     type:     annotation
 
 app_kontzeptua:
@@ -48,10 +53,7 @@ api:
     type:     annotation
     prefix:   /
 
-frontend:
-    resource: "@FrontendBundle/Controller/"
-    type:     annotation
-    prefix:   /
+
 
 app:
     resource: "@AppBundle/Controller/"

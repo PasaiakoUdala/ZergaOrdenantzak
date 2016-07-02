@@ -8,10 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/{_locale}")
      */
     public function indexAction()
     {
-        return $this->render('FrontendBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
+
+        return $this->render('ordenantza/index.html.twig', array(
+            'ordenantzas' => $ordenantzas,
+        ));
     }
 }

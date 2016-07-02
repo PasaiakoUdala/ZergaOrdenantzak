@@ -22,6 +22,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    /**
+     *
+     * @Route("/ordenantza", name="homepage")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
+
+        return $this->render('ordenantza/index.html.twig', array(
+            'ordenantzas' => $ordenantzas,
+        ));
+    }
 
     /**
      * Finds and displays a Ordenantza entity.
@@ -148,24 +163,21 @@ class DefaultController extends Controller
 
 
     /**
-     * Lists all Ordenantza entities.
      *
-     * @Route("/hizkuntza/{_locale}", name="hizkuntza_aldatu")
+     * @Route("/changelanguage", defaults={"_locale" = "eu"}, name="changelanguage")
      * @Method("GET")
      */
-    public function hizkuntzaAction(Request $request)
-    {
+    public function hizkuntzaAction(Request $request) {
+
+
         $locale = $request->getLocale();
         if ($locale == "eu") {
-            dump("hemen");
-//            $this->get('session')->set('_locale', 'es');
-//            $request->getSession()->set('_locale', 'es');
-
             $request->setLocale('es');
+            $request->getSession()->set('_locale', 'es');
         } else {
+            $request->setLocale('eu');
             $request->getSession()->set('_locale', 'eu');
         }
-
 
         return $this->redirect($request->headers->get('referer'));
 
