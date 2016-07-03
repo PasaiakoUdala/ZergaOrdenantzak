@@ -4,7 +4,7 @@
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
-        {% if  app.request.locale == "eu "%}
+        {% if  app.request.locale == "eu"%}
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
         {% else %}
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
@@ -14,27 +14,32 @@
 {% endblock %}
 
 {% block body %}
-    <div class="containermenua">
-        {% for ordenantza in ordenantzas %}
+    <div class="containermenua">,
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
-                <ul class="list-inline">
-                    <li class="litext">
-                        {% if  app.request.locale == "eu "%}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
-                        {% else %}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
-                        {% endif %}
-                    </li>
-                    <li class="pull-right">
-                        <span class="btnsubmenu glyphicon glyphicon-euro" data-ordenantzaid="{{ ordenantza.id }}"></span>
-                    </li>
-                </ul>
-            </a>
+            {% for ordenantza in ordenantzas %}
 
-            <div id="divSubmenu"></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ loop.index }}" aria-expanded="true" aria-controls="collapseOne{{ loop.index }}">
+                                {% if  app.request.locale == "eu"%}
+                                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+                                {% else %}
+                                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
+                                {% endif %}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne{{ loop.index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
 
-        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 
 {% endblock %}

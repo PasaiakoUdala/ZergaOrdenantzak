@@ -308,4 +308,100 @@ class Azpiatalaparrafoa
     {
         return $this->udala;
     }
+
+    /**
+     * Set ordenaProd
+     *
+     * @param integer $ordenaProd
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setOrdenaProd($ordenaProd)
+    {
+        $this->ordena_prod = $ordenaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get ordenaProd
+     *
+     * @return integer
+     */
+    public function getOrdenaProd()
+    {
+        return $this->ordena_prod;
+    }
+
+    /**
+     * Set testuaeuProd
+     *
+     * @param string $testuaeuProd
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setTestuaeuProd($testuaeuProd)
+    {
+        $this->testuaeu_prod = $testuaeuProd;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaeuProd
+     *
+     * @return string
+     */
+    public function getTestuaeuProd()
+    {
+        return $this->testuaeu_prod;
+    }
+
+    /**
+     * Set testuaesProd
+     *
+     * @param string $testuaesProd
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setTestuaesProd($testuaesProd)
+    {
+        $this->testuaes_prod = $testuaesProd;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaesProd
+     *
+     * @return string
+     */
+    public function getTestuaesProd()
+    {
+        return $this->testuaes_prod;
+    }
+
+    /**
+     * Set ezabatu
+     *
+     * @param boolean $ezabatu
+     *
+     * @return Azpiatalaparrafoa
+     */
+    public function setEzabatu($ezabatu)
+    {
+        $this->ezabatu = $ezabatu;
+
+        return $this;
+    }
+
+    /**
+     * Get ezabatu
+     *
+     * @return boolean
+     */
+    public function getEzabatu()
+    {
+        return $this->ezabatu;
+    }
 }

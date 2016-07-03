@@ -157,18 +157,15 @@ class DefaultController extends Controller
     {
         $locale = $request->getLocale();
         dump($locale);
-        if ($locale == "eu") {
-            dump("hemen");
-            $this->get('session')->set('_locale', 'es');
-        } else {
-            dump("han");
-            $this->get('session')->set('_locale', 'eu');
-        }
-        dump($request->getLocale());
-//        dump($request->headers->get('referer'));
+//        if ($locale == "eu") {
+//            $request->setLocale('eu');
+//            $request->getSession()->set('_locale', 'eu');
+//        } else {
+//            $request->setLocale('es');
+//            $request->getSession()->set('_locale', 'es');
+//        }
 
         return $this->redirect($request->headers->get('referer'));
-//        return $this->redirectToRoute('admin_ordenantza_index');
     }
 
     function xmlEntities($str)

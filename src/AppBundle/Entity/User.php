@@ -21,6 +21,11 @@
          */
         protected $id;
 
+        /**
+         * @var string
+         * @ORM\Column(name="hizkuntza", type="string", length=10, nullable=true)
+         */
+        private $hizkuntza;
 
         /**
          * @var Udala
@@ -57,5 +62,29 @@
     public function getUdala()
     {
         return $this->udala;
+    }
+
+    /**
+     * Set hizkuntza
+     *
+     * @param string $hizkuntza
+     *
+     * @return User
+     */
+    public function setHizkuntza($hizkuntza)
+    {
+        $this->hizkuntza = $hizkuntza;
+
+        return $this;
+    }
+
+    /**
+     * Get hizkuntza
+     *
+     * @return string
+     */
+    public function getHizkuntza()
+    {
+        return $this->hizkuntza;
     }
 }

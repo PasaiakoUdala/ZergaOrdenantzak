@@ -356,4 +356,100 @@ class Ordenantza
     {
         return $this->udala;
     }
+
+    /**
+     * Set kodeaProd
+     *
+     * @param string $kodeaProd
+     *
+     * @return Ordenantza
+     */
+    public function setKodeaProd($kodeaProd)
+    {
+        $this->kodea_prod = $kodeaProd;
+
+        return $this;
+    }
+
+    /**
+     * Get kodeaProd
+     *
+     * @return string
+     */
+    public function getKodeaProd()
+    {
+        return $this->kodea_prod;
+    }
+
+    /**
+     * Set izenburuaeuProd
+     *
+     * @param string $izenburuaeuProd
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaeuProd($izenburuaeuProd)
+    {
+        $this->izenburuaeu_prod = $izenburuaeuProd;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaeuProd
+     *
+     * @return string
+     */
+    public function getIzenburuaeuProd()
+    {
+        return $this->izenburuaeu_prod;
+    }
+
+    /**
+     * Set izenburuaesProd
+     *
+     * @param string $izenburuaesProd
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaesProd($izenburuaesProd)
+    {
+        $this->izenburuaes_prod = $izenburuaesProd;
+
+        return $this;
+    }
+
+    /**
+     * Get izenburuaesProd
+     *
+     * @return string
+     */
+    public function getIzenburuaesProd()
+    {
+        return $this->izenburuaes_prod;
+    }
+
+    /**
+     * Set ezabatu
+     *
+     * @param boolean $ezabatu
+     *
+     * @return Ordenantza
+     */
+    public function setEzabatu($ezabatu)
+    {
+        $this->ezabatu = $ezabatu;
+
+        return $this;
+    }
+
+    /**
+     * Get ezabatu
+     *
+     * @return boolean
+     */
+    public function getEzabatu()
+    {
+        return $this->ezabatu;
+    }
 }
