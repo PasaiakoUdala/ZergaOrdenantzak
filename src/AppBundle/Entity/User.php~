@@ -63,4 +63,28 @@
     {
         return $this->udala;
     }
+
+    /**
+     * Set hizkuntza
+     *
+     * @param string $hizkuntza
+     *
+     * @return User
+     */
+    public function setHizkuntza($hizkuntza)
+    {
+        $this->hizkuntza = $hizkuntza;
+
+        return $this;
+    }
+
+    /**
+     * Get hizkuntza
+     *
+     * @return string
+     */
+    public function getHizkuntza()
+    {
+        return $this->hizkuntza;
+    }
 }

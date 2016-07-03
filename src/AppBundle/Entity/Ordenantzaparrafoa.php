@@ -2,13 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Ordenantzaparrafoa
  *
  * @ORM\Table(name="ordenantzaparrafoa", indexes={@ORM\Index(name="ordenantza_id_idx", columns={"ordenantza_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
 class Ordenantzaparrafoa
 {
@@ -22,11 +23,12 @@ class Ordenantzaparrafoa
     private $id;
 
     /**
-     * @var integer
+     * @var integer $position
      *
-     * @ORM\Column(name="ordena", type="bigint", nullable=true)
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
      */
-    private $ordena;
+    private $position;
 
     /**
      * @var integer
@@ -399,5 +401,29 @@ class Ordenantzaparrafoa
     public function getEzabatu()
     {
         return $this->ezabatu;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 }

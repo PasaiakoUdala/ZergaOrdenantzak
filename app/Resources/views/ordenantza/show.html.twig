@@ -78,6 +78,8 @@
     <div class="row">&nbsp;</div>
 
     {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+        <a href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}">gora {{ p.position }}</a>
+        <a href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}">behera {{ p.position }}</a>
         <div class="row ordenantzaparrafoa">
             <div class="col-xs-6">
                 <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
@@ -86,7 +88,7 @@
                     <button type="button" class="close btnEzabatu hide" data-toggle="modal"
                             data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                     </button>
-                    {{ p.testuaeu | raw }}
+                    ppp{{ p.testuaeu | raw }}
                     {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
                 </div>
             </div>

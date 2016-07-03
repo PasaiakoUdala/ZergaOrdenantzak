@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
 
@@ -9,7 +10,7 @@ use AppBundle\Annotation\UdalaEgiaztatu;
  * Atalaparrafoa
  *
  * @ORM\Table(name="atalaparrafoa", indexes={@ORM\Index(name="atala_id_idx", columns={"atala_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Atalaparrafoa
@@ -24,8 +25,15 @@ class Atalaparrafoa
     private $id;
 
     /**
-     * @var integer
+     * @var integer $position
      *
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
+     * @var integer
      * @ORM\Column(name="ordena", type="bigint", nullable=true)
      */
     private $ordena;
@@ -401,5 +409,29 @@ class Atalaparrafoa
     public function getEzabatu()
     {
         return $this->ezabatu;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Atalaparrafoa
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 }

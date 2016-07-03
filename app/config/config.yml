@@ -90,6 +90,11 @@ assetic:
         yui_js:
             jar: '%kernel.root_dir%/bin/yuicompressor.jar'
 
+stof_doctrine_extensions:
+    orm:
+        default:
+            sortable: true
+
 braincrafted_bootstrap:
     output_dir:
     assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap

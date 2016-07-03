@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

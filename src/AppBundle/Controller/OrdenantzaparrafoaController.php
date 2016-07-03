@@ -17,6 +17,34 @@ use AppBundle\Form\OrdenantzaparrafoaType;
 class OrdenantzaparrafoaController extends Controller
 {
     /**
+     * @Route("/up/{id}", name="admin_ordenantzaparrafoa_up")
+     * @Method("GET")
+     */
+    public function upAction(Request $request, Ordenantzaparrafoa $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setPosition($op->getPosition() - 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/down/{id}", name="admin_ordenantzaparrafoa_down")
+     * @Method("GET")
+     */
+    public function downAction(Request $request, Ordenantzaparrafoa $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setPosition($op->getPosition() + 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+    
+    /**
      * Creates a new Ordenantzaparrafoa entity.
      *
      * @Route("/new/{ordenantzaid}", name="admin_ordenantzaparrafoa_new")
