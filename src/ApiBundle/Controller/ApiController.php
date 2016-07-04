@@ -86,12 +86,43 @@ class ApiController extends FOSRestController
     public function getAzpiatalakAction()
     {
         $em         = $this->getDoctrine()->getManager();
-        $azpiatalak = $em->getRepository('AppBundle:Azpiatala')->findAll();
+//        $azpiatalak = $em->getRepository('AppBundle:Azpiatala')->findAll(array('fields'=>));
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT p.id, p.izenburuaeu FROM AppBundle:Azpiatala p');
+
+        $azpiatalak = $query->getResult();
+
         $view = View::create();
         $view->setData($azpiatalak);
         return $view;
 
     }// "get_azpiatalak"            [GET] /azpiatalak
 
+    /**
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Azpiatal guztien zerrenda eskuratu",
+     *   statusCodes = {
+     *     200 = "Zuzena denean"
+     *   }
+     * )
+     *
+     *
+     * @return array data
+     *
+     * @Annotations\View()
+     */
+    public function getAzpiatalaAction($id)
+    {
+        $em         = $this->getDoctrine()->getManager();
+        $azpiatalak = $em->getRepository( 'AppBundle:Azpiatala' )->findOneById( $id );
+
+        $view = View::create();
+        $view->setData($azpiatalak);
+        return $view;
+
+    }// "get_azpiatala"            [GET] /azpiatala/{id}
 
 }
