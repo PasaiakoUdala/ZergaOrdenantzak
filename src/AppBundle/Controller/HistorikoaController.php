@@ -21,7 +21,7 @@ use Pagerfanta\Adapter\ArrayAdapter;
 /**
  * Historikoa controller.
  *
- * @Route("/admin/historikoa")
+ * @Route("/{_locale}/admin/historikoa")
  */
 class HistorikoaController extends Controller
 {
