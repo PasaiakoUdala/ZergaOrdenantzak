@@ -25,16 +25,9 @@ class Atalaparrafoa
     private $id;
 
     /**
-     * @var integer $position
-     *
-     * @Gedmo\SortablePosition
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
-
-    /**
      * @var integer
-     * @ORM\Column(name="ordena", type="bigint", nullable=true)
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="ordena", type="integer", nullable=true)
      */
     private $ordena;
 

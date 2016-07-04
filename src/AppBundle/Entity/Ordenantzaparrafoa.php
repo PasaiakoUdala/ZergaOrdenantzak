@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Annotation\UdalaEgiaztatu;
 
 /**
  * Ordenantzaparrafoa
  *
  * @ORM\Table(name="ordenantzaparrafoa", indexes={@ORM\Index(name="ordenantza_id_idx", columns={"ordenantza_id"})})
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Ordenantzaparrafoa
 {
@@ -23,12 +25,11 @@ class Ordenantzaparrafoa
     private $id;
 
     /**
-     * @var integer $position
-     *
+     * @var integer
      * @Gedmo\SortablePosition
-     * @ORM\Column(name="position", type="integer")
+     * @ORM\Column(name="ordena", type="integer", nullable=true)
      */
-    private $position;
+    private $ordena;
 
     /**
      * @var integer

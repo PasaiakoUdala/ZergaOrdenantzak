@@ -68,7 +68,7 @@
             <h4 class="editable2 ordenantza" data-name="izenburuaes" data-pk="{{ ordenantza.id }}"
                 data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
                 data-type="wysihtml5" tabindex="-1" style="display: block;">
-                <button type="button" class="close btnEzabatu hide" data-toggle="modal"
+                <button type="button" class="close btnEzabatu hide pull-right" data-toggle="modal"
                         data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span>
                 </button>
                 {{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}
@@ -78,8 +78,6 @@
     <div class="row">&nbsp;</div>
 
     {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
-        <a href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}">gora {{ p.position }}</a>
-        <a href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}">behera {{ p.position }}</a>
         <div class="row ordenantzaparrafoa">
             <div class="col-xs-6">
                 <div class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
@@ -88,7 +86,10 @@
                     <button type="button" class="close btnEzabatu hide" data-toggle="modal"
                             data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                     </button>
-                    ppp{{ p.testuaeu | raw }}
+                    &nbsp;
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                    {{ p.testuaeu | raw }}
                     {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
                 </div>
             </div>
@@ -263,10 +264,8 @@
 
     {% endfor %}
     <div style="display: none;">
-        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text"
-                                                   value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
+        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text" value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
     </div>
-
 
 
     {#
@@ -444,10 +443,13 @@
                 $('.editable2').on('mouseover', function () {
                     $(this).addClass('gainean');
                     $(this).find('.btnEzabatu').removeClass('hide');
+                    $(this).find('.btnSort').removeClass('hide');
+
                 })
                 .on('mouseleave', function () {
                     $(this).removeClass('gainean');
                     $(this).children('.btnEzabatu').addClass('hide');
+                    $(this).children('.btnSort').addClass('hide');
                 }).editable({
                     toggle: 'dblclick',
                     title: 'Enter comments',

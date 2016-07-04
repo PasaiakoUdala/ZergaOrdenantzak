@@ -14,33 +14,41 @@
 {% endblock %}
 
 {% block body %}
-    <div class="containermenua">,
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="containermenua">
+        {% for ordenantza in ordenantzas %}
 
-            {% for ordenantza in ordenantzas %}
+            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
+                <ul class="list-inline">
+                    <li class="litext">
+                        {% if  app.request.locale == "eu "%}
+                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+                        {% else %}
+                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
+                        {% endif %}
+                    </li>
+                    <li class="pull-right">
+                        <span class="btnsubmenu glyphicon glyphicon-euro" data-divazpiatalak="{{ loop.index }}" data-ordenantzaid="{{ ordenantza.id }}"></span>
+                    </li>
+                </ul>
+            </a>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ loop.index }}" aria-expanded="true" aria-controls="collapseOne{{ loop.index }}">
-                                {% if  app.request.locale == "eu"%}
-                                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
-                                {% else %}
-                                    {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
-                                {% endif %}
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne{{ loop.index }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
+            <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
+                <ul class="list">
+                    {% for atala in ordenantza.atalak %}
 
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+                        {% for azpiatala in atala.azpiatalak %}
 
+                            <li>{{ azpiatala.izenburuaeu }}</li>
+
+                        {% endfor %}
+
+                    {% endfor %}
+                </ul>
+            </div>
+
+        {% endfor %}
     </div>
+
 
 {% endblock %}
 
@@ -59,11 +67,9 @@
 
             $('.btnsubmenu').on("click", function (e) {
                 e.preventDefault();
-                $('#divSubmenu').empty();
-                var miid = $(this).data('atalaid');
-                var url = Routing.generate('admin_atalaparrafoa_new', {ordenantzaid: miid});
-                $('#divSubmenu').load(url);
-                $('#divSubmenu').modal('toggle');
+                var index = $(this).data('divazpiatalak');
+                var divSub = ".subAzpiatalak" + index;
+                $(divSub).toggle( "slow" );
             });
         });
     </script>

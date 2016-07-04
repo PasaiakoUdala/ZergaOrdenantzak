@@ -16,7 +16,7 @@ class OrdenantzaparrafoaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('position')
+            ->add('ordena')
             ->add('testuaeu',CKEditorType::class, array(
                 'config_name' => 'my_config_1',
             ))
