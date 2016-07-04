@@ -15,6 +15,8 @@ use AppBundle\Entity\Historikoa;
 use AppBundle\Form\HistorikoaType;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
 
 /**
  * Historikoa controller.
@@ -26,14 +28,16 @@ class HistorikoaController extends Controller
     /**
      * Lists all Historikoa entities.
      *
-     * @Route("/", name="admin_historikoa_index")
+     * @Route("/", defaults={"page" = 1}, name="admin_historikoa_index")
+     * @Route("/page{page}", name="admin_historikoa_paginated")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll();
+//        $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll(array(),array('id','DESC'));
+        $historikoas =  $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
 
         $deleteForms = array();
 
@@ -41,9 +45,25 @@ class HistorikoaController extends Controller
             $deleteForms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
         }
 
+        $adapter = new ArrayAdapter($historikoas);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        try {
+            $entities = $pagerfanta
+                ->setMaxPerPage(5)
+                ->setCurrentPage($page)
+                ->getCurrentPageResults()
+            ;
+        } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
+            throw $this->createNotFoundException("Orria ez da existitzen");
+        }
+
+
+
         return $this->render('historikoa/index.html.twig', array(
-            'historikoas' => $historikoas,
+            'historikoas' => $entities,
             'deleteForms' => $deleteForms,
+            'pager' => $pagerfanta,
         ));
     }
 
