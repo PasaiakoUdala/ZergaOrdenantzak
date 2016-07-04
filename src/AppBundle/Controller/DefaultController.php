@@ -150,7 +150,7 @@ class DefaultController extends Controller
     /**
      * Lists all Ordenantza entities.
      *
-     * @Route("/hizkuntza", name="hizkuntza_aldatu")
+     * @Route("/hizkuntza/{_locale}", name="hizkuntza_aldatu")
      * @Method("GET")
      */
     public function hizkuntzaAction(Request $request)
@@ -165,13 +165,12 @@ class DefaultController extends Controller
             $request->setLocale('es');
             $newLocale = "es";
         } else {
-            $request->setLocale('es');
-            $newLocale = "es";
+            $request->setLocale('eu');
+            $newLocale = "eu";
         }
+
         return $this->redirectToRoute($route, array('_locale' => $newLocale));
-
-
-//        return $this->redirect($request->headers->get('referer'));
+        
     }
 
     function xmlEntities($str)

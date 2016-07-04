@@ -17,7 +17,7 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 /**
  * Ordenantza controller.
  *
- * @Route("/admin/ordenantza")
+ * @Route("/{_locale}/admin/ordenantza")
  */
 class OrdenantzaController extends Controller
 {
