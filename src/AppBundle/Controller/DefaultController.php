@@ -155,17 +155,23 @@ class DefaultController extends Controller
      */
     public function hizkuntzaAction(Request $request)
     {
+        $ref = str_replace("app_dev.php/", "", parse_url($request->headers->get('referer'),PHP_URL_PATH ));
+        $route = $this->container->get('router')->match($ref)['_route'];
+
         $locale = $request->getLocale();
+        $newLocale ="";
 
         if ($locale == "eu") {
-            $request->setLocale('eu');
-//            $request->getSession()->set('_locale', 'eu');
+            $request->setLocale('es');
+            $newLocale = "es";
         } else {
             $request->setLocale('es');
-//            $request->getSession()->set('_locale', 'es');
+            $newLocale = "es";
         }
+        return $this->redirectToRoute($route, array('_locale' => $newLocale));
 
-        return $this->redirect($request->headers->get('referer'));
+
+//        return $this->redirect($request->headers->get('referer'));
     }
 
     function xmlEntities($str)
