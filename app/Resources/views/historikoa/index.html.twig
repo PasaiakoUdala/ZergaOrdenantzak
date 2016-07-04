@@ -10,6 +10,7 @@
                 <th>B.O.G. Argitaratze Data</th>
                 <th>Aldaketak</th>
                 <th>Fitxategia</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,14 @@
                 <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}</td>
                 <td>{{ historikoa.aldaketakeu |raw}}</td>
                 <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
+                <td><form action="{{ path('admin_historikoa_delete', { 'id': historikoa.id }) }}" method="post">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        {{ form_widget(deleteForms[historikoa.id]) }}
+                        <button type="submit" class="btn btn-small">
+                            <i class="icon-trash"></i>
+                            Ezabagu
+                        </button>
+                    </form></td>
             </tr>
         {% endfor %}
         </tbody>

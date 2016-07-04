@@ -35,8 +35,15 @@ class HistorikoaController extends Controller
 
         $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll();
 
+        $deleteForms = array();
+
+        foreach ($historikoas as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
+        }
+
         return $this->render('historikoa/index.html.twig', array(
             'historikoas' => $historikoas,
+            'deleteForms' => $deleteForms,
         ));
     }
 
