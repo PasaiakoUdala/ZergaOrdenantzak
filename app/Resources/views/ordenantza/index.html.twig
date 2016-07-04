@@ -35,16 +35,58 @@
             </a>
 
             <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
-                <ul class="list">
+                <ul class="nav nav-pills nav-stacked">
+                {#<div class="list-group">#}
                     {% for atala in ordenantza.atalak %}
 
                         {% for azpiatala in atala.azpiatalak %}
 
-                            <li>{{ azpiatala.izenburuaeu }}</li>
+                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a></li>
+                            {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
+
+
+                                <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">{{ azpiatala.izenburuaeu }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-bordered table-condensed table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{ "Kontzeptua" | trans }}</th>
+                                                        <th>{{ "kopurua" | trans }}</th>
+                                                        <th>{{ "unitatea" |trans }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for k in azpiatala.kontzeptuak %}
+                                                        <tr>
+                                                            <td>{{ k.kontzeptuaeu }}</td>
+                                                            <td>{{ k.kopurua }}</td>
+                                                            <td>{{ k.unitatea }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Itxi" | trans }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
 
                         {% endfor %}
 
                     {% endfor %}
+                    {#</div>#}
                 </ul>
             </div>
 
