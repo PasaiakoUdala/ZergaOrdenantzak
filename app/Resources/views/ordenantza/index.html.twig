@@ -5,8 +5,10 @@
     <ul class="nav navbar-nav navbar-right">
         {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
         {% if  app.request.locale == "eu"%}
+            <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
         {% else %}
+            <li><a href="{{ path('admin_ordenantza_new') }}">Ordenanza Berria</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
         {% endif %}
         <li>&nbspp;</li>

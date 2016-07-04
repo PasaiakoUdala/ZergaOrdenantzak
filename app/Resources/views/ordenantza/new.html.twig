@@ -1,16 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Ordenantza creation</h1>
+    <div class="containermenua">
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        {{ form_start(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantza_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <div class="row">
+            <div class="form-group field-text col-sm-12">
+                {{ form_label(form.kodea, 'Kodea:', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.kodea) }}
+                {{ form_widget(form.kodea, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group field-text col-sm-12">
+                {{ form_label(form.izenburuaeu, 'Izenburua:', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.izenburuaeu) }}
+                {{ form_widget(form.izenburuaeu, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group field-text col-sm-12">
+                {{ form_label(form.izenburuaes, 'Título:', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.izenburuaes) }}
+                {{ form_widget(form.izenburuaes, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+
+        <div class="row">
+            <div class="form-group field-text col-sm-12">
+                {{ form_widget(form) }}
+                <a class="btn btn-default" href="{{ path('admin_ordenantza_index') }}">Ezeztatu</a>
+                <input class="btn btn-primary" type="submit" value="Create" />
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

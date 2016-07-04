@@ -18,7 +18,7 @@
                 <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y/m/d') }}{% endif %}</td>
                 <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}</td>
                 <td>{{ historikoa.aldaketakeu |raw}}</td>
-                <td><a href="#">PDF</a></td>
+                <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
             </tr>
         {% endfor %}
         </tbody>

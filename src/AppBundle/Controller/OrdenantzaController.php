@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Historikoa;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -363,10 +364,19 @@ class OrdenantzaController extends Controller
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
         $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
+        $em = $this->getDoctrine()->getManager();
+        $historikoa = New Historikoa();
+        $historikoa->setCreatedAt(New \DateTime());
+        $historikoa->setUpdatedAt(New \DateTime());
+        $historikoa->setUdala($this->getUser()->getUdala());
+        $historikoa->setFitxategia( $ordenantza->getKodea().".pdf");
+        $em->persist($historikoa);
+        $em->flush();
+
         return $this->redirectToRoute(
-            'admin_historikoa_new',
+            'admin_historikoa_edit',
             array (
-                'ordenantzaid' => $ordenantza->getId(),
+                'id' => $historikoa->getId(),
             )
         );
     }
@@ -452,7 +462,7 @@ class OrdenantzaController extends Controller
             echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
         }
 
-        return $base.$udala.$ordenantzaKodea;
+        return $base.$udala."/".$ordenantzaKodea;
 
     }
 
