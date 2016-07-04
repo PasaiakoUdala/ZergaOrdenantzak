@@ -16,9 +16,8 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request }
 
-    language.kernel_request_listener:
-        class: AppBundle\EventListener\LanguageListener
-        arguments:
-            - "@service_container"
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: setLocale }
+    app.locale_listener:
+            class: AppBundle\EventListener\LocaleListener
+            arguments: ['%kernel.default_locale%']
+            tags:
+                - { name: kernel.event_subscriber }

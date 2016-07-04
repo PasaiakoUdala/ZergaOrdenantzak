@@ -100,6 +100,7 @@ class Ordenantza
     /**
      * @var Ordenantza
      * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $parrafoak;
 

@@ -156,14 +156,14 @@ class DefaultController extends Controller
     public function hizkuntzaAction(Request $request)
     {
         $locale = $request->getLocale();
-        dump($locale);
-//        if ($locale == "eu") {
-//            $request->setLocale('eu');
+
+        if ($locale == "eu") {
+            $request->setLocale('eu');
 //            $request->getSession()->set('_locale', 'eu');
-//        } else {
-//            $request->setLocale('es');
+        } else {
+            $request->setLocale('es');
 //            $request->getSession()->set('_locale', 'es');
-//        }
+        }
 
         return $this->redirect($request->headers->get('referer'));
     }
