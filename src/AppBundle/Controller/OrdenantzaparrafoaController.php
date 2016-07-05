@@ -23,7 +23,7 @@ class OrdenantzaparrafoaController extends Controller
     public function upAction(Request $request, Ordenantzaparrafoa $op)
     {
         $em = $this->getDoctrine()->getManager();
-        $op->setPosition($op->getPosition() - 1);
+        $op->setOrdena($op->getOrdena() - 1);
         $em->persist($op);
         $em->flush();
 
@@ -37,7 +37,7 @@ class OrdenantzaparrafoaController extends Controller
     public function downAction(Request $request, Ordenantzaparrafoa $op)
     {
         $em = $this->getDoctrine()->getManager();
-        $op->setPosition($op->getPosition() + 1);
+        $op->setOrdena($op->getOrdena() + 1);
         $em->persist($op);
         $em->flush();
 

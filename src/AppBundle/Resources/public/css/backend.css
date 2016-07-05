@@ -4,6 +4,9 @@ body {
     padding-top: 70px !important;
 }
 
+h3 {
+    margin-top: 0px !important;
+}
 
 #loading {
     position: fixed;
