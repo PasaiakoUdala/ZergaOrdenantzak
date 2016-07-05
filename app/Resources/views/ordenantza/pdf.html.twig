@@ -34,12 +34,6 @@
         {% endif %}
 
         {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
-            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
-                <tr>
-                    <td>{{ p.testuaeu | raw }}</td>
-                    <td>{{ p.testuaes | raw }}</td>
-                </tr>
-            {% endfor %}
             <tr>
                 <td colspan="2" align="center">
                     <div style="margin: auto; width: 80%">
@@ -53,6 +47,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                                <tr>
+                                    <td colspan="2">{{ p.testuaeu | raw }}</td>
+                                    <td colspan="2">{{ p.testuaes | raw }}</td>
+                                </tr>
+                            {% endfor %}
                             {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                                 <tr>
                                     <td width="40%">{{ k.kontzeptuaeu }}</td>
