@@ -12,6 +12,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('FrontendBundle:Default:index.html.twig');
+//        return $this->render('FrontendBundle:Default:index.html.twig');
+        return $this->redirectToRoute('admin_ordenantza_index',array(),301);
     }
 }

@@ -44,7 +44,7 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
+        <li><a id="enable" class="btn" href="#">{{ "Edizioa gaitu" | trans }}</a></li>
         <li><a href="{{ path('admin_ordenantza_show_pdf', {'id': ordenantza.id}) }}"> PDF <span class="sr-only">(current)</span></a></li>
         <li><a href="{{ path('admin_ordenantza_export_pdf', {'id': ordenantza.id}) }}"> {{ "Indarrean jarri" }} <span class="sr-only">(current)</span></a></li>
         <li>&nbspp;</li>
@@ -154,78 +154,98 @@
             {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
                 <div class="row atalaparrafoa">
                     <div class="divEditable col-xs-6">
-                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                              data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                        <div class="divEditableatalaparrafoa">
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                        </div>
                     </div>
                     <div class="divEditable col-xs-6">
-                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                              data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                        <div class="divEditable">
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
         {% endif %}
-
         {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
+            <div class="row">&nbsp;</div>
 
         {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
             <table class="table table-hover table-responsive table-bordered">
                 <th class="row-fluid col-xs-6" id="{{ atala.kodea ~ azpiatala.kodea }}">
-                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
-                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
-                          data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        {{ azpiatala.kodea }}
-                    </span>
-                    <span class="col-md-1 text-left">-</span>
-                    <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}"
-                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
-                          data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        <button type="button" class="close btnEzabatuAzpiAtala" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        {{ azpiatala.izenburuaeu }}
-                    </span>
+                    <button type="button" class="close btnEzabatuAzpiAtala btnZuzendu" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="row-fluid col-md-12">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.izenburuaeu }}
+                        </span>
+                    </h4>
                 </th>
                 <th></th>
                 <th></th>
                 <th class="row-fluid col-xs-6">
-                    <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
-                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
-                          data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        {{ azpiatala.kodea }}
-                    </span>
-                    <span class="col-md-1 text-left">-</span>
-                    <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ azpiatala.id }}"
-                          data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
-                          data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        <button type="button" class="close btnEzabatuAzpiAtala" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        {{ azpiatala.izenburuaes }}
-                    </span>
+                    <button type="button" class="close btnEzabatuAzpiAtala btnZuzendu" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="row-fluid col-md-12">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+
+                            {{ azpiatala.izenburuaes }}
+                        </span>
+                    </h4>
                 </th>
                 <tbody>
                 <tr>
                     <td colspan="4">
                         {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
-
                             <div class="row azpiatala">
-                                <div class="col-xs-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                                     data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                     data-type="wysihtml5" tabindex="-1" style="display: block;">
-                                    <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                    </button>
-                                    {{ p.testuaeu | raw }}
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoa">
+                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                                             data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                             data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                                    </div>
                                 </div>
-                                <div class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                                     data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                     data-type="wysihtml5" tabindex="-1" style="display: block;">
-                                    <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                    </button>
-                                    {{ p.testuaes | raw }}
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoa">
+                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                                        <span class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                                             data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                             data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -235,12 +255,12 @@
                 {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                     <tr>
                         <td class="col-md-4">
-                            <div href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
-                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                 data-type="wysihtml5">
+                            <div >
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                {{ k.kontzeptuaeu }} {% for b in k.baldintza %}({{ k.baldintzaeu }}){% endfor %}
+                                <span href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
+                                      data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                      data-type="wysihtml5">{{ k.kontzeptuaeu }}</span>
                             </div>
                         </td>
                         <td>
@@ -257,12 +277,13 @@
                             </div>
                         </td>
                         <td class="col-md-5">
-                            <div id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
-                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            <div>
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                {{ k.kontzeptuaes }}
+                                <span  id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
+                                       data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
+                                       data-type="wysihtml5" tabindex="-1" style="display: block;">{{ k.kontzeptuaes }}</span>
+
                             </div>
                         </td>
                     </tr>
@@ -365,6 +386,11 @@
 
         $(document).ready(function () {
 
+            $('#enable').click(function() {
+                $('.editable').editable('toggleDisabled');
+                $('.editable2').editable('toggleDisabled');
+            });
+
             $('.btnAtalaparrafoBerria').on("click", function(e){
                 $('#divAtalaparrafoBerria').empty();
                 var miid = $(this).data('atalaid');
@@ -449,14 +475,30 @@
             } else {
                 $('.divEditable').on('mouseover', function () {
                     $(this).find('.btnEzabatu').removeClass('hide');
+                    $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoa').removeClass('hide');
                     $(this).find('.btnSort').removeClass('hide');
                 }).on('mouseleave', function () {
                     $(this).find('.btnEzabatu').addClass('hide');
+                    $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoa').addClass('hide');
                     $(this).find('.btnSort').addClass('hide');
                 });
 
+//                $('.divEditableatalaparrafoa').on('mouseover', function () {
+//                    $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
+//                    $(this).find('.btnSort').removeClass('hide');
+//                }).on('mouseleave', function () {
+//                    $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
+//                    $(this).find('.btnSort').addClass('hide');
+//                });
+
                 $('.btnEzabatuAtala').on('mouseover', function () {
-                    console.log($(this).next());
+                    $(this).next().addClass('gainean');
+                }).on('mouseleave',function () {
+                    $(this).next().removeClass('gainean');
+                });
+                $('.btnEzabatuAzpiAtala').on('mouseover', function () {
                     $(this).next().addClass('gainean');
                 }).on('mouseleave',function () {
                     $(this).next().removeClass('gainean');

@@ -16,7 +16,34 @@
      */
     class AzpiatalaparrafoaController extends Controller
     {
+        /**
+         * @Route("/up/{id}", name="admin_azpiatalaparrafoa_up")
+         * @Method("GET")
+         */
+        public function upAction(Request $request, Azpiatalaparrafoa $op)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $op->setOrdena($op->getOrdena() - 1);
+            $em->persist($op);
+            $em->flush();
 
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        /**
+         * @Route("/down/{id}", name="admin_azpiatalaparrafoa_down")
+         * @Method("GET")
+         */
+        public function downAction(Request $request, Azpiatalaparrafoa $op)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $op->setOrdena($op->getOrdena() + 1);
+            $em->persist($op);
+            $em->flush();
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+        
         /**
          * Creates a new Azpiatalaparrafoa entity.
          *

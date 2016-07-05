@@ -17,6 +17,34 @@ use AppBundle\Entity\Atala;
  */
 class AtalaparrafoaController extends Controller
 {
+    /**
+     * @Route("/up/{id}", name="admin_atalaparrafoa_up")
+     * @Method("GET")
+     */
+    public function upAction(Request $request, Atalaparrafoa $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setOrdena($op->getOrdena() - 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/down/{id}", name="admin_atalaparrafoa_down")
+     * @Method("GET")
+     */
+    public function downAction(Request $request, Atalaparrafoa $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setOrdena($op->getOrdena() + 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 
     /**
      * Creates a new Atalaparrafoa entity.
