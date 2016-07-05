@@ -359,6 +359,8 @@ class OrdenantzaController extends Controller
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('helvetica', '', 11, '', true);
 
+        $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
+
         $pdf->AddPage();
         $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
         $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
