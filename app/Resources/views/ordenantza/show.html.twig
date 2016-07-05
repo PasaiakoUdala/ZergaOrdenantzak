@@ -154,14 +154,14 @@
             {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
                 <div class="row atalaparrafoa">
                     <div class="divEditable col-xs-6">
-                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                         </button>
                         <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
                               data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                     </div>
                     <div class="divEditable col-xs-6">
-                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close btnEzabatuAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                         </button>
                         <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
                               data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
@@ -174,26 +174,7 @@
         {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
 
         {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
-            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
-                <div class="row azpiatala">
-                    <div class="col-xs-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                         data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                         data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        {{ p.testuaeu | raw }}
-                    </div>
-                    <div class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                         data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                         data-type="wysihtml5" tabindex="-1" style="display: block;">
-                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                        </button>
-                        {{ p.testuaes | raw }}
-                    </div>
-                </div>
-            {% endfor %}
-
-            <table class="table table-hover table-responsive table-bordered table-striped">
+            <table class="table table-hover table-responsive table-bordered">
                 <th class="row-fluid col-xs-6" id="{{ atala.kodea ~ azpiatala.kodea }}">
                     <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
                           data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
@@ -227,6 +208,30 @@
                     </span>
                 </th>
                 <tbody>
+                <tr>
+                    <td colspan="4">
+                        {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+
+                            <div class="row azpiatala">
+                                <div class="col-xs-6 editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                                     data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                     data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                    <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    {{ p.testuaeu | raw }}
+                                </div>
+                                <div class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                                     data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                     data-type="wysihtml5" tabindex="-1" style="display: block;">
+                                    <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    {{ p.testuaes | raw }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
                 {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                     <tr>
                         <td class="col-md-4">
@@ -235,7 +240,7 @@
                                  data-type="wysihtml5">
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                {{ k.kontzeptuaeu }}
+                                {{ k.kontzeptuaeu }} {% for b in k.baldintza %}({{ k.baldintzaeu }}){% endfor %}
                             </div>
                         </td>
                         <td>
@@ -353,10 +358,8 @@
         }
 
         $(document).ajaxStart(function(){
-            console.log("hasi");
             $('#loading').show();
         }).ajaxStop(function(){
-            console.log("amaitu");
             $('#loading').hide();
         });
 
