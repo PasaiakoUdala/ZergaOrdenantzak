@@ -94,17 +94,17 @@ php bin/console fos:user:promote
     <VirtualHost *:80>
         ServerName zerbikat.dev
 
-        DocumentRoot /home/ikerib/dev/zerbikat.dev/web
-        <Directory /home/ikerib/dev/zerbikat.dev/web>
+        DocumentRoot /home/ikerib/dev/zergaordenantzak.dev/web
+        <Directory /home/ikerib/dev/zergaordenantzak.dev/web>
             AllowOverride All
             Require all granted
         </Directory>
 
-        <Directory /home/ikerib/dev/zerbikat.dev>
+        <Directory /home/ikerib/dev/zergaordenantzak.dev>
             Options FollowSymlinks
         </Directory>
 
-        ErrorLog /var/log/apache2/zerbikat.dev_error.log
-        CustomLog /var/log/apache2/zerbikat.dev_access.log combined
+        ErrorLog /var/log/apache2/zergaordenantzak.dev_error.log
+        CustomLog /var/log/apache2/zergaordenantzak.dev_access.log combined
     </VirtualHost>
 
