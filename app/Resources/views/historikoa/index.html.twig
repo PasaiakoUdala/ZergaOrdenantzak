@@ -3,8 +3,10 @@
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         {% if  app.request.locale == "eu"%}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Zerga zerrenda</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
         {% else %}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Listado ordenanzas</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
         {% endif %}
         <li>&nbspp;</li>
