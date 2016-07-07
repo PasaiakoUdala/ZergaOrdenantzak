@@ -53,6 +53,33 @@
             );
         }
 
+        /**
+         *
+         * @Route("/{id}/edit/{ordenantzaid}", options = { "expose" = true }, name="admin_kontzeptua_edit")
+         * @Method({"GET", "POST"})
+         */
+        public function editAction(Request $request, Kontzeptua $kontzeptua, $ordenantzaid)
+        {
+            $deleteForm = $this->createDeleteForm($kontzeptua);
+            $editForm = $this->createForm('AppBundle\Form\KontzeptuaType', $kontzeptua);
+            $editForm->handleRequest($request);
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($kontzeptua);
+                $em->flush();
+//                return $this->redirectToRoute('araudia_edit', array('id' => $kontzeptua->getId()));
+
+                return $this->redirectToRoute('admin_ordenantza_show', array('id' => $ordenantzaid));
+            }
+            return $this->render('kontzeptua/edit.html.twig', array(
+                'kontzeptua' => $kontzeptua,
+                'ordenantzaid' => $ordenantzaid,
+                'form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+
+        }
+
 
         /**
          *

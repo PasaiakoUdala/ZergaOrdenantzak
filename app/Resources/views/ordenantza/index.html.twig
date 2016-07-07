@@ -118,6 +118,14 @@
                 var index = $(this).data('divazpiatalak');
                 var divSub = ".subAzpiatalak" + index;
                 $(divSub).toggle( "slow" );
+                if ( $(this).hasClass('glyphicon-minus')==true ) {
+                    $(this).removeClass('glyphicon-minus');
+                    $(this).addClass('glyphicon-plus')
+                } else {
+                    $(this).removeClass('glyphicon-plus');
+                    $(this).addClass('glyphicon-minus')
+                }
+
             });
         });
     </script>
