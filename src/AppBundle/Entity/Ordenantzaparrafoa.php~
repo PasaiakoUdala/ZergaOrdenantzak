@@ -98,7 +98,7 @@ class Ordenantzaparrafoa
     /**
      * @var \Ordenantza
      *
-     * @ORM\ManyToOne(targetEntity="Ordenantza")
+     * @ORM\ManyToOne(targetEntity="Ordenantza", inversedBy="parrafoak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id")
      * })
@@ -402,29 +402,5 @@ class Ordenantzaparrafoa
     public function getEzabatu()
     {
         return $this->ezabatu;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     *
-     * @return Ordenantzaparrafoa
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 }

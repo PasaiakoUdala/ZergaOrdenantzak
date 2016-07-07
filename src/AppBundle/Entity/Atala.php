@@ -121,7 +121,7 @@ class Atala
     /**
      * @var \Ordenantza
      *
-     * @ORM\ManyToOne(targetEntity="Ordenantza")
+     * @ORM\ManyToOne(targetEntity="Ordenantza",inversedBy="atalak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id")
      * })

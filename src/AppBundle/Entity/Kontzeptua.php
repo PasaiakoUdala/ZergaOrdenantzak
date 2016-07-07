@@ -123,7 +123,7 @@ class Kontzeptua
     /**
      * @var \Azpiatala
      *
-     * @ORM\ManyToOne(targetEntity="Azpiatala")
+     * @ORM\ManyToOne(targetEntity="Azpiatala",inversedBy="kontzeptuak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="azpiatala_id", referencedColumnName="id")
      * })

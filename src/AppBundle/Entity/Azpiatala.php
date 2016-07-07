@@ -109,7 +109,7 @@ class Azpiatala
     /**
      * @var \Atala
      *
-     * @ORM\ManyToOne(targetEntity="Atala")
+     * @ORM\ManyToOne(targetEntity="Atala",inversedBy="azpiatalak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
      * })

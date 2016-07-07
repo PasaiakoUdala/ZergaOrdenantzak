@@ -98,7 +98,7 @@ class Ordenantzaparrafoa
     /**
      * @var \Ordenantza
      *
-     * @ORM\ManyToOne(targetEntity="Ordenantza")
+     * @ORM\ManyToOne(targetEntity="Ordenantza", inversedBy="parrafoak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id")
      * })

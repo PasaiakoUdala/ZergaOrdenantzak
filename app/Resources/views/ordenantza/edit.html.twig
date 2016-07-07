@@ -1,21 +1,555 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Ordenantza edit</h1>
+{% block nav %}
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ordenantza.izenburuaeu | capitalize }} <b
+                    class="caret"></b></a>
+        <ul class="dropdown-menu">
+            {% for atala in ordenantza.atalak  if atala.ezabatu != 1 %}
+                {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
+                    <li class="dropdown dropdown-submenu ">
+                        <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);"  >{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
+                        <ul class="dropdown-menu">
+                            {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu != 1 %}
+                                <li class="dropdown dropdown-submenu">
+                                    <a href="#{{ atala.kodea ~ azpiatala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);">{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu|capitalize }}</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
+                                        <li><a href="#" class="btnKontzeptuBerria" data-azpiatalaid="{{ azpiatala.id }}" ><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Kontzeptu berria</a></li>
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-plus"></span> Azpiatal berria</a></li>
+                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
+                        </ul>
+                    </li>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+                {% else %}
+                    <li class="dropdown dropdown-submenu">
+                        <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-plus"></span> Azpiatal berria</a></li>
+                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" ><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            <li role="separator" class="divider"></li>
+            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria"><span class="glyphicon glyphicon-plus"></span> Parrafoa</a></li></a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divAtalBerria"><span class="glyphicon glyphicon-plus"></span> Atal berria</a></li></a></li>
+        </ul>
+    </li>
+{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_ordenantza_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="active" ><a class="active" href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}">Edizio modua desaktibatu</a></li>
+        <li><a href="{{ path('admin_ordenantza_show_pdf', {'id': ordenantza.id}) }}"> PDF <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ path('admin_ordenantza_export_pdf', {'id': ordenantza.id}) }}"> {{ "Indarrean jarri" }} <span class="sr-only">(current)</span></a></li>
+        <li>&nbspp;</li>
     </ul>
 {% endblock %}
+
+{% block body %}
+    <div class="row">&nbsp;</div>
+
+    <div class="row ordenantza">
+        <div class="col-xs-6">
+            <h4>
+                <button type="button" class="close btnEzabatu hide" data-toggle="modal"
+                        data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <span  class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
+                       data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                       data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</span>
+            </h4>
+        </div>
+        <div class="col-xs-6">
+            <h4>
+                <button type="button" class="close btnEzabatu hide pull-right" data-toggle="modal"
+                        data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                <span class="editable2 ordenantza" data-name="izenburuaes" data-pk="{{ ordenantza.id }}"
+                      data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                      data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</span>
+            </h4>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+        <div class="row ordenantzaparrafoa">
+            <div class="col-xs-6">
+                <div class="divEditable">
+                    <button type="button" class="close btnEzabatu hide" data-toggle="modal"
+                            data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    &nbsp;
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                    <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                          data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
+                          tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                    {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="divEditable">
+                    <button type="button" class="close btnEzabatu hide" data-toggle="modal"
+                            data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    &nbsp;
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                    <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                          data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
+                          tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">&nbsp;</div>
+
+    {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
+        {% if atala.utsa != 1 %}
+            <div class="row atala">
+                <div class="col-xs-6">
+                    <button type="button" class="close btnEzabatuAtala" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h3 class="row-fluid col-md-12" id="{{ atala.kodea }}">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ atala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ atala.izenburuaeu }}
+                        </span>
+                    </h3>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" class="close btnEzabatuAtala" data-miid="{{ atala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h3 class="row-fluid col-md-12">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ atala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}"
+                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ atala.izenburuaes }}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
+            {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
+                <div class="row atalaparrafoa">
+                    <div class="divEditable col-xs-6">
+                        <div class="divEditableatalaparrafoa">
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                        </div>
+                    </div>
+                    <div class="divEditable col-xs-6">
+                        <div class="divEditable">
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                            </button>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
+        <div class="row">&nbsp;</div>
+
+        {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+            <table class="table table-hover table-responsive table-bordered">
+                <th class="row-fluid col-xs-6" id="{{ atala.kodea ~ azpiatala.kodea }}">
+                    <button type="button" class="close btnEzabatuAzpiAtala btnZuzendu" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="row-fluid col-md-12">
+                        <span class="editable2 col-md-2 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-9 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.izenburuaeu }}
+                        </span>
+                    </h4>
+                </th>
+                <th></th>
+                <th></th>
+                <th class="row-fluid col-xs-6">
+                    <button type="button" class="close btnEzabatuAzpiAtala btnZuzendu" data-miid="{{ azpiatala.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="row-fluid col-md-12">
+                        <span class="editable2 col-md-2 text-left" data-name="kodea" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.kodea }}
+                        </span>
+                        <span class="col-md-1 text-left">-</span>
+                        <span class="editable2 col-md-9 text-left" data-name="izenburuaes" data-pk="{{ azpiatala.id }}"
+                              data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
+                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                            {{ azpiatala.izenburuaes }}
+                        </span>
+                    </h4>
+                </th>
+                <tbody>
+                <tr>
+                    <td colspan="4">
+                        {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                            <div class="row azpiatala">
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoa">
+                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
+                                              data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                                    </div>
+                                </div>
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoa">
+                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                        </button>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                                        <span class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
+                                              data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
+                                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                    <tr>
+                        <td class="col-md-4">
+                            <div >
+                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                    <span>{{ k.kontzeptuaeu }} {% if k.baldintza.baldintzaeu is defined %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                <span>{{ k.kopurua }}</span>
+                            </a>
+                        <td>
+                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                <span>{{ k.unitatea }}</span>
+                            </a>
+                        </td>
+                        <td class="col-md-5">
+                            <div>
+                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
+                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza.baldintzaes is defined %}( {{ k.baldintza.baldintzaes }} ){% endif %}</span>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% endfor %}
+
+    {% endfor %}
+    <div style="display: none;">
+        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text" value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
+    </div>
+
+
+    {#
+    Insert formularioak
+    #}
+    <div id="divAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        {{ render(controller('AppBundle:Atala:new', {'ordenantzaid': ordenantza.id })) }}
+    </div>
+
+    <div id="divOrdenantzaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        {{ render(controller('AppBundle:Ordenantzaparrafoa:new', {'ordenantzaid': ordenantza.id })) }}
+    </div>
+
+    <div id="divAzpiAtalBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divAzpiatalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divKontzeptuBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+
+    {#Edit form#}
+    <div id="divKontzeptuaEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
+
+
+    {#
+    Ezabatze formularioak
+    #}
+    <div id="divEzabatuOrdenantza" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {{ form_start(delete_form) }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ordenantza ezabatu</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Ziur zaude ezabatu nahi duzula?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Ezeztatu</button>
+                    <button type="submit" class="btn btn-primary">Baiezabatu</button>
+                </div>
+                <div style="display: none;">{{ form_end(delete_form) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="divEzabatuAtala" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divEzabatuAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divEzabatuAzpiAtala" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divEzabatuAzpiAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divEzabatuKontzeptua" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="loading" style="display:none;">
+        <p><img src="{{ asset('bundles/app/img/loading.svg') }}" /> Kargatzen...</p>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        function clickMe(obj){
+            location.href = $(obj).attr('href');
+        }
+
+        $(document).ajaxStart(function(){
+            $('#loading').show();
+        }).ajaxStop(function(){
+            $('#loading').hide();
+        });
+
+        $(document).ready(function () {
+
+            $('#enable').click(function() {
+                $('.editable').editable('toggleDisabled');
+                $('.editable2').editable('toggleDisabled');
+            });
+
+            $('.btnAtalaparrafoBerria').on("click", function(e){
+                $('#divAtalaparrafoBerria').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_atalaparrafoa_new', { atalaid: miid });
+                $('#divAtalaparrafoBerria').load(url);
+                $('#divAtalaparrafoBerria').modal('toggle');
+            });
+
+            $('.btnAzpiatalaparrafoBerria').on("click", function(e){
+                $('#divAzpiatalaparrafoBerria').empty();
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_azpiatalaparrafoa_new', { azpiatalaid: miid });
+                $('#divAzpiatalaparrafoBerria').load(url);
+                $('#divAzpiatalaparrafoBerria').modal('toggle');
+            });
+
+            $('.btnAzpiAtalBerria').on("click", function(e){
+                $('#divAzpiAtalBerria').empty();
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_azpiatala_new', { atalaid: miid });
+                $('#divAzpiAtalBerria').load(url);
+                $('#divAzpiAtalBerria').modal('toggle');
+            });
+
+            $('.btnKontzeptuBerria').on("click", function(e){
+                $('#divKontzeptuBerria').empty();
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_kontzeptua_new', { azpiatalaid: miid });
+                $('#divKontzeptuBerria').load(url);
+                $('#divKontzeptuBerria').modal('toggle');
+            });
+
+            $('.btnKontzeptuaEdit').on("click", function (e) {
+                e.preventDefault();
+                $('#divKontzeptuaEdit').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_kontzeptua_edit', { id: miid, ordenantzaid:{{ ordenantza.id}} });
+                $('#divKontzeptuaEdit').load(url);
+                $('#divKontzeptuaEdit').modal('toggle');
+            });
+
+            $('.btnEzabatuAtala').on('click', function(){
+                $('#divEzabatuAtala').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_atala_ezabatu', { id: miid });
+                $('#divEzabatuAtala').load(url);
+                $('#divEzabatuAtala').modal('toggle');
+            });
+
+            $('.btnEzabatuAtalaParrafoa').on('click', function(){
+                $('#divEzabatuAtalaParrafoa').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_atalaparrafoa_ezabatu', { id: miid });
+                $('#divEzabatuAtalaParrafoa').load(url);
+                $('#divEzabatuAtalaParrafoa').modal('toggle');
+            });
+
+            $('.btnEzabatuAzpiAtala').on('click', function(){
+                $('#divEzabatuAzpiAtala').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_azpiatala_ezabatu', { id: miid });
+                $('#divEzabatuAzpiAtala').load(url);
+                $('#divEzabatuAzpiAtala').modal('toggle');
+            });
+
+            $('.btnEzabatuAzpiAtalaParrafoa').on('click', function(){
+                $('#divEzabatuAzpiAtalaParrafoa').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_azpiatalaparrafoa_ezabatu', { id: miid });
+                $('#divEzabatuAzpiAtalaParrafoa').load(url);
+                $('#divEzabatuAzpiAtalaParrafoa').modal('toggle');
+            });
+
+            $('.btnEzabatuKontzeptua').on('click', function(){
+                $('#divEzabatuKontzeptua').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_kontzeptua_ezabatu', { id: miid });
+                $('#divEzabatuKontzeptua').load(url);
+                $('#divEzabatuKontzeptua').modal('toggle');
+            });
+
+
+            $.fn.editable.defaults.mode = 'inline';
+            var isAdmin = $('#isAdmin').val();
+
+            if (isAdmin === "0") {
+                $('.editable').editable('toggleDisabled');
+                $('.editable2').editable('toggleDisabled');
+            } else {
+                $('.divEditable').on('mouseover', function () {
+                    $(this).find('.btnEzabatu').removeClass('hide');
+                    $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoa').removeClass('hide');
+                    $(this).find('.btnSort').removeClass('hide');
+                }).on('mouseleave', function () {
+                    $(this).find('.btnEzabatu').addClass('hide');
+                    $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoa').addClass('hide');
+                    $(this).find('.btnSort').addClass('hide');
+                });
+
+                $('.btnEzabatuAtala').on('mouseover', function () {
+                    $(this).next().addClass('gainean');
+                }).on('mouseleave',function () {
+                    $(this).next().removeClass('gainean');
+                });
+                $('.btnEzabatuAzpiAtala').on('mouseover', function () {
+                    $(this).next().addClass('gainean');
+                }).on('mouseleave',function () {
+                    $(this).next().removeClass('gainean');
+                });
+
+                $('.editable').editable();
+                $('.editable2').on('mouseover', function () {
+                    $(this).addClass('gainean');
+
+                })
+                        .on('mouseleave', function () {
+                            $(this).removeClass('gainean');
+                        }).editable({
+                    toggle: 'dblclick',
+                    title: 'Enter comments',
+                    showbuttons: 'top',
+                    onblur: 'ignore',
+                    inputclass: 'editable-buttons-ezker',
+                    wysihtml5: {
+                        "image": false,
+                        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, //Italics, bold, etc. Default true
+                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": false, //Button which allows you to edit the generated HTML. Default false
+                        "link": false, //Button to insert a link. Default true
+                    }
+                });
+
+                $('.editable-popup').on('mouseover', function () {
+                    $(this).addClass('gainean');
+                })
+                        .on('mouseleave', function () {
+                            $(this).removeClass('gainean');
+                        }).editable({
+                    mode: 'popup',
+                    title: 'Enter comments',
+                    showbuttons: 'top',
+                    onblur: 'ignore',
+                    inputclass: 'editable-buttons-ezker',
+                    wysihtml5: {
+                        "image": false,
+                        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, //Italics, bold, etc. Default true
+                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": false, //Button which allows you to edit the generated HTML. Default false
+                        "link": false, //Button to insert a link. Default true
+                    }
+                });
+            }
+        });
+    </script>
+
+
+{% endblock %}
+
