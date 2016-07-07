@@ -109,7 +109,7 @@ class Azpiatala
     /**
      * @var \Atala
      *
-     * @ORM\ManyToOne(targetEntity="Atala")
+     * @ORM\ManyToOne(targetEntity="Atala",inversedBy="azpiatalak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
      * })
@@ -120,6 +120,7 @@ class Azpiatala
      * @var Azpiatalaparrafoa
      * @expose
      * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+     * @ORM\OrderBy({"ordena" = "ASC"})
      */
     protected $parrafoak;
 

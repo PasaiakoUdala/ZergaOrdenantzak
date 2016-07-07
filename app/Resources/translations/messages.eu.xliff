@@ -6,9 +6,57 @@
                 <source>Onartze data</source>
                 <target>Onartze data</target>
             </trans-unit>
-            <trans-unit id="messages.aldaketak">
-                <source>messages.aldaketak</source>
+            <trans-unit id="2">
+                <source>G.A.O. Argitaratze Data</source>
+                <target>G.A.O. Argitaratze Data</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Aldaketak</source>
                 <target>Aldaketak</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Fitxategia</source>
+                <target>Fitxategia</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Historikoa</source>
+                <target>Historikoa</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Kodea</source>
+                <target>Kodea</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Izenburua</source>
+                <target>Izenburua</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Título</source>
+                <target>Título</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Ordenantza</source>
+                <target>Ordenantza</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source></source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Udala</source>
+                <target>Udala</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Testua</source>
+                <target>Testua</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Texto</source>
+                <target>Texto</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Ordena</source>
+                <target>Ordena</target>
             </trans-unit>
         </body>
     </file>

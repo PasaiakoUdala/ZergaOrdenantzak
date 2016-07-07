@@ -97,7 +97,7 @@ class Azpiatalaparrafoa
     /**
      * @var \Azpiatala
      *
-     * @ORM\ManyToOne(targetEntity="Azpiatala")
+     * @ORM\ManyToOne(targetEntity="Azpiatala",inversedBy="parrafoak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="azpiatala_id", referencedColumnName="id")
      * })

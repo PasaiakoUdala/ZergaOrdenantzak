@@ -98,7 +98,7 @@ class Atalaparrafoa
     /**
      * @var \Atala
      *
-     * @ORM\ManyToOne(targetEntity="Atala")
+     * @ORM\ManyToOne(targetEntity="Atala",inversedBy="parrafoak")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
      * })

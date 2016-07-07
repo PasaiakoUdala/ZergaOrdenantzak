@@ -295,24 +295,13 @@ class OrdenantzaController extends Controller
     /**
      * Finds and displays a Ordenantza entity.
      *
-     * @Route("/{id}", name="admin_ordenantza_show")
+     * @Route("/{id}/erakutsi", name="admin_ordenantza_show")
      * @Method("GET")
      */
     public function showAction(Ordenantza $ordenantza)
     {
-        $deleteForm = $this->createDeleteForm($ordenantza);
-        $deleteForms = array();
-
-        foreach ($ordenantza->getParrafoak() as $p) {
-            $deleteForms[$p->getId()] = $this->createFormBuilder()
-                ->setAction($this->generateUrl('admin_ordenantzaparrafoa_delete', array('id' => $p->getId())))
-                ->setMethod('DELETE')
-                ->getForm()->createView();
-        }
-
         return $this->render('ordenantza/show.html.twig', array(
-            'ordenantza' => $ordenantza,
-            'delete_form' => $deleteForm->createView(),
+            'ordenantza' => $ordenantza            
         ));
     }
 
@@ -392,20 +381,17 @@ class OrdenantzaController extends Controller
     public function editAction(Request $request, Ordenantza $ordenantza)
     {
         $deleteForm = $this->createDeleteForm($ordenantza);
-        $editForm = $this->createForm('AppBundle\Form\OrdenantzaType', $ordenantza);
-        $editForm->handleRequest($request);
+        $deleteForms = array();
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($ordenantza);
-            $em->flush();
-
-            return $this->redirectToRoute('admin_ordenantza_edit', array('id' => $ordenantza->getId()));
+        foreach ($ordenantza->getParrafoak() as $p) {
+            $deleteForms[$p->getId()] = $this->createFormBuilder()
+                ->setAction($this->generateUrl('admin_ordenantzaparrafoa_delete', array('id' => $p->getId())))
+                ->setMethod('DELETE')
+                ->getForm()->createView();
         }
 
         return $this->render('ordenantza/edit.html.twig', array(
             'ordenantza' => $ordenantza,
-            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
