@@ -257,31 +257,27 @@
                             <div >
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                <span href="#" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
-                                      data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                      data-type="wysihtml5">{{ k.kontzeptuaeu }}</span>
+                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                    <span>{{ k.kontzeptuaeu }} ( {{ k.baldintza.baldintzaeu }} )</span>
+                                </a>
                             </div>
                         </td>
                         <td>
-                            <div class="editable-popup text-left" data-name="kopurua" data-pk="{{ k.id }}"
-                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
-                                {{ k.kopurua }}
-                            </div>
+                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                <span>{{ k.kopurua }}</span>
+                            </a>
                         <td>
-                            <div class="editable-popup text-left" data-name="unitatea" data-pk="{{ k.id }}"
-                                 data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                 data-type="wysihtml5" tabindex="-1" style="display: block;">
-                                &nbsp;{{ k.unitatea }}
-                            </div>
+                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                <span>{{ k.unitatea }}</span>
+                            </a>
                         </td>
                         <td class="col-md-5">
                             <div>
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                <span  id="iepa" class="editable2 text-left" data-name="kontzeptuaeu" data-pk="{{ k.id }}"
-                                       data-url="{{ path('admin_ordenantza_azpiatalakontzeptua_eguneratu', {'id': k.id}) }}"
-                                       data-type="wysihtml5" tabindex="-1" style="display: block;">{{ k.kontzeptuaes }}</span>
+                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
+                                    <span>{{ k.kontzeptuaes }} ( {{ k.baldintza.baldintzaes }} )</span>
+                                </a>
 
                             </div>
                         </td>
@@ -323,6 +319,11 @@
 
     <div id="divKontzeptuBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
+
+
+    {#Edit form#}
+    <div id="divKontzeptuaEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"></div>
+
 
     {#
     Ezabatze formularioak
@@ -422,7 +423,14 @@
                 $('#divKontzeptuBerria').modal('toggle');
             });
 
-
+            $('.btnKontzeptuaEdit').on("click", function (e) {
+                e.preventDefault();
+                $('#divKontzeptuaEdit').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_kontzeptua_edit', { id: miid, ordenantzaid:{{ ordenantza.id}} });
+                $('#divKontzeptuaEdit').load(url);
+                $('#divKontzeptuaEdit').modal('toggle');
+            });
 
             $('.btnEzabatuAtala').on('click', function(){
                 $('#divEzabatuAtala').empty();
@@ -483,14 +491,6 @@
                     $(this).find('.btnEzabatuAzpiAtalaParrafoa').addClass('hide');
                     $(this).find('.btnSort').addClass('hide');
                 });
-
-//                $('.divEditableatalaparrafoa').on('mouseover', function () {
-//                    $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
-//                    $(this).find('.btnSort').removeClass('hide');
-//                }).on('mouseleave', function () {
-//                    $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
-//                    $(this).find('.btnSort').addClass('hide');
-//                });
 
                 $('.btnEzabatuAtala').on('mouseover', function () {
                     $(this).next().addClass('gainean');
