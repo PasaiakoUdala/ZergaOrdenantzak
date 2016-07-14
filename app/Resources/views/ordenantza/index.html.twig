@@ -4,6 +4,7 @@
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
+        <li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" }} <span class="sr-only">(current)</span></a></li>
         {% if  app.request.locale == "eu"%}
             <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
             <li>&nbsp;</li>
