@@ -377,6 +377,9 @@ class OrdenantzaController extends Controller
 //        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
         $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
 
+        $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        $pdf->AddPage();
 
         foreach ($ordenantzas as $ordenantza)
         {
