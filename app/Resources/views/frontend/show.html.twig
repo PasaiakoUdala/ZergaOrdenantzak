@@ -75,33 +75,17 @@
                     {% endif %}
                 </th>
                 <th></th>
-                <th></th>
                 <tbody>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="2">
                         {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
                             <div class="row azpiatala">
-                                <div class="divEditable col-xs-6">
-                                    <div class="divEditableazpiatalaparrafoa">
-                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                        </button>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                                             data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                             data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
-                                    </div>
-                                </div>
-                                <div class="divEditable col-xs-6">
-                                    <div class="divEditableazpiatalaparrafoa">
-                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoa" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                        </button>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                                        <span class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                                             data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                             data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
-                                    </div>
+                                <div class="col-xs-12">
+                                    {% if app.request.locale == 'eu'%}
+                                        {{ p.testuaeu | raw }}
+                                    {% else %}
+                                        {{ p.testuaes | raw }}
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endfor %}
@@ -111,32 +95,15 @@
                 {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                     <tr>
                         <td class="col-md-4">
-                            <div >
-                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                </button>
-                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaeu }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
-                                </a>
-                            </div>
-                        </td>
-                        <td>
-                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                <span>{{ k.kopurua }}</span>
-                            </a>
-                        <td>
-                            <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                <span>{{ k.unitatea }}</span>
-                            </a>
-                        </td>
-                        <td class="col-md-5">
-                            <div>
-                                <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                </button>
-                                <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
-                                </a>
+                            {% if app.request.locale == 'eu'%}
+                                {{ k.kontzeptuaeu }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
+                            {% else %}
+                                {{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
+                            {% endif %}
 
-                            </div>
+                        </td>
+                        <td NOWRAP>
+                            {{ k.kopurua }}{{ k.unitatea }}
                         </td>
                     </tr>
                 {% endfor %}
