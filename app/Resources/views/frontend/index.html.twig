@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+
+{% block navright %}
+{% endblock %}
+
+{% block body %}
+    <div class="containermenua">
+        {% for ordenantza in ordenantzas %}
+
+            <a href="{{ path('frontend_ordenantza_show', {'id': ordenantza.id,'udala': udala}) }}" class="menuordenantza">
+                <ul class="list-inline">
+                    <li class="litext">
+                        {% if  app.request.locale == "eu "%}
+                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+                        {% else %}
+                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
+                        {% endif %}
+                    </li>
+                    <li class="pull-right">
+                        <span class="btnsubmenu glyphicon glyphicon-plus" data-divazpiatalak="{{ loop.index }}" data-ordenantzaid="{{ ordenantza.id }}"></span>
+                    </li>
+                </ul>
+            </a>
+
+            <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
+                <ul class="nav nav-pills nav-stacked">
+                {#<div class="list-group">#}
+                    {% for atala in ordenantza.atalak %}
+                        <li><span class="label label-primary">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.-{{ atala.izenburuaeu }}</span></li>
+                        {% for azpiatala in atala.azpiatalak %}
+
+                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}</a></li>
+                            {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
+
+
+                                <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">{{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-bordered table-condensed table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>{{ "Kontzeptua" | trans }}</th>
+                                                        <th>{{ "kopurua" | trans }}</th>
+                                                        <th>{{ "unitatea" |trans }}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for k in azpiatala.kontzeptuak %}
+                                                        <tr>
+                                                            <td>{{ k.kontzeptuaeu }}</td>
+                                                            <td>{{ k.kopurua }}</td>
+                                                            <td>{{ k.unitatea }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Itxi" | trans }}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                        {% endfor %}
+
+                    {% endfor %}
+                    {#</div>#}
+                </ul>
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ajaxStart(function(){
+            $('#loading').show();
+        }).ajaxStop(function(){
+            $('#loading').hide();
+        });
+
+        $(document).ready(function () {
+
+            $('.btnsubmenu').on("click", function (e) {
+                e.preventDefault();
+                var index = $(this).data('divazpiatalak');
+                var divSub = ".subAzpiatalak" + index;
+                $(divSub).toggle( "slow" );
+                if ( $(this).hasClass('glyphicon-minus')==true ) {
+                    $(this).removeClass('glyphicon-minus');
+                    $(this).addClass('glyphicon-plus')
+                } else {
+                    $(this).removeClass('glyphicon-plus');
+                    $(this).addClass('glyphicon-minus')
+                }
+
+            });
+        });
+    </script>
+{% endblock %}
