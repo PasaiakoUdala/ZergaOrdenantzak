@@ -258,7 +258,7 @@
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
                                 <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaeu }} ( {{ k.baldintza.baldintzaeu }} )</span>
+                                    <span>{{ k.kontzeptuaeu }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
                                 </a>
                             </div>
                         </td>
@@ -276,7 +276,7 @@
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
                                 <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaes }} ( {{ k.baldintza.baldintzaes }} )</span>
+                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
                                 </a>
 
                             </div>
