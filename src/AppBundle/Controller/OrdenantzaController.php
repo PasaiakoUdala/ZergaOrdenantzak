@@ -349,21 +349,40 @@ class OrdenantzaController extends Controller
      */
     public function exportpdfAction(Ordenantza $ordenantza)
     {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
 
-        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
 
+//        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+       
 
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor($this->getUser()->getUdala());
-        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+//        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+        $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
+
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('helvetica', '', 11, '', true);
 
         $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
 
         $pdf->AddPage();
-        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
-        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+        $eguna=date("Y-m-d_His");
+//        dump ($eguna);
+
+//        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
+
+
+        foreach ($ordenantzas as $ordenantza)
+        {
+            $mihtml = $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+            $pdf->AddPage();
+        }
+
+
         $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
         $em = $this->getDoctrine()->getManager();
