@@ -150,7 +150,7 @@
 //        $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r") or die("Unable to open file!");
             /* fitxategia ez bada existitzen login orrira berbideratu */
 
-        dump($urlOsoa);
+//        dump($urlOsoa);
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
             {
                 $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r");
