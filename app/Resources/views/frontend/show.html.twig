@@ -10,6 +10,7 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('frontend_historikoa_index', { 'udala': udala}) }}">{{ "Historikoa kontsultatu" | trans }}</a></li>
         <li><a href="{{ path('frontend_ordenantza_pdf', { 'udala': udala}) }}" target="_blank" class="fa fa-file-pdf-o" >
                 {#{% if app.request.locale == 'eu'%}Pdf (eu)#}
                 {#{% else %}Pdf (es)#}
