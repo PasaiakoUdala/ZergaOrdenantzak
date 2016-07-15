@@ -120,6 +120,7 @@ class Azpiatala
      * @var Azpiatalaparrafoa
      * @expose
      * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+     * @ORM\OrderBy({"ordena" = "ASC"})
      */
     protected $parrafoak;
 

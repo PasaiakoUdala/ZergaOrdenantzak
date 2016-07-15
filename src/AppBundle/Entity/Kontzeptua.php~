@@ -133,7 +133,7 @@ class Kontzeptua
     /**
      * @var \Baldintza
      *
-     * @ORM\ManyToOne(targetEntity="Baldintza")
+     * @ORM\ManyToOne(targetEntity="Baldintza", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="baldintza_id", referencedColumnName="id")
      * })
