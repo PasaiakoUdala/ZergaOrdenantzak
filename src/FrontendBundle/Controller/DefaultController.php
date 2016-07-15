@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Ordenantza;
 use Symfony\Component\Filesystem\Filesystem;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\Adapter\ArrayAdapter;
 
 class DefaultController extends Controller
 {
@@ -95,6 +97,49 @@ class DefaultController extends Controller
 
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
+
+
+    /**
+     * Lists all Historikoa entities.
+     *
+     * @Route("/{udala}/{_locale}/historikoa", defaults={"page" = 1}, name="frontend_historikoa_index",
+     *         requirements={
+     *           "_locale": "eu|es",
+     *           "udala": "\d+"
+     *          }
+     * )
+     * @Route("/{udala}/{_locale}/historikoa/page{page}", name="frontend_historikoa_paginated")
+     * @Method("GET")
+     */
+    public function historikoaAction($page,$udala)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+//        $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll(array(),array('id','DESC'));
+        $historikoas =  $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
+
+        $adapter = new ArrayAdapter($historikoas);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        try {
+            $entities = $pagerfanta
+                ->setMaxPerPage(25)
+                ->setCurrentPage($page)
+                ->getCurrentPageResults()
+            ;
+        } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
+            throw $this->createNotFoundException("Orria ez da existitzen");
+        }
+
+
+
+        return $this->render('frontend/historikoa.html.twig', array(
+            'historikoas' => $entities,
+            'pager' => $pagerfanta,
+            'udala' => $udala
+        ));
+    }
+
 
 
     /**

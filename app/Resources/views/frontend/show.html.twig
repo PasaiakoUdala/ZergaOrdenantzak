@@ -16,13 +16,6 @@
                 {#{% endif %}#}
                 PDF
             </a></li>
-        {#<li>#}
-            {#<a href="{{ path('frontend_ordenantza_index', { 'udala': udala }) }}" class="fa fa-undo">#}
-                {#{% if app.request.locale == 'eu'%}Atzera#}
-                {#{% else %}Atras#}
-                {#{% endif %}#}
-            {#</a>#}
-        {#</li>#}
         <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
         <li class="list-inline"><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
         <li class="list-inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -35,9 +28,9 @@
     <div class="row ordenantza well">
         <div class="col-xs-12">
         {% if app.request.locale == 'eu'%}
-                <h2>{{ ordenantza.kodea ~ "." ~ ordenantza.izenburuaeu }}</h2>
+                <h2>{{ ordenantza.kodeaProd ~ "." ~ ordenantza.izenburuaeuProd }}</h2>
         {% else %}
-                <h2>{{ ordenantza.kodea ~ "." ~ ordenantza.izenburuaes }}</h2>
+                <h2>{{ ordenantza.kodeaProd ~ "." ~ ordenantza.izenburuaesProd }}</h2>
         {% endif %}
         </div>
     </div>
@@ -47,9 +40,9 @@
         <div class="row ordenantzaparrafoa text-justify">
             <div class="col-xs-12">
                 {% if app.request.locale == 'eu'%}
-                    {{ p.testuaeu|raw }}
+                    {{ p.testuaeuProd|raw }}
                 {% else %}
-                    {{ p.testuaes|raw }}
+                    {{ p.testuaesProd|raw }}
                 {% endif %}
             </div>
         </div>
@@ -60,17 +53,17 @@
         {% if atala.utsa != 1 %}
             <div class="row atala">
                 {% if app.request.locale == 'eu'%}
-                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}</h3></div>
+                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodeaProd }}-{{ atala.kodeaProd }}.{{ atala.izenburuaeuProd }}</h3></div>
                 {% else %}
-                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}</h3></div>
+                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodeaProd }}-{{ atala.kodeaProd }}.{{ atala.izenburuaesProd }}</h3></div>
                 {% endif %}
             </div>
             {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
             <div class="row atalaparrafoa">
                 {% if app.request.locale == 'eu'%}
-                    <div class="col-xs-12">{{ p.testuaeu | raw }}</div>
+                    <div class="col-xs-12">{{ p.testuaeuProd | raw }}</div>
                 {% else %}
-                    <div class="col-xs-12">{{ p.testuaeu | raw }}</div>
+                    <div class="col-xs-12">{{ p.testuaeuProd | raw }}</div>
                 {% endif %}
             </div>
             {% endfor %}
@@ -84,9 +77,9 @@
             <table class="table table-responsive table-bordered col-xs-6">
                 <th colspan="12" class="row-fluid col-xs-12 well">
                     {% if app.request.locale == 'eu'%}
-                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}
+                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaeuProd }}
                     {% else %}
-                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaes }}
+                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaesProd }}
                     {% endif %}
                 </th>
                 <tbody>
@@ -94,9 +87,9 @@
                     <tr>
                         <td colspan="12" class="col-xs-12 text-justify">
                             {% if app.request.locale == 'eu'%}
-                                {{ p.testuaeu | raw }}
+                                {{ p.testuaeuProd | raw }}
                             {% else %}
-                                {{ p.testuaes | raw }}
+                                {{ p.testuaesProd | raw }}
                             {% endif %}
                         </td>
                     </tr>
@@ -106,13 +99,13 @@
                     <tr>
                         <td class="col-md-9" colspan="9">
                             {% if app.request.locale == 'eu'%}
-                                {{ k.kontzeptuaeu }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
+                                {{ k.kontzeptuaeuProd }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
                             {% else %}
-                                {{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
+                                {{ k.kontzeptuaesProd }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
                             {% endif %}
                         </td>
                         <td class="col-md-3 text-nowrap" colspan="3">
-                            {{ k.kopurua }} {{ k.unitatea }}
+                            {{ k.kopuruaProd }} {{ k.unitateaProd }}
                         </td>
                     </tr>
                     {% endfor %}
