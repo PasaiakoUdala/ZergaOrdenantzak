@@ -102,13 +102,13 @@ class DefaultController extends Controller
     /**
      * Lists all Historikoa entities.
      *
-     * @Route("/{udala}/{_locale}/historikoa", defaults={"page" = 1}, name="frontend_historikoa_index",
+     * @Route("/{udala}/{_locale}/hist", defaults={"page" = 1}, name="frontend_historikoa_index",
      *         requirements={
      *           "_locale": "eu|es",
      *           "udala": "\d+"
      *          }
      * )
-     * @Route("/{udala}/{_locale}/historikoa/page{page}", name="frontend_historikoa_paginated")
+     * @Route("/{udala}/{_locale}/hist/page{page}", name="frontend_historikoa_paginated")
      * @Method("GET")
      */
     public function historikoaAction($page,$udala)
