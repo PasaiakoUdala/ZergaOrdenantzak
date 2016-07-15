@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
-
-
+    {% block hasieraesteka %}
+                <a class="navbar-brand" href="{{ path('frontend_ordenantza_index', { 'udala': udala }) }}">{% block zerganame %}Zerga Ordenantzak <small></small>{% endblock %}</a>
+    {% endblock %}
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ path('frontend_ordenantza_pdf', { 'udala': udala}) }}" target="_blank" class="fa fa-file-pdf-o" >
