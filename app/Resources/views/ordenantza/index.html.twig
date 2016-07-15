@@ -4,16 +4,16 @@
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
-        <li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" }} <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
         {% if  app.request.locale == "eu"%}
             <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
             <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
+            <li><a href="{{ path('admin_ordenantza_new') }}">Ordenantza Berria</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
         {% else %}
             <li><a href="{{ path('admin_historikoa_index') }}">Consulta del Historico</a></li>
             <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Ordenanza Berria</a></li>
+            <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
         {% endif %}
         <li>&nbspp;</li>
@@ -27,7 +27,7 @@
             <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
                 <ul class="list-inline">
                     <li class="litext">
-                        {% if  app.request.locale == "eu "%}
+                        {% if  app.request.locale == "eu"%}
                             {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
                         {% else %}
                             {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
@@ -43,33 +43,54 @@
                 <ul class="nav nav-pills nav-stacked">
                 {#<div class="list-group">#}
                     {% for atala in ordenantza.atalak %}
-                        <li><span class="label label-primary">{{ atala.izenburuaeu }}</span></li>
+                        <li><span class="label label-primary">
+                                {% if  app.request.locale == "eu"%}
+                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}
+                                {% else %}
+                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}
+                                {% endif %}
+                            </span></li>
                         {% for azpiatala in atala.azpiatalak %}
 
-                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a></li>
+                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
+                                    {% if  app.request.locale == "eu"%}
+                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                                    {% else %}
+                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                                    {% endif %}
+                            </a></li>
                             {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
-
-
                                 <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">{{ azpiatala.izenburuaeu }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    {% if  app.request.locale == "eu"%}
+                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                                                    {% else %}
+                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                                                    {% endif %}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <table class="table table-bordered table-condensed table-hover">
                                                     <thead>
                                                     <tr>
                                                         <th>{{ "Kontzeptua" | trans }}</th>
-                                                        <th>{{ "kopurua" | trans }}</th>
-                                                        <th>{{ "unitatea" |trans }}</th>
+                                                        <th>{{ "Kopurua" | trans }}</th>
+                                                        <th>{{ "Unitatea" |trans }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     {% for k in azpiatala.kontzeptuak %}
                                                         <tr>
-                                                            <td>{{ k.kontzeptuaeu }}</td>
+                                                            <td>{% if  app.request.locale == "eu"%}
+                                                                    {{ k.kontzeptuaeu }}
+                                                                {% else %}
+                                                                    {{ k.kontzeptuaes }}
+                                                                {% endif %}
+                                                            </td>
                                                             <td>{{ k.kopurua }}</td>
                                                             <td>{{ k.unitatea }}</td>
                                                         </tr>
@@ -83,13 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
                         {% endfor %}
-
                     {% endfor %}
                     {#</div>#}
                 </ul>

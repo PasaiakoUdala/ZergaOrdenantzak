@@ -2,6 +2,11 @@
 
 
 {% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+        <li class="list-inline"><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
+        <li class="list-inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+    </ul>
 {% endblock %}
 
 {% block body %}
@@ -11,7 +16,7 @@
             <a href="{{ path('frontend_ordenantza_show', {'id': ordenantza.id,'udala': udala}) }}" class="menuordenantza">
                 <ul class="list-inline">
                     <li class="litext">
-                        {% if  app.request.locale == "eu "%}
+                        {% if  app.request.locale == "eu"%}
                             {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
                         {% else %}
                             {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
@@ -27,33 +32,52 @@
                 <ul class="nav nav-pills nav-stacked">
                 {#<div class="list-group">#}
                     {% for atala in ordenantza.atalak %}
-                        <li><span class="label label-primary">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.-{{ atala.izenburuaeu }}</span></li>
+                        {% if  app.request.locale == "eu"%}
+                            {% if atala.izenburuaeu %}<li><span class="label label-primary">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.-{{ atala.izenburuaeu }}</span></li>{% endif %}
+                        {% else %}
+                            {% if atala.izenburuaes %}<li><span class="label label-primary">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.-{{ atala.izenburuaes }}</span></li>{% endif %}
+                        {% endif %}
                         {% for azpiatala in atala.azpiatalak %}
-
-                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}</a></li>
+                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
+                                    {% if  app.request.locale == "eu"%}
+                                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}
+                                    {% else %}
+                                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaes }}
+                                    {% endif %}
+                                </a></li>
                             {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
-
-
                                 <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">{{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}</h4>
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    {% if  app.request.locale == "eu"%}
+                                                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaeu }}
+                                                    {% else %}
+                                                        {{ azpiatala.kodea }}.-{{ azpiatala.izenburuaes }}
+                                                    {% endif %}
+                                                </h4>
                                             </div>
                                             <div class="modal-body">
                                                 <table class="table table-bordered table-condensed table-hover">
                                                     <thead>
                                                     <tr>
                                                         <th>{{ "Kontzeptua" | trans }}</th>
-                                                        <th>{{ "kopurua" | trans }}</th>
-                                                        <th>{{ "unitatea" |trans }}</th>
+                                                        <th>{{ "Kopurua" | trans }}</th>
+                                                        <th>{{ "Unitatea" |trans }}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     {% for k in azpiatala.kontzeptuak %}
                                                         <tr>
-                                                            <td>{{ k.kontzeptuaeu }}</td>
+                                                            <td>
+                                                                {% if  app.request.locale == "eu"%}
+                                                                {{ k.kontzeptuaeu }}
+                                                                {% else %}
+                                                                {{ k.kontzeptuaes }}
+                                                                {% endif %}
+                                                            </td>
                                                             <td>{{ k.kopurua }}</td>
                                                             <td>{{ k.unitatea }}</td>
                                                         </tr>
