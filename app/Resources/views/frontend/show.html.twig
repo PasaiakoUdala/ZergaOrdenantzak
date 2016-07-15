@@ -6,6 +6,12 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('frontend_ordenantza_pdf', { 'udala': udala}) }}" target="_blank" class="fa fa-file-pdf-o" >
+                {#{% if app.request.locale == 'eu'%}Pdf (eu)#}
+                {#{% else %}Pdf (es)#}
+                {#{% endif %}#}
+                PDF
+            </a></li>
         <li>
             <a href="{{ path('frontend_ordenantza_index', { 'udala': udala }) }}" class="fa fa-undo">
                 {% if app.request.locale == 'eu'%}Atzera
