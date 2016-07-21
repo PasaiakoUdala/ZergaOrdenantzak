@@ -16,7 +16,15 @@
             <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
         {% endif %}
-        <li>&nbspp;</li>
+        {#<li>&nbsp;</li>#}
+
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
+            </ul>
+        </li>
+        {#<li><a href="#" >Proba</a></li>#}
+        <li>&nbsp;</li>
     </ul>
 {% endblock %}
 

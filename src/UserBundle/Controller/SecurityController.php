@@ -1,6 +1,8 @@
 <?php
     namespace UserBundle\Controller;
 
+    use AppBundle\Entity\User;
+
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -8,6 +10,14 @@
     use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
     use Symfony\Component\Security\Core\Security;
     use GuzzleHttp;
+
+    use Pagerfanta\Pagerfanta;
+    use Pagerfanta\Adapter\ArrayAdapter;
+
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+    use AppBundle\Form\UserType;
 
 
     class SecurityController extends Controller
@@ -172,7 +182,174 @@
                 }
                 return 0;
             } return 0;
-        }        
-        
+        }
 
+
+
+        /**
+         * Lists all USERS .
+         *
+         * @Route("/{_locale}/admin/user", defaults={"page" = 1}, name="users_index")
+         * @Route("/{_locale}/admin/user/page{page}", name="user_index_paginated")
+         * @Method("GET")
+         */
+        public function userAction($page) {
+            $userManager = $this->get('fos_user.user_manager');
+            $users = $userManager->findUsers();
+
+
+            $adapter = new ArrayAdapter($users);
+            $pagerfanta = new Pagerfanta($adapter);
+
+            $deleteForms = array();
+            foreach ($users as $user) {
+                $deleteForms[$user->getId()] = $this->createDeleteForm($user)->createView();
+            }
+            try {
+                $entities = $pagerfanta
+//                    ->setMaxPerPage($this->getUser()->getUdala()->getOrrikatzea())
+                    ->setMaxPerPage('25')
+                    ->setCurrentPage($page)
+                    ->getCurrentPageResults()
+                ;
+            } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
+                throw $this->createNotFoundException("Orria ez da existitzen");
+            }
+
+            return $this->render('UserBundle:Default:users.html.twig', array(
+//                'users' =>   $users,
+                'users' => $entities,
+                'pager' => $pagerfanta,
+                'deleteforms'=> $deleteForms,
+            ));
+        }
+
+        /**
+         * Creates a new User entity.
+         *
+         * @Route("/{_locale}/admin/user/new", name="user_new")
+         * @Method({"GET", "POST"})
+         */
+        public function newAction(Request $request)
+        {
+            $auth_checker = $this->get('security.authorization_checker');
+            if(($auth_checker->isGranted('ROLE_ADMIN'))
+                ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
+            {
+                $user = new User();
+                $user->setUdala($this->getUser()->getUdala());
+
+                $form = $this->createForm('UserBundle\Form\UserType', $user);
+                $form->handleRequest($request);
+                $em = $this->getDoctrine()->getManager();
+
+                if ($form->isSubmitted() && $form->isValid()) {
+//                dump($user);
+                    $em->persist($user);
+                    $em->flush();
+
+//                return $this->redirectToRoute('fitxa_show', array('id' => $fitxa->getId()));
+                    return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+                } else
+                {
+//                dump($form->isValid());
+//                $form->getData()->setUdala($this->getUser()->getUdala());
+//                $form->setData($form->getData());
+                }
+
+                return $this->render('UserBundle:Default:new.html.twig', array(
+                    'user' => $user,
+                    'form' => $form->createView(),
+                ));
+            }
+        }
+
+
+
+
+
+
+        /**
+         * Displays a form to edit an existing User entity.
+         *
+         * @Route("/{_locale}/admin/user/{id}/edit", name="user_edit")
+         * @Method({"GET", "POST"})
+         */
+        public function editAction(Request $request, User $user)
+        {
+            $auth_checker = $this->get('security.authorization_checker');
+            if((($auth_checker->isGranted('ROLE_ADMIN')) && ($user->getUdala()==$this->getUser()->getUdala()))
+                ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
+            {
+                $deleteForm = $this->createDeleteForm($user);
+                $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+//            $editForm = $this->createForm(new UserType('Zerbikat\BackendBundle\Form\UserType'), $user);
+                $editForm->handleRequest($request);
+//
+                if ($editForm->isSubmitted() && $editForm->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $em->flush();
+
+                    return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+                }
+
+                return $this->render('UserBundle:Default:edit.html.twig', array(
+                    'user' => $user,
+                    'form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                ));
+            }else
+            {
+//            return $this->redirectToRoute('fitxa_index');
+                return $this->redirectToRoute('backend_errorea');
+            }
+        }
+
+
+        /**
+         * Deletes a User entity.
+         *
+         * @Route("/{_locale}/admin/user/{id}/del", name="user_delete")
+         * @Method("DELETE")
+         */
+        public function deleteAction(Request $request, User $user)
+        {
+            //udala egokia den eta admin baimena duen egiaztatu
+            $auth_checker = $this->get('security.authorization_checker');
+            if((($auth_checker->isGranted('ROLE_ADMIN')) && ($user->getUdala()==$this->getUser()->getUdala()))
+                ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
+            {
+                $form = $this->createDeleteForm($user);
+                $form->handleRequest($request);
+                if ($form->isSubmitted()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->remove($user);
+                    $em->flush();
+                }else
+                {
+
+                }
+                return $this->redirectToRoute('users_index');
+            }else
+            {
+                return $this->redirectToRoute('backend_errorea');
+            }
+        }
+
+        /**
+         * Creates a form to delete a User entity.
+         *
+         * @param User $user The User entity
+         *
+         * @return \Symfony\Component\Form\Form The form
+         */
+        private function createDeleteForm(User $user)
+        {
+            return $this->createFormBuilder()
+                ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
+                ->setMethod('DELETE')
+                ->getForm()
+                ;
+        }
     }
