@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if is_granted('ROLE_SUPER_ADMIN') %}<li><a href="{{ path('udala_index') }}" class="fa fa-undo"> Zerrendara itzuli</a></li>{% endif %}
+        {% if is_granted('ROLE_ADMIN') %}<li><a href="{{ path('udala_edit', { 'id': udala.id }) }}" class="fa fa-pencil"> Aldatu</a></li>{% endif %}
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
+
+
+{% block body %}
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th class="col-md-3 text-center">
+                <img src='{{ udala.logoa }}' />
+            </th>
+            <th>
+                <h4>{{ udala.izenaeu }} - {{ udala.izendapenaeu }} - {{ udala.ifk }}</h4>
+                <h5>{{ udala.izenaeu }} - {{ udala.izendapenaes }} - {{ udala.ifk }}</h5>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

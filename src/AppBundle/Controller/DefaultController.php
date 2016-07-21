@@ -181,4 +181,12 @@ class DefaultController extends Controller
         $str = str_ireplace($html, $xml, $str);
         return $str;
     }
+
+    public function erroreaAction()
+    {
+//        return $this->render('AppBundle:Default:errorea.html.twig');
+        return $this->render('errorea.html.twig');
+
+    }
+
 }
