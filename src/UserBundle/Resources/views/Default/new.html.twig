@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" onclick="document.forms['{{ form.vars.name }}'].submit()" class="fa fa-floppy-o"> Gorde</a></li>
+        <li><a href="{{ path('users_index') }}" class="fa fa-undo"> Utzi</a></li>
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="form-group">
+                {{ form_label(form.enabled, 'Aktibo? ', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.enabled) }}
+                {{ form_widget(form.enabled, {'attr': {'class': 'form-group'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                {{ form_label(form.udala, 'Udala: ', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.udala) }}
+                {{ form_widget(form.udala, {'attr': {'class': 'form-group'}}) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                {{ form_label(form.username, 'NA / DNI: ', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.username) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-group'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                {{ form_label(form.email, 'Email-a: ', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-group'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                {{ form_label(form.password, 'Pasahitza: ', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.password) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-group'}}) }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="hidden">
+        {{ form_end(form) }}
+    </div>
+    {% endblock %}
+
+

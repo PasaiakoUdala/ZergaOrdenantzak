@@ -330,29 +330,54 @@ class OrdenantzaController extends Controller
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
 
+//    /**
+//     * Finds and displays a Ordenantza entity.
+//     *
+//     * @Route("/pdf/export/{id}", name="admin_ordenantza_export_pdf")
+//     * @Method("GET")
+//     */
+//    public function exportpdfAction(Ordenantza $ordenantza)
     /**
      * Finds and displays a Ordenantza entity.
      *
-     * @Route("/pdf/export/{id}", name="admin_ordenantza_export_pdf")
+     * @Route("/pdf/export/", name="admin_ordenantza_export_pdf")
      * @Method("GET")
      */
-    public function exportpdfAction(Ordenantza $ordenantza)
+    public function exportpdfAction()
     {
-
-        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
-
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
+//        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
 
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor($this->getUser()->getUdala());
-        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+//        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
+        $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
+
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('helvetica', '', 11, '', true);
 
         $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
 
         $pdf->AddPage();
-        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
-        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+        $eguna=date("Y-m-d_His");
+//        dump ($eguna);
+//        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
+
+        $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
+        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+        $pdf->AddPage();
+
+        foreach ($ordenantzas as $ordenantza)
+        {
+            $mihtml = $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+            $pdf->AddPage();
+        }
+
+
         $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
         $em = $this->getDoctrine()->getManager();
@@ -360,7 +385,9 @@ class OrdenantzaController extends Controller
         $historikoa->setCreatedAt(New \DateTime());
         $historikoa->setUpdatedAt(New \DateTime());
         $historikoa->setUdala($this->getUser()->getUdala());
-        $historikoa->setFitxategia( $ordenantza->getKodea().".pdf");
+//        $historikoa->setFitxategia( $ordenantza->getKodea().".pdf");
+        $historikoa->setFitxategia( "ZergaOrdenantzak-".$eguna.".pdf");
+        
         $em->persist($historikoa);
         $em->flush();
 
