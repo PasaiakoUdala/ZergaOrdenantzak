@@ -31,8 +31,8 @@ class UserType extends AbstractType
             ->add('roles',  ChoiceType::class, array(
                 'multiple' => true,
                 'choices'  => array(
-                    'Administrador' => 'ROLE_ADMIN',
-                    'Usuario' => 'ROLE_USER'
+                    'Admin' => 'ROLE_ADMIN',
+                    'Erabiltzailea' => 'ROLE_USER'
                 ),
             ))
             ->add('password', RepeatedType::class, array(
