@@ -30,7 +30,7 @@
              * Baldin eta parametroa badu bai
              ***/
             $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ) );
-            $miurl = $query_str['host'].'/'.$query_str['path'];
+
             $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ), PHP_URL_QUERY );
 
             $urlOsoa= $request->getSession()->get( '_security.main.target_path' )."\n";            
