@@ -43,16 +43,7 @@ class UserType extends AbstractType
 
         ;
     }
-public function getExistingRoles()
-{
-    $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
-    $roles = array_keys($roleHierarchy);
 
-    foreach ($roles as $role) {
-        $theRoles[$role] = $role;
-    }
-    return $theRoles;
-}
     /**
      * @param OptionsResolver $resolver
      */
