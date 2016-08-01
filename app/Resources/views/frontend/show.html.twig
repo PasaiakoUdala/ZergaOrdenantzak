@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+    {% block hasieraesteka %}
+        <a class="navbar-brand" href="{{ path('frontend_ordenantza_index', { 'udala': udala }) }}">{% block zerganame %}Zerga Ordenantzak <small></small>{% endblock %}</a>
+    {% endblock %}
+
+
+{% block nav %}
+
+{% endblock %}
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ path('frontend_historikoa_index', { 'udala': udala}) }}">{{ "Historikoa kontsultatu" | trans }}</a></li>
+        <li><a href="{{ path('frontend_ordenantza_pdf', { 'udala': udala}) }}" target="_blank" class="fa fa-file-pdf-o" >
+                {#{% if app.request.locale == 'eu'%}Pdf (eu)#}
+                {#{% else %}Pdf (es)#}
+                {#{% endif %}#}
+                PDF
+            </a></li>
+        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+        <li class="list-inline"><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
+        <li class="list-inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <div class="row">&nbsp;</div>
+
+    <div class="row ordenantza well">
+        <div class="col-xs-12">
+        {% if app.request.locale == 'eu'%}
+                <h2>{{ ordenantza.kodeaProd ~ "." ~ ordenantza.izenburuaeuProd }}</h2>
+        {% else %}
+                <h2>{{ ordenantza.kodeaProd ~ "." ~ ordenantza.izenburuaesProd }}</h2>
+        {% endif %}
+        </div>
+    </div>
+
+    {#<div class="row">&nbsp;</div>#}
+    {% for p in ordenantza.parrafoak %}
+        <div class="row ordenantzaparrafoa text-justify">
+            <div class="col-xs-12">
+                {% if app.request.locale == 'eu'%}
+                    {{ p.testuaeuProd|raw }}
+                {% else %}
+                    {{ p.testuaesProd|raw }}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    {#<div class="row">&nbsp;</div>#}
+    {% for atala in ordenantza.atalak %}
+        {% if atala.utsa != 1 %}
+            <div class="row atala">
+                {% if app.request.locale == 'eu'%}
+                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodeaProd }}-{{ atala.kodeaProd }}.{{ atala.izenburuaeuProd }}</h3></div>
+                {% else %}
+                    <div class="col-xs-12 well"><h3>{{ atala.ordenantza.kodeaProd }}-{{ atala.kodeaProd }}.{{ atala.izenburuaesProd }}</h3></div>
+                {% endif %}
+            </div>
+            {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
+            <div class="row atalaparrafoa">
+                {% if app.request.locale == 'eu'%}
+                    <div class="col-xs-12">{{ p.testuaeuProd | raw }}</div>
+                {% else %}
+                    <div class="col-xs-12">{{ p.testuaeuProd | raw }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {# Naiz eta Atalik ez izan, azpiatalak izan ditzake. Atala utsa=1 delarik:#}
+            {#<div class="row">&nbsp;</div>#}
+
+        {% for azpiatala in atala.azpiatalak %}
+            <div class="row col-xs-10">
+            <table class="table table-responsive table-bordered col-xs-6">
+                <th colspan="12" class="row-fluid col-xs-12 well">
+                    {% if app.request.locale == 'eu'%}
+                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaeuProd }}
+                    {% else %}
+                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaesProd }}
+                    {% endif %}
+                </th>
+                <tbody>
+                    {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                    <tr>
+                        <td colspan="12" class="col-xs-12 text-justify">
+                            {% if app.request.locale == 'eu'%}
+                                {{ p.testuaeuProd | raw }}
+                            {% else %}
+                                {{ p.testuaesProd | raw }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                    <tr>
+                        <td class="col-md-9" colspan="9">
+                            {% if app.request.locale == 'eu'%}
+                                {{ k.kontzeptuaeuProd }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
+                            {% else %}
+                                {{ k.kontzeptuaesProd }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
+                            {% endif %}
+                        </td>
+                        <td class="col-md-3 text-nowrap" colspan="3">
+                            {{ k.kopuruaProd }} {{ k.unitateaProd }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div id="loading" style="display:none;">
+        <p><img src="{{ asset('bundles/app/img/loading.svg') }}" /> Kargatzen...</p>
+    </div>
+{% endblock %}
+
+

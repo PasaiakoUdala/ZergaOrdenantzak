@@ -1,45 +1,35 @@
 {% extends 'base.html.twig' %}
-
-
+    {% block hasieraesteka %}
+                <a class="navbar-brand" href="{{ path('frontend_ordenantza_index', { 'udala': udala }) }}">{% block zerganame %}Zerga Ordenantzak <small></small>{% endblock %}</a>
+    {% endblock %}
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
-        <li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
-        {% if  app.request.locale == "eu"%}
-            <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
-            <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Ordenantza Berria</a></li>
-            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
-        {% else %}
-            <li><a href="{{ path('admin_historikoa_index') }}">Consulta del Historico</a></li>
-            <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
-            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
-        {% endif %}
-        {#<li>&nbsp;</li>#}
+        <li><a href="{{ path('frontend_historikoa_index', { 'udala': udala}) }}">{{ "Historikoa kontsultatu" | trans }}</a></li>
+        <li><a href="{{ path('frontend_ordenantza_pdf', { 'udala': udala}) }}" target="_blank" class="fa fa-file-pdf-o" >
+                {#{% if app.request.locale == 'eu'%}Pdf (eu)#}
+                {#{% else %}Pdf (es)#}
+                {#{% endif %}#}
+            PDF
+            </a></li>
 
-        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
-                <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
-            </ul>
-        </li>
-        {#<li><a href="#" >Proba</a></li>#}
-        <li>&nbsp;</li>
+        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+        <li class="list-inline"><a href="{{  path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
+        <li class="list-inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
     </ul>
 {% endblock %}
+
 
 {% block body %}
     <div class="containermenua">
         {% for ordenantza in ordenantzas %}
 
-            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
+            <a href="{{ path('frontend_ordenantza_show', {'id': ordenantza.id,'udala': udala}) }}" class="menuordenantza">
                 <ul class="list-inline">
                     <li class="litext">
                         {% if  app.request.locale == "eu"%}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+                            {{ ordenantza.kodeaProd }} - {{ ordenantza.izenburuaeuProd |raw|escape }}
                         {% else %}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
+                            {{ ordenantza.kodeaProd }} - {{ ordenantza.izenburuaesProd |raw|escape }}
                         {% endif %}
                     </li>
                     <li class="pull-right">
@@ -52,22 +42,19 @@
                 <ul class="nav nav-pills nav-stacked">
                 {#<div class="list-group">#}
                     {% for atala in ordenantza.atalak %}
-                        <li><span class="label label-primary">
-                                {% if  app.request.locale == "eu"%}
-                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}
-                                {% else %}
-                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}
-                                {% endif %}
-                            </span></li>
+                        {% if  app.request.locale == "eu"%}
+                            {% if atala.izenburuaeuProd %}<li><span class="label label-primary">{{ atala.ordenantza.kodeaProd }}.{{ atala.kodeaProd }}.-{{ atala.izenburuaeuProd }}</span></li>{% endif %}
+                        {% else %}
+                            {% if atala.izenburuaesProd %}<li><span class="label label-primary">{{ atala.ordenantza.kodeaProd }}.{{ atala.kodeaProd }}.-{{ atala.izenburuaesProd }}</span></li>{% endif %}
+                        {% endif %}
                         {% for azpiatala in atala.azpiatalak %}
-
                             <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
                                     {% if  app.request.locale == "eu"%}
-                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaeuProd }}
                                     {% else %}
-                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaesProd }}
                                     {% endif %}
-                            </a></li>
+                                </a></li>
                             {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
                                 <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
@@ -76,9 +63,9 @@
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title" id="myModalLabel">
                                                     {% if  app.request.locale == "eu"%}
-                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                                                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaeuProd }}
                                                     {% else %}
-                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                                                        {{ azpiatala.kodeaProd }}.-{{ azpiatala.izenburuaesProd }}
                                                     {% endif %}
                                                 </h4>
                                             </div>
@@ -94,14 +81,15 @@
                                                     <tbody>
                                                     {% for k in azpiatala.kontzeptuak %}
                                                         <tr>
-                                                            <td>{% if  app.request.locale == "eu"%}
-                                                                    {{ k.kontzeptuaeu }}
+                                                            <td>
+                                                                {% if  app.request.locale == "eu"%}
+                                                                {{ k.kontzeptuaeuProd }}
                                                                 {% else %}
-                                                                    {{ k.kontzeptuaes }}
+                                                                {{ k.kontzeptuaesProd }}
                                                                 {% endif %}
                                                             </td>
-                                                            <td>{{ k.kopurua }}</td>
-                                                            <td>{{ k.unitatea }}</td>
+                                                            <td>{{ k.kopuruaProd }}</td>
+                                                            <td>{{ k.unitateaProd }}</td>
                                                         </tr>
                                                     {% endfor %}
                                                     </tbody>
@@ -113,7 +101,13 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
                         {% endfor %}
+
                     {% endfor %}
                     {#</div>#}
                 </ul>

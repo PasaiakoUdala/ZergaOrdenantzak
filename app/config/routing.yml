@@ -1,3 +1,7 @@
+app_udala:
+    resource: "@AppBundle/Controller/UdalaController.php"
+    type:     annotation
+
 app_azpiatalaparrafoa:
     resource: "@AppBundle/Controller/AzpiatalaparrafoaController.php"
     type:     annotation
@@ -73,3 +77,7 @@ NelmioApiDocBundle:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+backend_errorea:
+    path:     admin/errorea
+    defaults: { _controller: AppBundle:Default:errorea  }

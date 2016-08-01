@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="alert alert-danger" role="alert">
+        <br>
+        <h4 class="text-center"><strong>ERROREA!! </strong> Ez daukazu ekintza horretarako baimenik.</h4>
+        <a href="{{ app.request.headers.get('referer') }}" class="btn btn-danger text-right navbar-right">Atzera</a>
+        <br />
+    </div>
+{% endblock %}

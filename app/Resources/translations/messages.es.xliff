@@ -22,6 +22,26 @@
                 <source>Historikoa</source>
                 <target>Historico</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>Kontzeptua</source>
+                <target>Concepto</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Kopurua</source>
+                <target>Cantidad</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Unitatea</source>
+                <target>Unidad</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Indarrean jarri</source>
+                <target>Poner en vigor</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Historikoa kontsultatu</source>
+                <target>Consulta del Historico</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
