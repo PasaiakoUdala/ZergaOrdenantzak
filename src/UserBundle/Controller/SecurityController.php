@@ -130,37 +130,12 @@
             return $this->render( 'FOSUserBundle:Security:login.html.twig', $data );
         }
 
-//        private function izfelogin ( $valget )
-//        {
-//            /* fitxategiko kodea */
-//            $client = new GuzzleHttp\Client();
-//            $res = $client->request( 'GET', 'http://obelix/izfe.txt' );
-//            if ( $res->getStatusCode() == 200 ) {
-//                $valftp = (string)$res->getBody();
-//                $valftp = str_replace( PHP_EOL, '', $valftp );
-//            }
-//
-//            /* Konparatu ta bestela errorea */
-//            if ( $valftp == $valget ) {
-//                $userManager = $this->container->get( 'fos_user.user_manager' );
-//                $user = $userManager->findUserByUsername( 'admin' );
-//                $token = new UsernamePasswordToken( $user, null, 'main', $user->getRoles() );
-//                $this->get( 'security.token_storage' )->setToken( $token );
-//                $this->get( 'session' )->set( '_security_main', serialize( $token ) );
-//
-//                return 1;
-//            }
-//
-//            return 0;
-//
-//        }
         private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)
         {
             /* fitxategiko kodea */
 //        $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r") or die("Unable to open file!");
             /* fitxategia ez bada existitzen login orrira berbideratu */
 
-//        dump($urlOsoa);
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
             {
                 $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r");
@@ -244,7 +219,9 @@
                 $em = $this->getDoctrine()->getManager();
 
                 if ($form->isSubmitted() && $form->isValid()) {
-//                dump($user);
+                    $password = $this->get('security.password_encoder')
+                        ->encodePassword($user, $user->getPlainPassword());
+                    $user->setPassword($password);
                     $em->persist($user);
                     $em->flush();
 
@@ -266,9 +243,6 @@
 
 
 
-
-
-
         /**
          * Displays a form to edit an existing User entity.
          *
@@ -283,10 +257,15 @@
             {
                 $deleteForm = $this->createDeleteForm($user);
                 $editForm = $this->createForm('UserBundle\Form\UserType', $user);
-//            $editForm = $this->createForm(new UserType('Zerbikat\BackendBundle\Form\UserType'), $user);
                 $editForm->handleRequest($request);
-//
                 if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+                    if (( $user->getPlainPassword() != "" ) || ($user->getPlainPassword()!=null )) {
+                        $password = $this->get('security.password_encoder')
+                            ->encodePassword($user, $user->getPlainPassword());
+                        $user->setPassword($password);
+                    }
+
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
@@ -301,7 +280,6 @@
                 ));
             }else
             {
-//            return $this->redirectToRoute('fitxa_index');
                 return $this->redirectToRoute('backend_errorea');
             }
         }
