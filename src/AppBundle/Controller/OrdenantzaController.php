@@ -12,6 +12,7 @@ use AppBundle\Form\OrdenantzaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -374,7 +375,6 @@ class OrdenantzaController extends Controller
             $pdf->AddPage();
         }
 
-
         $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
         $em = $this->getDoctrine()->getManager();
@@ -551,6 +551,21 @@ class OrdenantzaController extends Controller
 
 //        return $this->redirectToRoute( 'admin_ordenantza_edit', array ('id' => $ordenantza->getId()));
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/html", name="admin_ordenantza_html")
+     * @Method("GET")
+     */
+    public function htmlAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
+
+        return $this->render('ordenantza/web.html.twig', array(
+            'ordenantzas' => $ordenantzas
+        ));
+
     }
 
 }
