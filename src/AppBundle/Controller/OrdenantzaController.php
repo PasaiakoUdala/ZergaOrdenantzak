@@ -387,12 +387,12 @@ class OrdenantzaController extends Controller
         $em->persist($historikoa);
         $em->flush();
 
-//        return $this->redirectToRoute(
-//            'admin_historikoa_edit',
-//            array (
-//                'id' => $historikoa->getId(),
-//            )
-//        );
+        return $this->redirectToRoute(
+            'admin_historikoa_edit',
+            array (
+                'id' => $historikoa->getId(),
+            )
+        );
     }
 
     /**
@@ -475,6 +475,82 @@ class OrdenantzaController extends Controller
 
         return $base.$udala."/".$ordenantzaKodea;
 
+    }
+
+    /**
+     * @Route("/ezeztatu/{id}", name="admin_ordenantza_ezeztatu")
+     * @Method("GET")
+     */
+    public function ezeztatuAction(Request $request, Ordenantza $ordenantza)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantza->setIzenburuaes( $ordenantza->getIzenburuaesProd() );
+        $ordenantza->setIzenburuaeu( $ordenantza->getIzenburuaeuProd() );
+
+        foreach ( $ordenantza->getAtalak() as $atala  ) {
+
+            if ( $atala->getEzabatu() == 1 ) {
+                $em->remove( $atala );
+            } else {
+                $atala->setIzenburuaeu( $atala->getIzenburuaeuProd() );
+                $atala->setIzenburuaes( $atala->getIzenburuaesProd() );
+                $atala->setKodea( $atala->getKodeaProd() );
+                $atala->setUtsa( $atala->getUtsaProd() );
+
+                foreach ($atala->getParrafoak() as $atalaparrafoa ) {
+                    if ($atalaparrafoa->getEzabatu()==1){
+                        $em->remove( $atalaparrafoa );
+                    } else {
+                        $atalaparrafoa->setOrdena( $atalaparrafoa->getOrdenaProd() );
+                        $atalaparrafoa->setTestuaes( $atalaparrafoa->getTestuaesProd() );
+                        $atalaparrafoa->setTestuaeu( $atalaparrafoa->getTestuaeuProd() );
+                    }
+                }
+
+
+                foreach ($atala->getAzpiatalak() as $azpiatala) {
+                    if ($azpiatala->getEzabatu()==1){
+                        $em->remove( $azpiatala );
+                    } else {
+                        $azpiatala->setKodea( $azpiatala->getKodeaProd() );
+                        $azpiatala->setIzenburuaes( $azpiatala->getIzenburuaesProd() );
+                        $azpiatala->setIzenburuaeu( $azpiatala->getIzenburuaeuProd() );
+                        foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
+
+                            if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
+                                $em->remove( $azpiatalaparrafoa );
+                            } else {
+                                $azpiatalaparrafoa->setTestuaes( $azpiatalaparrafoa->getTestuaesProd() );
+                                $azpiatalaparrafoa->setTestuaeu( $azpiatalaparrafoa->getTestuaeuProd() );
+                                $azpiatalaparrafoa->setOrdena( $azpiatalaparrafoa->getOrdenaProd() );
+
+                            }
+                        }
+
+
+                        foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+
+                            if ( $kontzeptua->getEzabatu() == 1 ) {
+                                $em->remove( $kontzeptua );
+                            } else {
+                                $kontzeptua = new Kontzeptua();
+                                $kontzeptua->setKodea( $kontzeptua->getKodeaProd() );
+                                $kontzeptua->setKontzeptuaes( $kontzeptua->getKontzeptuaesProd() );
+                                $kontzeptua->setKontzeptuaeu( $kontzeptua->getKontzeptuaeuProd() );
+                                $kontzeptua->setKopurua( $kontzeptua->getKopuruaProd() );
+                                $kontzeptua->setUnitatea( $kontzeptua->getUnitateaProd() );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $em->persist( $ordenantza );
+        $em->flush();
+
+//        return $this->redirectToRoute( 'admin_ordenantza_edit', array ('id' => $ordenantza->getId()));
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }
