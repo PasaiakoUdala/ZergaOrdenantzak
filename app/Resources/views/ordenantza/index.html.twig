@@ -5,6 +5,7 @@
     <ul class="nav navbar-nav navbar-right">
         {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
         {#<li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>#}
+        <li><a href="{{ path('admin_ordenantza_html') }}"> {{ "Ordenantza ikusi" | trans }} <span class="sr-only">(current)</span></a></li>
         <li><a href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
         {% if  app.request.locale == "eu"%}
             <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
@@ -17,15 +18,15 @@
             <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
             <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
         {% endif %}
-        {#<li>&nbsp;</li>#}
 
-        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
-                <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
-            </ul>
-        </li>
-        {#<li><a href="#" >Proba</a></li>#}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
+                    <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
+                </ul>
+            </li>
+        {% endif %}
         <li>&nbsp;</li>
     </ul>
 {% endblock %}
