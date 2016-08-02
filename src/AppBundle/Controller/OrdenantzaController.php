@@ -339,13 +339,6 @@ class OrdenantzaController extends Controller
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
 
-//    /**
-//     * Finds and displays a Ordenantza entity.
-//     *
-//     * @Route("/pdf/export/{id}", name="admin_ordenantza_export_pdf")
-//     * @Method("GET")
-//     */
-//    public function exportpdfAction(Ordenantza $ordenantza)
     /**
      * Finds and displays a Ordenantza entity.
      *
@@ -356,11 +349,9 @@ class OrdenantzaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
-//        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
 
         $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->SetAuthor($this->getUser()->getUdala());
-//        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
         $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
 
         $pdf->setFontSubsetting(true);
@@ -371,8 +362,6 @@ class OrdenantzaController extends Controller
         $pdf->AddPage();
 
         $eguna=date("Y-m-d_His");
-//        dump ($eguna);
-//        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
         $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
 
         $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
@@ -394,7 +383,6 @@ class OrdenantzaController extends Controller
         $historikoa->setCreatedAt(New \DateTime());
         $historikoa->setUpdatedAt(New \DateTime());
         $historikoa->setUdala($this->getUser()->getUdala());
-//        $historikoa->setFitxategia( $ordenantza->getKodea().".pdf");
         $historikoa->setFitxategia( "ZergaOrdenantzak-".$eguna.".pdf");
         
         $em->persist($historikoa);

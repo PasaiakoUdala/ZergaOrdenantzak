@@ -36,7 +36,6 @@ class HistorikoaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-//        $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll(array(),array('id','DESC'));
         $historikoas =  $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
 
         $deleteForms = array();
@@ -70,105 +69,94 @@ class HistorikoaController extends Controller
     /**
      * Creates a new Historikoa entity.
      *
-     * @Route("/new/{ordenantzaid}", name="admin_historikoa_new")
+     * @Route("/new", name="admin_historikoa_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, $ordenantzaid)
+    public function newAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $ordenantzaid );
 
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
 
-        /* PDF-a sortu eta web/doc/{UDALKODEA}/pdf karpetan gorde */
-//        $mihtml= $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
-//
-//        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-//        $pdf->SetAuthor($this->getUser()->getUdala());
-//        $pdf->SetTitle(($ordenantza->getIzenburuaeu()));
-//        $pdf->setFontSubsetting(true);
-//        $pdf->SetFont('helvetica', '', 11, '', true);
-//        $pdf->AddPage();
-//        $path = $this->get('kernel')->getRootDir() . '/../web/doc/';
-//        $filename = $path. $this->getUser()->getUdala()->getKodea() . '/pdf/' . $ordenantza->getKodea();
+        foreach ($ordenantzas as $ordenantza)
+        {
+            $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
 
-        $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
-        
-            
-//        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-//        $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
+            /* Begiratu ezabatze marka duen, baldin badu ezabatu */
 
-        /* Begiratu ezabatze marka duen, baldin badu ezabatu */
+            if ( $ordenantza->getEzabatu() == 1 ){
+                $em->remove( $ordenantza );
+            } else {
 
-        if ( $ordenantza->getEzabatu() == 1 ){
-            $em->remove( $ordenantza );
-        } else {
+                /* Historikora pasa, hau da prod eremuetara */
 
-            /* Historikora pasa, hau da prod eremuetara */
+                $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
+                $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
 
-            $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
-            $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
+                foreach ( $ordenantza->getAtalak() as $atala  ) {
 
-            foreach ( $ordenantza->getAtalak() as $atala  ) {
+                    if ( $atala->getEzabatu() == 1 ) {
+                        $em->remove( $atala );
+                    } else {
+                        $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
+                        $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
+                        $atala->setKodeaProd( $atala->getKodea() );
+                        $atala->setUtsaProd( $atala->getUtsa() );
 
-                if ( $atala->getEzabatu() == 1 ) {
-                    $em->remove( $atala );
-                } else {
-                    $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
-                    $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
-                    $atala->setKodeaProd( $atala->getKodea() );
-                    $atala->setUtsaProd( $atala->getUtsa() );
-
-                    foreach ($atala->getParrafoak() as $atalaparrafoa ) {
-                        if ($atalaparrafoa->getEzabatu()==1){
-                            $em->remove( $atalaparrafoa );
-                        } else {
-                            $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
-                            $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
-                            $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
-                        }
-                    }
-
-
-                    foreach ($atala->getAzpiatalak() as $azpiatala) {
-                        if ($azpiatala->getEzabatu()==1){
-                            $em->remove( $azpiatala );
-                        } else {
-                            $azpiatala->setKodeaProd( $azpiatala->getKodea() );
-                            $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
-                            $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
-                            foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
-
-                                if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
-                                    $em->remove( $azpiatalaparrafoa );
-                                } else {
-                                    $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
-                                    $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
-                                    $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
-
-                                }
+                        foreach ($atala->getParrafoak() as $atalaparrafoa ) {
+                            if ($atalaparrafoa->getEzabatu()==1){
+                                $em->remove( $atalaparrafoa );
+                            } else {
+                                $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
+                                $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
+                                $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
                             }
+                        }
 
 
-                            foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+                        foreach ($atala->getAzpiatalak() as $azpiatala) {
+                            if ($azpiatala->getEzabatu()==1){
+                                $em->remove( $azpiatala );
+                            } else {
+                                $azpiatala->setKodeaProd( $azpiatala->getKodea() );
+                                $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
+                                $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
+                                foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
 
-                                if ( $kontzeptua->getEzabatu() == 1 ) {
-                                    $em->remove( $kontzeptua );
-                                } else {
-                                    $kontzeptua = new Kontzeptua();
-                                    $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
-                                    $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
-                                    $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
-                                    $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
-                                    $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
+                                    if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
+                                        $em->remove( $azpiatalaparrafoa );
+                                    } else {
+                                        $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
+                                        $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
+                                        $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
+
+                                    }
+                                }
+
+
+                                foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+
+                                    if ( $kontzeptua->getEzabatu() == 1 ) {
+                                        $em->remove( $kontzeptua );
+                                    } else {
+                                        $kontzeptua = new Kontzeptua();
+                                        $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
+                                        $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
+                                        $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
+                                        $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
+                                        $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+
+            $em->flush();
+
         }
 
-        $em->flush();
 
         $historikoa = new Historikoa();
         $form = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
@@ -176,6 +164,38 @@ class HistorikoaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /* PDF Fitxategia sortuko dugu*/
+
+            $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            $pdf->SetAuthor($this->getUser()->getUdala());
+            $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
+
+            $pdf->setFontSubsetting(true);
+            $pdf->SetFont('helvetica', '', 11, '', true);
+
+            $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
+
+            $pdf->AddPage();
+
+            $eguna=date("Y-m-d_His");
+            $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
+
+            $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
+            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+            $pdf->AddPage();
+
+            foreach ($ordenantzas as $ordenantza)
+            {
+                $mihtml = $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+                $pdf->AddPage();
+            }
+
+
+            $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
+
+            $historikoa->setFitxategia($filename.".pdf");
             $em->persist($historikoa);
             $em->flush();
 
