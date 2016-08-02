@@ -166,8 +166,12 @@ class HistorikoaController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             /* PDF Fitxategia sortuko dugu*/
-
+            /* @var MyCustomClass $pdf */
             $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+            $pdf->footerTitle = $form["indarreandata"]->getData()->format('Y/m/d');;
+
+
             $pdf->SetAuthor($this->getUser()->getUdala());
             $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
 
@@ -183,6 +187,7 @@ class HistorikoaController extends Controller
 
             $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
             $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
             $pdf->AddPage();
 
             foreach ($ordenantzas as $ordenantza)
@@ -191,6 +196,7 @@ class HistorikoaController extends Controller
                 $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
                 $pdf->AddPage();
             }
+
 
 
             $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
@@ -301,7 +307,7 @@ class HistorikoaController extends Controller
             echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
         }
 
-        return $base.$udala.$ordenantzaKodea;
+        return $base.$udala."/".$ordenantzaKodea;
 
     }
 }

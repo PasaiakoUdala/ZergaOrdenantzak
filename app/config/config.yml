@@ -166,3 +166,6 @@ ivory_ck_editor:
         configs:
             my_toolbar_1: [ [ 'Bold', 'Italic', 'Underline', '-','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ]]
             my_toolbar_2: [ [ "Source" ], "/", [ "Anchor" ], "/", [ "Maximize" ] ]
+
+white_october_tcpdf:
+    class: 'AppBundle\Utils\Mypdf'
