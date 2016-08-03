@@ -252,7 +252,7 @@ class OrdenantzaController extends Controller
     /**
      * Lists all Ordenantza entities.
      *
-     * @Route("/{_locale}", name="admin_ordenantza_index")
+     * @Route("/", name="admin_ordenantza_index")
      * @Method("GET")
      */
     public function indexAction()
