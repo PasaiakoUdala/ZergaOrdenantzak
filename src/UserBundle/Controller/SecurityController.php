@@ -46,7 +46,7 @@
 
                     if ($this->izfelogin ($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)==1)
                     {
-                        return $this->redirectToRoute( 'admin_ordenantza_index' );
+                        return $this->redirectToRoute( 'admin_ordenantza_index', array('_locale' => $hizkuntza) );
                     }
                     else
                     {
