@@ -29,11 +29,8 @@
              * IZFE-rako login da ?
              * Baldin eta parametroa badu bai
              ***/
-            $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ) );
-
             $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ), PHP_URL_QUERY );
-
-            $urlOsoa= $request->getSession()->get( '_security.main.target_path' )."\n";            
+            $urlOsoa= $request->getSession()->get( '_security.main.target_path' );
             
             if (( $query_str != null )&&($this->container->getParameter('izfe_login_path')!='')) 
             {
@@ -41,12 +38,6 @@
                 /* GET kodea*/
                 if ( $query_str != null ) 
                 {
-//                    $valget = $query_params["kodea"];
-//                    if ( $valget != "" ) {
-//                        if ( $this->izfelogin( $valget, $miurl ) == 1 ) {
-//                            return $this->redirectToRoute( 'admin_ordenantza_index' );
-//                        }
-//                    }
                     $NA=$query_params["DNI"];
                     $udala=$query_params["AYUN"];
                     $hizkuntza=$query_params["IDIOMA"];
@@ -67,7 +58,6 @@
                                 'csrf_token'    => $csrfToken,
                             )
                         );
-//                        return $this->render( 'FOSUserBundle:Security:login.html.twig', $data );
                     }
                 }
             }
@@ -133,7 +123,6 @@
         private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)
         {
             /* fitxategiko kodea */
-//        $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r") or die("Unable to open file!");
             /* fitxategia ez bada existitzen login orrira berbideratu */
 
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
@@ -151,8 +140,6 @@
                     $this->get('security.token_storage')->setToken($token);
                     $this->get('session')->set('_security_main', serialize($token));
 
-                    /* login-a egin ondoren fitxategia ezabatu */
-//                    unlink($this->container->getParameter('izfe_login_path') . '/' . $fitxategia);
                     return 1;
                 }
                 return 0;
