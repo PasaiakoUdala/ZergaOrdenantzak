@@ -45,8 +45,9 @@
 
                     if ($this->izfelogin ($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)==1)
                     {
-                        return $this->redirectToRoute( 'admin_ordenantza_index' );
-                    }else
+                        return $this->redirectToRoute( 'admin_ordenantza_index', array('_locale' => $hizkuntza) );
+                    }
+                    else
                     {
                         $lastUsername = null;
                         $csrfToken = $this->get( 'security.csrf.token_manager' )->getToken( 'authenticate' )->getValue();
@@ -122,9 +123,7 @@
 
         private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)
         {
-            /* fitxategiko kodea */
             /* fitxategia ez bada existitzen login orrira berbideratu */
-
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
             {
                 $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r");
@@ -145,7 +144,6 @@
                 return 0;
             } return 0;
         }
-
 
 
         /**
@@ -212,13 +210,7 @@
                     $em->persist($user);
                     $em->flush();
 
-//                return $this->redirectToRoute('fitxa_show', array('id' => $fitxa->getId()));
                     return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
-                } else
-                {
-//                dump($form->isValid());
-//                $form->getData()->setUdala($this->getUser()->getUdala());
-//                $form->setData($form->getData());
                 }
 
                 return $this->render('UserBundle:Default:new.html.twig', array(

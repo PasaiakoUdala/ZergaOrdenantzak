@@ -42,6 +42,59 @@
                 <source>Historikoa kontsultatu</source>
                 <target>Consulta del Historico</target>
             </trans-unit>
+            <trans-unit id="11">
+                <source>Ordenantza ikusi</source>
+                <target>Ver ordenanza</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Itxi</source>
+                <target>Cerrar</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Onartze Data</source>
+                <target>Fecha aceptación</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>B.O.G. argitaratze data</source>
+                <target>Fecha publicación B.O.G.</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Indarrean data</source>
+                <target>Fecha Vigor</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>B.O.G. esteka eskaraz</source>
+                <target>Url B.O.G. euskera</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>B.O.G. esteka erdaraz</source>
+                <target>Url B.O.G. castellano</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Aldaketak euskaraz</source>
+                <target>Cambios en euskera</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Aldaketak erdaraz</source>
+                <target>Cambios en castellano</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Aldaketak erdaraz</source>
+                <target>Cambios en castellano</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Kodea:</source>
+                <target>Código:</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Izenburua:</source>
+                <target>Título (Euskera):</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Título:</source>
+                <target>Título (Castellano):</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

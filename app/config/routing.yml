@@ -15,8 +15,8 @@ user:
     type:     annotation
     prefix:   /
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
 app_ordenantza:
     resource: "@AppBundle/Controller/OrdenantzaController.php"
@@ -59,11 +59,6 @@ frontend:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-
-easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /kudeatu
 
 api_atala:
     type:     rest

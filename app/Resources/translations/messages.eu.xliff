@@ -58,6 +58,59 @@
                 <source>Ordena</source>
                 <target>Ordena</target>
             </trans-unit>
+            <trans-unit id="15">
+                <source>Ordenantza ikusi</source>
+                <target>Ordenantza ikusi</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Indarrean jarri</source>
+                <target>Indarrean jarri</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Kontzeptua</source>
+                <target>Kontzeptua</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Kopurua</source>
+                <target>Kopurua</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Unitatea</source>
+                <target>Unitatea</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Itxi</source>
+                <target>Itxi</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Onartze Data</source>
+                <target>Onartze Data</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>B.O.G. argitaratze data</source>
+                <target>B.O.G. argitaratze data</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Indarrean data</source>
+                <target>Indarrean data</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>B.O.G. esteka eskaraz</source>
+                <target>B.O.G. esteka eskaraz</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>B.O.G. esteka erdaraz</source>
+                <target>B.O.G. esteka erdaraz</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Aldaketak euskaraz</source>
+                <target>Aldaketak euskaraz</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Aldaketak erdaraz</source>
+                <target>Aldaketak erdaraz</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
