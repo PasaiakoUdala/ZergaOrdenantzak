@@ -12,16 +12,6 @@ use Pagerfanta\Adapter\ArrayAdapter;
 
 class DefaultController extends Controller
 {
-//    /**
-//     * @Route("/")
-//     */
-//    public function indexAction()
-//    {
-////        return $this->render('FrontendBundle:Default:index.html.twig');
-//        return $this->redirectToRoute('admin_ordenantza_index',array(),301);
-//    }
-
-
     /**
      * @Route("/{udala}/{_locale}/", name="frontend_ordenantza_index",
      *         requirements={
@@ -114,8 +104,6 @@ class DefaultController extends Controller
     public function historikoaAction($page,$udala)
     {
         $em = $this->getDoctrine()->getManager();
-
-//        $historikoas = $em->getRepository('AppBundle:Historikoa')->findAll(array(),array('id','DESC'));
         $historikoas =  $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
 
         $adapter = new ArrayAdapter($historikoas);
@@ -155,20 +143,9 @@ class DefaultController extends Controller
      */
     public function showAction(Ordenantza $ordenantza,$udala)
     {
-//        $deleteForm = $this->createDeleteForm($ordenantza);
-//        $deleteForms = array();
-
-//        foreach ($ordenantza->getParrafoak() as $p) {
-//            $deleteForms[$p->getId()] = $this->createFormBuilder()
-//                ->setAction($this->generateUrl('admin_ordenantzaparrafoa_delete', array('id' => $p->getId())))
-//                ->setMethod('DELETE')
-//                ->getForm()->createView();
-//        }
-
         return $this->render('frontend/show.html.twig', array(
             'ordenantza' => $ordenantza,
             'udala'=>$udala
-//            'delete_form' => $deleteForm->createView(),
         ));
     }
 

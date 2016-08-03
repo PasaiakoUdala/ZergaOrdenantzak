@@ -42,6 +42,14 @@
                 <source>Historikoa kontsultatu</source>
                 <target>Consulta del Historico</target>
             </trans-unit>
+            <trans-unit id="11">
+                <source>Ordenantza ikusi</source>
+                <target>Ver ordenanza</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Itxi</source>
+                <target>Cerrar</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
