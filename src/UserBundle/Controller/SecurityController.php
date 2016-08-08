@@ -193,23 +193,19 @@
         public function newAction(Request $request)
         {
             $auth_checker = $this->get('security.authorization_checker');
-            if(($auth_checker->isGranted('ROLE_ADMIN'))
-                ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
+            if(($auth_checker->isGranted('ROLE_ADMIN')) || ($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
             {
-                $user = new User();
+                $userManager = $this->container->get('fos_user.user_manager');
+                $user = $userManager->createUser();
+                $user->setEnabled( 1 );
                 $user->setUdala($this->getUser()->getUdala());
 
                 $form = $this->createForm('UserBundle\Form\UserType', $user);
                 $form->handleRequest($request);
-                $em = $this->getDoctrine()->getManager();
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $password = $this->get('security.password_encoder')
-                        ->encodePassword($user, $user->getPlainPassword());
-                    $user->setPassword($password);
-                    $em->persist($user);
-                    $em->flush();
-
+                    $user->setPlainPassword( $user->getPassword());
+                    $userManager->updateUser($user, true);
                     return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
                 }
 
