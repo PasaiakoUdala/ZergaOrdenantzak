@@ -235,15 +235,14 @@
                 $editForm->handleRequest($request);
                 if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-                    if (( $user->getPlainPassword() != "" ) || ($user->getPlainPassword()!=null )) {
-                        $password = $this->get('security.password_encoder')
-                            ->encodePassword($user, $user->getPlainPassword());
-                        $user->setPassword($password);
+                    $userManager = $this->container->get('fos_user.user_manager');
+
+                    if (( $user->getPassword() != "" ) || ($user->getPassword()!=null )) {
+                        $user->setPlainPassword( $user->getPassword());
                     }
 
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($user);
-                    $em->flush();
+                    $userManager->updateUser($user, true);
+
 
                     return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
                 }
