@@ -29,9 +29,13 @@
              * IZFE-rako login da ?
              * Baldin eta parametroa badu bai
              ***/
-            $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ), PHP_URL_QUERY );
-            $urlOsoa= $request->getSession()->get( '_security.main.target_path' );
-            
+//            $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ), PHP_URL_QUERY );
+//            $urlOsoa= $request->getSession()->get( '_security.main.target_path' );
+            $query_str = parse_url($request->getUri(),PHP_URL_QUERY );
+            $urlOsoa=$request->getUri();
+
+
+
             if (( $query_str != null )&&($this->container->getParameter('izfe_login_path')!='')) 
             {
                 parse_str( $query_str, $query_params );
@@ -123,6 +127,7 @@
 
         private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)
         {
+
             /* fitxategia ez bada existitzen login orrira berbideratu */
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
             {
@@ -196,7 +201,9 @@
             if(($auth_checker->isGranted('ROLE_ADMIN'))
                 ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
             {
-                $user = new User();
+                $userManager = $container->get('fos_user.user_manager');
+//                $user = new User();
+                $user = $userManager->createUser();
                 $user->setUdala($this->getUser()->getUdala());
 
                 $form = $this->createForm('UserBundle\Form\UserType', $user);
@@ -204,11 +211,12 @@
                 $em = $this->getDoctrine()->getManager();
 
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $password = $this->get('security.password_encoder')
-                        ->encodePassword($user, $user->getPlainPassword());
+//                    $password = $this->get('security.password_encoder')
+//                        ->encodePassword($user, $user->getPlainPassword());
                     $user->setPassword($password);
-                    $em->persist($user);
-                    $em->flush();
+                    //$em->persist($user);
+                    //$em->flush();
+                    $userManager->updateUser($user);
 
                     return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
                 }
