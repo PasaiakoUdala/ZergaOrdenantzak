@@ -54,7 +54,6 @@
         "symfony/filesystem": "^3.1",
         "stof/doctrine-extensions-bundle": "^1.2",
         "white-october/pagerfanta-bundle": "^1.0"
-
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
