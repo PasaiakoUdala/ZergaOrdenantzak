@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7b27a7b3391139d76d29f5f1703d6a4",
-    "content-hash": "f9603aa23a6820ce1be73bfc068e7c65",
+    "hash": "483b182e7bbd7dfffc51cc7aee4131be",
+    "content-hash": "47fe0ef8e1f1c839cc40c57cad13a04f",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1496,6 +1496,66 @@
                 "uri"
             ],
             "time": "2016-06-24 23:00:38"
+        },
+        {
+            "name": "hamichen/opentbs-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hamichen/OpenTBSBundle.git",
+                "reference": "78d0bb2a291756a05c606726f5e7082fe20896f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hamichen/OpenTBSBundle/zipball/78d0bb2a291756a05c606726f5e7082fe20896f0",
+                "reference": "78d0bb2a291756a05c606726f5e7082fe20896f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OpentbsBundle\\": "src/OpentbsBundle"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bence Meszaros",
+                    "email": "bence@bencemeszaros.com",
+                    "homepage": "http://bencemeszaros.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Lennart Schreiber - WebZap UG (haftungsbeschraenkt)",
+                    "email": "kontakt@webzap.eu",
+                    "homepage": "https://www.webzap.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OpenTBS Bundle for ZF2 - create OpenOffice and Ms Office documents with ZF2",
+            "homepage": "https://github.com/kipperlenny/OpenTBSBundle",
+            "keywords": [
+                "MS Office",
+                "OpenOffice",
+                "OpenTBS",
+                "TBS",
+                "document",
+                "docx",
+                "odt",
+                "pptx",
+                "xlsx",
+                "zf2"
+            ],
+            "time": "2016-08-27 07:18:36"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -4172,7 +4232,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "hamichen/opentbs-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
