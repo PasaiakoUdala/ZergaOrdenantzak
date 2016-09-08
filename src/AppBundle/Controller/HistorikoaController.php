@@ -201,7 +201,7 @@ class HistorikoaController extends Controller
 
             $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
 
-            $historikoa->setFitxategia($filename.".pdf");
+            $historikoa->setFitxategia("ZergaOrdenantzak-".$eguna.".pdf");
             $em->persist($historikoa);
             $em->flush();
 
