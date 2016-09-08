@@ -52,7 +52,6 @@ class DefaultController extends Controller
      */
     public function pdfAction($udala)
     {
-        dump($udala);
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('
           SELECT o FROM AppBundle:Ordenantza o LEFT JOIN AppBundle:Udala u  WITH o.udala=u.id
@@ -87,6 +86,25 @@ class DefaultController extends Controller
 
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
+
+    private function getFilename($udala, $ordenantzaKodea)
+    {
+        $fs = new Filesystem();
+
+        $base = $this->get('kernel')->getRootDir() . '/../web/doc/';
+
+        try {
+            if ( $fs->exists($base . $udala) == false ) {
+                $fs->mkdir($base .$udala);
+            }
+        } catch (IOExceptionInterface $e) {
+            echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
+        }
+
+        return $base.$udala."/".$ordenantzaKodea;
+
+    }
+
 
 
     /**
