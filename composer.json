@@ -53,7 +53,8 @@
         "whiteoctober/tcpdf-bundle": "^1.0",
         "symfony/filesystem": "^3.1",
         "stof/doctrine-extensions-bundle": "^1.2",
-        "white-october/pagerfanta-bundle": "^1.0"
+        "white-october/pagerfanta-bundle": "^1.0",
+        "easycorp/easy-log-handler": "^1.0"
 
     },
     "require-dev": {
