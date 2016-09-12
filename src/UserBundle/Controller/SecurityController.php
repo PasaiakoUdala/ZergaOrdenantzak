@@ -233,7 +233,12 @@
                 ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
             {
                 $deleteForm = $this->createDeleteForm($user);
-                $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+                if ($auth_checker->isGranted('ROLE_SUPER_ADMIN')) {
+                    $editForm = $this->createForm('UserBundle\Form\SuperuserType', $user);
+                } else {
+                    $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+                }
+
                 $editForm->handleRequest($request);
                 if ($editForm->isSubmitted() && $editForm->isValid()) {
 
