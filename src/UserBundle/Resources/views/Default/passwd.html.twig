@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" onclick="document.forms['{{ form.vars.name }}'].submit()" class="fa fa-floppy-o"> Gorde</a></li>
+        <li><a href="{{ path('users_index') }}" class="fa fa-undo"> Utzi</a></li>
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
+
+
+{% block body %}
+    {{ form_start(form) }}
+
+    <div class="row">
+
+        {% for passwordField in form.password %}
+            <div class="col-sm-6">
+                <div class="form-field">
+                    {#<b>{{ 'messages.pasahitza'|trans }}</b>#}
+                    {{ form_label(passwordField, null, { 'label_attr': {'class': 'control-label'} }) }}
+                    {{ form_errors(passwordField) }}
+                    {{ form_widget(passwordField, {'attr': {'class': 'form-group'}}) }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="hidden">
+        {{ form_end(form) }}
+    </div>
+
+
+{% endblock %}
+
+

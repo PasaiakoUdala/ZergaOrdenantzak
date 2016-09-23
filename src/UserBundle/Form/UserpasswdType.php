@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
-class UserType extends AbstractType
+class UserpasswdType extends AbstractType
 //class UserType extends BaseType
 {
     /**
@@ -24,17 +24,12 @@ class UserType extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('username')
-            ->add('udala')
-            ->add('enabled')
-            ->add('email')
-            ->add('roles',  ChoiceType::class, array(
-                'multiple' => true,
-                'choices'  => array(
-                    'Admin' => 'ROLE_ADMIN',
-                    'Erabiltzailea' => 'ROLE_USER'
-                ),
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Pasahitza'),
+                'second_options' => array('label' => 'Pasahitza Errepikatu'),
             ))
+
         ;
     }
 

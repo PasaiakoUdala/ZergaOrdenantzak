@@ -233,18 +233,16 @@
                 ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
             {
                 $deleteForm = $this->createDeleteForm($user);
-                $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+                if ($auth_checker->isGranted('ROLE_SUPER_ADMIN')) {
+                    $editForm = $this->createForm('UserBundle\Form\SuperuserType', $user);
+                } else {
+                    $editForm = $this->createForm('UserBundle\Form\UserType', $user);
+                }
+
                 $editForm->handleRequest($request);
                 if ($editForm->isSubmitted() && $editForm->isValid()) {
-
                     $userManager = $this->container->get('fos_user.user_manager');
-
-                    if (( $user->getPassword() != "" ) || ($user->getPassword()!=null )) {
-                        $user->setPlainPassword( $user->getPassword());
-                    }
-
                     $userManager->updateUser($user, true);
-
 
                     return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
                 }
@@ -259,6 +257,41 @@
                 return $this->redirectToRoute('backend_errorea');
             }
         }
+
+        /**
+         * Password Edit Action
+         *
+         * @Route("/user/{id}/passwd", name="user_edit_passwd")
+         * @Method({"GET", "POST"})
+         */
+        public function passwdAction(Request $request, User $user)
+        {
+            $auth_checker = $this->get('security.authorization_checker');
+            if((($auth_checker->isGranted('ROLE_ADMIN')) && ($user->getUdala()==$this->getUser()->getUdala()))
+                ||($auth_checker->isGranted('ROLE_SUPER_ADMIN')))
+            {
+                $editForm = $this->createForm('UserBundle\Form\UserpasswdType', $user);
+                $editForm->handleRequest($request);
+
+                if ($editForm->isSubmitted() && $editForm->isValid()) {
+                    $userManager = $this->container->get('fos_user.user_manager');
+                    $user->setPlainPassword( $user->getPassword());
+                    $user->setEnabled( 1 );
+                    $userManager->updateUser($user, true);
+
+                    return $this->redirectToRoute('users_index');
+                }
+
+                return $this->render('UserBundle:Default:passwd.html.twig', array(
+                    'user' => $user,
+                    'form' => $editForm->createView()
+                ));
+            }else
+            {
+                return $this->redirectToRoute('backend_errorea');
+            }
+        }
+
 
 
         /**

@@ -47,15 +47,6 @@
                 {{ form_widget(form.email, {'attr': {'class': 'form-group'}}) }}
             </div>
         </div>
-        {% for passwordField in form.password %}
-            <div class="col-sm-2">
-                <div class="form-field">
-                    {{ form_label(passwordField, null, { 'label_attr': {'class': 'control-label'} }) }}
-                    {{ form_errors(passwordField) }}
-                    {{ form_widget(passwordField, {'attr': {'class': 'form-group'}}) }}
-                </div>
-            </div>
-        {% endfor %}
         <div class="col-sm-2">
             <div class="form-group">
                 {{ form_label(form.roles, 'Baimenak: ', { 'label_attr': {'class': 'control-label'} }) }}

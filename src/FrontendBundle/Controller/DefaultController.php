@@ -62,26 +62,27 @@ class DefaultController extends Controller
         $query->setParameter('udala', $udala);
         $ordenantzas = $query->getResult();
 
-        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->SetAuthor($udala);
-        $pdf->SetTitle(date("Y")."-Zerga Ordenantzak");
-
-        $pdf->setFontSubsetting(true);
-        $pdf->SetFont('helvetica', '', 11, '', true);
-
-        $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
-
-        $pdf->AddPage();
-
         $azala = $this->render('frontend/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
-        $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        $pdf->AddPage();
+//        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $TBS = $this->container->get('opentbs');
+        $o = $this->get('kernel')->getRootDir() . '/../web/doc/txantiloia.odt';
+//        $TBS->LoadTemplate('doc/txantiloia.odt');
+        $TBS->LoadTemplate($o, OPENTBS_ALREADY_UTF8);
+        // replace variables
+//        $TBS->MergeField('client', array('portada' => $azala));
+//        $TBS->MergeField('client', array('portada' => 'KK','name' => 'Ford Prefect'));
+        // send the file
+//        $TBS->Show(OPENTBS_DOWNLOAD, $o);
+
+//        $TBS->Show(OPENTBS_FILE, $o2);
+        $TBS->Show(OPENTBS_DOWNLOAD, '/doc/txantiloia.odt');
+
 
         foreach ($ordenantzas as $ordenantza)
         {
             $mihtml = $this->render('frontend/pdf.html.twig', array('ordenantza' => $ordenantza));
-            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-            $pdf->AddPage();
+//            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+//            $pdf->AddPage();
         }
         $filename = $udala."-".date("Y")."ko Zerga Ordenantzak";
 
@@ -103,7 +104,6 @@ class DefaultController extends Controller
      */
     public function pdfAction($udala)
     {
-        dump($udala);
         $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery('
           SELECT o FROM AppBundle:Ordenantza o LEFT JOIN AppBundle:Udala u  WITH o.udala=u.id
@@ -138,6 +138,25 @@ class DefaultController extends Controller
 
         $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
+
+    private function getFilename($udala, $ordenantzaKodea)
+    {
+        $fs = new Filesystem();
+
+        $base = $this->get('kernel')->getRootDir() . '/../web/doc/';
+
+        try {
+            if ( $fs->exists($base . $udala) == false ) {
+                $fs->mkdir($base .$udala);
+            }
+        } catch (IOExceptionInterface $e) {
+            echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
+        }
+
+        return $base.$udala."/".$ordenantzaKodea;
+
+    }
+
 
 
     /**
