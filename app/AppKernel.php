@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new WhiteOctober\TCPDFBundle\WhiteOctoberTCPDFBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new MBence\OpenTBSBundle\OpenTBSBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

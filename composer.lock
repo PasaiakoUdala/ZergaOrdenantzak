@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "483b182e7bbd7dfffc51cc7aee4131be",
-    "content-hash": "47fe0ef8e1f1c839cc40c57cad13a04f",
+    "hash": "7eeb6979a9fe7fff2491ef873ca62a9a",
+    "content-hash": "3554b9ec8a34f1bc5c013f6f651af0a3",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -876,6 +876,56 @@
             "time": "2016-01-05 21:34:58"
         },
         {
+            "name": "easycorp/easy-log-handler",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EasyCorp/easy-log-handler.git",
+                "reference": "09d453834060470ebd96e54568aef9748f72f172"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EasyCorp/easy-log-handler/zipball/09d453834060470ebd96e54568aef9748f72f172",
+                "reference": "09d453834060470ebd96e54568aef9748f72f172",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "~1.6",
+                "php": ">=5.3.0",
+                "symfony/yaml": "~2.3|~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EasyCorp\\EasyLog\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Javier Eguiluz",
+                    "email": "javiereguiluz@gmail.com"
+                },
+                {
+                    "name": "Project Contributors",
+                    "homepage": "https://github.com/EasyCorp/easy-log-handler"
+                }
+            ],
+            "description": "A handler for Monolog that optimizes log messages to be processed by humans instead of software. Improve your productivity with logs that are easy to understand.",
+            "homepage": "https://github.com/EasyCorp/easy-log-handler",
+            "keywords": [
+                "easy",
+                "log",
+                "logging",
+                "monolog",
+                "productivity"
+            ],
+            "time": "2016-08-31 10:54:51"
+        },
+        {
             "name": "egeloen/ckeditor-bundle",
             "version": "4.0.3",
             "source": {
@@ -1496,66 +1546,6 @@
                 "uri"
             ],
             "time": "2016-06-24 23:00:38"
-        },
-        {
-            "name": "hamichen/opentbs-bundle",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hamichen/OpenTBSBundle.git",
-                "reference": "78d0bb2a291756a05c606726f5e7082fe20896f0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hamichen/OpenTBSBundle/zipball/78d0bb2a291756a05c606726f5e7082fe20896f0",
-                "reference": "78d0bb2a291756a05c606726f5e7082fe20896f0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "OpentbsBundle\\": "src/OpentbsBundle"
-                },
-                "classmap": [
-                    "./Module.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bence Meszaros",
-                    "email": "bence@bencemeszaros.com",
-                    "homepage": "http://bencemeszaros.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Lennart Schreiber - WebZap UG (haftungsbeschraenkt)",
-                    "email": "kontakt@webzap.eu",
-                    "homepage": "https://www.webzap.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "OpenTBS Bundle for ZF2 - create OpenOffice and Ms Office documents with ZF2",
-            "homepage": "https://github.com/kipperlenny/OpenTBSBundle",
-            "keywords": [
-                "MS Office",
-                "OpenOffice",
-                "OpenTBS",
-                "TBS",
-                "document",
-                "docx",
-                "odt",
-                "pptx",
-                "xlsx",
-                "zf2"
-            ],
-            "time": "2016-08-27 07:18:36"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -2181,6 +2171,58 @@
                 "minification"
             ],
             "time": "2015-11-12 13:51:40"
+        },
+        {
+            "name": "mbence/opentbs-bundle",
+            "version": "v1.9.7",
+            "target-dir": "MBence/OpenTBSBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mbence/OpenTBSBundle.git",
+                "reference": "ecf945f50024ba3997d021e514c75dec9d54ecf0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mbence/OpenTBSBundle/zipball/ecf945f50024ba3997d021e514c75dec9d54ecf0",
+                "reference": "ecf945f50024ba3997d021e514c75dec9d54ecf0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "MBence\\OpenTBSBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bence Meszaros",
+                    "email": "bence@bencemeszaros.com",
+                    "homepage": "http://bencemeszaros.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "OpenTBS Bundle for Symfony - create OpenOffice and Ms Office documents with Symfony",
+            "homepage": "https://github.com/mbence/OpenTBSBundle",
+            "keywords": [
+                "MS Office",
+                "OpenOffice",
+                "OpenTBS",
+                "TBS",
+                "document",
+                "docx",
+                "odt",
+                "pptx",
+                "symfony",
+                "xlsx"
+            ],
+            "time": "2016-09-13 09:04:07"
         },
         {
             "name": "michelf/php-markdown",
@@ -4232,8 +4274,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
-        "hamichen/opentbs-bundle": 20
+        "friendsofsymfony/user-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

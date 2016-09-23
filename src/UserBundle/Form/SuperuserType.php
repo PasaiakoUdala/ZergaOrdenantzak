@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 
-class UserType extends AbstractType
+class SuperuserType extends AbstractType
 //class UserType extends BaseType
 {
     /**
@@ -31,6 +31,7 @@ class UserType extends AbstractType
             ->add('roles',  ChoiceType::class, array(
                 'multiple' => true,
                 'choices'  => array(
+                    'Super Admin' => 'ROLE_SUPER_ADMIN',
                     'Admin' => 'ROLE_ADMIN',
                     'Erabiltzailea' => 'ROLE_USER'
                 ),
