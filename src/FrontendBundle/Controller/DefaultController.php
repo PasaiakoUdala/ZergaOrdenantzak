@@ -42,10 +42,9 @@ class DefaultController extends Controller
     /**
      * Finds and displays a Ordenantza entity (OFT).
      *
-     * @Route("/{udala}/{_locale}/odt", name="frontend_ordenantza_odt",
+     * @Route("/{id}/odt", name="frontend_ordenantza_odt",
      *         requirements={
-     *           "_locale": "eu|es",
-     *           "udala": "\d+"
+     *           "id": "\d+"
      *          }
      * )
      * @Method("GET")
