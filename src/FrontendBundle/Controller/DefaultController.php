@@ -9,6 +9,7 @@ use AppBundle\Entity\Ordenantza;
 use Symfony\Component\Filesystem\Filesystem;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\ArrayAdapter;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -40,34 +41,55 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds and displays a Ordenantza entity (OFT).
-     *
-     * @Route("/{id}/odt", name="frontend_ordenantza_odt",
-     *         requirements={
-     *           "id": "\d+"
-     *          }
-     * )
-     * @Method("GET")
-     */
-    public function odtAction($udala)
+ * Finds and displays a Ordenantza entity (OFT).
+ *
+ * @Route("/{id}/odt", name="frontend_ordenantza_odt",
+ *         requirements={
+ *           "id": "\d+"
+ *          }
+ * )
+ * @Method("GET")
+ */
+    public function odtAction($id)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('
-          SELECT o FROM AppBundle:Ordenantza o LEFT JOIN AppBundle:Udala u  WITH o.udala=u.id
-            WHERE u.kodea = :udala
-            ORDER BY o.kodea ASC
-        ');
-        $query->setParameter('udala', $udala);
-        $ordenantzas = $query->getResult();
+        $ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneById($id);
+        $ordenantza = $this->getDoctrine()
+            ->getRepository( 'AppBundle:Ordenantza' )->getOrdenantzabat( $id );
+//        $parrafoak = $ordenantza->getParrafoak();
+
+//        $ord = array ();
+//        $ord[] = array(
+//            "izenburuaeu" => $ordenantza->getIzenburuaeu(),
+//            "izenburuaes" => $ordenantza->getIzenburuaes());
+//        foreach ( $ordenantza->getParrafoak() as $parrafoa ) {
+//            $ord[0]["parrafoa"]=array("parrafoaeu"=>$parrafoa->getTestuaeu(),"parrafoaes"=>$parrafoa->getTestuaes());
+//        }
+
+
 
         $azala = $this->render('frontend/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
 //        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $TBS = $this->container->get('opentbs');
-        $o = $this->get('kernel')->getRootDir() . '/../web/doc/txantiloia.odt';
+
+        $o = $this->get('kernel')->getRootDir() . '/../web/doc/064/txantiloia.odt';
 //        $TBS->LoadTemplate('doc/txantiloia.odt');
         $TBS->LoadTemplate($o, OPENTBS_ALREADY_UTF8);
+//        $TBS->Plugin(OPENTBS_DEBUG_INFO);
         // replace variables
+        $TBS->MergeField('client', array('name' => 'Kaixo Mundua!!','froga' => 'ieupa hi!!'));
+
+        $data = array();
+        $data[] = array('id'=> 'A', 'firstname'=>'Sandra' , 'name'=>'Hill'      , 'number'=>'1523d', 'score'=>200, 'email_1'=>'sh@tbs.com',  'email_2'=>'sandra@tbs.com',  'email_3'=>'s.hill@tbs.com');
+        $data[] = array('rank'=> 'A', 'firstname'=>'Roger'  , 'name'=>'Smith'     , 'number'=>'1234f', 'score'=>800, 'email_1'=>'rs@tbs.com',  'email_2'=>'robert@tbs.com',  'email_3'=>'r.smith@tbs.com' );
+        $data[] = array('rank'=> 'B', 'firstname'=>'William', 'name'=>'Mac Dowell', 'number'=>'5491y', 'score'=>130, 'email_1'=>'wmc@tbs.com', 'email_2'=>'william@tbs.com', 'email_3'=>'w.m.dowell@tbs.com' );
+        $TBS->MergeBlock('a', $data);
+
+//        $TBS->MergeBlock('ordenantza', $ordenantza);
+        $TBS->MergeBlock('par', $ordenantza[0]['parrafoak']);
+
+
 //        $TBS->MergeField('client', array('portada' => $azala));
 //        $TBS->MergeField('client', array('portada' => 'KK','name' => 'Ford Prefect'));
         // send the file
@@ -77,18 +99,53 @@ class DefaultController extends Controller
         $TBS->Show(OPENTBS_DOWNLOAD, '/doc/txantiloia.odt');
 
 
-        foreach ($ordenantzas as $ordenantza)
-        {
-            $mihtml = $this->render('frontend/pdf.html.twig', array('ordenantza' => $ordenantza));
-//            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-//            $pdf->AddPage();
-        }
-        $filename = $udala."-".date("Y")."ko Zerga Ordenantzak";
-
-        $pdf->Output($filename.".pdf",'I'); // This will output the PDF as a response directly
     }
 
+    /**
+     * Finds and displays a Ordenantza entity (OFT).
+     *
+     * @Route("/{id}/html", name="frontend_ordenantza_html",
+     *         requirements={
+     *           "id": "\d+"
+     *          }
+     * )
+     * @Method("GET")
+     */
+    public function htmlAction($id)
+    {
 
+        $em = $this->getDoctrine()->getManager();
+        $ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneById($id);
+
+        $fitxero=  $this->render('frontend/mihtml.html.twig', array(
+            'ordenantza' => $ordenantza
+        ));
+
+        $filename = "export_".date("Y_m_d_His").".odt";
+
+        file_put_contents($filename, $fitxero->getContent());
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', mime_content_type($filename));
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($filename) . '";');
+        $response->headers->set('Content-length', filesize($filename));
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filename));
+
+        return $response;
+
+    }
+
+    public function f_html2odt($FieldName, &$CurrVal) {
+        $CurrVal= str_replace('<br />', '<text:line-break/>', $CurrVal);
+    }
 
     /**
      * Finds and displays a Ordenantza entity (PDF).
