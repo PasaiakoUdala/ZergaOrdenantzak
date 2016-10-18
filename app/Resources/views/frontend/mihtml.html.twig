@@ -1,0 +1,133 @@
+<html>
+<head>
+
+</head>
+<body>
+
+<table border="0" width="100%">
+
+    <tr>
+        <td width="50%">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</td>
+        <td width="50%">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</td>
+    </tr>
+
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+        <tr>
+            <td width="50%">{{ p.testuaeu | raw }}</td>
+            <td width="50%">{{ p.testuaes | raw }}</td>
+        </tr>
+    {% endfor %}
+
+
+
+
+
+</table>
+
+
+
+
+
+
+{% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
+    {% if atala.utsa != 1 %}
+        <tr>
+            <td width="50%">{{ atala.kodea }} {{ atala.izenburuaeu }}</td>
+            <td width="50%">{{ atala.kodea }} {{ atala.izenburuaes }}</td>
+        </tr>
+
+        {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
+            <tr>
+                <td width="50%">{{ p.testuaeu | raw }}</td>
+                <td width="50%">{{ p.testuaes | raw }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+
+    <tr>
+        <td width="50%">
+            {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+                <table border="1"cellpadding="0" cellspacing="0">
+                    <th>{{ azpiatala.kodea }} {{ azpiatala.izenburuaeu }}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+                    <tbody>
+                    <tr>
+                        <td colspan="4">
+                            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                                {{ p.testuaeu | raw }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+                    {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                        <tr>
+                            <td width="50%">
+                                {{ k.kontzeptuaeu }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
+                            </td>
+                            <td width="50%">
+                                {{ k.kopurua }}
+                            </td>
+                            <td width="50%">
+                                {{ k.unitatea }}
+                            </td>
+                            <td width="50%">
+                                {{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </td>
+        <td width="50%">
+            {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+                <table>
+                    <th>{{ azpiatala.kodea }} {{ azpiatala.izenburuaes }}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+                    <tbody>
+                    <tr>
+                        <td colspan="4">
+                            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                                {{ p.testuaes | raw }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+                    {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                        <tr>
+                            <td width="50%">
+                                {{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
+                            </td>
+                            <td width="50%">
+                                {{ k.kopurua }}
+                            <td width="50%">
+                                {{ k.unitatea }}
+                            </td>
+                            <td width="50%">
+                                {{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </td>
+    </tr>
+
+
+
+{% endfor %}
+
+
+
+
+
+
+</body>
+</html>
