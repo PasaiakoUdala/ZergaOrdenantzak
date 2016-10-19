@@ -204,7 +204,7 @@
                 $user = $userManager->createUser();
                 $user->setEnabled( 1 );
                 $user->setUdala($this->getUser()->getUdala());
-                $form = $this->createForm('UserBundle\Form\UserType', $user);
+                $form = $this->createForm('UserBundle\Form\UsernewwithpasswordType', $user);
                 $form->handleRequest($request);
                 if ($form->isSubmitted() && $form->isValid()) {
                     $user->setPlainPassword( $user->getPassword());
