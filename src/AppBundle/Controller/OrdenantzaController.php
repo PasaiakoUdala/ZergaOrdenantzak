@@ -562,9 +562,29 @@ class OrdenantzaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
 
-        return $this->render('ordenantza/web.html.twig', array(
+        $nireordenantza = $this->render('ordenantza/web.html.twig', array(
             'ordenantzas' => $ordenantzas
         ));
+
+        $filename = "doc/export_".date("Y_m_d_His").".odt";
+
+        file_put_contents($filename, $nireordenantza->getContent());
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-type', mime_content_type($filename));
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($filename) . '";');
+        $response->headers->set('Content-length', filesize($filename));
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent(file_get_contents($filename));
+
+        return $response;
 
     }
 
