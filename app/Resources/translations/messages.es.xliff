@@ -94,7 +94,10 @@
                 <source>Título:</source>
                 <target>Título (Castellano):</target>
             </trans-unit>
-
+            <trans-unit id="24">
+                <source>Odt-a eskuratu</source>
+                <target>Obtener Odt</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
