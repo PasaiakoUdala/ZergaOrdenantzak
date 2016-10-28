@@ -1,0 +1,7 @@
+Require all denied
+
+<Files ~ "\.(doc|docx|odt|pdf)$">
+
+Require all granted
+
+</Files>
