@@ -3,6 +3,7 @@
 
     use AppBundle\Entity\User;
 
+    use Pagerfanta\Exception\NotValidCurrentPageException;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -177,7 +178,7 @@
                     ->setCurrentPage($page)
                     ->getCurrentPageResults()
                 ;
-            } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
+            } catch ( NotValidCurrentPageException $e) {
                 throw $this->createNotFoundException("Orria ez da existitzen");
             }
 
