@@ -52,24 +52,26 @@
 
             <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
                 <ul class="nav nav-pills nav-stacked">
-                {#<div class="list-group">#}
-                    {% for atala in ordenantza.atalak %}
-                        <li><span class="label label-primary">
+                    {% for atala in ordenantza.atalak if atala.azpiatalak | length > 0 %}
+                        <li>
+                            <span class="label label-primary">
                                 {% if  app.request.locale == "eu"%}
                                     {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}
                                 {% else %}
                                     {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}
                                 {% endif %}
-                            </span></li>
-                        {% for azpiatala in atala.azpiatalak %}
-
-                            <li role="presentation" class="liSubMenu"><a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
+                            </span>
+                        </li>
+                        {% for azpiatala in atala.azpiatalak if azpiatala.kontzeptuak | length > 0 %}
+                            <li role="presentation" class="liSubMenu">
+                                <a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
                                     {% if  app.request.locale == "eu"%}
                                         {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
                                     {% else %}
                                         {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
                                     {% endif %}
-                            </a></li>
+                                </a>
+                                </li>
                             {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
                                 <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                     <div class="modal-dialog" role="document">
@@ -117,7 +119,6 @@
                                 </div>
                         {% endfor %}
                     {% endfor %}
-                    {#</div>#}
                 </ul>
             </div>
 
