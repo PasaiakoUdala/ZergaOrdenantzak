@@ -57,26 +57,26 @@ class DefaultController extends Controller
         $ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneById($id);
         $ordenantza = $this->getDoctrine()
             ->getRepository( 'AppBundle:Ordenantza' )->getOrdenantzabat( $id );
-//        $parrafoak = $ordenantza->getParrafoak();
+        //$parrafoak = $ordenantza->getParrafoak();
 
-//        $ord = array ();
-//        $ord[] = array(
-//            "izenburuaeu" => $ordenantza->getIzenburuaeu(),
-//            "izenburuaes" => $ordenantza->getIzenburuaes());
-//        foreach ( $ordenantza->getParrafoak() as $parrafoa ) {
-//            $ord[0]["parrafoa"]=array("parrafoaeu"=>$parrafoa->getTestuaeu(),"parrafoaes"=>$parrafoa->getTestuaes());
-//        }
+        //$ord = array ();
+        //$ord[] = array(
+        //"izenburuaeu" => $ordenantza->getIzenburuaeu(),
+        //"izenburuaes" => $ordenantza->getIzenburuaes());
+        //foreach ( $ordenantza->getParrafoak() as $parrafoa ) {
+            //$ord[0]["parrafoa"]=array("parrafoaeu"=>$parrafoa->getTestuaeu(),"parrafoaes"=>$parrafoa->getTestuaes());
+        //}
 
 
 
-        $azala = $this->render('frontend/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
-//        $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        //$azala = $this->render('frontend/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
+        //$pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $TBS = $this->container->get('opentbs');
 
         $o = $this->get('kernel')->getRootDir() . '/../web/doc/064/txantiloia.odt';
-//        $TBS->LoadTemplate('doc/txantiloia.odt');
+        //$TBS->LoadTemplate('doc/txantiloia.odt');
         $TBS->LoadTemplate($o, OPENTBS_ALREADY_UTF8);
-//        $TBS->Plugin(OPENTBS_DEBUG_INFO);
+        //$TBS->Plugin(OPENTBS_DEBUG_INFO);
         // replace variables
         $TBS->MergeField('client', array('name' => 'Kaixo Mundua!!','froga' => 'ieupa hi!!'));
 
@@ -85,20 +85,14 @@ class DefaultController extends Controller
         $data[] = array('rank'=> 'A', 'firstname'=>'Roger'  , 'name'=>'Smith'     , 'number'=>'1234f', 'score'=>800, 'email_1'=>'rs@tbs.com',  'email_2'=>'robert@tbs.com',  'email_3'=>'r.smith@tbs.com' );
         $data[] = array('rank'=> 'B', 'firstname'=>'William', 'name'=>'Mac Dowell', 'number'=>'5491y', 'score'=>130, 'email_1'=>'wmc@tbs.com', 'email_2'=>'william@tbs.com', 'email_3'=>'w.m.dowell@tbs.com' );
         $TBS->MergeBlock('a', $data);
-
-//        $TBS->MergeBlock('ordenantza', $ordenantza);
+        //$TBS->MergeBlock('ordenantza', $ordenantza);
         $TBS->MergeBlock('par', $ordenantza[0]['parrafoak']);
-
-
-//        $TBS->MergeField('client', array('portada' => $azala));
-//        $TBS->MergeField('client', array('portada' => 'KK','name' => 'Ford Prefect'));
+        //$TBS->MergeField('client', array('portada' => $azala));
+        //$TBS->MergeField('client', array('portada' => 'KK','name' => 'Ford Prefect'));
         // send the file
-//        $TBS->Show(OPENTBS_DOWNLOAD, $o);
-
-//        $TBS->Show(OPENTBS_FILE, $o2);
+        //$TBS->Show(OPENTBS_DOWNLOAD, $o);
+        //$TBS->Show(OPENTBS_FILE, $o2);
         $TBS->Show(OPENTBS_DOWNLOAD, '/doc/txantiloia.odt');
-
-
     }
 
     /**
