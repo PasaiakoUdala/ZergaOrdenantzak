@@ -15,13 +15,38 @@ class OrdenantzaRepository extends EntityRepository
 {
     public function getOrdenantzabat($id)
     {
-        $qb = $this->createQueryBuilder('o')
-            ->select('o,p')
-            ->innerJoin('o.parrafoak','p')
-            ->where('o =:id')->setParameter('id', $id)
-            ->getQuery()
-            ->getResult(Query::HYDRATE_ARRAY);
-//            ->getArrayResult();
-        return $qb;
+        $em = $this->getEntityManager();
+
+
+        $dql = "
+            SELECT o,p,a,ap,az,azp,k,m,b
+                FROM AppBundle:Ordenantza o
+                    LEFT JOIN o.parrafoak p
+                    LEFT JOIN o.atalak a
+                    LEFT JOIN a.parrafoak ap
+                    LEFT JOIN a.azpiatalak az
+                    LEFT JOIN az.parrafoak azp
+                    LEFT JOIN az.kontzeptuak k
+                    LEFT JOIN k.kontzeptumota m
+                    LEFT JOIN k.baldintza b
+                WHERE o.id = :id
+        ";
+
+//        $qb = $this->createQueryBuilder('o')
+//            ->select('o,p,a')
+//            ->innerJoin('o.parrafoak','p')
+//            ->innerJoin('o.atalak','a')
+//            ->leftJoin('a.parrafoak','ap')
+//            ->where('o =:id')->setParameter('id', $id)
+//            ->where('a =:id')->setParameter('id', $id)
+//            ->getQuery()
+//            ->getResult(Query::HYDRATE_ARRAY);
+
+        $consulta = $em->createQuery($dql);
+        $consulta->setParameter('id', $id);
+//        print_r($consulta->getSQL());
+        return $consulta->getResult(Query::HYDRATE_ARRAY);
+
+//        return $qb;
     }
 }
