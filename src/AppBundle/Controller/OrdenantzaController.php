@@ -588,4 +588,19 @@ class OrdenantzaController extends Controller
 
     }
 
+    /**
+     * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_ordenantza_ezabatu")
+     * @Method("GET")
+     */
+    public function ezabatuAction(Ordenantza $ordenantza)
+    {
+
+        $deleteForm = $this->createDeleteForm($ordenantza);
+
+        return $this->render('ordenantza/_ordenantza_delete_form.html.twig', array(
+            'delete_form' => $deleteForm->createView(),
+            'id' => $ordenantza->getId()
+        ));
+    }
+
 }

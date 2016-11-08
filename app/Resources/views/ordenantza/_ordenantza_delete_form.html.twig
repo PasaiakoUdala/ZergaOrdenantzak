@@ -1,0 +1,19 @@
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            {{ form_start(delete_form) }}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Ordenantza ezabatu</h4>
+            </div>
+            <div class="modal-body">
+                <p>Ziur zaude Ordenantza ezabatu nahi duzula?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ezeztatu</button>
+                <button type="submit" class="btn btn-primary">Baiezabatu</button>
+            </div>
+            <div style="display: none;">{{ form_end(delete_form) }}</div>
+        </div>
+    </div>
