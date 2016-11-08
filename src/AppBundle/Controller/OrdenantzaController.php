@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Historikoa;
+use AppBundle\Entity\Kontzeptua;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -478,7 +479,7 @@ class OrdenantzaController extends Controller
     }
 
     /**
-     * @Route("/ezeztatu/{id}", name="admin_ordenantza_ezeztatu")
+     * @Route("/ezeztatu/{id}", options = { "expose" = true }, name="admin_ordenantza_ezeztatu")
      * @Method("GET")
      */
     public function ezeztatuAction(Request $request, Ordenantza $ordenantza)
