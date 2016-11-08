@@ -45,7 +45,7 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ path('admin_ordenantza_ezeztatu', {'id': ordenantza.id}) }}">{{ "Aldaketak ezeztatu" | trans }}</a></li>
+        <li><a id="btnaldaketakezeztatu" data-id="{{ ordenantza.id }}" href="javascript:void(0);">{{ "Aldaketak ezeztatu" | trans }}</a></li>
         <li>&nbsp;</li>
     </ul>
 {% endblock %}
@@ -382,6 +382,29 @@
 
         $(document).ready(function () {
 
+            $('#btnaldaketakezeztatu').on('click', function() {
+                var that=$(this);
+                bootbox.confirm({
+                    title: "Aldaketak ezeztatu",
+                    message: "Eragiketa honekin, momentuan egindako aldaketak deuseztatu eta aurretik gordeta daudenak kargatuko dira, ados?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Ezeztatu'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Onartu'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result===true) {
+                            var miid = $(that).data('id');
+                            window.location = Routing.generate('admin_ordenantza_ezeztatu', {'_locale':'eu','id': miid});;
+                        }
+                    }
+                });
+
+            });
+
             $('#enable').click(function() {
                 $('.editable').editable('toggleDisabled');
                 $('.editable2').editable('toggleDisabled');
@@ -447,9 +470,7 @@
             });
 
             $('#btnOrdenantzaEzabatu').on('click', function(){
-
                 $('#divEzabatuOrdenantza').modal('toggle');
-
             });
 
 
