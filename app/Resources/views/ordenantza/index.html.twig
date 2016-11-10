@@ -34,6 +34,9 @@
 {% block body %}
     <div class="containermenua">
         {% for ordenantza in ordenantzas %}
+            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                <span>{{ ordenantza.udala }}</span>
+            {% endif %}
 
             <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
                 <ul class="list-inline">
