@@ -20,3 +20,8 @@ services:
             class: EasyCorp\EasyLog\EasyLogHandler
             arguments:
                 - '%kernel.logs_dir%/%kernel.environment%.log'
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }

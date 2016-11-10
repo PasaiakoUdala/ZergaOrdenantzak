@@ -9,7 +9,7 @@
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
                     <li class="dropdown dropdown-submenu ">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false"
-                           onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
+                           onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu | capitalize | truncate(50, true, '...') }}</a>
                         <ul class="dropdown-menu">
                             {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu != 1 %}
                                 <li class="dropdown dropdown-submenu">
@@ -41,7 +41,7 @@
                 {% else %}
                     <li class="dropdown dropdown-submenu">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false"
-                           onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize }}</a>
+                           onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize | truncate(50, true, '...') }}</a>
                         <ul class="dropdown-menu">
                             <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}"><span
                                             class="glyphicon glyphicon-plus"></span> Azpiatal berria</a></li>
@@ -358,7 +358,7 @@
     {% endfor %}
     <div style="display: none;">
         <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text"
-                                                   value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
+                                                   value="{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_USER") %}1{% else %}0{% endif %}">
     </div>
 
 
@@ -406,7 +406,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Ezeztatu</button>
-                    <button type="submit" class="btn btn-primary">Baiezabatu</button>
+                    <button type="submit" class="btn btn-primary">Bai</button>
                 </div>
                 <div style="display: none;">{{ form_end(delete_form) }}</div>
             </div>
