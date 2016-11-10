@@ -15,6 +15,17 @@ use AppBundle\Annotation\UdalaEgiaztatu;
 class Ordenantza
 {
     /**
+     * @var Ordenantza
+     * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
+     * @ORM\OrderBy({"ordena" = "ASC"})
+     */
+    protected $parrafoak;
+    /**
+     * @var Atala
+     * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
+     */
+    protected $atalak;
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="bigint", nullable=false)
@@ -22,69 +33,48 @@ class Ordenantza
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
     private $kodea;
-
     /**
      * @var string
      *
      * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
      */
     private $kodea_prod;
-
     /**
      * @var string
      *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
     private $izenburuaeu;
-
     /**
      * @var string
      *
      * @ORM\Column(name="izenburuaeu_prod", type="string", length=255, nullable=true)
      */
     private $izenburuaeu_prod;
-
     /**
      * @var string
      *
      * @ORM\Column(name="izenburuaes", type="string", length=255, nullable=true)
      */
     private $izenburuaes;
-
    /**
      * @var string
      *
      * @ORM\Column(name="izenburuaes_prod", type="string", length=255, nullable=true)
      */
     private $izenburuaes_prod;
-
     /**
      * @var bool
      *
      * @ORM\Column(name="ezabatu", type="boolean", nullable=true)
      */
     private $ezabatu;
-
-   /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     */
-    private $updatedAt;
 
 
 
@@ -96,20 +86,18 @@ class Ordenantza
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
      */
-
-    /**
-     * @var Ordenantza
-     * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
-     * @ORM\OrderBy({"ordena" = "ASC"})
+   /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    protected $parrafoak;
-
+    private $createdAt;
     /**
-     * @var Atala
-     * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $atalak;
-
+    private $updatedAt;
     /**
      * @var Udala
      * @ORM\ManyToOne(targetEntity="Udala")
@@ -135,15 +123,14 @@ class Ordenantza
      * ************************************************************************************************************************************************************************
      */
 
-
     /**
-     * Get id
+     * Get kodea
      *
-     * @return integer
+     * @return string
      */
-    public function getId()
+    public function getKodea()
     {
-        return $this->id;
+        return $this->kodea;
     }
 
     /**
@@ -161,13 +148,23 @@ class Ordenantza
     }
 
     /**
-     * Get kodea
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get izenburuaeu
      *
      * @return string
      */
-    public function getKodea()
+    public function getIzenburuaeu()
     {
-        return $this->kodea;
+        return $this->izenburuaeu;
     }
 
     /**
@@ -185,13 +182,13 @@ class Ordenantza
     }
 
     /**
-     * Get izenburuaeu
+     * Get izenburuaes
      *
      * @return string
      */
-    public function getIzenburuaeu()
+    public function getIzenburuaes()
     {
-        return $this->izenburuaeu;
+        return $this->izenburuaes;
     }
 
     /**
@@ -209,13 +206,13 @@ class Ordenantza
     }
 
     /**
-     * Get izenburuaes
+     * Get createdAt
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getIzenburuaes()
+    public function getCreatedAt()
     {
-        return $this->izenburuaes;
+        return $this->createdAt;
     }
 
     /**
@@ -233,13 +230,13 @@ class Ordenantza
     }
 
     /**
-     * Get createdAt
+     * Get updatedAt
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getUpdatedAt()
     {
-        return $this->createdAt;
+        return $this->updatedAt;
     }
 
     /**
@@ -254,16 +251,6 @@ class Ordenantza
         $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -335,6 +322,16 @@ class Ordenantza
     }
 
     /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
+
+    /**
      * Set udala
      *
      * @param \AppBundle\Entity\Udala $udala
@@ -349,13 +346,13 @@ class Ordenantza
     }
 
     /**
-     * Get udala
+     * Get kodeaProd
      *
-     * @return \AppBundle\Entity\Udala
+     * @return string
      */
-    public function getUdala()
+    public function getKodeaProd()
     {
-        return $this->udala;
+        return $this->kodea_prod;
     }
 
     /**
@@ -373,13 +370,13 @@ class Ordenantza
     }
 
     /**
-     * Get kodeaProd
+     * Get izenburuaeuProd
      *
      * @return string
      */
-    public function getKodeaProd()
+    public function getIzenburuaeuProd()
     {
-        return $this->kodea_prod;
+        return $this->izenburuaeu_prod;
     }
 
     /**
@@ -397,13 +394,13 @@ class Ordenantza
     }
 
     /**
-     * Get izenburuaeuProd
+     * Get izenburuaesProd
      *
      * @return string
      */
-    public function getIzenburuaeuProd()
+    public function getIzenburuaesProd()
     {
-        return $this->izenburuaeu_prod;
+        return $this->izenburuaes_prod;
     }
 
     /**
@@ -421,13 +418,13 @@ class Ordenantza
     }
 
     /**
-     * Get izenburuaesProd
+     * Get ezabatu
      *
-     * @return string
+     * @return boolean
      */
-    public function getIzenburuaesProd()
+    public function getEzabatu()
     {
-        return $this->izenburuaes_prod;
+        return $this->ezabatu;
     }
 
     /**
@@ -442,15 +439,5 @@ class Ordenantza
         $this->ezabatu = $ezabatu;
 
         return $this;
-    }
-
-    /**
-     * Get ezabatu
-     *
-     * @return boolean
-     */
-    public function getEzabatu()
-    {
-        return $this->ezabatu;
     }
 }

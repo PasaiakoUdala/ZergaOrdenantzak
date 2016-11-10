@@ -10,7 +10,7 @@ use AppBundle\Annotation\UdalaEgiaztatu;
  * Atalaparrafoa
  *
  * @ORM\Table(name="atalaparrafoa", indexes={@ORM\Index(name="atala_id_idx", columns={"atala_id"})})
-// * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Atalaparrafoa
@@ -26,7 +26,7 @@ class Atalaparrafoa
 
     /**
      * @var integer
-//     * @Gedmo\SortablePosition
+     * @Gedmo\SortablePosition
      * @ORM\Column(name="ordena", type="integer", nullable=true)
      */
     private $ordena;

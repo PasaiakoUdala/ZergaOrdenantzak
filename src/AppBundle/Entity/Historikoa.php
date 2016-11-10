@@ -38,6 +38,13 @@ class Historikoa
     private $bogargitaratzedata;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="bogbehinbetikodata", type="date", nullable=true)
+     */
+    private $bogbehinbetikodata;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="bogestekaeu", type="string", length=255, nullable=true)
@@ -126,6 +133,8 @@ class Historikoa
      * ************************************************************************************************************************************************************************
      */
 
+
+
     /**
      * Get id
      *
@@ -182,6 +191,30 @@ class Historikoa
     public function getBogargitaratzedata()
     {
         return $this->bogargitaratzedata;
+    }
+
+    /**
+     * Set bogbehinbetikodata
+     *
+     * @param \DateTime $bogbehinbetikodata
+     *
+     * @return Historikoa
+     */
+    public function setBogbehinbetikodata($bogbehinbetikodata)
+    {
+        $this->bogbehinbetikodata = $bogbehinbetikodata;
+
+        return $this;
+    }
+
+    /**
+     * Get bogbehinbetikodata
+     *
+     * @return \DateTime
+     */
+    public function getBogbehinbetikodata()
+    {
+        return $this->bogbehinbetikodata;
     }
 
     /**
