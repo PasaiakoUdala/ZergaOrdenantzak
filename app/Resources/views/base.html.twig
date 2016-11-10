@@ -21,21 +21,23 @@
         .editable-container.editable-inline .control-group.form-group .editable-input,
         .editable-container.editable-inline .control-group.form-group .editable-input textarea,
         .editable-container.editable-inline .control-group.form-group .editable-input select,
-        .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit])
-        {
+        .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit]) {
             width: 100%;
         }
 
         .editable-click, a.editable-click, a.editable-click:hover {
-            border-bottom:none !important;
+            border-bottom: none !important;
         }
-        .marginBottom-0 {margin-bottom:0;}
+
+        .marginBottom-0 {
+            margin-bottom: 0;
+        }
 
 
     </style>
 </head>
 
-<body  data-spy="scroll" data-target="#navbar-example">
+<body data-spy="scroll" data-target="#navbar-example">
 
 <div id="navbar-example">
     <nav class="navbar navbar-inverse navbar-fixed-top marginBottom-0" role="navigation">
@@ -47,7 +49,8 @@
                 <span class="icon-bar"></span>
             </button>
             {% block hasieraesteka %}
-            <a class="navbar-brand" href="{{ path('admin_ordenantza_index') }}">{% block zerganame %}Zerga Ordenantzak <small>(beta)</small>{% endblock %}</a>
+                <a class="navbar-brand"
+                   href="{{ path('admin_ordenantza_index') }}">{% block zerganame %}Zerga Ordenantzak{% endblock %}</a>
             {% endblock %}
         </div>
 
@@ -99,7 +102,7 @@
             window.scrollTo(window.scrollX, window.scrollY - 100);
         });
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.js-datepicker').datepicker({
                 format: 'yyyy/mm/dd',
                 todayBtn: "linked",

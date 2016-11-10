@@ -661,23 +661,23 @@
                                     $em->remove( $kontzeptua );
                                 } else {
 
-                                    if (strlen($kontzeptua->getKodeaProd())>0){
+                                    if ( strlen( $kontzeptua->getKodeaProd() ) > 0 ) {
                                         $kontzeptua->setKodea( $kontzeptua->getKodeaProd() );
                                     }
 
-                                    if (strlen($kontzeptua->getKontzeptuaesProd())>0){
+                                    if ( strlen( $kontzeptua->getKontzeptuaesProd() ) > 0 ) {
                                         $kontzeptua->setKontzeptuaes( $kontzeptua->getKontzeptuaesProd() );
                                     }
-                                    if (strlen($kontzeptua->getKontzeptuaeuProd())>0){
+                                    if ( strlen( $kontzeptua->getKontzeptuaeuProd() ) > 0 ) {
                                         $kontzeptua->setKontzeptuaeu( $kontzeptua->getKontzeptuaeuProd() );
                                     }
-                                    if (strlen($kontzeptua->getKontzeptuaeuProd())>0){
+                                    if ( strlen( $kontzeptua->getKontzeptuaeuProd() ) > 0 ) {
                                         $kontzeptua->setKontzeptuaeu( $kontzeptua->getKontzeptuaeuProd() );
                                     }
-                                    if (strlen($kontzeptua->getKopuruaProd())>0){
+                                    if ( strlen( $kontzeptua->getKopuruaProd() ) > 0 ) {
                                         $kontzeptua->setKopurua( $kontzeptua->getKopuruaProd() );
                                     }
-                                    if (strlen($kontzeptua->getUnitateaProd())>0){
+                                    if ( strlen( $kontzeptua->getUnitateaProd() ) > 0 ) {
                                         $kontzeptua->setUnitatea( $kontzeptua->getUnitateaProd() );
                                     }
                                 }

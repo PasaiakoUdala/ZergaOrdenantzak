@@ -2,12 +2,14 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        {% if  app.request.locale == "eu"%}
+        {% if  app.request.locale == "eu" %}
             <li><a href="{{ path('admin_ordenantza_index') }}">Zerga zerrenda</a></li>
-            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}"
+                                                              alt="Castellano"> Castellano</a></li>
         {% else %}
             <li><a href="{{ path('admin_ordenantza_index') }}">Listado ordenanzas</a></li>
-            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}"
+                                                              alt="Euskaraz"> Euskara</a></li>
         {% endif %}
         <li>&nbspp;</li>
     </ul>
@@ -18,30 +20,37 @@
 
     <table class="table table-striped table-striped table-hover">
         <thead>
-            <tr>
-                <th>{{ "Onartze data" | trans}}</th>
-                <th>{{ "G.A.O. Argitaratze Data" | trans }}</th>
-                <th>{{ "Aldaketak" | trans }}</th>
-                <th>{{ "Fitxategia"| trans }}</th>
-                <th></th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>{{ "Onartze data" | trans }}</th>
+            <th>{{ "G.A.O. Argitaratze Data" | trans }}</th>
+            <th>{{ "Aldaketak" | trans }}</th>
+            <th>{{ "Fitxategia"| trans }}</th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
         {% for historikoa in historikoas %}
             <tr>
                 <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y/m/d') }}{% endif %}</td>
                 <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}</td>
-                <td>{{ historikoa.aldaketakeu |raw}}</td>
-                <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
-                <td><a class="btn btn-primary" href="{{ path('admin_historikoa_edit', {'id':historikoa.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                <td><form action="{{ path('admin_historikoa_delete', { 'id': historikoa.id }) }}" method="post">
-                        <input type="hidden" name="_method" value="DELETE" />
+                <td>{{ historikoa.aldaketakeu |raw }}</td>
+                {% if app.user.udala %}
+                    <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
+                {% else %}
+                    <td>Udal kodea?</td>
+                {% endif %}
+                <td><a class="btn btn-primary" href="{{ path('admin_historikoa_edit', {'id':historikoa.id}) }}"><span
+                                class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                <td>
+                    <form action="{{ path('admin_historikoa_delete', { 'id': historikoa.id }) }}" method="post">
+                        <input type="hidden" name="_method" value="DELETE"/>
                         {{ form_widget(deleteForms[historikoa.id]) }}
                         <button type="submit" class="btn btn-danger btn-small" onclick='return confirm("Seguru?")'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
-                    </form></td>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

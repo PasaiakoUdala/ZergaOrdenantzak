@@ -98,6 +98,14 @@
                 <source>Odt-a eskuratu</source>
                 <target>Obtener Odt</target>
             </trans-unit>
+            <trans-unit id="25">
+                <source>B.O.G. esteka eskaraz</source>
+                <target>B.O.G. esteka eskaraz</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>B.O.G. esteka erdaraz</source>
+                <target>B.O.G. esteka erdaraz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
