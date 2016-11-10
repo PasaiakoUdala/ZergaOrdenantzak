@@ -37,7 +37,7 @@ class UdalaFilter extends SQLFilter
             return '';
         }
 
-        if (empty($fieldName) || empty($udalaId)) {
+        if (empty($fieldName) || ($udalaId=="'138'")) {
             return '';
         }
 

@@ -8,7 +8,7 @@ use AppBundle\Annotation\UdalaEgiaztatu;
 /**
  * Ordenantza
  *
- * @ORM\Table(name="ordenantza", uniqueConstraints={@ORM\UniqueConstraint(name="kodea", columns={"kodea"})})
+ * @ORM\Table(name="ordenantza")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdenantzaRepository")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
