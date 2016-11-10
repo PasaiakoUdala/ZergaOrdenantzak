@@ -290,7 +290,7 @@
 
     {% endfor %}
     <div style="display: none;">
-        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text" value="{% if is_granted("ROLE_ADMIN") %}1{% else %}0{% endif %}">
+        <label for="isAdmin">IsAdmin</label><input id="isAdmin" type="text" value="{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_USER") %}1{% else %}0{% endif %}">
     </div>
 
 
