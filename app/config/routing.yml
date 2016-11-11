@@ -1,3 +1,7 @@
+app_baldintza:
+    resource: "@AppBundle/Controller/BaldintzaController.php"
+    type:     annotation
+
 app_udala:
     resource: "@AppBundle/Controller/UdalaController.php"
     type:     annotation
