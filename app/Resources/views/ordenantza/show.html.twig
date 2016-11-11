@@ -77,26 +77,14 @@
     <div class="row ordenantza">
         <div class="col-xs-6">
             <h4>
-                <button type="button" class="close btnEzabatu hide" data-toggle="modal"
-                        data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span>
-                </button>
-                <span class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}"
-                      data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}"
-                      data-pk="{{ ordenantza.id }}"
-                      data-type="wysihtml5" tabindex="-1"
-                      style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</span>
+                <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <span class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</span>
             </h4>
         </div>
         <div class="col-xs-6">
             <h4>
-                <button type="button" class="close btnEzabatu hide pull-right" data-toggle="modal"
-                        data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span>
-                </button>
-                <span class="editable2 ordenantza" data-name="izenburuaes" data-pk="{{ ordenantza.id }}"
-                      data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}"
-                      data-pk="{{ ordenantza.id }}"
-                      data-type="wysihtml5" tabindex="-1"
-                      style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</span>
+                <button type="button" class="close btnEzabatu hide pull-right" data-toggle="modal" data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <span class="editable2 ordenantza" data-name="izenburuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</span>
             </h4>
         </div>
     </div>
@@ -106,39 +94,21 @@
         <div class="row ordenantzaparrafoa">
             <div class="col-xs-6">
                 <div class="divEditable">
-                    <button type="button" class="close btnEzabatu hide" data-toggle="modal"
-                            data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span
-                                aria-hidden="true">×</span>
-                    </button>
-                    &nbsp;
-                    <a class="btnSort hide pull-right"
-                       href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span
-                                class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span
-                                class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                    <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                          data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}"
-                          data-type="wysihtml5"
-                          tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                    <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                    <span class="editable-popup btnSort hide pull-right" data-name="Ordenantza - Parrafoa - Ordena" data-pk="{{ p.id }}">{{ p.ordena }}</span>
+                    <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                     {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
                 </div>
             </div>
             <div class="col-xs-6">
                 <div class="divEditable">
-                    <button type="button" class="close btnEzabatu hide" data-toggle="modal"
-                            data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span
-                                aria-hidden="true">×</span>
-                    </button>
-                    &nbsp;
-                    <a class="btnSort hide pull-right"
-                       href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span
-                                class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span
-                                class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                    <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                          data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}"
-                          data-type="wysihtml5"
-                          tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                    <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                    <span class="editable-popup btnSort hide pull-right" data-name="Ordenantza - Parrafoa - Ordena" data-pk="{{ p.id }}">Ordena: {{ p.ordena }}</span>
+                    <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
                 </div>
             </div>
         </div>
@@ -154,15 +124,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <h3 class="row-fluid col-md-12" id="{{ atala.kodea }}">
-                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
-                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.kodea }}
                         </span>
                         <span class="col-md-1 text-left">-</span>
-                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}"
-                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.izenburuaeu }}
                         </span>
                     </h3>
@@ -172,15 +138,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <h3 class="row-fluid col-md-12">
-                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}"
-                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.kodea }}
                         </span>
                         <span class="col-md-1 text-left">-</span>
-                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}"
-                              data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
-                              data-type="wysihtml5" tabindex="-1" style="display: block;">
+                        <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">
                             {{ atala.izenburuaes }}
                         </span>
                     </h3>
@@ -191,36 +153,21 @@
                 <div class="row atalaparrafoa">
                     <div class="divEditable col-xs-6">
                         <div class="divEditableatalaparrafoa">
-                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}"
-                                    aria-label="Close"><span aria-hidden="true">×</span>
-                            </button>
-                            <a class="btnSort hide pull-right"
-                               href="{{ path('admin_atalaparrafoa_up', {'id':p.id }) }}"><span
-                                        class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                            <a class="btnSort hide pull-right"
-                               href="{{ path('admin_atalaparrafoa_down', {'id':p.id }) }}"><span
-                                        class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                            <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                  data-type="wysihtml5" tabindex="-1"
-                                  style="display: block;">{{ p.testuaeu | raw }}</span>
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_atalaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2 btnSort hide pull-right" data-name="Atala - Parrafoa - Ordena" data-pk="{{ p.id }}">Ordena: {{ p.ordena }}</span>
+                            <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                         </div>
                     </div>
                     <div class="divEditable col-xs-6">
                         <div class="divEditable">
-                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}"
-                                    aria-label="Close"><span aria-hidden="true">×</span>
+                            <button type="button" class="close btnEzabatuAtalaParrafoa hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
                             </button>
-                            <a class="btnSort hide pull-right"
-                               href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span
-                                        class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                            <a class="btnSort hide pull-right"
-                               href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span
-                                        class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                            <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                                  data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}"
-                                  data-type="wysihtml5" tabindex="-1"
-                                  style="display: block;">{{ p.testuaes | raw }}</span>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                            <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                            <span class="editable2 btnSort hide pull-right" data-name="Atala - Parrafoa - Ordena" data-pk="{{ p.id }}">Ordena: {{ p.ordena }}</span>
+                            <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
                         </div>
                     </div>
                 </div>
@@ -605,8 +552,7 @@
                 $('.editable2').on('mouseover', function () {
                     $(this).addClass('gainean');
 
-                })
-                        .on('mouseleave', function () {
+                }).on('mouseleave', function () {
                             $(this).removeClass('gainean');
                         }).editable({
                     toggle: 'dblclick',
@@ -626,23 +572,14 @@
 
                 $('.editable-popup').on('mouseover', function () {
                     $(this).addClass('gainean');
-                })
-                        .on('mouseleave', function () {
-                            $(this).removeClass('gainean');
-                        }).editable({
+                }).on('mouseleave', function () {
+                    $(this).removeClass('gainean');
+                }).editable({
                     mode: 'popup',
-                    title: 'Enter comments',
+                    title: 'Ordena',
                     showbuttons: 'top',
                     onblur: 'ignore',
-                    inputclass: 'editable-buttons-ezker',
-                    wysihtml5: {
-                        "image": false,
-                        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                        "emphasis": true, //Italics, bold, etc. Default true
-                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                        "html": false, //Button which allows you to edit the generated HTML. Default false
-                        "link": false, //Button to insert a link. Default true
-                    }
+                    inputclass: 'editable-buttons-popup'
                 });
             }
         });
