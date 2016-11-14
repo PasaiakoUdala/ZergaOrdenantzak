@@ -5,6 +5,7 @@
     use AppBundle\Entity\Historikoa;
     use AppBundle\Entity\Kontzeptua;
     use AppBundle\Entity\Ordenantzaparrafoa;
+    use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -154,6 +155,9 @@
                 case "testuaes":
                     $atalap->setTestuaes( $value );
                     break;
+                case "ordena":
+                    $atalap->setOrdena( $value );
+                    break;
             }
 
             $em->persist( $atalap );
@@ -208,6 +212,8 @@
         public function eguneratuazpiatalaparrafoaAction ( Request $request, $id )
         {
             $em = $this->getDoctrine()->getManager();
+
+            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoa **/
             $azpiatalap = $em->getRepository( 'AppBundle:Azpiatalaparrafoa' )->findOneById( $id );
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
@@ -219,6 +225,9 @@
                     break;
                 case "testuaes":
                     $azpiatalap->setTestuaes( $value );
+                    break;
+                case "ordena":
+                    $azpiatalap->setOrdena( $value );
                     break;
             }
 
