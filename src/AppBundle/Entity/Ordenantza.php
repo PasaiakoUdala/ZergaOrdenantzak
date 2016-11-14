@@ -22,6 +22,7 @@ class Ordenantza
     protected $parrafoak;
     /**
      * @var Atala
+     * @ORM\OrderBy({"kodea" = "ASC"})
      * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
      */
     protected $atalak;

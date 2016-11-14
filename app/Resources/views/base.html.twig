@@ -4,37 +4,40 @@
 
     <title>Zerga Ordenantzak</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-    <link href="{{ asset('bundles/app/css/backend.css') }}" rel="stylesheet" media="screen">
-    {#<link href="{{ asset('bundles/app/css/bootstrap-wysihtml5-0.0.2.css') }}"  rel="stylesheet" href="">#}
 
-    <link href="{{ asset('bundles/app/css/bootstrap-editable.css') }}" rel="stylesheet" href="">
-    <link href="{{ asset('bundles/app/css/3/bootstrap-wysihtml5-0.0.3.css') }}" rel="stylesheet" href="">
-    <link href="{{ asset('bundles/app/css/calendar/bootstrap-datepicker3.min.css') }}" rel="stylesheet" href="">
-    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
-    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
-    <style>
-        /* Make inline editables take the full width of their parents */
-        .editable-container.editable-inline,
-        .editable-container.editable-inline .control-group.form-group,
-        .editable-container.editable-inline .control-group.form-group .editable-input,
-        .editable-container.editable-inline .control-group.form-group .editable-input textarea,
-        .editable-container.editable-inline .control-group.form-group .editable-input select,
-        .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit]) {
-            width: 100%;
-        }
+    {% block stylesheets %}
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+        <link href="{{ asset('bundles/app/css/backend.css') }}" rel="stylesheet" media="screen">
+        {#<link href="{{ asset('bundles/app/css/bootstrap-wysihtml5-0.0.2.css') }}"  rel="stylesheet" href="">#}
 
-        .editable-click, a.editable-click, a.editable-click:hover {
-            border-bottom: none !important;
-        }
+        <link href="{{ asset('bundles/app/css/bootstrap-editable.css') }}" rel="stylesheet" href="">
+        <link href="{{ asset('bundles/app/css/3/bootstrap-wysihtml5-0.0.3.css') }}" rel="stylesheet" href="">
+        <link href="{{ asset('bundles/app/css/calendar/bootstrap-datepicker3.min.css') }}" rel="stylesheet" href="">
+        <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+        {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+        <style>
+            /* Make inline editables take the full width of their parents */
+            .editable-container.editable-inline,
+            .editable-container.editable-inline .control-group.form-group,
+            .editable-container.editable-inline .control-group.form-group .editable-input,
+            .editable-container.editable-inline .control-group.form-group .editable-input textarea,
+            .editable-container.editable-inline .control-group.form-group .editable-input select,
+            .editable-container.editable-inline .control-group.form-group .editable-input input:not([type=radio]):not([type=checkbox]):not([type=submit]) {
+                width: 100%;
+            }
 
-        .marginBottom-0 {
-            margin-bottom: 0;
-        }
+            .editable-click, a.editable-click, a.editable-click:hover {
+                border-bottom: none !important;
+            }
+
+            .marginBottom-0 {
+                margin-bottom: 0;
+            }
 
 
-    </style>
+        </style>
+    {% endblock %}
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
