@@ -94,21 +94,29 @@
         <div class="row ordenantzaparrafoa">
             <div class="col-xs-6">
                 <div class="divEditable">
-                    <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                    <span class="editable-popup btnSort hide pull-right" data-name="Ordenantza - Parrafoa - Ordena" data-pk="{{ p.id }}">{{ p.ordena }}</span>
-                    <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
-                    {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
+                    <div class="divAkzioak">
+                        <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <a class="btnSort hide" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                        <a class="btnSort hide" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                        <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
+                    </div>
+                    <div class="divTextua">
+                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                        {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
+                    </div>
                 </div>
             </div>
             <div class="col-xs-6">
                 <div class="divEditable">
-                    <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                    <a class="btnSort hide pull-right" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                    <span class="editable-popup btnSort hide pull-right" data-name="Ordenantza - Parrafoa - Ordena" data-pk="{{ p.id }}">Ordena: {{ p.ordena }}</span>
-                    <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                    <div class="divAkzioak">
+                        <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantzaparrafoa{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <a class="btnSort hide" href="{{ path('admin_ordenantzaparrafoa_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
+                        <a class="btnSort hide" href="{{ path('admin_ordenantzaparrafoa_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
+                        <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
+                    </div>
+                    <div class="divTextua">
+                        <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -381,6 +389,23 @@
 
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .popover {
+            z-index: 9999 !important;
+        }
+        .popover .editable-buttons {
+            margin-left: 15px !important;
+        }
+        .divAkzioak {
+            display: block;
+            height: 18px;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
 
@@ -549,12 +574,12 @@
                 });
 
                 $('.editable').editable();
+
                 $('.editable2').on('mouseover', function () {
                     $(this).addClass('gainean');
-
                 }).on('mouseleave', function () {
-                            $(this).removeClass('gainean');
-                        }).editable({
+                    $(this).removeClass('gainean');
+                }).editable({
                     toggle: 'dblclick',
                     title: 'Enter comments',
                     showbuttons: 'top',
@@ -575,11 +600,13 @@
                 }).on('mouseleave', function () {
                     $(this).removeClass('gainean');
                 }).editable({
+                    toggle: 'dblclick',
                     mode: 'popup',
                     title: 'Ordena',
                     showbuttons: 'top',
                     onblur: 'ignore',
-                    inputclass: 'editable-buttons-popup'
+                    inputclass: 'editable-buttons-popup',
+                    buttons:'<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="icon-ok icon-white"></i></button>' +'<button type="button" class="btn editable-cancel btn-mini"><i class="icon-remove"></i></button>'
                 });
             }
         });

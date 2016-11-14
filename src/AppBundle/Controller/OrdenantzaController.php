@@ -83,6 +83,8 @@
                 case "testuaes":
                     $ordenantzaparrafoa->setTestuaes( $value );
                     break;
+                case "ordena":
+                    $ordenantzaparrafoa->setOrdena( $value );
             }
 
             $em->persist( $ordenantzaparrafoa );

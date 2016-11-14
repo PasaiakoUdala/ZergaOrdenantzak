@@ -137,6 +137,7 @@ class Atala
 
     /**
      * @var Azpiatala
+     * @ORM\OrderBy({"kodea" = "ASC"})
      * @ORM\OneToMany(targetEntity="Azpiatala", mappedBy="atala", cascade={"remove"})
      */
     protected $azpiatalak;
