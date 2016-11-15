@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Atalaparrafoa;
 use AppBundle\Form\AtalaparrafoaType;
 use AppBundle\Entity\Atala;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Atalaparrafoa controller.
@@ -57,6 +58,9 @@ class AtalaparrafoaController extends Controller
         $em = $this->getDoctrine();
 
         $atala = $em->getRepository( 'AppBundle:Atala' )->find( $atalaid );
+        if (!$atala) {
+            throw new NotFoundHttpException( "Ez da aurkitu" );
+        }
         $atalaparrafoa = new Atalaparrafoa();
 
         $atalaparrafoa->setAtala( $atala );

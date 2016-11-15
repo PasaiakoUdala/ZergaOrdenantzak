@@ -10,6 +10,18 @@
             <div class="modal-body">
 
                 <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.ordena, 'Ordena', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.ordena) }}
+                            {{ form_widget(form.ordena, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group  field-text">
                             {{ form_label(form.testuaeu, 'Testua', { 'label_attr': {'class': 'control-label'} }) }}
