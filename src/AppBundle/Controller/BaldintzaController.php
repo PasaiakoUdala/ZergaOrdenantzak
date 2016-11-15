@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Baldintza;
+use AppBundle\Form\BaldintzaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 /**
  * Baldintza controller.
  *
- * @Route("baldintza")
+ * @Route("/{_locale}/admin/baldintza")
  */
 class BaldintzaController extends Controller
 {
@@ -26,8 +28,22 @@ class BaldintzaController extends Controller
 
         $baldintzas = $em->getRepository('AppBundle:Baldintza')->findAll();
 
+        /** @var $baldintza \AppBundle\Entity\Baldintza **/
+        $baldintza = new Baldintza();
+        $baldintza->setUdala($this->getUser()->getUdala());
+        $form = $this->createForm('AppBundle\Form\BaldintzaType', $baldintza,array(
+            'action' => $this->generateUrl('baldintza_new'),
+            'method' => 'POST',
+        ));
+
+        $deleteForms = array ();
+        foreach ( $baldintzas as $baldintza ) {
+            $deleteForms[ $baldintza->getId() ] = $this->createDeleteForm( $baldintza )->createView();
+        }
         return $this->render('baldintza/index.html.twig', array(
             'baldintzas' => $baldintzas,
+            'deleteforms' => $deleteForms,
+            'form' => $form->createView(),
         ));
     }
 
@@ -48,7 +64,7 @@ class BaldintzaController extends Controller
             $em->persist($baldintza);
             $em->flush($baldintza);
 
-            return $this->redirectToRoute('baldintza_show', array('id' => $baldintza->getId()));
+            return $this->redirectToRoute('baldintza_index');
         }
 
         return $this->render('baldintza/new.html.twig', array(
@@ -57,26 +73,12 @@ class BaldintzaController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a baldintza entity.
-     *
-     * @Route("/{id}", name="baldintza_show")
-     * @Method("GET")
-     */
-    public function showAction(Baldintza $baldintza)
-    {
-        $deleteForm = $this->createDeleteForm($baldintza);
 
-        return $this->render('baldintza/show.html.twig', array(
-            'baldintza' => $baldintza,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing baldintza entity.
      *
-     * @Route("/{id}/edit", name="baldintza_edit")
+     * @Route("/{id}/edit", options = { "expose" = true }, name="baldintza_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Baldintza $baldintza)
@@ -88,7 +90,7 @@ class BaldintzaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('baldintza_edit', array('id' => $baldintza->getId()));
+            return $this->redirectToRoute('baldintza_index');
         }
 
         return $this->render('baldintza/edit.html.twig', array(

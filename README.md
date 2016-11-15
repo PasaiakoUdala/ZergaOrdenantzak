@@ -90,7 +90,7 @@ php bin/console fos:user:promote
 
 ######Apache 2.4
     <VirtualHost *:80>
-        ServerName zerbikat.dev
+        ServerName zergaordenantzak.dev
 
         DocumentRoot /home/ikerib/dev/zergaordenantzak.dev/web
         <Directory /home/ikerib/dev/zergaordenantzak.dev/web>
