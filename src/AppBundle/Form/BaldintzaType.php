@@ -13,7 +13,10 @@ class BaldintzaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('baldintzaeu')->add('baldintzaes')->add('udala')        ;
+        $builder
+            ->add('baldintzaeu')
+            ->add('baldintzaes')
+            ->add('udala')        ;
     }
     
     /**

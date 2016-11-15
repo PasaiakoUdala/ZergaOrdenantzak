@@ -514,7 +514,6 @@
                 $('#divEzabatuOrdenantza').modal('toggle');
             });
 
-
             $('.btnEzabatuAzpiAtala').on('click', function () {
                 $('#divEzabatuAzpiAtala').empty();
                 var miid = $(this).data('miid');
@@ -603,7 +602,10 @@
                     showbuttons: 'top',
                     onblur: 'ignore',
                     inputclass: 'editable-buttons-popup',
-                    buttons:'<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="icon-ok icon-white"></i></button>' +'<button type="button" class="btn editable-cancel btn-mini"><i class="icon-remove"></i></button>'
+                    buttons:'<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="icon-ok icon-white"></i></button>' +'<button type="button" class="btn editable-cancel btn-mini"><i class="icon-remove"></i></button>',
+                    success:function(){
+                        location.reload();
+                    }
                 });
             }
         });

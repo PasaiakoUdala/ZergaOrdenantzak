@@ -127,6 +127,7 @@ class Azpiatala
     /**
      * @var Kontzeptua
      * @Expose
+     * @ORM\OrderBy({"kodea"="ASC"})
      * @ORM\OneToMany(targetEntity="Kontzeptua", mappedBy="azpiatala", cascade={"remove"})
      */
     protected $kontzeptuak;

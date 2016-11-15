@@ -1,41 +1,171 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Baldintzas list</h1>
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .loading {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, .8) url({{ asset('bundles/app/img/page-loader.gif') }}) 50% 50% no-repeat !important;
+        }
 
-    <table>
+        body.loading {
+            overflow: hidden;
+        }
+
+        body.loading .modal {
+            display: block;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Baldintza zerrenda</h1>
+    <div style="text-align: right">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            {{ "Baldintza berria" | trans }}
+        </button>
+    </div>
+
+    <div id="nireloader" class=""></div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {{ form_start(form) }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Baldintza berria</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        {{ form_label(form.baldintzaeu, 'Baldintza (eus)'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.baldintzaeu) }}
+                        {{ form_widget(form.baldintzaeu, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="row">
+                        {{ form_label(form.baldintzaes, 'Baldintza (es)'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+                        {{ form_errors(form.baldintzaes) }}
+                        {{ form_widget(form.baldintzaes, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div style="display: none;">
+                        {{ form_rest(form) }}
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Itxi" | trans }}</button>
+                    <button type="submit" class="btn btn-primary">{{ "Gorde" | trans }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <table class="table" id="taulazerrenda">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Baldintzaeu</th>
                 <th>Baldintzaes</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for baldintza in baldintzas %}
             <tr>
-                <td><a href="{{ path('baldintza_show', { 'id': baldintza.id }) }}">{{ baldintza.id }}</a></td>
                 <td>{{ baldintza.baldintzaeu }}</td>
                 <td>{{ baldintza.baldintzaes }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('baldintza_show', { 'id': baldintza.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('baldintza_edit', { 'id': baldintza.id }) }}">edit</a>
-                        </li>
+                    <ul class="list-inline">
+                        <li><a href="javascript:void(0);" data-id="{{ baldintza.id }}" class="fa fa-pencil btnBaldintzaEditatu"></a></li>
+                        <li>{{ form_start(deleteforms[baldintza.id],{'attr': {'id':  'frmEzabatu' ~ baldintza.id}}) }}
+                                <a href="javascript:void(0);" class="btnBaldintzaEzabatu"><i class="fa fa-trash text-danger"></i></a>
+                                {{ form_end(deleteforms[baldintza.id]) }}</li>
+
                     </ul>
+
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('baldintza_new') }}">Create a new baldintza</a>
-        </li>
-    </ul>
+
+    <div class="modal fade" id="frmEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        {#<div class=" id="modalOrdena" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+        <div class="modal-dialog">
+            <form id="frmBaldintzaEdit" name="frmBaldintzaEdit" method="post" action="" role="form">
+                <div id="modalBaldintzaEditBody" class="modal-content">
+
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script language="JavaScript">
+
+        $(document).ready(function () {
+
+            $('.btnBaldintzaEzabatu').on("click", function(){
+                var fEzabatu = $(this).parent('form');
+                console.log(fEzabatu);
+                bootbox.confirm({
+                    title: "Ezabatu",
+                    message: "Ziur zaude ezabatu nahi duzula?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancel'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirm'
+                        }
+                    },
+                    callback: function (result) {
+                        console.log(result);
+                        if ( result == true ) {
+                            console.log('hemen');
+                            $(fEzabatu).submit();
+//                            document.getElementById(id).submit()
+                        }
+                    }
+                });
+
+            })
+
+            $('.btnBaldintzaEditatu').on("click", function () {
+
+                $('#nireloader').addClass('loading');
+
+                var miid = $(this).data('id');
+                var url = Routing.generate('baldintza_edit', {_locale: 'eu', id: miid});
+
+                $('#modalBaldintzaEditBody').load(url, function () {
+                    $("#frmBaldintzaEdit").attr("action", url);
+                    $('#frmEdit').modal();
+                });
+
+                $('#frmEdit').on('shown.bs.modal', function (e) {
+                    $('#nireloader').removeClass('loading');
+                });
+
+
+            })
+
+        });
+
+
+    </script>
+
+
 {% endblock %}
