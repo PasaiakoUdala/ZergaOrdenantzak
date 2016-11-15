@@ -265,7 +265,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoa">
                                         <div class="divAkzioak">
-                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAddAzpiAtalaParrafoa" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -286,7 +286,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoa">
                                         <div class="divAkzioak ">
-                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAddAzpiAtalaParrafoa" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAzpiatalaparrafoBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -533,10 +533,24 @@
 
             $('.btnAzpiatalaparrafoBerria').on("click", function (e) {
                 $('#divAzpiatalaparrafoBerria').empty();
+                var nireOrdena = parseInt($(this).data('ordena')) + 1;
                 var miid = $(this).data('azpiatalaid');
                 var url = Routing.generate('admin_azpiatalaparrafoa_new', {azpiatalaid: miid});
-                $('#divAzpiatalaparrafoBerria').load(url);
-                $('#divAzpiatalaparrafoBerria').modal('toggle');
+
+                $('#divAzpiatalaparrafoBerria').load(url, function(responseTxt, statusTxt, xhr){
+                    if(statusTxt == "success") {
+                        $('#azpiatalaparrafoa_ordena').val(nireOrdena);
+                        $('#divAzpiatalaparrafoBerria').modal('toggle');
+                    }
+                    if(statusTxt == "error"){
+                        bootbox.alert({
+                            message: "Error: " + xhr.status + ": " + xhr.statusText,
+                            className: 'bb-alternate-modal',
+                            backdrop: true
+                        });
+                    }
+                });
+
             });
 
             $('.btnAzpiAtalBerria').on("click", function (e) {
