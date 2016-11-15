@@ -101,7 +101,7 @@
                         <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}"
                                                                         data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
                     </div>
-                    <div class="divTextua">
+                    <div class="divTextua" id="ordenantzaparrafoa{{ p.id }}">
                         <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_parrafoak_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
                               tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                         {{ render(controller('AppBundle:Ordenantzaparrafoa:ezabatu', {'id': p.id})) }}
@@ -185,7 +185,7 @@
                                 <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}"
                                                                                 data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
                             </div>
-                            <div class="divTextua">
+                            <div class="divTextua" id="atalaparrafoa{{ p.id }}">
                                 <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_atalaparrafoa_eguneratu', {'id': p.id}) }}" data-type="wysihtml5"
                                       tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                             </div>
@@ -277,7 +277,7 @@
                                             <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}"
                                                                                             data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
                                         </div>
-                                        <div class="divTextua">
+                                        <div class="divTextua" id="azpiatalaparrafoa{{ p.id }}">
                                             <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_azpiatalaparrafoa_eguneratu', {'id': p.id}) }}"
                                                   data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
                                         </div>
@@ -311,7 +311,7 @@
 
                 {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                     <tr>
-                        <td class="col-md-4">
+                        <td class="col-md-4" id="kontzeptua{{ k.id }}">
                             <div>
                                 <button type="button" class="close btnEzabatuKontzeptua" data-miid="{{ k.id }}"
                                         aria-label="Close"><span aria-hidden="true">×</span>
@@ -343,6 +343,7 @@
                         </td>
                     </tr>
                 {% endfor %}
+                    <tr><td colspan="4" class="text-center"><a href="javascript:void(0);" class="btnKontzeptuBerria" data-azpiatalaid="{{ azpiatala.id }}"><span class="glyphicon glyphicon-tasks"></span> Kontzeptu berria gehitu</a></td></tr>
                 </tbody>
             </table>
 
@@ -562,11 +563,23 @@
             });
 
             $('.btnKontzeptuBerria').on("click", function (e) {
+                document.location.hash = "show_picture";
                 $('#divKontzeptuBerria').empty();
                 var miid = $(this).data('azpiatalaid');
                 var url = Routing.generate('admin_kontzeptua_new', {azpiatalaid: miid});
-                $('#divKontzeptuBerria').load(url);
-                $('#divKontzeptuBerria').modal('toggle');
+                $('#divKontzeptuBerria').load(url, function(responseTxt, statusTxt, xhr){
+                    if(statusTxt == "success") {
+                        $('#divKontzeptuBerria').modal('toggle');
+                    }
+                    if(statusTxt == "error"){
+                        bootbox.alert({
+                            message: "Error: " + xhr.status + ": " + xhr.statusText,
+                            className: 'bb-alternate-modal',
+                            backdrop: true
+                        });
+                    }
+                });
+
             });
 
             $('.btnKontzeptuaEdit').on("click", function (e) {

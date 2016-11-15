@@ -40,7 +40,8 @@
                 $em->persist( $kontzeptua );
                 $em->flush();
 
-                return $this->redirect( $request->headers->get( 'referer' ) );
+                return $this->redirect( $request->headers->get( 'referer' ) . '#kontzeptua'.$kontzeptua->getId());
+
             }
 
             return $this->render(

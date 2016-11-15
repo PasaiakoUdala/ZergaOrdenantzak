@@ -67,7 +67,7 @@ class OrdenantzaparrafoaController extends Controller
             $em->persist($ordenantzaparrafoa);
             $em->flush();
 
-            return $this->redirect($request->headers->get('referer'));
+            return $this->redirect( $request->headers->get( 'referer' ) . '#ordenantzaparrafoa'.$ordenantzaparrafoa->getId());
         } 
         
         return $this->render('ordenantzaparrafoa/new.html.twig', array(
