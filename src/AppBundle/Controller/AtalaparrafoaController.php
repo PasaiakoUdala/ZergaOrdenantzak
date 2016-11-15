@@ -74,7 +74,8 @@ class AtalaparrafoaController extends Controller
             $em->persist($atalaparrafoa);
             $em->flush();
 
-            return $this->redirect($request->headers->get('referer'));
+            return $this->redirect( $request->headers->get( 'referer' ) . '#atalaparrafoa'.$atalaparrafoa->getId());
+
         }
 
         return $this->render('atalaparrafoa/new.html.twig', array(

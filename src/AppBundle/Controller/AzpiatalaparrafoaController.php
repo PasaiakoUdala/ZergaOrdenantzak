@@ -67,7 +67,7 @@
                 $em->persist( $azpiatalaparrafoa );
                 $em->flush();
 
-                return $this->redirect( $request->headers->get( 'referer' ) );
+                return $this->redirect( $request->headers->get( 'referer' ) . '#azpiatalaparrafoa'.$azpiatalaparrafoa->getId());
             }
 
             return $this->render(
