@@ -69,17 +69,21 @@
 
     <div class="row ordenantza">
         <div class="col-xs-6">
-            <h4>
+            <h4 class="row-fluid col-md-12">
                 <button type="button" class="close btnEzabatu hide" data-toggle="modal" data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <span class="editable2" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
-                      data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaeu }}</span>
+                <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                      data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea }}</span>
+                <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                      data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.izenburuaeu }}</span>
             </h4>
         </div>
         <div class="col-xs-6">
-            <h4>
+            <h4 class="row-fluid col-md-12">
                 <button type="button" class="close btnEzabatu hide pull-right" data-toggle="modal" data-target="#divEzabatuOrdenantza" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <span class="editable2 ordenantza" data-name="izenburuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}"
-                      data-pk="{{ ordenantza.id }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea ~ " " ~ ordenantza.izenburuaes }}</span>
+                <span class="editable2 col-md-1 text-left" data-name="kodea" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}" data-pk="{{ ordenantza.id }}"
+                      data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.kodea }}</span>
+                <span class="editable2 ordenantza col-md-10 text-left" data-name="izenburuaes" data-pk="{{ ordenantza.id }}" data-url="{{ path('admin_ordenantza_eguneratu', {'id': ordenantza.id}) }}"
+                      data-pk="{{ ordenantza.id }}" data-type="wysihtml5" tabindex="-1" style="display: block;">{{ ordenantza.izenburuaes }}</span>
             </h4>
         </div>
     </div>
