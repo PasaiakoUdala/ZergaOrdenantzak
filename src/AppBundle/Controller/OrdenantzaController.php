@@ -2,6 +2,7 @@
 
     namespace AppBundle\Controller;
 
+    use AppBundle\AppBundle;
     use AppBundle\Entity\Historikoa;
     use AppBundle\Entity\Kontzeptua;
     use AppBundle\Entity\Ordenantzaparrafoa;
@@ -179,6 +180,7 @@
         public function eguneratuazpiatalaAction ( Request $request, $id )
         {
             $em = $this->getDoctrine()->getManager();
+            /** @var $azpiatala \AppBundle\Entity\Azpiatala */
             $azpiatala = $em->getRepository( 'AppBundle:Azpiatala' )->findOneById( $id );
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
@@ -190,6 +192,9 @@
                     break;
                 case "izenburuaes":
                     $azpiatala->setIzenburuaes( $value );
+                    break;
+                case "kodea":
+                    $azpiatala->setKodea( $value );
                     break;
             }
 
