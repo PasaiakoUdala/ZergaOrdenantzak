@@ -34,6 +34,7 @@
         public function eguneratuAction ( Request $request, $id )
         {
             $em = $this->getDoctrine()->getManager();
+            /** @var  $ordenantza \AppBundle\Entity\Ordenantza */
             $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->findOneById( $id );
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
@@ -51,6 +52,9 @@
                     break;
                 case "testuaes":
                     $ordenantza->setTestuaes( $value );
+                    break;
+                case "kodea":
+                    $ordenantza->setKodea( $value );
                     break;
             }
 
@@ -298,7 +302,7 @@
         {
             $em = $this->getDoctrine()->getManager();
 
-            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAll();
+            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findBy( array (), array ( 'kodea' => 'ASC' ) );
 
             return $this->render(
                 'ordenantza/index.html.twig',
