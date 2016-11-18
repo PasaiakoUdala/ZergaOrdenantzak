@@ -152,7 +152,7 @@
                         <span class="col-md-1 text-left">-</span>
                         <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
-                            {{ atala.izenburuaeu }}
+                            {{ atala.izenburuaeu |raw}}
                         </span>
                     </h3>
                 </div>
@@ -168,7 +168,7 @@
                         <span class="col-md-1 text-left">-</span>
                         <span class="editable2 col-md-10 text-left" data-name="izenburuaes" data-pk="{{ atala.id }}" data-url="{{ path('admin_ordenantza_atala_eguneratu', {'id': atala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
-                            {{ atala.izenburuaes }}
+                            {{ atala.izenburuaes |raw }}
                         </span>
                     </h3>
                 </div>
@@ -236,7 +236,7 @@
                         <span class="editable2 col-md-10 text-left" data-name="izenburuaeu" data-pk="{{ azpiatala.id }}"
                               data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
-                            {{ azpiatala.izenburuaeu }}
+                            {{ azpiatala.izenburuaeu|raw }}
                         </span>
                     </h4>
                 </th>
@@ -257,7 +257,7 @@
                               data-url="{{ path('admin_ordenantza_azpiatala_eguneratu', {'id': azpiatala.id}) }}"
                               data-type="wysihtml5" tabindex="-1" style="display: block;">
 
-                            {{ azpiatala.izenburuaes }}
+                            {{ azpiatala.izenburuaes|raw }}
                         </span>
                     </h4>
                 </th>
@@ -340,7 +340,7 @@
                                         aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
                                 <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaeu }} ){% endif %}</span>
+                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}</span>
                                 </a>
 
                             </div>
