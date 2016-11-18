@@ -78,12 +78,12 @@ class HistorikoaController extends Controller
 
         $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
 
+        /** @var  $ordenantza \AppBundle\Entity\Ordenantza */
         foreach ($ordenantzas as $ordenantza)
         {
             $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
 
             /* Begiratu ezabatze marka duen, baldin badu ezabatu */
-
             if ( $ordenantza->getEzabatu() == 1 ){
                 $em->remove( $ordenantza );
             } else {
@@ -103,6 +103,7 @@ class HistorikoaController extends Controller
                         $atala->setKodeaProd( $atala->getKodea() );
                         $atala->setUtsaProd( $atala->getUtsa() );
 
+                        /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
                         foreach ($atala->getParrafoak() as $atalaparrafoa ) {
                             if ($atalaparrafoa->getEzabatu()==1){
                                 $em->remove( $atalaparrafoa );
@@ -113,7 +114,7 @@ class HistorikoaController extends Controller
                             }
                         }
 
-
+                        /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
                         foreach ($atala->getAzpiatalak() as $azpiatala) {
                             if ($azpiatala->getEzabatu()==1){
                                 $em->remove( $azpiatala );
