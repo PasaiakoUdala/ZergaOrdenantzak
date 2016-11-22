@@ -340,15 +340,27 @@
                                         aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
                                 <a href="javascript:void(0);" class="btnKontzeptuaEdit" data-miid="{{ k.id }}">
-                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes
-                                        }} ){% endif %}</span>
+                                    <span>{{ k.kontzeptuaes }} {% if k.baldintza %}( {{ k.baldintza.baldintzaes }} ){% endif %}</span>
                                 </a>
 
                             </div>
                         </td>
                     </tr>
                 {% endfor %}
-                    <tr><td colspan="4" class="text-center"><a href="javascript:void(0);" class="btnKontzeptuBerria" data-azpiatalaid="{{ azpiatala.id }}"><span class="glyphicon glyphicon-tasks"></span> Kontzeptu berria gehitu</a></td></tr>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <a href="javascript:void(0);" class="btnAtalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                                <span class="glyphicon glyphicon-align-justify"></span> Parrafo berria gehitu
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                                <span class="glyphicon glyphicon-tasks"></span> Kontzeptu berria gehitu
+                            </a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -567,8 +579,9 @@
                 $('#divAzpiAtalBerria').modal('toggle');
             });
 
+
             $('.btnKontzeptuBerria').on("click", function (e) {
-                document.location.hash = "show_picture";
+                document.location.hash = "kontzeptuaGehitu";
                 $('#divKontzeptuBerria').empty();
                 var miid = $(this).data('azpiatalaid');
                 var url = Routing.generate('admin_kontzeptua_new', {azpiatalaid: miid});
@@ -584,7 +597,6 @@
                         });
                     }
                 });
-
             });
 
             $('.btnKontzeptuaEdit').on("click", function (e) {
