@@ -356,7 +356,7 @@
                     </tr>
                     <tr>
                         <td colspan="4" class="text-center">
-                            <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                            <a href="javascript:void(0);" class="btnKontzeptuBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
                                 <span class="glyphicon glyphicon-tasks"></span> Kontzeptu berria gehitu
                             </a>
                         </td>
@@ -531,8 +531,8 @@
                 $('#divAtalaparrafoBerria').empty();
 
                 var nireOrdena = parseInt($(this).data('ordena')) + 1;
-                var miid = $(this).data('atalaid');
-                var url = Routing.generate('admin_atalaparrafoa_new', {atalaid: miid});
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_azpiatalaparrafoa_new', {azpiatalaid: miid});
                 $('#divAtalaparrafoBerria').load(url, function(responseTxt, statusTxt, xhr){
                     if(statusTxt == "success") {
                         $('#atalaparrafoa_ordena').val(nireOrdena);
