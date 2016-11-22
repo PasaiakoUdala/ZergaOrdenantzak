@@ -4,30 +4,22 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Ordenantza
  *
  * @ORM\Table(name="ordenantza")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdenantzaRepository")
+ * @ExclusionPolicy("all")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Ordenantza
 {
     /**
-     * @var Ordenantza
-     * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
-     * @ORM\OrderBy({"ordena" = "ASC"})
-     */
-    protected $parrafoak;
-    /**
-     * @var Atala
-     * @ORM\OrderBy({"kodea" = "ASC"})
-     * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
-     */
-    protected $atalak;
-    /**
      * @var integer
+     * @Expose
      *
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
@@ -36,12 +28,14 @@ class Ordenantza
     private $id;
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
     private $kodea;
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
      */
@@ -54,6 +48,7 @@ class Ordenantza
     private $izenburuaeu;
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaeu_prod", type="string", length=255, nullable=true)
      */
@@ -66,6 +61,7 @@ class Ordenantza
     private $izenburuaes;
    /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="izenburuaes_prod", type="string", length=255, nullable=true)
      */
@@ -77,17 +73,7 @@ class Ordenantza
      */
     private $ezabatu;
 
-
-
-
     /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
-   /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -99,11 +85,35 @@ class Ordenantza
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+
+    /**
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     * ***** ERLAZIOAK
+     * ************************************************************************************************************************************************************************
+     * ************************************************************************************************************************************************************************
+     */
+
     /**
      * @var Udala
      * @ORM\ManyToOne(targetEntity="Udala")
      */
     private $udala;
+
+    /**
+     * @var Ordenantza
+     * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
+     * @ORM\OrderBy({"ordena" = "ASC"})
+     */
+    protected $parrafoak;
+    /**
+     * @var Atala
+     * @Expose
+     * @ORM\OrderBy({"kodea" = "ASC"})
+     * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
+     */
+    protected $atalak;
 
     public function __construct()
     {
@@ -116,6 +126,7 @@ class Ordenantza
         return $this->getKodea();
     }
 
+
     /**
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
@@ -123,6 +134,23 @@ class Ordenantza
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
      */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Get kodea

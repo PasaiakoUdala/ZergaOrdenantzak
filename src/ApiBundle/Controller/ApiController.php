@@ -25,6 +25,51 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ApiController extends FOSRestController
 {
+
+    /**
+     * Ordenantza guztien zerrenda.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Ordenantza guztien zerrenda eskuratu",
+     *   statusCodes = {
+     *     200 = "Zuzena denean"
+     *   }
+     * )
+     *
+     *
+     * @return array data
+     *
+     * @Annotations\View()
+     */
+    public function getOrdenantzakAction()
+    {
+        $em         = $this->getDoctrine()->getManager();
+        $ordenantzak = $em->getRepository('AppBundle:Ordenantza')->findAll();
+        $view = View::create();
+        $view->setData($ordenantzak);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
+        return $view;
+
+    }// "get_ordenantzak"            [GET] /ordenantzak
+
+    /**
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Ordenantza baten informazioa eskuratu"
+     * )
+     *
+     * @Annotations\View()
+     */
+    public function getOrdenantzaAction($id){
+        $em         = $this->getDoctrine()->getManager();
+        $ordenantza = $em->getRepository('AppBundle:Ordenantza')->findById($id);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
+        return $ordenantza;
+    }// "get_ordenantza"            [GET] /ordenantza/{id}
+
     /**
      * Atal guztien zerrenda.
      *
@@ -47,10 +92,11 @@ class ApiController extends FOSRestController
         $atalak = $em->getRepository('AppBundle:Atala')->findAll();
         $view = View::create();
         $view->setData($atalak);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
         return $view;
 
     }// "get_atalak"            [GET] /atalak
-
 
     /**
      * @ApiDoc(
@@ -63,12 +109,13 @@ class ApiController extends FOSRestController
     public function getAtalaAction($id){
         $em         = $this->getDoctrine()->getManager();
         $atala = $em->getRepository('AppBundle:Atala')->findById($id);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
         return $atala;
     }// "get_atala"            [GET] /atala/{id}
 
-
     /**
-     * Azpiatal guztien zerrenda.
+     * Udal baten Azpiatal zerrenda.
      *
      * @ApiDoc(
      *   resource = true,
@@ -83,21 +130,21 @@ class ApiController extends FOSRestController
      *
      * @Annotations\View()
      */
-    public function getAzpiatalakAction()
+    public function getAzpiatalakAction($udalaid)
     {
-        $em         = $this->getDoctrine()->getManager();
-//        $azpiatalak = $em->getRepository('AppBundle:Azpiatala')->findAll(array('fields'=>));
-
         $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT p.id, p.izenburuaeu FROM AppBundle:Azpiatala p');
-
+        /** @var  $query \Doctrine\DBAL\Query\QueryBuilder */
+        $query = $em->createQuery('SELECT p.id, p.kodea, p.izenburuaeu FROM AppBundle:Azpiatala p WHERE p.udala=:udalaid');
+        $query->setParameter( 'udalaid', $udalaid );
         $azpiatalak = $query->getResult();
 
         $view = View::create();
         $view->setData($azpiatalak);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
         return $view;
 
-    }// "get_azpiatalak"            [GET] /azpiatalak
+    }// "get_azpiatalak"            [GET] /azpiatalak/{udalaid}
 
     /**
      *
@@ -121,6 +168,8 @@ class ApiController extends FOSRestController
 
         $view = View::create();
         $view->setData($azpiatalak);
+        header('content-type: application/json; charset=utf-8');
+        header("access-control-allow-origin: *");
         return $view;
 
     }// "get_azpiatala"            [GET] /azpiatala/{id}
