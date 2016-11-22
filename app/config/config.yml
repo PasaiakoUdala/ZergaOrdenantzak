@@ -159,6 +159,15 @@ fos_rest:
     routing_loader:
             default_format: json
 
+nelmio_cors:
+    paths:
+        '^/api/':
+            allow_origin: ['*']
+            allow_headers: ['*']
+            allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+            max_age: 3600
+
+
 ivory_ck_editor:
     configs:
         my_config_1:
