@@ -1,5 +1,24 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .popover {
+            z-index: 9999 !important;
+        }
+
+        .popover .editable-buttons {
+            margin-left: 15px !important;
+        }
+
+        .divAkzioak {
+            display: block;
+            height: 18px;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
+
 {% block nav %}
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ordenantza.izenburuaeu | capitalize }} <b class="caret"></b></a>
@@ -94,7 +113,7 @@
             <div class="col-xs-6">
                 <div class="divEditable">
                     <div class="divAkzioak">
-                        <a href="javascript:void(0);" class="btnSort hide pull-left btnAddOrdenantzaParrafoa" data-ordena="{{ p.ordena }}">
+                        <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAddOrdenantzaParrafoa" data-ordena="{{ p.ordena }}">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                         </a>
@@ -115,7 +134,7 @@
             <div class="col-xs-6">
                 <div class="divEditable">
                     <div class="divAkzioak">
-                        <a href="javascript:void(0);" class="btnSort hide pull-left btnAddOrdenantzaParrafoa" data-ordena="{{ p.ordena }}">
+                        <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAddOrdenantzaParrafoa" data-ordena="{{ p.ordena }}">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                             <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                         </a>
@@ -179,7 +198,7 @@
                     <div class="divEditable col-xs-6">
                         <div class="divEditableatalaparrafoa">
                             <div class="divAkzioak">
-                                <a href="javascript:void(0);" class="btnSort hide pull-left btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" data-ordena="{{ p.ordena }}">
+                                <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}" data-ordena="{{ p.ordena }}">
                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                 </a>
@@ -269,7 +288,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoa">
                                         <div class="divAkzioak">
-                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -290,7 +309,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoa">
                                         <div class="divAkzioak ">
-                                            <a href="javascript:void(0);" class="btnSort hide pull-left btnAzpiatalaparrafoBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -349,7 +368,7 @@
                 {% endfor %}
                     <tr>
                         <td colspan="4" class="text-center">
-                            <a href="javascript:void(0);" class="btnAtalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                            <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
                                 <span class="glyphicon glyphicon-align-justify"></span> Parrafo berria gehitu
                             </a>
                         </td>
@@ -445,25 +464,6 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .popover {
-            z-index: 9999 !important;
-        }
-
-        .popover .editable-buttons {
-            margin-left: 15px !important;
-        }
-
-        .divAkzioak {
-            display: block;
-            height: 18px;
-            text-align: right;
-        }
-    </style>
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
 
@@ -471,6 +471,13 @@
         function clickMe(obj) {
             location.href = $(obj).attr('href');
         }
+
+//        var shiftWindow = function () {
+//            scrollBy(0, 75);
+//            console.log("hemen!");
+//        };
+//        if (location.hash) shiftWindow();
+//        window.addEventListener("hashchange", shiftWindow);
 
         $(document).ajaxStart(function () {
             $('#loading').show();
@@ -531,8 +538,8 @@
                 $('#divAtalaparrafoBerria').empty();
 
                 var nireOrdena = parseInt($(this).data('ordena')) + 1;
-                var miid = $(this).data('azpiatalaid');
-                var url = Routing.generate('admin_azpiatalaparrafoa_new', {azpiatalaid: miid});
+                var miid = $(this).data('atalaid');
+                var url = Routing.generate('admin_atalaparrafoa_new', {atalaid: miid});
                 $('#divAtalaparrafoBerria').load(url, function(responseTxt, statusTxt, xhr){
                     if(statusTxt == "success") {
                         $('#atalaparrafoa_ordena').val(nireOrdena);
