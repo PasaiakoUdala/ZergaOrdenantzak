@@ -754,6 +754,51 @@
         }
 
         /**
+         * @Route("/esportatu/{id}", name="admin_ordenantza_esportatu")
+         * @Method("GET")
+         */
+        public function esportatuAction ($id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find($id);
+
+//            return $this->render(
+//                'ordenantza/esportatu.html.twig',
+//                array (
+//                    'ordenantza' => $ordenantza,
+//                )
+//            );
+
+            $nireordenantza = $this->render(
+                'ordenantza/esportatu.html.twig',
+                array (
+                    'ordenantza' => $ordenantza,
+                )
+            );
+
+            $filename = "doc/export_".date( "Y_m_d_His" ).".odt";
+
+            file_put_contents( $filename, $nireordenantza->getContent() );
+
+            // Generate response
+            $response = new Response();
+
+            // Set headers
+            $response->headers->set( 'Cache-Control', 'private' );
+            $response->headers->set( 'Content-type', mime_content_type( $filename ) );
+            $response->headers->set( 'Content-Disposition', 'attachment; filename="'.basename( $filename ).'";' );
+            $response->headers->set( 'Content-length', filesize( $filename ) );
+
+            // Send headers before outputting anything
+            $response->sendHeaders();
+
+            $response->setContent( file_get_contents( $filename ) );
+
+            return $response;
+
+        }
+
+        /**
          * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_ordenantza_ezabatu")
          * @Method("GET")
          */

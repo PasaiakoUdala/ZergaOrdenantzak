@@ -1,0 +1,85 @@
+
+<table  border="0"  cellpadding="8" cellspacing="3" width="100%" >
+    <col width="128*">
+    <col width="128*">
+    <tr valign="top">
+        <td width="50%" style="background-color: #C6C6C6; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+            <h2>{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaeu }}</h2>
+        </td>
+        <td width="50%" style="background-color: #C6C6C6; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+            <h2>{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaes }}</h2>
+        </td>
+    </tr>
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+        <tr valign="top">
+            <td width="50%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                <p>{{ p.testuaeu | raw }}</p>
+            </td>
+            <td width="50%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                <p>{{ p.testuaes | raw }}</p>
+            </td>
+        </tr>
+    {% endfor %}
+    {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
+        {% if atala.utsa != 1 %}
+            <tr valign="top">
+                <td width="50%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                    <h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.- {{ atala.izenburuaeu }}</h3>
+                </td>
+                <td width="50%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0.1cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                    <h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.- {{ atala.izenburuaes }}</h3>
+                </td>
+            </tr>
+            {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
+                <tr valign="top">
+                    <td  width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                        <p>{{ p.testuaeu | raw }}</p>
+                    </td>
+                    <td  width="50%" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0cm">
+                        <p>{{ p.testuaes | raw }}</p>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+
+        {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
+            <tr>
+                <td colspan="2" width="100%" valign="top" style="border-top: none; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.1cm; padding-left: 0.1cm; padding-right: 0.1cm">
+                    <center>
+                    <div style="margin: auto;">
+                        <table width="80%" cellpadding="4" cellspacing="0">
+                            <col width="64*">
+                            <col width="64*">
+                            <col width="64*">
+                            <col width="64*">
+                            <tr valign="top">
+                            <tr>
+                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu }}</h4></th>
+                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes }}</h4></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in azpiatala.parrafoak  if p.ezabatu!= 1 %}
+                                <tr>
+                                    <td colspan="3" align="justify" style="font-size: small;">{{ p.testuaeu | raw }}</td>
+                                    <td colspan="3" align="justify" style="font-size: small;">{{ p.testuaes | raw }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
+                                <tr>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaeu }}</td>
+                                    <td width="16%" colspan="2" style="font-size: small;">{{ k.kopurua }}
+                                        {{ k.unitatea }}</td>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+        {% endfor %}
+    {% endfor %}
+
+</table>

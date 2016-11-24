@@ -34,6 +34,12 @@ messages.pasahitzaerrepikatu: 'Errepikatu pasahitza'
 'Baldintza berria': '  Nueva condición'
 'Baldintza (eus)': ' Condición (eus)'
 'Baldintza (es)': ' Condición(es)'
-Aukerak:   Opciones
+Aukerak: Opciones
 'Baldintza kudeaketa': '  Gestión de Condiciones'
-Baldintza:   Condición
+Baldintza: Condición
+messages.ordenantza.parrafo.berria: ' Texto de la ordenanza'
+messages.atala.berria: ' Tributo: TÍTULO'
+message.atala.parrafoa.berria: ' Tributo: TEXTO'
+message.azpiatala.berria: ' Tasa/Impuesto/Contr.Esp: TÍTULO de la TABLA'
+message.azpiatala.parrafo.berria: ' Tasa/Impuesto/Contr.Esp: TEXTO'
+message.kontzeptu.berria: ' Hecho imponible: DETALLE'
