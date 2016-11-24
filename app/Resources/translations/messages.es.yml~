@@ -21,7 +21,7 @@ Itxi: Cerrar
 'Izenburua:': 'Título (Euskera):'
 'Título:': 'Título (Castellano):'
 'Odt-a eskuratu': 'Obtener Odt'
-Ezabatu: Cancelar
+Ezabatu: Eliminar
 'Aldaketak ezeztatu': 'Deshacer los cambios'
 'Udalbatzarrararen data': 'Fecha Pleno Municipal'
 'GAO: Hasierako onarpena': 'BOG: Aprobación inicial'
@@ -29,5 +29,15 @@ Ezabatu: Cancelar
 'Indarreko data': 'Fecha en vigor'
 Gorde: Guardar
 'Itzuli zerrendara': 'Volver a la lista'
-'messages.pasahitza': Pasahitza
-'messages.pasahitzaerrepikatu': 'Errepikatu pasahitza'
+messages.pasahitza: Pasahitza
+messages.pasahitzaerrepikatu: 'Errepikatu pasahitza'
+'Baldintza berria': '  Nueva condición'
+'Baldintza (eus)': ' Condición (eus)'
+'Baldintza (es)': ' Condición(es)'
+Aukerak: Opciones
+'Baldintza kudeaketa': '  Gestión de Condiciones'
+Baldintza: Condición
+message.azpiatala.parrafo.berria: __message.azpiatala.parrafo.berria
+message.kontzeptu.berria: __message.kontzeptu.berria
+message.azpiatala.berria: __message.azpiatala.berria
+message.atala.parrafoa.berria: __message.atala.parrafoa.berria

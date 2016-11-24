@@ -36,22 +36,22 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="#" class="btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}">
-                                                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a>
+                                                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>{{ "message.azpiatala.parrafo.berria" | trans }}</a>
                                         </li>
                                         <li>
                                             <a href="#" class="btnKontzeptuBerria" data-azpiatalaid="{{ azpiatala.id }}">
                                                 <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-                                                Kontzeptu berria</a>
+                                                {{ "message.kontzeptu.berria" | trans }}</a>
                                         </li>
                                     </ul>
                                 </li>
                             {% endfor %}
                             <li role="separator" class="divider"></li>
                             <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}">
-                                    <span class="glyphicon glyphicon-plus"></span> Kostu Taula berria</a>
+                                    <span class="glyphicon glyphicon-plus"></span>{{ "message.azpiatala.berria" | trans }}</a>
                             </li>
                             <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}">
-                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo berria</a></li>
+                                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>{{ "message.atala.parrafoa.berria" | trans }}</a></li>
                         </ul>
                     </li>
 
@@ -59,16 +59,15 @@
                     <li class="dropdown dropdown-submenu">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false" onclick="clickMe(this);">{{ atala.kodea }} - {{ atala.izenburuaeu|capitalize | truncate(50, true, '...') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}"><span class="glyphicon glyphicon-plus"></span> Kostu Taula berria</a></li>
-                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span> Parrafo
-                                    berria</a></li>
+                            <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}"><span class="glyphicon glyphicon-plus"></span>{{ "message.azpiatala.berria" | trans }}</a></li>
+                            <li><a href="#" class="btnAtalaparrafoBerria" data-atalaid="{{ atala.id }}"><span class="glyphicon glyphicon-align-justify" aria-hidden="true">{{ "message.atala.parrafoa.berria" | trans }}</span> </a></li>
                         </ul>
                     </li>
                 {% endif %}
             {% endfor %}
             <li role="separator" class="divider"></li>
-            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria"><span class="glyphicon glyphicon-plus"></span> Parrafoa</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#divAtalBerria"><span class="glyphicon glyphicon-plus"></span> Atal berria</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divOrdenantzaparrafoBerria"><span class="glyphicon glyphicon-plus"></span>{{ "messages.ordenantza.parrafo.berria" | trans }}</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#divAtalBerria"><span class="glyphicon glyphicon-plus"></span>{{ "messages.atala.berria" | trans }}</a></li>
             <li role="separator" class="divider"></li>
             <li><a id="btnOrdenantzaEzabatu" class="" href="javascript:void(0);">{{ "Ezabatu" | trans }}</a></li>
         </ul>
@@ -77,10 +76,19 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a id="btnaldaketakezeztatu" data-id="{{ ordenantza.id }}"
-               href="javascript:void(0);">{{ "Aldaketak ezeztatu" | trans }}</a></li>
-        <li>&nbsp;</li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ "Aukerak"|trans }}<span class="caret"></span></a>
+            <ul class="dropdown-menu" id="menuaAdmin">
+                <li><a href="{{ path('admin_ordenantza_esportatu', {'id':ordenantza.id}) }}">{{ "Odt-a eskuratu" | trans }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a id="btnaldaketakezeztatu" data-id="{{ ordenantza.id }}" href="javascript:void(0);">{{ "Aldaketak ezeztatu" | trans }}</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
+                <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
+            </ul>
+        </li>
     </ul>
+
 {% endblock %}
 
 {% block body %}
@@ -369,14 +377,14 @@
                     <tr>
                         <td colspan="4" class="text-center">
                             <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
-                                <span class="glyphicon glyphicon-align-justify"></span> Parrafo berria gehitu
+                                <span class="glyphicon glyphicon-align-justify"></span> {{ "message.azpiatala.parrafo.berria" | trans }}
                             </a>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4" class="text-center">
                             <a href="javascript:void(0);" class="btnKontzeptuBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
-                                <span class="glyphicon glyphicon-tasks"></span> Kontzeptu berria gehitu
+                                <span class="glyphicon glyphicon-tasks"></span> {{ "message.kontzeptu.berria" | trans }}
                             </a>
                         </td>
                     </tr>
