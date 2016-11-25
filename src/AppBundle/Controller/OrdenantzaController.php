@@ -728,6 +728,8 @@
                 'ordenantza/web.html.twig',
                 array (
                     'ordenantzas' => $ordenantzas,
+                    'eguna' => date( "Y" ),
+                    'udala' => $this->getUser()->getUdala()
                 )
             );
 
