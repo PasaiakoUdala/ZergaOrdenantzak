@@ -1,3 +1,7 @@
+app_azpiatalaparrafoaondoren:
+    resource: "@AppBundle/Controller/AzpiatalaparrafoaondorenController.php"
+    type:     annotation
+
 app_baldintza:
     resource: "@AppBundle/Controller/BaldintzaController.php"
     type:     annotation

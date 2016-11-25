@@ -343,6 +343,9 @@
     <div id="divAzpiatalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
+    <div id="divAzpiatalaparrafoondorenBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
     <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
@@ -393,6 +396,9 @@
     <div id="divEzabatuAzpiAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
+    <div id="divEzabatuAzpiAtalaParrafoaondoren" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
     <div id="divEzabatuKontzeptua" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
@@ -437,6 +443,14 @@
                 var url = Routing.generate('admin_azpiatalaparrafoa_new', { azpiatalaid: miid });
                 $('#divAzpiatalaparrafoBerria').load(url);
                 $('#divAzpiatalaparrafoBerria').modal('toggle');
+            });
+
+            $('.btnAzpiatalaparrafoondorenBerria').on("click", function(e){
+                $('#divAzpiatalaparrafoondorenBerria').empty();
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_azpiatalaparrafoaondoren_new', { azpiatalaid: miid });
+                $('#divAzpiatalaparrafoondorenBerria').load(url);
+                $('#divAzpiatalaparrafoondorenBerria').modal('toggle');
             });
 
             $('.btnAzpiAtalBerria').on("click", function(e){
@@ -496,6 +510,14 @@
                 $('#divEzabatuAzpiAtalaParrafoa').modal('toggle');
             });
 
+            $('.btnEzabatuAzpiAtalaParrafoaondoren').on('click', function(){
+                $('#divEzabatuAzpiAtalaParrafoaondoren').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_azpiatalaparrafoaondoren_ezabatu', { id: miid });
+                $('#divEzabatuAzpiAtalaParrafoaondoren').load(url);
+                $('#divEzabatuAzpiAtalaParrafoaondoren').modal('toggle');
+            });
+
             $('.btnEzabatuKontzeptua').on('click', function(){
                 $('#divEzabatuKontzeptua').empty();
                 var miid = $(this).data('miid');
@@ -516,11 +538,13 @@
                     $(this).find('.btnEzabatu').removeClass('hide');
                     $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
                     $(this).find('.btnEzabatuAzpiAtalaParrafoa').removeClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoaondoren').removeClass('hide');
                     $(this).find('.btnSort').removeClass('hide');
                 }).on('mouseleave', function () {
                     $(this).find('.btnEzabatu').addClass('hide');
                     $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
                     $(this).find('.btnEzabatuAzpiAtalaParrafoa').addClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoaondoren').addClass('hide');
                     $(this).find('.btnSort').addClass('hide');
                 });
 

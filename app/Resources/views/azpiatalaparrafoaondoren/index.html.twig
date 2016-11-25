@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Azpiatalaparrafoaondorens list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ordena</th>
+                <th>Ordena_prod</th>
+                <th>Testuaeu</th>
+                <th>Testuaeu_prod</th>
+                <th>Testuaes</th>
+                <th>Testuaes_prod</th>
+                <th>Ezabatu</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for azpiatalaparrafoaondoren in azpiatalaparrafoaondorens %}
+            <tr>
+                <td><a href="{{ path('admin_azpiatalaparrafoaondoren_show', { 'id': azpiatalaparrafoaondoren.id }) }}">{{ azpiatalaparrafoaondoren.id }}</a></td>
+                <td>{{ azpiatalaparrafoaondoren.ordena }}</td>
+                <td>{{ azpiatalaparrafoaondoren.ordenaprod }}</td>
+                <td>{{ azpiatalaparrafoaondoren.testuaeu }}</td>
+                <td>{{ azpiatalaparrafoaondoren.testuaeuprod }}</td>
+                <td>{{ azpiatalaparrafoaondoren.testuaes }}</td>
+                <td>{{ azpiatalaparrafoaondoren.testuaesprod }}</td>
+                <td>{% if azpiatalaparrafoaondoren.ezabatu %}Yes{% else %}No{% endif %}</td>
+                <td>{% if azpiatalaparrafoaondoren.createdAt %}{{ azpiatalaparrafoaondoren.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if azpiatalaparrafoaondoren.updatedAt %}{{ azpiatalaparrafoaondoren.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_azpiatalaparrafoaondoren_show', { 'id': azpiatalaparrafoaondoren.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_azpiatalaparrafoaondoren_edit', { 'id': azpiatalaparrafoaondoren.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_azpiatalaparrafoaondoren_new') }}">Create a new azpiatalaparrafoaondoren</a>
+        </li>
+    </ul>
+{% endblock %}
