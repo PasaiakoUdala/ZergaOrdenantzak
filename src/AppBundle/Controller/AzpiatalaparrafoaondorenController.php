@@ -34,12 +34,17 @@ class AzpiatalaparrafoaondorenController extends Controller
     /**
      * Creates a new azpiatalaparrafoaondoren entity.
      *
-     * @Route("/new", name="admin_azpiatalaparrafoaondoren_new")
+     * @Route("/new/{azpiatalaid}", options = { "expose" = true }, name="admin_azpiatalaparrafoaondoren_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $azpiatalaid )
     {
+        $em = $this->getDoctrine();
+        $azpiatala = $em->getRepository( 'AppBundle:Azpiatala' )->find( $azpiatalaid );
         $azpiatalaparrafoaondoren = new Azpiatalaparrafoaondoren();
+        $azpiatalaparrafoaondoren->setAzpiatala( $azpiatala );
+        $azpiatalaparrafoaondoren->setUdala( $this->getUser()->getUdala() );
+
         $form = $this->createForm('AppBundle\Form\AzpiatalaparrafoaondorenType', $azpiatalaparrafoaondoren);
         $form->handleRequest($request);
 
@@ -53,6 +58,7 @@ class AzpiatalaparrafoaondorenController extends Controller
 
         return $this->render('azpiatalaparrafoaondoren/new.html.twig', array(
             'azpiatalaparrafoaondoren' => $azpiatalaparrafoaondoren,
+            'azpiatalaid'       => $azpiatalaid,
             'form' => $form->createView(),
         ));
     }

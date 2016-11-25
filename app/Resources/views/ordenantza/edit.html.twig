@@ -284,36 +284,6 @@
                     </tr>
                 {% endfor %}
 
-                <tr>
-                    <td colspan="4">
-                        {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
-                            <div class="row azpiatala">
-                                <div class="divEditable col-xs-6">
-                                    <div class="divEditableazpiatalaparrafoaondoren">
-                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoaondoren hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                        </button>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                                        <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}"
-                                              data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}"
-                                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
-                                    </div>
-                                </div>
-                                <div class="divEditable col-xs-6">
-                                    <div class="divEditableazpiatalaparrafoaondoren">
-                                        <button type="button" class="close btnEzabatuAzpiAtalaParrafoaondoren" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span>
-                                        </button>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></a>
-                                        <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>
-                                        <span class="col-xs-6 editable2" data-name="testuaes" data-pk="{{ p.id }}"
-                                              data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}"
-                                              data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </td>
-                </tr>
 
                 </tbody>
             </table>
