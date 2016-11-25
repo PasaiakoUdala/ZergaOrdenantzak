@@ -125,6 +125,14 @@ class Azpiatala
     protected $parrafoak;
 
     /**
+     * @var Azpiatalaparrafoaondoren
+     * @expose
+     * @ORM\OneToMany(targetEntity="Azpiatalaparrafoaondoren", mappedBy="azpiatala", cascade={"remove"})
+     * @ORM\OrderBy({"ordena" = "ASC"})
+     */
+    protected $parrafoakondoren;
+
+    /**
      * @var Kontzeptua
      * @Expose
      * @ORM\OrderBy({"kodea"="ASC"})
@@ -499,5 +507,39 @@ class Azpiatala
     public function getEzabatu()
     {
         return $this->ezabatu;
+    }
+
+    /**
+     * Add parrafoakondoren
+     *
+     * @param \AppBundle\Entity\Azpiatalaparrafoaondoren $parrafoakondoren
+     *
+     * @return Azpiatala
+     */
+    public function addParrafoakondoren(\AppBundle\Entity\Azpiatalaparrafoaondoren $parrafoakondoren)
+    {
+        $this->parrafoakondoren[] = $parrafoakondoren;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoakondoren
+     *
+     * @param \AppBundle\Entity\Azpiatalaparrafoaondoren $parrafoakondoren
+     */
+    public function removeParrafoakondoren(\AppBundle\Entity\Azpiatalaparrafoaondoren $parrafoakondoren)
+    {
+        $this->parrafoakondoren->removeElement($parrafoakondoren);
+    }
+
+    /**
+     * Get parrafoakondoren
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoakondoren()
+    {
+        return $this->parrafoakondoren;
     }
 }

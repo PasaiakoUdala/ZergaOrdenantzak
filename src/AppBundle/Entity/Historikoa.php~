@@ -134,4 +134,302 @@ class Historikoa
      */
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set onartzedata
+     *
+     * @param \DateTime $onartzedata
+     *
+     * @return Historikoa
+     */
+    public function setOnartzedata($onartzedata)
+    {
+        $this->onartzedata = $onartzedata;
+
+        return $this;
+    }
+
+    /**
+     * Get onartzedata
+     *
+     * @return \DateTime
+     */
+    public function getOnartzedata()
+    {
+        return $this->onartzedata;
+    }
+
+    /**
+     * Set bogargitaratzedata
+     *
+     * @param \DateTime $bogargitaratzedata
+     *
+     * @return Historikoa
+     */
+    public function setBogargitaratzedata($bogargitaratzedata)
+    {
+        $this->bogargitaratzedata = $bogargitaratzedata;
+
+        return $this;
+    }
+
+    /**
+     * Get bogargitaratzedata
+     *
+     * @return \DateTime
+     */
+    public function getBogargitaratzedata()
+    {
+        return $this->bogargitaratzedata;
+    }
+
+    /**
+     * Set bogbehinbetikodata
+     *
+     * @param \DateTime $bogbehinbetikodata
+     *
+     * @return Historikoa
+     */
+    public function setBogbehinbetikodata($bogbehinbetikodata)
+    {
+        $this->bogbehinbetikodata = $bogbehinbetikodata;
+
+        return $this;
+    }
+
+    /**
+     * Get bogbehinbetikodata
+     *
+     * @return \DateTime
+     */
+    public function getBogbehinbetikodata()
+    {
+        return $this->bogbehinbetikodata;
+    }
+
+    /**
+     * Set bogestekaeu
+     *
+     * @param string $bogestekaeu
+     *
+     * @return Historikoa
+     */
+    public function setBogestekaeu($bogestekaeu)
+    {
+        $this->bogestekaeu = $bogestekaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get bogestekaeu
+     *
+     * @return string
+     */
+    public function getBogestekaeu()
+    {
+        return $this->bogestekaeu;
+    }
+
+    /**
+     * Set bogestekaes
+     *
+     * @param string $bogestekaes
+     *
+     * @return Historikoa
+     */
+    public function setBogestekaes($bogestekaes)
+    {
+        $this->bogestekaes = $bogestekaes;
+
+        return $this;
+    }
+
+    /**
+     * Get bogestekaes
+     *
+     * @return string
+     */
+    public function getBogestekaes()
+    {
+        return $this->bogestekaes;
+    }
+
+    /**
+     * Set indarreandata
+     *
+     * @param \DateTime $indarreandata
+     *
+     * @return Historikoa
+     */
+    public function setIndarreandata($indarreandata)
+    {
+        $this->indarreandata = $indarreandata;
+
+        return $this;
+    }
+
+    /**
+     * Get indarreandata
+     *
+     * @return \DateTime
+     */
+    public function getIndarreandata()
+    {
+        return $this->indarreandata;
+    }
+
+    /**
+     * Set aldaketakeu
+     *
+     * @param string $aldaketakeu
+     *
+     * @return Historikoa
+     */
+    public function setAldaketakeu($aldaketakeu)
+    {
+        $this->aldaketakeu = $aldaketakeu;
+
+        return $this;
+    }
+
+    /**
+     * Get aldaketakeu
+     *
+     * @return string
+     */
+    public function getAldaketakeu()
+    {
+        return $this->aldaketakeu;
+    }
+
+    /**
+     * Set aldaketakes
+     *
+     * @param string $aldaketakes
+     *
+     * @return Historikoa
+     */
+    public function setAldaketakes($aldaketakes)
+    {
+        $this->aldaketakes = $aldaketakes;
+
+        return $this;
+    }
+
+    /**
+     * Get aldaketakes
+     *
+     * @return string
+     */
+    public function getAldaketakes()
+    {
+        return $this->aldaketakes;
+    }
+
+    /**
+     * Set fitxategia
+     *
+     * @param string $fitxategia
+     *
+     * @return Historikoa
+     */
+    public function setFitxategia($fitxategia)
+    {
+        $this->fitxategia = $fitxategia;
+
+        return $this;
+    }
+
+    /**
+     * Get fitxategia
+     *
+     * @return string
+     */
+    public function getFitxategia()
+    {
+        return $this->fitxategia;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Historikoa
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Historikoa
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Historikoa
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
 }
