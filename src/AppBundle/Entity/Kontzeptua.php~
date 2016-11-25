@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Kontzeptua
@@ -23,6 +25,7 @@ class Kontzeptua
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */

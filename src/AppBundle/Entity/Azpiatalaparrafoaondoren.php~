@@ -6,13 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
 
 /**
- * Azpiatalaparrafoa
+ * Azpiatalaparrafoaondoren
  *
- * @ORM\Table(name="azpiatalaparrafoa", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"})})
- * @ORM\Entity
+ * @ORM\Table(name="azpiatalaparrafoaondoren")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AzpiatalaparrafoaondorenRepository")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
-class Azpiatalaparrafoa
+class Azpiatalaparrafoaondoren
 {
     /**
      * @var integer
@@ -97,7 +97,7 @@ class Azpiatalaparrafoa
     /**
      * @var \Azpiatala
      *
-     * @ORM\ManyToOne(targetEntity="Azpiatala",inversedBy="parrafoak")
+     * @ORM\ManyToOne(targetEntity="Azpiatala",inversedBy="parrafoakondoren")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="azpiatala_id", referencedColumnName="id")
      * })
@@ -109,7 +109,7 @@ class Azpiatalaparrafoa
      * @ORM\ManyToOne(targetEntity="Udala")
      */
     private $udala;
-    
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -129,8 +129,6 @@ class Azpiatalaparrafoa
      * ************************************************************************************************************************************************************************
      */
 
-
-
     /**
      * Get id
      *
@@ -146,7 +144,7 @@ class Azpiatalaparrafoa
      *
      * @param integer $ordena
      *
-     * @return Azpiatalaparrafoa
+     * @return Azpiatalaparrafoaondoren
      */
     public function setOrdena($ordena)
     {
@@ -166,155 +164,11 @@ class Azpiatalaparrafoa
     }
 
     /**
-     * Set testuaeu
-     *
-     * @param string $testuaeu
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setTestuaeu($testuaeu)
-    {
-        $this->testuaeu = $testuaeu;
-
-        return $this;
-    }
-
-    /**
-     * Get testuaeu
-     *
-     * @return string
-     */
-    public function getTestuaeu()
-    {
-        return $this->testuaeu;
-    }
-
-    /**
-     * Set testuaes
-     *
-     * @param string $testuaes
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setTestuaes($testuaes)
-    {
-        $this->testuaes = $testuaes;
-
-        return $this;
-    }
-
-    /**
-     * Get testuaes
-     *
-     * @return string
-     */
-    public function getTestuaes()
-    {
-        return $this->testuaes;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set azpiatala
-     *
-     * @param \AppBundle\Entity\Azpiatala $azpiatala
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setAzpiatala(\AppBundle\Entity\Azpiatala $azpiatala = null)
-    {
-        $this->azpiatala = $azpiatala;
-
-        return $this;
-    }
-
-    /**
-     * Get azpiatala
-     *
-     * @return \AppBundle\Entity\Azpiatala
-     */
-    public function getAzpiatala()
-    {
-        return $this->azpiatala;
-    }
-
-    /**
-     * Set udala
-     *
-     * @param \AppBundle\Entity\Udala $udala
-     *
-     * @return Azpiatalaparrafoa
-     */
-    public function setUdala(\AppBundle\Entity\Udala $udala = null)
-    {
-        $this->udala = $udala;
-
-        return $this;
-    }
-
-    /**
-     * Get udala
-     *
-     * @return \AppBundle\Entity\Udala
-     */
-    public function getUdala()
-    {
-        return $this->udala;
-    }
-
-    /**
      * Set ordenaProd
      *
      * @param integer $ordenaProd
      *
-     * @return Azpiatalaparrafoa
+     * @return Azpiatalaparrafoaondoren
      */
     public function setOrdenaProd($ordenaProd)
     {
@@ -334,11 +188,35 @@ class Azpiatalaparrafoa
     }
 
     /**
+     * Set testuaeu
+     *
+     * @param string $testuaeu
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setTestuaeu($testuaeu)
+    {
+        $this->testuaeu = $testuaeu;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaeu
+     *
+     * @return string
+     */
+    public function getTestuaeu()
+    {
+        return $this->testuaeu;
+    }
+
+    /**
      * Set testuaeuProd
      *
      * @param string $testuaeuProd
      *
-     * @return Azpiatalaparrafoa
+     * @return Azpiatalaparrafoaondoren
      */
     public function setTestuaeuProd($testuaeuProd)
     {
@@ -358,11 +236,35 @@ class Azpiatalaparrafoa
     }
 
     /**
+     * Set testuaes
+     *
+     * @param string $testuaes
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setTestuaes($testuaes)
+    {
+        $this->testuaes = $testuaes;
+
+        return $this;
+    }
+
+    /**
+     * Get testuaes
+     *
+     * @return string
+     */
+    public function getTestuaes()
+    {
+        return $this->testuaes;
+    }
+
+    /**
      * Set testuaesProd
      *
      * @param string $testuaesProd
      *
-     * @return Azpiatalaparrafoa
+     * @return Azpiatalaparrafoaondoren
      */
     public function setTestuaesProd($testuaesProd)
     {
@@ -386,7 +288,7 @@ class Azpiatalaparrafoa
      *
      * @param boolean $ezabatu
      *
-     * @return Azpiatalaparrafoa
+     * @return Azpiatalaparrafoaondoren
      */
     public function setEzabatu($ezabatu)
     {
@@ -403,5 +305,101 @@ class Azpiatalaparrafoa
     public function getEzabatu()
     {
         return $this->ezabatu;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set azpiatala
+     *
+     * @param \AppBundle\Entity\Azpiatala $azpiatala
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setAzpiatala(\AppBundle\Entity\Azpiatala $azpiatala = null)
+    {
+        $this->azpiatala = $azpiatala;
+
+        return $this;
+    }
+
+    /**
+     * Get azpiatala
+     *
+     * @return \AppBundle\Entity\Azpiatala
+     */
+    public function getAzpiatala()
+    {
+        return $this->azpiatala;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
     }
 }
