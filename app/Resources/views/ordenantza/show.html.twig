@@ -374,20 +374,75 @@
                         </td>
                     </tr>
                 {% endfor %}
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
-                                <span class="glyphicon glyphicon-align-justify"></span> {{ "message.azpiatala.parrafo.berria" | trans }}
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            <a href="javascript:void(0);" class="btnKontzeptuBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
-                                <span class="glyphicon glyphicon-tasks"></span> {{ "message.kontzeptu.berria" | trans }}
-                            </a>
-                        </td>
-                    </tr>
+
+                <tr>
+                    <td colspan="4">
+                        {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
+                            <div class="row azpiatala">
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoaondoren">
+                                        <div class="divAkzioak">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                                            </a>
+                                            <button type="button" class="close btnEzabatuAzpiAtalaParrafoaondoren hide" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload"
+                                                                                                                                                   aria-hidden="true"></span></a>
+                                            <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download"
+                                                                                                                                                     aria-hidden="true"></span></a>
+                                            <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}"
+                                                                                            data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
+                                        </div>
+                                        <div class="divTextua" id="azpiatalaparrafoaondoren{{ p.id }}">
+                                            <span class="editable2" data-name="testuaeu" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}"
+                                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaeu | raw }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divEditable col-xs-6">
+                                    <div class="divEditableazpiatalaparrafoaondoren">
+                                        <div class="divAkzioak ">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                                            </a>
+                                            <button type="button" class="close btnEzabatuAzpiAtalaParrafoaondoren" data-miid="{{ p.id }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_up', {'id':p.id }) }}"><span class="glyphicon glyphicon-upload"
+                                                                                                                                                   aria-hidden="true"></span></a>
+                                            <a class="btnSort hide pull-right" href="{{ path('admin_azpiatalaparrafoaondoren_down', {'id':p.id }) }}"><span class="glyphicon glyphicon-download"
+                                                                                                                                                     aria-hidden="true"></span></a>
+                                            <span class="btnSort hide">Ordena: </span><span class="editable-popup btnSort hide" data-name="ordena" data-pk="{{ p.id }}"
+                                                                                            data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}">{{ p.ordena }}</span><span>&nbsp;</span>
+                                        </div>
+                                        <div class="divTextua">
+                                            <span class="editable2" data-name="testuaes" data-pk="{{ p.id }}" data-url="{{ path('admin_ordenantza_azpiatalaparrafoaondoren_eguneratu', {'id': p.id}) }}"
+                                                  data-type="wysihtml5" tabindex="-1" style="display: block;">{{ p.testuaes | raw }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" class="text-center">
+                        <a href="javascript:void(0);" class="btnAzpiatalaparrafoBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                            <span class="glyphicon glyphicon-align-justify"></span> {{ "message.azpiatala.parrafo.berria" | trans }}
+                        </a>
+                        <a href="javascript:void(0);" class="btnAzpiatalaparrafoondorenBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                            <span class="glyphicon glyphicon-align-justify"></span> {{ "message.azpiatala.parrafoondoren.berria" | trans }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-center">
+                        <a href="javascript:void(0);" class="btnKontzeptuBerria btn btn-default" data-azpiatalaid="{{ azpiatala.id }}">
+                            <span class="glyphicon glyphicon-tasks"></span> {{ "message.kontzeptu.berria" | trans }}
+                        </a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
 
@@ -415,6 +470,9 @@
     </div>
 
     <div id="divAzpiatalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divAzpiatalaparrafoondorenBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
     <div id="divAtalaparrafoBerria" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -461,6 +519,9 @@
     </div>
 
     <div id="divEzabatuAzpiAtalaParrafoa" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    </div>
+
+    <div id="divEzabatuAzpiAtalaParrafoaondoren" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     </div>
 
     <div id="divEzabatuKontzeptua" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -611,7 +672,28 @@
                         });
                     }
                 });
+            });
 
+            $('.btnAzpiatalaparrafoondorenBerria').on("click", function (e) {
+                console.log("iep");
+                $('#divAzpiatalaparrafoondorenBerria').empty();
+                var nireOrdena = parseInt($(this).data('ordena')) + 1;
+                var miid = $(this).data('azpiatalaid');
+                var url = Routing.generate('admin_azpiatalaparrafoaondoren_new', {azpiatalaid: miid});
+
+                $('#divAzpiatalaparrafoondorenBerria').load(url, function(responseTxt, statusTxt, xhr){
+                    if(statusTxt == "success") {
+                        $('#azpiatalaparrafoaondoren_ordena').val(nireOrdena);
+                        $('#divAzpiatalaparrafoondorenBerria').modal('toggle');
+                    }
+                    if(statusTxt == "error"){
+                        bootbox.alert({
+                            message: "Error: " + xhr.status + ": " + xhr.statusText,
+                            className: 'bb-alternate-modal',
+                            backdrop: true
+                        });
+                    }
+                });
             });
 
             $('.btnAzpiAtalBerria').on("click", function (e) {
@@ -666,7 +748,6 @@
                 $('#divEzabatuAtalaParrafoa').load(url, function () {
                     $('#divEzabatuAtalaParrafoa').modal('toggle');
                 });
-
             });
 
             $('#btnOrdenantzaEzabatu').on('click', function () {
@@ -689,6 +770,14 @@
                 $('#divEzabatuAzpiAtalaParrafoa').modal('toggle');
             });
 
+            $('.btnEzabatuAzpiAtalaParrafoaondoren').on('click', function () {
+                $('#divEzabatuAzpiAtalaParrafoaondoren').empty();
+                var miid = $(this).data('miid');
+                var url = Routing.generate('admin_azpiatalaparrafoaondoren_ezabatu', {id: miid});
+                $('#divEzabatuAzpiAtalaParrafoaondoren').load(url);
+                $('#divEzabatuAzpiAtalaParrafoaondoren').modal('toggle');
+            });
+
             $('.btnEzabatuKontzeptua').on('click', function () {
                 $('#divEzabatuKontzeptua').empty();
                 var miid = $(this).data('miid');
@@ -709,11 +798,13 @@
                     $(this).find('.btnEzabatu').removeClass('hide');
                     $(this).find('.btnEzabatuAtalaParrafoa').removeClass('hide');
                     $(this).find('.btnEzabatuAzpiAtalaParrafoa').removeClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoaondoren').removeClass('hide');
                     $(this).find('.btnSort').removeClass('hide');
                 }).on('mouseleave', function () {
                     $(this).find('.btnEzabatu').addClass('hide');
                     $(this).find('.btnEzabatuAtalaParrafoa').addClass('hide');
                     $(this).find('.btnEzabatuAzpiAtalaParrafoa').addClass('hide');
+                    $(this).find('.btnEzabatuAzpiAtalaParrafoaondoren').addClass('hide');
                     $(this).find('.btnSort').addClass('hide');
                 });
 
