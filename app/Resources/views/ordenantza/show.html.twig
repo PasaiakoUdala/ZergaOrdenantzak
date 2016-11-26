@@ -382,7 +382,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoaondoren">
                                         <div class="divAkzioak">
-                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoondorenBerria" data-azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -403,7 +403,7 @@
                                 <div class="divEditable col-xs-6">
                                     <div class="divEditableazpiatalaparrafoaondoren">
                                         <div class="divAkzioak ">
-                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
+                                            <a href="javascript:void(0);" class="btnSort btn btn-default btn-xs hide pull-left btnAzpiatalaparrafoondorenBerria" data.azpiatalaid="{{ azpiatala.id }}" data-ordena="{{ p.ordena }}">
                                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                                             </a>
@@ -489,7 +489,7 @@
 
     {# Ezabatze formularioak #}
     <div id="divEzabatuOrdenantza" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 {{ form_start(delete_form) }}
                 <div class="modal-header">
@@ -675,7 +675,6 @@
             });
 
             $('.btnAzpiatalaparrafoondorenBerria').on("click", function (e) {
-                console.log("iep");
                 $('#divAzpiatalaparrafoondorenBerria').empty();
                 var nireOrdena = parseInt($(this).data('ordena')) + 1;
                 var miid = $(this).data('azpiatalaid');
@@ -683,7 +682,7 @@
 
                 $('#divAzpiatalaparrafoondorenBerria').load(url, function(responseTxt, statusTxt, xhr){
                     if(statusTxt == "success") {
-                        $('#azpiatalaparrafoaondoren_ordena').val(nireOrdena);
+                        $('#appbundle_azpiatalaparrafoaondoren_ordena').val(nireOrdena);
                         $('#divAzpiatalaparrafoondorenBerria').modal('toggle');
                     }
                     if(statusTxt == "error"){

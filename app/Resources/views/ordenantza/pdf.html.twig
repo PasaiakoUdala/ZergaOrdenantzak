@@ -57,6 +57,12 @@
                                     <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}</td>
                                 </tr>
                             {% endfor %}
+                            {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
+                                <tr>
+                                    <td colspan="3" align="justify" style="font-size: small;">{{ p.testuaeu | raw }}</td>
+                                    <td colspan="3" align="justify" style="font-size: small;">{{ p.testuaes | raw }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

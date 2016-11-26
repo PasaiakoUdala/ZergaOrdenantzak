@@ -215,7 +215,45 @@
         }
 
         /**
-         * @Route("/eguneratuazpiatalaparrafoa/{id}", name="admin_ordenantza_azpiatalaparrafoa_eguneratu")
+         * @Route("/eguneratuazpiatalaparrafoa/{id}", name="admin_ordenantza_azpiatalaparrafoaondoren_eguneratu")
+         * @Method("POST")
+         */
+        public function eguneratuazpiatalaparrafoaondorenAction ( Request $request, $id )
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoaondoren **/
+            $azpiatalap = $em->getRepository( 'AppBundle:Azpiatalaparrafoaondoren' )->findOneById( $id );
+            $name = $request->request->get( 'name' );
+            $value = $request->request->get( 'value' );
+
+
+            switch ( $name ) {
+                case "testuaeu":
+                    $azpiatalap->setTestuaeu( $value );
+                    break;
+                case "testuaes":
+                    $azpiatalap->setTestuaes( $value );
+                    break;
+                case "ordena":
+                    $azpiatalap->setOrdena( $value );
+                    break;
+            }
+
+            $em->persist( $azpiatalap );
+            $em->flush();
+            $response = new JsonResponse();
+            $response->setData(
+                array (
+                    'resul' => "OK",
+                )
+            );
+
+            return $response;
+        }
+
+        /**
+         * @Route("/eguneratuazpiatalaparrafoaondoren/{id}", name="admin_ordenantza_azpiatalaparrafoa_eguneratu")
          * @Method("POST")
          */
         public function eguneratuazpiatalaparrafoaAction ( Request $request, $id )
@@ -251,6 +289,7 @@
 
             return $response;
         }
+
 
         /**
          * @Route("/eguneratuazpiatalakontzeptuoa/{id}", name="admin_ordenantza_azpiatalakontzeptua_eguneratu")
