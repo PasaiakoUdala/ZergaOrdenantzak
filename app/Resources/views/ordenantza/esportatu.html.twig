@@ -96,6 +96,16 @@
                                     <br/>
                                 </td>
                             </tr>
+                            {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
+                                <tr valign="top">
+                                    <td align="left" style="font-size: small;">
+                                        {{ p.testuaeu | raw }}
+                                    </td>
+                                    <td align="left" style="font-size: small;">
+                                        {{ p.testuaes | raw }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </table>
                     </center>
                 </td>

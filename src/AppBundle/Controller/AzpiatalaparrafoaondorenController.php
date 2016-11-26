@@ -15,6 +15,33 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
 class AzpiatalaparrafoaondorenController extends Controller
 {
     /**
+     * @Route("/up/{id}", name="admin_azpiatalaparrafoaondoren_up")
+     * @Method("GET")
+     */
+    public function upAction(Request $request, Azpiatalaparrafoaondoren $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setOrdena($op->getOrdena() - 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+    /**
+     * @Route("/down/{id}", name="admin_azpiatalaparrafoaondoren_down")
+     * @Method("GET")
+     */
+    public function downAction(Request $request, Azpiatalaparrafoaondoren $op)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $op->setOrdena($op->getOrdena() + 1);
+        $em->persist($op);
+        $em->flush();
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+    /**
      * Lists all azpiatalaparrafoaondoren entities.
      *
      * @Route("/", name="admin_azpiatalaparrafoaondoren_index")
@@ -40,6 +67,7 @@ class AzpiatalaparrafoaondorenController extends Controller
     public function newAction(Request $request, $azpiatalaid )
     {
         $em = $this->getDoctrine();
+
         $azpiatala = $em->getRepository( 'AppBundle:Azpiatala' )->find( $azpiatalaid );
         $azpiatalaparrafoaondoren = new Azpiatalaparrafoaondoren();
         $azpiatalaparrafoaondoren->setAzpiatala( $azpiatala );
@@ -53,54 +81,13 @@ class AzpiatalaparrafoaondorenController extends Controller
             $em->persist($azpiatalaparrafoaondoren);
             $em->flush($azpiatalaparrafoaondoren);
 
-            return $this->redirectToRoute('admin_azpiatalaparrafoaondoren_show', array('id' => $azpiatalaparrafoaondoren->getId()));
+            return $this->redirect( $request->headers->get( 'referer' ) . '#azpiatalaparrafoaondoren'.$azpiatalaparrafoaondoren->getId());
         }
 
         return $this->render('azpiatalaparrafoaondoren/new.html.twig', array(
             'azpiatalaparrafoaondoren' => $azpiatalaparrafoaondoren,
             'azpiatalaid'       => $azpiatalaid,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a azpiatalaparrafoaondoren entity.
-     *
-     * @Route("/{id}", name="admin_azpiatalaparrafoaondoren_show")
-     * @Method("GET")
-     */
-    public function showAction(Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren)
-    {
-        $deleteForm = $this->createDeleteForm($azpiatalaparrafoaondoren);
-
-        return $this->render('azpiatalaparrafoaondoren/show.html.twig', array(
-            'azpiatalaparrafoaondoren' => $azpiatalaparrafoaondoren,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing azpiatalaparrafoaondoren entity.
-     *
-     * @Route("/{id}/edit", name="admin_azpiatalaparrafoaondoren_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren)
-    {
-        $deleteForm = $this->createDeleteForm($azpiatalaparrafoaondoren);
-        $editForm = $this->createForm('AppBundle\Form\AzpiatalaparrafoaondorenType', $azpiatalaparrafoaondoren);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_azpiatalaparrafoaondoren_edit', array('id' => $azpiatalaparrafoaondoren->getId()));
-        }
-
-        return $this->render('azpiatalaparrafoaondoren/edit.html.twig', array(
-            'azpiatalaparrafoaondoren' => $azpiatalaparrafoaondoren,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -121,7 +108,7 @@ class AzpiatalaparrafoaondorenController extends Controller
             $em->flush($azpiatalaparrafoaondoren);
         }
 
-        return $this->redirectToRoute('admin_azpiatalaparrafoaondoren_index');
+        return $this->redirect( $request->headers->get( 'referer' ) );
     }
 
     /**
