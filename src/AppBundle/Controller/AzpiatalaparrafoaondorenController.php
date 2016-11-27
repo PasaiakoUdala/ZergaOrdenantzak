@@ -92,6 +92,21 @@ class AzpiatalaparrafoaondorenController extends Controller
     }
 
     /**
+     *
+     * @Route("/ezabatu/{id}", options = { "expose" = true }, name="admin_azpiatalaparrafoaondoren_ezabatu")
+     * @Method("GET")
+     */
+    public function ezabatuAction(Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren)
+    {
+        $deleteForm = $this->createDeleteForm($azpiatalaparrafoaondoren);
+
+        return $this->render('azpiatalaparrafoaondoren/_azpiatalaparrafoaondorendeleteform.html.twig', array(
+            'delete_form' => $deleteForm->createView(),
+            'id' => $azpiatalaparrafoaondoren->getId()
+        ));
+    }
+
+    /**
      * Deletes a azpiatalaparrafoaondoren entity.
      *
      * @Route("/{id}", name="admin_azpiatalaparrafoaondoren_delete")
