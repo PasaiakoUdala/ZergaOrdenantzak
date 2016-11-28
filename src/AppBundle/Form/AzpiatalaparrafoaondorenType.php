@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,16 @@ class AzpiatalaparrafoaondorenType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ordena')->add('ordena_prod')->add('testuaeu')->add('testuaeu_prod')->add('testuaes')->add('testuaes_prod')->add('ezabatu')->add('createdAt')->add('updatedAt')->add('azpiatala')->add('udala')        ;
+        $builder
+            ->add('ordena')
+            ->add('testuaeu',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
+            ->add('testuaes',CKEditorType::class, array(
+                'config_name' => 'my_config_1',
+            ))
+            ->add('azpiatala')
+            ->add('udala')        ;
     }
     
     /**
