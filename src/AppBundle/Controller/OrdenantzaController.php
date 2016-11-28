@@ -222,7 +222,7 @@
         {
             $em = $this->getDoctrine()->getManager();
 
-            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoaondoren **/
+            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoaondoren * */
             $azpiatalap = $em->getRepository( 'AppBundle:Azpiatalaparrafoaondoren' )->findOneById( $id );
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
@@ -260,7 +260,7 @@
         {
             $em = $this->getDoctrine()->getManager();
 
-            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoa **/
+            /** @var $azpiatalap \AppBundle\Entity\Azpiatalaparrafoa * */
             $azpiatalap = $em->getRepository( 'AppBundle:Azpiatalaparrafoa' )->findOneById( $id );
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
@@ -749,8 +749,6 @@
             $em->persist( $ordenantza );
             $em->flush();
 
-
-//        return $this->redirectToRoute( 'admin_ordenantza_edit', array ('id' => $ordenantza->getId()));
             return $this->redirect( $request->headers->get( 'referer' ) );
         }
 
@@ -767,8 +765,8 @@
                 'ordenantza/web.html.twig',
                 array (
                     'ordenantzas' => $ordenantzas,
-                    'eguna' => date( "Y" ),
-                    'udala' => $this->getUser()->getUdala()
+                    'eguna'       => date( "Y" ),
+                    'udala'       => $this->getUser()->getUdala(),
                 )
             );
 
@@ -798,10 +796,10 @@
          * @Route("/esportatu/{id}", name="admin_ordenantza_esportatu")
          * @Method("GET")
          */
-        public function esportatuAction ($id)
+        public function esportatuAction ( $id )
         {
             $em = $this->getDoctrine()->getManager();
-            $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find($id);
+            $ordenantza = $em->getRepository( 'AppBundle:Ordenantza' )->find( $id );
 
 //            return $this->render(
 //                'ordenantza/esportatu.html.twig',

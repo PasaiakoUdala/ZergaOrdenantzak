@@ -81,8 +81,8 @@
             <ul class="dropdown-menu" id="menuaAdmin">
                 <li><a href="{{ path('admin_ordenantza_esportatu', {'id':ordenantza.id}) }}">{{ "Odt-a eskuratu" | trans }}</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a id="btnaldaketakezeztatu" data-id="{{ ordenantza.id }}" href="javascript:void(0);">{{ "Aldaketak ezeztatu" | trans }}</a></li>
-                <li role="separator" class="divider"></li>
+                {#<li><a id="btnaldaketakezeztatu" data-id="{{ ordenantza.id }}" href="javascript:void(0);">{{ "Aldaketak ezeztatu" | trans }}</a></li>#}
+                {#<li role="separator" class="divider"></li>#}
                 <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
                 <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
             </ul>
