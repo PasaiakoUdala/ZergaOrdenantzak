@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
@@ -29,7 +30,6 @@ class Azpiatala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -45,7 +45,6 @@ class Azpiatala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
      */
@@ -61,7 +60,6 @@ class Azpiatala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
      */
@@ -118,16 +116,16 @@ class Azpiatala
 
     /**
      * @var Azpiatalaparrafoa
-     * @expose
      * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+     * @Expose()
      * @ORM\OrderBy({"ordena" = "ASC"})
      */
     protected $parrafoak;
 
     /**
      * @var Azpiatalaparrafoaondoren
-     * @expose
      * @ORM\OneToMany(targetEntity="Azpiatalaparrafoaondoren", mappedBy="azpiatala", cascade={"remove"})
+     * @Expose()
      * @ORM\OrderBy({"ordena" = "ASC"})
      */
     protected $parrafoakondoren;

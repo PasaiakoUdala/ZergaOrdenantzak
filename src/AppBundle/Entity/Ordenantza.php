@@ -28,7 +28,6 @@ class Ordenantza
     private $id;
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
