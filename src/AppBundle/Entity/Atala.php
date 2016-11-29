@@ -30,7 +30,6 @@ class Atala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -46,7 +45,6 @@ class Atala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="izenburuaeu", type="string", length=255, nullable=true)
      */
@@ -61,7 +59,6 @@ class Atala
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="izenburuaes", type="string", length=255, nullable=true)
      */
