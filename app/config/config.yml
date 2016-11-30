@@ -40,6 +40,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+            zzoo_aplikazioaren_API_url: '%zzoo_aplikazioaren_API_url%'
 
 # Doctrine Configuration
 doctrine:

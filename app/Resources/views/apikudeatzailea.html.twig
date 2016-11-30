@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if  app.request.locale == "eu" %}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Zerga zerrenda</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}"
+                                                              alt="Castellano"> Castellano</a></li>
+        {% else %}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Listado ordenanzas</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}"
+                                                              alt="Euskaraz"> Euskara</a></li>
+        {% endif %}
+        <li>&nbspp;</li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ "Api kudeatzailea" | trans }}</h1>
+
+    <div class="row">
+        <p>Erabili ondoko formularioa beste leku batean erabiltzeko kodea eskuratzeko: Liferay, Wordpress, etc...</p>
+    </div>
+
+    <div class="row">
+        <div class="row">
+
+            <div class="col-md-12 form-group" >
+                <p>
+                    <label for="cmbOrdenantza">Ordenantza</label>
+                    <select name="cmbOrdenantza" id="cmbOrdenantza" style="width:100%"></select>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group" >
+                <p>
+                    <label for="cmbAtala">Atala</label>
+                    <select name="cmbAtala" id="cmbAtala" style="width:100%"></select>
+                </p>
+            </div>
+
+        </div>
+        <div class="row">
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group" >
+                <p>
+                    <label for="cmbKontzeptua">Kontzeptua</label>
+                    <select name="cmbKontzeptua" id="cmbKontzeptua" style="width:100%"></select>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $(function () {
+            //kargatu ordenantzak API bidez
+            var param = "{{ zzoo_aplikazioaren_API_url }}";
+            var udala = "{{ udala }}";
+            var url = param + "/ordenantzak/" + udala + ".json";
+            var locale ="{{ app.request.getLocale() }}";
+
+            // Ordenantzak
+            var jqxhr = $.getJSON(url, function (result) {
+                if (locale === "es") {
+                    $("#cmbOrdenantza").append($("<option></option>").attr("value", -1).text("Selecciona"));
+                } else{
+                    $("#cmbOrdenantza").append($("<option></option>").attr("value", -1).text("Aukeratu"));
+                }
+                $.each(result, function (i, field) {
+                    if (locale === "es") {
+                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.izenburuaes_prod));
+                    } else {
+                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.izenburuaeu_prod));
+                    }
+                });
+            });
+
+            jqxhr.complete(function () {
+
+            });
+
+            // Atalak
+            $('#cmbOrdenantza').on('click', function () {
+                $('#nireloader3').addClass('loading');
+                var ordenantzaid = $(this).val();
+                var url = param + "/ordenantza/" + ordenantzaid + ".json";
+                var jqxhr = $.getJSON(url, function (result) {
+                    $("#cmbAtala").empty();
+                    if (locale === "es") {
+                        $("#cmbAtala").append($("<option></option>").attr("value", -1).text("Selecciona"));
+                    } else{
+                        $("#cmbAtala").append($("<option></option>").attr("value", -1).text("Aukeratu"));
+                    }
+
+                    if (result.length === 0) {
+                        return;
+                    }
+                    var atalak = result[0].atalak;
+
+                    $.each(atalak, function (i, field) {
+                        if (locale === "es") {
+                            var txt ="";
+                            if ( field.izenburuaes_prod.length > 200 ) {
+                                txt = field.izenburuaes_prod.substr(0, 200);
+                            } else {
+                                txt = field.izenburuaes_prod;
+                            }
+                            $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
+                        } else {
+                            var txt ="";
+                            if ( field.izenburuaes_prod.length > 200 ) {
+                                txt = field.izenburuaeu_prod.substr(0, 200);
+                            } else {
+                                txt = field.izenburuaeu_prod;
+                            }
+                            $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
+                        }
+                    });
+                });
+
+                jqxhr.complete(function () {
+                    $('#nireloader3').removeClass('loading');
+                });
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
