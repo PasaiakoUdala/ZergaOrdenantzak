@@ -7,6 +7,7 @@ use AppBundle\Entity\Atalaparrafoa;
 use AppBundle\Entity\Azpiatala;
 use AppBundle\Entity\Azpiatalaparrafoa;
 use AppBundle\Entity\Kontzeptua;
+use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -53,7 +54,7 @@ class HistorikoaController extends Controller
                 ->setCurrentPage($page)
                 ->getCurrentPageResults()
             ;
-        } catch (\Pagerfanta\Exception\NotValidCurrentPageException $e) {
+        } catch ( NotValidCurrentPageException $e) {
             throw $this->createNotFoundException("Orria ez da existitzen");
         }
 

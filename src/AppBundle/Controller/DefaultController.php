@@ -11,6 +11,7 @@ use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Ordenantzaparrafoa;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,6 +23,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @Route("/kudeatu", name="api_kudeatzailea")
+     * @Method("GET")
+     */
+    public function apikudeatzaileaAction()
+    {
+        return $this->render('apikudeatzailea.html.twig', array(
+            'udala' => $this->getUser()->getUdala()->getId()
+        ));
+    }
 
     /**
      * Finds and displays a Ordenantza entity.
@@ -146,7 +158,6 @@ class DefaultController extends Controller
 
     }
 
-
     /**
      * Lists all Ordenantza entities.
      *
@@ -184,9 +195,9 @@ class DefaultController extends Controller
 
     public function erroreaAction()
     {
-//        return $this->render('AppBundle:Default:errorea.html.twig');
         return $this->render('errorea.html.twig');
-
     }
+
+
 
 }
