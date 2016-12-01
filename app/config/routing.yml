@@ -68,15 +68,15 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-api_atala:
-    type:     rest
-    resource: "@ApiBundle/Controller/ApiController.php"
-    prefix:   /api
-
-
-NelmioApiDocBundle:
-    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
-    prefix:   /api/doc
+#api_atala:
+#    type:     rest
+#    resource: "@ApiBundle/Controller/ApiController.php"
+#    prefix:   /api
+#
+#
+#NelmioApiDocBundle:
+#    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+#    prefix:   /api/doc
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

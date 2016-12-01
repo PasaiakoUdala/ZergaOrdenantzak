@@ -43,7 +43,10 @@ messages.pasahitzaerrepikatu: 'Errepikatu pasahitza'
 Aukerak: Aukerak
 'Baldintza kudeaketa': '  Baldintza kudeaketa'
 Baldintza: Baldintza
-message.azpiatala.parrafo.berria: __message.azpiatala.parrafo.berria
-message.kontzeptu.berria: __message.kontzeptu.berria
-message.azpiatala.berria: __message.azpiatala.berria
-message.atala.parrafoa.berria: __message.atala.parrafoa.berria
+messages.ordenantza.parrafo.berria: ' Ordenantzaren Testua'
+messages.atala.berria: ' Tributu: IZENBURUA'
+message.atala.parrafoa.berria: ' Tributu: TESTUA'
+message.azpiatala.berria: ' Tasa/Zerga/Kontr.Bere.: TAULAREN IZENBURUA'
+message.azpiatala.parrafo.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (aurretik)'
+message.azpiatala.parrafoondoren.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (ondoren)'
+message.kontzeptu.berria: ' Zerga-egintza: XEHETASUNA'

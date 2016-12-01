@@ -3,42 +3,33 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        {#<li><a href="{{ path('exportatu', {'id': ordenantza.id}) }}"> Exportatu <span class="sr-only">(current)</span></a></li>#}
-        {#<li><a href="{{ path('admin_ordenantza_export_pdf') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>#}
         <li><a href="{{ path('admin_ordenantza_html') }}"> {{ "Odt-a eskuratu" | trans }} <span class="sr-only">(current)</span></a></li>
         <li><a href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
         {% if  app.request.locale == "eu"%}
             <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
             <li>&nbsp;</li>
             <li><a href="{{ path('admin_ordenantza_new') }}">Ordenantza Berria</a></li>
-            {#<li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>#}
         {% else %}
             <li><a href="{{ path('admin_historikoa_index') }}">Consulta del Historico</a></li>
             <li>&nbsp;</li>
             <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
-            {#<li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>#}
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "message.admin" | trans }}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
                     <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza" |trans }}</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{ path('api_kudeatzailea') }}">{{ "Api kudeatzailea" |trans }}</a></li>
                 </ul>
             </li>
         {% endif %}
         <li>&nbsp;</li>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ "Aukerak"|trans }}<span class="caret"></span></a>
-                <ul class="dropdown-menu" id="menuaAdmin">
-                    <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza" |trans }}</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('bundles/app/img/espanol.png') }}" alt="Castellano"> Castellano</a></li>
-                    <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}"><img src="{{ asset('bundles/app/img/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
-                </ul>
-            </li>
-        </ul>
+        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
         <li>&nbsp;</li>
         </ul>
     </ul>
