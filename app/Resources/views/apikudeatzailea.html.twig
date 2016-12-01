@@ -1,5 +1,33 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{  parent() }}
+    <link href="{{ asset('bundles/app/css/prism.css') }}" rel="stylesheet" media="screen">
+    <style>
+        .loading {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, .8) url({{ asset('bundles/app/img/page-loader.gif') }}) 50% 50% no-repeat !important;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        body.loading .modal {
+            display: block;
+        }
+
+        .select2-container--bootstrap .select2-dropdown {
+            margin-top: 18px !important;
+        }
+    </style>
+{% endblock %}
+
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         {% if  app.request.locale == "eu" %}
@@ -16,6 +44,7 @@
 {% endblock %}
 
 {% block body %}
+    <div id="nireloader" class=""></div>
     <h1>{{ "Api kudeatzailea" | trans }}</h1>
 
     <div class="row">
@@ -57,22 +86,32 @@
 
         </div>
     </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">&nbsp;</div>
-    <div class="row">&nbsp;</div>
     <div class="row">
+        <div class="btn-group" role="group" aria-label="...">
+            <button id="btnEuskera" type="button" class="btn btn-default">Euskeraz</button>
+            <button id="btnErdara"  type="button" class="btn btn-default">Erdaraz</button>
+        </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div id="divResult" class="row" style="display: none;">
+        <pre>
+            <code  id="result" class="language-html">
 
+            </code>
+        </pre>
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
+    <script src="{{ asset('bundles/app/js/prism.js') }}"></script>
     <script type="text/javascript">
 
         $(function () {
             //kargatu ordenantzak API bidez
+            $('#nireloader').addClass('loading');
             var param = "{{ zzoo_aplikazioaren_API_url }}";
             var udala = "{{ udala }}";
             var url = param + "/ordenantzak/" + udala + ".json";
@@ -95,14 +134,14 @@
             });
 
             jqxhr.complete(function () {
-
+                $('#nireloader').removeClass('loading');
             });
 
             // Atalak
             $('#cmbOrdenantza').on('click', function () {
-                $('#nireloader3').addClass('loading');
+                $('#nireloader').addClass('loading');
                 var ordenantzaid = $(this).val();
-                var url = param + "/ordenantza/" + ordenantzaid + ".json";
+                var url = param + "/tributuak/" + ordenantzaid + ".json";
                 var jqxhr = $.getJSON(url, function (result) {
                     $("#cmbAtala").empty();
                     if (locale === "es") {
@@ -114,7 +153,8 @@
                     if (result.length === 0) {
                         return;
                     }
-                    var atalak = result[0].atalak;
+                    console.log(result);
+                    var atalak = result;
 
                     $.each(atalak, function (i, field) {
                         if (locale === "es") {
@@ -138,11 +178,129 @@
                 });
 
                 jqxhr.complete(function () {
-                    $('#nireloader3').removeClass('loading');
+                    $('#nireloader').removeClass('loading');
                 });
             });
 
+
+            // Kontzeptua
+            $('#cmbAtala').on('change', function () {
+
+                $('#nireloader').addClass('loading');
+                var atalaid = $(this).val();
+                var url = param + "/zergak/" + atalaid + ".json";
+
+                var jqxhr = $.getJSON(url, function (result2) {
+                    $("#cmbKontzeptua").empty();
+                    if (locale === "es") {
+                        $("#cmbKontzeptua").append($("<option></option>").attr("value", -1).text("Selecciona"));
+                    } else{
+                        $("#cmbKontzeptua").append($("<option></option>").attr("value", -1).text("Aukeratu"));
+                    }
+
+                    if (result2.length === 0) {
+                        return;
+                    }
+
+                    var azpiatalak = result2;
+
+                    $.each(azpiatalak, function (i, field2) {
+
+                        if (locale === "es") {
+                            var txt ="";
+                            if ( field2.izenburuaes_prod.length > 200 ) {
+                                txt = field2.izenburuaes_prod.substr(0, 200);
+                            } else {
+                                txt = field2.izenburuaes_prod;
+                            }
+                            $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
+                        } else {
+                            var txt ="";
+                            if ( field2.izenburuaeu_prod.length > 200 ) {
+                                txt = field2.izenburuaeu_prod.substr(0, 200);
+                            } else {
+                                txt = field2.izenburuaeu_prod;
+                            }
+                            $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
+                        }
+                    });
+                });
+
+                jqxhr.complete(function () {
+                    $('#nireloader').removeClass('loading');
+                });
+
+            });
+
+            $('#btnEuskera').on('click', function () {
+                var miid = $('#cmbKontzeptua').val();
+                $('#result').empty();
+                $('#result').append(ekarriHtml('eu', miid));
+                Prism.highlightElement($('#result')[0]);
+                $('#divResult').show("slow" );
+            });
+
+            $('#btnErdara').on('click', function () {
+                var miid = $('#cmbKontzeptua').val();
+                $('#result').empty();
+                $('#result').append(ekarriHtml('es', miid));
+                Prism.highlightElement($('#result')[0]);
+                $('#divResult').show("slow" );
+            });
+
         });
+
+        function ekarriHtml($locale, $apId) {
+
+            var miHtml = "" +
+                "&lt;table class=&quot;table table-bordered table-condensed&quot; id=&quot;kostuTaula&quot;&gt;\n" +
+                "\t\t\t\t&lt;thead&gt;\n"+
+                "\t\t\t\t\t&lt;tr&gt;\n";
+            if ($locale==="eu") {
+                miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;Deskribapena&lt;/th&gt;\n";
+            }
+
+            miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;kopurua&lt;/th&gt;\n"+
+                "\t\t\t\t\t\t&lt;th&gt;unitatea&lt;/th&gt;\n";
+            if ($locale==="es") {
+                miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;Descripci&oacute;n&lt;/th&gt;\n";
+            }
+
+            miHtml = miHtml + "\t\t\t\t\t&lt;/tr&gt;\n"+
+                "\t\t\t\t&lt;/thead&gt;\n"+
+                "\t\t\t\t&lt;tbody&gt;\n"+
+                "\t\t\t\t\t&lt;tr&gt;\n"+
+                "\t\t\t\t\t&lt;/tr&gt;\n"+
+                "\t\t\t\t&lt;/tbody&gt;\n"+
+                "\t\t\t&lt;/table&gt;\n"+
+                "\n"+
+                "\n"+
+                "\t\t\t&lt;script   src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;   integrity=&quot;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&quot;   crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;\n"+
+                "\t\t\t&lt;script language=&quot;javascript&quot;&gt;\n"+
+                "\t\t\t\t$(document).ready(function() {\n"+
+                "\t\t\t\t\tvar url = &quot;http://miranda.sare.gipuzkoa.net/zergaordenantzak.dev/app_dev.php/api/azpiatalas/"+ $apId +".json&quot;;\n"+
+                "\t\t\t\t\t$.getJSON(url, function(data) {\n"+
+                "\t\t\t\t\t\tvar kontzeptuak = data.kontzeptuak;\n"+
+                "\t\t\t\t\t\t$.each( kontzeptuak, function( i, item ) {\n"+
+                "\t\t\t\t\t\t\tvar $tr = $('&lt;tr&gt;').append(\n";
+            if ($locale==="eu") {
+                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaeu_prod),\n";
+            }
+
+            miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n"+
+                "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod),\n";
+            if ($locale==="es") {
+                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaes_prod)\n";
+            }
+
+            miHtml = miHtml + "\t\t\t\t\t\t).appendTo('#kostuTaula');\n"+
+                "\t\t\t\t\t});\n"+
+                "\t\t\t\t});\n"+
+                "\t\t\t&lt;/script&gt;";
+
+            return miHtml;
+
+        }
 
     </script>
 
