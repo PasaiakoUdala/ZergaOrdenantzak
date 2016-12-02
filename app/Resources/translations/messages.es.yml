@@ -46,3 +46,5 @@ message.azpiatala.parrafoondoren.berria: ' Tasa/Impuesto/Contr.Esp: TEXTO (despu
 message.kontzeptu.berria: ' Hecho imponible: DETALLE'
 'Api kudeatzailea': '  Gestión de la API'
 message.admin: '  Configuración'
+'Ordenantza Berria': '  Nuevas Ordenanza'
+'Historikoa ikusi': '  Ver Historico'

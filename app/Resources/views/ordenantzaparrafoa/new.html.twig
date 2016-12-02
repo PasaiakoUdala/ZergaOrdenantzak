@@ -4,16 +4,20 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Parrafo berria</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ "messages.ordenantza.parrafo.berria" | trans }}</h4>
             </div>
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group  field-text">
-                        {{ form_label(form.ordena, 'ordena', { 'label_attr': {'class': 'control-label'} }) }}
-                        {{ form_errors(form.ordena) }}
-                        {{ form_widget(form.ordena, {'attr': {'class': 'form-control'}}) }}
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group  field-text">
+                            {{ form_label(form.ordena, 'ordena', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_errors(form.ordena) }}
+                            {{ form_widget(form.ordena, {'attr': {'class': 'form-control'}}) }}
+                        </div>
                     </div>
+                    <div class="col-md-4"></div>
                 </div>
 
                 <div class="row">

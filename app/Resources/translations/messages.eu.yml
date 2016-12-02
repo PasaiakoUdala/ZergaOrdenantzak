@@ -51,4 +51,6 @@ message.azpiatala.parrafo.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (aurretik)'
 message.azpiatala.parrafoondoren.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (ondoren)'
 message.kontzeptu.berria: ' Zerga-egintza: XEHETASUNA'
 'Api kudeatzailea': '  API kudeatzailea'
-message.admin: "  Konfigurazioa"
+message.admin: '  Konfigurazioa'
+'Ordenantza Berria': '  Ordenantza Berria'
+'Historikoa ikusi': '  Historikoa ikusi'
