@@ -50,3 +50,5 @@ message.azpiatala.berria: ' Tasa/Zerga/Kontr.Bere.: TAULAREN IZENBURUA'
 message.azpiatala.parrafo.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (aurretik)'
 message.azpiatala.parrafoondoren.berria: ' Tasa/Zerga/Kontr.Bere.: TESTUA (ondoren)'
 message.kontzeptu.berria: ' Zerga-egintza: XEHETASUNA'
+'Api kudeatzailea': '  API kudeatzailea'
+message.admin: "  Konfigurazioa"

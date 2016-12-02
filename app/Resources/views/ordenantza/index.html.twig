@@ -1,25 +1,28 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @media screen and (min-width: 768px) {
+            .modal-lg{
+                width:900px;
+            }
+
+            .modal-sm{
+                width:300px;
+            }
+        }
+    </style>
+{% endblock %}
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ path('admin_ordenantza_html') }}"> {{ "Odt-a eskuratu" | trans }} <span class="sr-only">(current)</span></a></li>
-        <li><a href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
-        {% if  app.request.locale == "eu"%}
-            <li><a href="{{ path('admin_historikoa_index') }}">Historikoa ikusi</a></li>
-            <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Ordenantza Berria</a></li>
-        {% else %}
-            <li><a href="{{ path('admin_historikoa_index') }}">Consulta del Historico</a></li>
-            <li>&nbsp;</li>
-            <li><a href="{{ path('admin_ordenantza_new') }}">Nueva Ordenanza</a></li>
-        {% endif %}
 
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "message.admin" | trans }}<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
                     <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
+                    <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza" |trans }}</a></li>
                     <li role="separator" class="divider"></li>
@@ -27,6 +30,14 @@
                 </ul>
             </li>
         {% endif %}
+
+        <li><a href="{{ path('admin_ordenantza_new') }}">{{ "Ordenantza Berria" | trans }}</a></li>
+        <li><a href="{{ path('admin_ordenantza_html') }}"> {{ "Odt-a eskuratu" | trans }} <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ path('admin_historikoa_index') }}">{{ "Historikoa ikusi" | trans }}</a></li>
+
+
+
         <li>&nbsp;</li>
         <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
         <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
@@ -81,7 +92,7 @@
                                 </li>
                             {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
                                 <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
