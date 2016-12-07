@@ -28,6 +28,7 @@ Ezabatu: Eliminar
 'GAO: Behin betiko onarpena': 'BOG: Aprobación definitiva'
 'Indarreko data': 'Fecha en vigor'
 Gorde: Guardar
+Ezeztatu: Cancelar
 'Itzuli zerrendara': 'Volver a la lista'
 messages.pasahitza: Pasahitza
 messages.pasahitzaerrepikatu: 'Errepikatu pasahitza'
@@ -48,3 +49,4 @@ message.kontzeptu.berria: ' Hecho imponible: DETALLE'
 message.admin: '  Configuración'
 'Ordenantza Berria': '  Nuevas Ordenanza'
 'Historikoa ikusi': '  Ver Historico'
+message.form.allData: 'Todos los campos son necesarios'

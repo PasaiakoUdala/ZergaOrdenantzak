@@ -3,6 +3,7 @@
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,7 +28,9 @@ class UserType extends AbstractType
             ->add('username')
             ->add('udala')
             ->add('enabled')
-            ->add('email')
+            ->add('email', EmailType::class, array(
+                'required' => true
+            ))
             ->add('roles',  ChoiceType::class, array(
                 'multiple' => true,
                 'choices'  => array(

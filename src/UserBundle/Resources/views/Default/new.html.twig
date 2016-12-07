@@ -2,14 +2,14 @@
 
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" onclick="document.forms['{{ form.vars.name }}'].submit()" class="fa fa-floppy-o"> Gorde</a></li>
+        <li><a href="#" class="btnGorde fa fa-floppy-o"> Gorde</a></li>
         <li><a href="{{ path('users_index') }}" class="fa fa-undo"> Utzi</a></li>
         <li>&nbspp;</li>
     </ul>
 {% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'user_add_form'}}) }}
 
     {% if is_granted('ROLE_SUPER_ADMIN') %}
     <div class="row">
@@ -68,6 +68,28 @@
     <div class="hidden">
         {{ form_end(form) }}
     </div>
-    {% endblock %}
+{% endblock %}
 
 
+{% block javascripts %}
+    {{ parent() }}
+
+    <script language="JavaScript">
+        $(document).ready(function () {
+
+            $('.btnGorde').on('click', function(){
+                var miform = $('#user_add_form');
+                var resp = $(miform)[0].checkValidity();
+
+                if ( resp === true ) {
+                    $(miform).submit();
+                } else {
+                    alert("{{ 'message.form.allData' | trans }}");
+                }
+
+            });
+
+
+        });
+    </script>
+{% endblock %}
