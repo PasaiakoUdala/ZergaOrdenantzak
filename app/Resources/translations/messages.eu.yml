@@ -34,6 +34,7 @@ Ezabatu: Ezabatu
 'GAO: Behin betiko onarpena': 'GAO: Behin betiko onarpena'
 'Indarreko data': 'Indarreko data'
 Gorde: Gorde
+Ezeztatu: Ezeztatu
 'Itzuli zerrendara': 'Itzuli zerrendara'
 messages.pasahitza: Pasahitza
 messages.pasahitzaerrepikatu: 'Errepikatu pasahitza'
@@ -54,3 +55,4 @@ message.kontzeptu.berria: ' Zerga-egintza: XEHETASUNA'
 message.admin: '  Konfigurazioa'
 'Ordenantza Berria': '  Ordenantza Berria'
 'Historikoa ikusi': '  Historikoa ikusi'
+message.form.allData: 'Beharrezkoa da datu guztiak zehaztea.'
