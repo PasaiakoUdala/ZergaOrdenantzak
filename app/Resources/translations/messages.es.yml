@@ -50,3 +50,6 @@ message.admin: '  Configuración'
 'Ordenantza Berria': '  Nuevas Ordenanza'
 'Historikoa ikusi': '  Ver Historico'
 message.form.allData: 'Todos los campos son necesarios'
+Ordenantza: Ordenanza
+Atala: Tributo
+zerga: Hecho imponible
