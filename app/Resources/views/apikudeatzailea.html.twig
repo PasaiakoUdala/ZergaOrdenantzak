@@ -126,9 +126,9 @@
                 }
                 $.each(result, function (i, field) {
                     if (locale === "es") {
-                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.izenburuaes_prod));
+                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.kodea_prod + " - " + field.izenburuaes_prod));
                     } else {
-                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.izenburuaeu_prod));
+                        $("#cmbOrdenantza").append($("<option></option>").attr("value", field.id).text(field.kodea_prod + " - " + field.izenburuaeu_prod));
                     }
                 });
             });
@@ -153,24 +153,24 @@
                     if (result.length === 0) {
                         return;
                     }
-                    console.log(result);
+
                     var atalak = result;
 
                     $.each(atalak, function (i, field) {
                         if (locale === "es") {
                             var txt ="";
                             if ( field.izenburuaes_prod.length > 200 ) {
-                                txt = field.izenburuaes_prod.substr(0, 200);
+                                txt = field.kodea_prod + " - " + field.izenburuaes_prod.substr(0, 200);
                             } else {
-                                txt = field.izenburuaes_prod;
+                                txt = field.kodea_prod + " - " + field.izenburuaes_prod;
                             }
                             $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
                         } else {
                             var txt ="";
                             if ( field.izenburuaes_prod.length > 200 ) {
-                                txt = field.izenburuaeu_prod.substr(0, 200);
+                                txt = field.kodea_prod + " - " + field.izenburuaeu_prod.substr(0, 200);
                             } else {
-                                txt = field.izenburuaeu_prod;
+                                txt = field.kodea_prod + " - " + field.izenburuaeu_prod;
                             }
                             $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
                         }
@@ -209,17 +209,17 @@
                         if (locale === "es") {
                             var txt ="";
                             if ( field2.izenburuaes_prod.length > 200 ) {
-                                txt = field2.izenburuaes_prod.substr(0, 200);
+                                txt = field2.kodea_prod + " - " + field2.izenburuaes_prod.substr(0, 200);
                             } else {
-                                txt = field2.izenburuaes_prod;
+                                txt = field2.kodea_prod + " - " + field2.izenburuaes_prod;
                             }
                             $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
                         } else {
                             var txt ="";
                             if ( field2.izenburuaeu_prod.length > 200 ) {
-                                txt = field2.izenburuaeu_prod.substr(0, 200);
+                                txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod.substr(0, 200);
                             } else {
-                                txt = field2.izenburuaeu_prod;
+                                txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod;
                             }
                             $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
                         }

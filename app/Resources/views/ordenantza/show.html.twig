@@ -30,7 +30,7 @@
 
 {% block nav %}
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ordenantza.izenburuaeu | capitalize }} <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ordenantza.kodea  ~ " - " ~ ordenantza.izenburuaeu | capitalize }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
             {% for atala in ordenantza.atalak  if atala.ezabatu != 1 %}
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
