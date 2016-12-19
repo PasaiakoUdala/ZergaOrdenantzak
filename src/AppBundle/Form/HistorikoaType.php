@@ -23,6 +23,8 @@ class HistorikoaType extends AbstractType
                 // do not render as type="date", to avoid HTML5 date pickers
                 'html5' => false,
 
+                'format' => 'yyyy-MM-dd',
+
                 // add a class that can eb selected in JavaScript
                 'attr' => ['class' => 'js-datepicker'],
             ))
@@ -31,6 +33,7 @@ class HistorikoaType extends AbstractType
 
                 // do not render as type="date", to avoid HTML5 date pickers
                 'html5' => false,
+                'format' => 'yyyy-MM-dd',
 
                 // add a class that can eb selected in JavaScript
                 'attr' => ['class' => 'js-datepicker'],
@@ -40,6 +43,7 @@ class HistorikoaType extends AbstractType
 
                 // do not render as type="date", to avoid HTML5 date pickers
                 'html5' => false,
+                'format' => 'yyyy-MM-dd',
 
                 // add a class that can eb selected in JavaScript
                 'attr' => ['class' => 'js-datepicker'],
@@ -51,6 +55,7 @@ class HistorikoaType extends AbstractType
 
                 // do not render as type="date", to avoid HTML5 date pickers
                 'html5' => false,
+                'format' => 'yyyy-MM-dd',
 
                 // add a class that can eb selected in JavaScript
                 'attr' => ['class' => 'js-datepicker'],
