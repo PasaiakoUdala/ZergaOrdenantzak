@@ -19,6 +19,6 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     # IZFE-ko login url-a
-    #izfe_login_path: "IZFE-ko login url-a, izfetik kanpo bazaude hutsik utzi"
+    izfe_login_path: "IZFE-ko login url-a, izfetik kanpo bazaude hutsik utzi"
 
     zzoo_aplikazioaren_API_url: "zzoo aplikazioaren api-rako url-a"
