@@ -3,7 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as Serializer;
+use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
 /**
@@ -11,6 +12,7 @@ use JMS\Serializer\Annotation\Expose;
  *
  * @ORM\Table(name="kontzeptua", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"}), @ORM\Index(name="baldintza_id_idx", columns={"baldintza_id"}), @ORM\Index(name="kontzeptumota_id_idx", columns={"kontzeptumota_id"})})
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  */
 class Kontzeptua
 {
@@ -25,7 +27,6 @@ class Kontzeptua
 
     /**
      * @var string
-     * @Expose
      *
      * @ORM\Column(name="kodea", type="string", length=9, nullable=true)
      */
@@ -33,6 +34,7 @@ class Kontzeptua
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kodea_prod", type="string", length=9, nullable=true)
      */
@@ -47,6 +49,7 @@ class Kontzeptua
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kontzeptuaeu_prod", type="text", length=65535, nullable=true)
      */
@@ -61,6 +64,7 @@ class Kontzeptua
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kontzeptuaes_prod", type="text", length=65535, nullable=true)
      */
@@ -75,6 +79,7 @@ class Kontzeptua
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="kopurua_prod", type="string", length=50, nullable=true)
      */
@@ -89,6 +94,7 @@ class Kontzeptua
     
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="unitatea_prod", type="string", length=50, nullable=true)
      */

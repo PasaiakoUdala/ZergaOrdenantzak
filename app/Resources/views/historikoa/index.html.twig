@@ -33,7 +33,7 @@
         {% for historikoa in historikoas %}
             <tr>
                 <td>{% if historikoa.onartzedata %}{{ historikoa.onartzedata|date('Y/m/d') }}{% endif %}</td>
-                <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}</td>
+                <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %} {{ " " ~ historikoa.bogargitaratzedatatestua }}</td>
                 <td>{{ historikoa.aldaketakeu |raw }}</td>
                 {% if app.user.udala %}
                     <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>

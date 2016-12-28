@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Azpiatalaparrafoa
  *
  * @ORM\Table(name="azpiatalaparrafoa", indexes={@ORM\Index(name="azpiatala_id_idx", columns={"azpiatala_id"})})
  * @ORM\Entity
+ * @ExclusionPolicy("all")
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
 class Azpiatalaparrafoa
@@ -32,6 +35,7 @@ class Azpiatalaparrafoa
 
     /**
      * @var integer
+     * @Expose
      *
      * @ORM\Column(name="ordena_prod", type="bigint", nullable=true)
      */
@@ -46,6 +50,7 @@ class Azpiatalaparrafoa
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="testuaeu_prod", type="text", length=65535, nullable=true)
      */
@@ -60,6 +65,7 @@ class Azpiatalaparrafoa
 
     /**
      * @var string
+     * @Expose
      *
      * @ORM\Column(name="testuaes_prod", type="text", length=65535, nullable=true)
      */
