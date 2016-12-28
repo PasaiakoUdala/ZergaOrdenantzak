@@ -66,6 +66,7 @@ class HistorikoaType extends AbstractType
             ->add('aldaketakes',CKEditorType::class, array(
                 'config_name' => 'my_config_1',
             ))
+            ->add('bogargitaratzedatatestua')
         ;
     }
     

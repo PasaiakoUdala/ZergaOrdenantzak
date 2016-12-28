@@ -38,6 +38,14 @@ class Historikoa
     private $bogargitaratzedata;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="$bogargitaratzedatatestua", type="string", length=255, nullable=true)
+     */
+    private $bogargitaratzedatatestua;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="bogbehinbetikodata", type="date", nullable=true)

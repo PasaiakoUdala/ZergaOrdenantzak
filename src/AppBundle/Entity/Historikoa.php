@@ -38,6 +38,14 @@ class Historikoa
     private $bogargitaratzedata;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="$bogargitaratzedatatestua", type="string", length=255, nullable=true)
+     */
+    private $bogargitaratzedatatestua;
+
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="bogbehinbetikodata", type="date", nullable=true)
@@ -431,5 +439,29 @@ class Historikoa
     public function getUdala()
     {
         return $this->udala;
+    }
+
+    /**
+     * Set bogargitaratzedatatestua
+     *
+     * @param string $bogargitaratzedatatestua
+     *
+     * @return Historikoa
+     */
+    public function setBogargitaratzedatatestua($bogargitaratzedatatestua)
+    {
+        $this->bogargitaratzedatatestua = $bogargitaratzedatatestua;
+
+        return $this;
+    }
+
+    /**
+     * Get bogargitaratzedatatestua
+     *
+     * @return string
+     */
+    public function getBogargitaratzedatatestua()
+    {
+        return $this->bogargitaratzedatatestua;
     }
 }
