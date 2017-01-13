@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-    <table class="table">
+    <table class="table" id="taulazerrenda">
         <thead>
         <tr>
             {% if is_granted('ROLE_SUPER_ADMIN') %}<th>Udala</th>{% endif %}
@@ -49,9 +49,9 @@
 
     <div class="text-center">
         {% if users is not empty %}
-            {% if pager.haveToPaginate %}
-                {{ pagerfanta(pager, 'twitter_bootstrap3_translated', {'routeName': 'users_index_paginated'}) }}
-            {% endif %}
+            {#{% if pager.haveToPaginate %}#}
+                {#{{ pagerfanta(pager, 'twitter_bootstrap3_translated', {'routeName': 'users_index_paginated'}) }}#}
+            {#{% endif %}#}
         {% else %}
             <p>Ez da emaitzarik topatu</p>
         {% endif %}

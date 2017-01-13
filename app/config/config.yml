@@ -35,6 +35,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
+    ide: "phpstorm://open?file=%%f&line=%%l"
 
 # Twig Configuration
 twig:
