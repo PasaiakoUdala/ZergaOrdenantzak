@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/datatables.min.css') }}"
+          rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/jquery.dataTables.min.css') }}"
+          rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/buttons.dataTables.min.css') }}"
+          rel="stylesheet"/>
+{% endblock %}
+
 {% block navright %}
     <ul class="nav navbar-nav navbar-right">
         <li>
@@ -61,6 +71,9 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/app/js/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/dataTables.buttons.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript">
         function ezabatu (id)
         {
@@ -72,5 +85,51 @@
             {
             }
         };
+        $(document).ready(function () {
+            $('#taulazerrenda').DataTable({
+                "language": {
+                    "sProcessing": "Prozesatzen...",
+                    "sLengthMenu": "Erakutsi _MENU_ erregistro",
+                    "sZeroRecords": "Ez da emaitzarik aurkitu",
+                    "sEmptyTable": "Taula hontan ez dago inongo datu erabilgarririk",
+                    "sInfo": "_START_ -etik _END_ -erako erregistroak erakusten, guztira _TOTAL_ erregistro",
+                    "sInfoEmpty": "0tik 0rako erregistroak erakusten, guztira 0 erregistro",
+                    "sInfoFiltered": "(guztira _MAX_ erregistro iragazten)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Aurkitu:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Abiarazten...",
+                    "oPaginate": {
+                        "sFirst": "Lehena",
+                        "sLast": "Azkena",
+                        "sNext": "Hurrengoa",
+                        "sPrevious": "Aurrekoa"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Zutabea goranzko eran ordenatzeko aktibatu ",
+                        "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
+                    },
+                    buttons: {
+                        pageLength: {
+                            _: "%d lerro erakutsi",
+                            '-1': "Lerro guztiak"
+                        }
+                    }
+                },
+
+                dom: 'Bfrtip',
+                lengthMenu: [
+                    [10, 25, 50, 100,  -1],
+                    ['10 lerro', '25 lerro', '50 lerro', '100 lerro', 'Guztiak']
+                ],
+                buttons: [
+                    'pageLength',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+            });
+        });
     </script>
 {% endblock %}
