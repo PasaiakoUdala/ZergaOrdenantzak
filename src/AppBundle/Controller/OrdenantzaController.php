@@ -634,9 +634,9 @@
         public function htmlAction ()
         {
             $em = $this->getDoctrine()->getManager();
-            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAll();
+            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAllOrderByKodea();
 
-            $nireordenantza = $this->render(
+            return $nireordenantza = $this->render(
                 'ordenantza/web.html.twig',
                 array (
                     'ordenantzas' => $ordenantzas,
