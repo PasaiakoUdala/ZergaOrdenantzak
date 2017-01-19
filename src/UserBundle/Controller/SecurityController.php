@@ -195,7 +195,7 @@
                 if ($form->isSubmitted() && $form->isValid()) {
                     $user->setPlainPassword( $user->getPassword());
                     $userManager->updateUser($user, true);
-                    return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+                    return $this->redirectToRoute('users_index');
                 }
                 return $this->render('UserBundle:Default:new.html.twig', array(
                     'user' => $user,
