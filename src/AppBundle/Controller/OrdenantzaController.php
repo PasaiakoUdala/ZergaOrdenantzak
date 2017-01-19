@@ -636,7 +636,7 @@
             $em = $this->getDoctrine()->getManager();
             $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAllOrderByKodea();
 
-            return $nireordenantza = $this->render(
+            $nireordenantza = $this->render(
                 'ordenantza/web.html.twig',
                 array (
                     'ordenantzas' => $ordenantzas,
