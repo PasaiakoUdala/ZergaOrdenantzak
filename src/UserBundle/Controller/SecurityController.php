@@ -164,29 +164,13 @@
             $userManager = $this->get('fos_user.user_manager');
             $users = $userManager->findUsers();
 
-
-            $adapter = new ArrayAdapter($users);
-            $pagerfanta = new Pagerfanta($adapter);
-
             $deleteForms = array();
             foreach ($users as $user) {
                 $deleteForms[$user->getId()] = $this->createDeleteForm($user)->createView();
             }
-            try {
-                $entities = $pagerfanta
-//                    ->setMaxPerPage($this->getUser()->getUdala()->getOrrikatzea())
-                    ->setMaxPerPage('25')
-                    ->setCurrentPage($page)
-                    ->getCurrentPageResults()
-                ;
-            } catch ( NotValidCurrentPageException $e) {
-                throw $this->createNotFoundException("Orria ez da existitzen");
-            }
 
             return $this->render('UserBundle:Default:users.html.twig', array(
-//                'users' =>   $users,
-                'users' => $entities,
-                'pager' => $pagerfanta,
+                'users' => $users,
                 'deleteforms'=> $deleteForms,
             ));
         }
