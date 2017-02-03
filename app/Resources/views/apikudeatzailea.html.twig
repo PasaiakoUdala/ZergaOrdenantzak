@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{  parent() }}
+    {{ parent() }}
     <link href="{{ asset('bundles/app/css/prism.css') }}" rel="stylesheet" media="screen">
     <style>
         .loading {
@@ -54,7 +54,7 @@
     <div class="row">
         <div class="row">
 
-            <div class="col-md-12 form-group" >
+            <div class="col-md-12 form-group">
                 <p>
                     <label for="cmbOrdenantza">{{ "Ordenantza" | trans }}</label>
                     <select name="cmbOrdenantza" id="cmbOrdenantza" style="width:100%"></select>
@@ -65,7 +65,7 @@
             <p></p>
         </div>
         <div class="row">
-            <div class="col-md-12 form-group" >
+            <div class="col-md-12 form-group">
                 <p>
                     <label for="cmbAtala">{{ "Atala" | trans }}</label>
                     <select name="cmbAtala" id="cmbAtala" style="width:100%"></select>
@@ -77,7 +77,7 @@
             <p></p>
         </div>
         <div class="row">
-            <div class="col-md-12 form-group" >
+            <div class="col-md-12 form-group">
                 <p>
                     <label for="cmbKontzeptua">{{ "zerga" | trans }}</label>
                     <select name="cmbKontzeptua" id="cmbKontzeptua" style="width:100%"></select>
@@ -89,17 +89,23 @@
     <div class="row">
         <div class="btn-group" role="group" aria-label="...">
             <button id="btnEuskera" type="button" class="btn btn-default">Euskeraz</button>
-            <button id="btnErdara"  type="button" class="btn btn-default">Erdaraz</button>
+            <button id="btnErdara" type="button" class="btn btn-default">Erdaraz</button>
         </div>
     </div>
     <div class="row">&nbsp;</div>
     <div class="row">&nbsp;</div>
     <div id="divResult" class="row" style="display: none;">
         <pre>
-            <code  id="result" class="language-html">
+            <code id="result" class="language-html">
 
             </code>
         </pre>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div class="row">&nbsp;</div>
+    <div id="emaitza" class="row">
+
     </div>
 
 {% endblock %}
@@ -115,13 +121,13 @@
             var param = "{{ zzoo_aplikazioaren_API_url }}";
             var udala = "{{ udala }}";
             var url = param + "/ordenantzak/" + udala + ".json";
-            var locale ="{{ app.request.getLocale() }}";
+            var locale = "{{ app.request.getLocale() }}";
 
             // Ordenantzak
             var jqxhr = $.getJSON(url, function (result) {
                 if (locale === "es") {
                     $("#cmbOrdenantza").append($("<option></option>").attr("value", -1).text("Selecciona"));
-                } else{
+                } else {
                     $("#cmbOrdenantza").append($("<option></option>").attr("value", -1).text("Aukeratu"));
                 }
                 $.each(result, function (i, field) {
@@ -146,7 +152,7 @@
                     $("#cmbAtala").empty();
                     if (locale === "es") {
                         $("#cmbAtala").append($("<option></option>").attr("value", -1).text("Selecciona"));
-                    } else{
+                    } else {
                         $("#cmbAtala").append($("<option></option>").attr("value", -1).text("Aukeratu"));
                     }
 
@@ -158,16 +164,16 @@
 
                     $.each(atalak, function (i, field) {
                         if (locale === "es") {
-                            var txt ="";
-                            if ( field.izenburuaes_prod.length > 200 ) {
+                            var txt = "";
+                            if (field.izenburuaes_prod.length > 200) {
                                 txt = field.kodea_prod + " - " + field.izenburuaes_prod.substr(0, 200);
                             } else {
                                 txt = field.kodea_prod + " - " + field.izenburuaes_prod;
                             }
                             $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
                         } else {
-                            var txt ="";
-                            if ( field.izenburuaes_prod.length > 200 ) {
+                            var txt = "";
+                            if (field.izenburuaes_prod.length > 200) {
                                 txt = field.kodea_prod + " - " + field.izenburuaeu_prod.substr(0, 200);
                             } else {
                                 txt = field.kodea_prod + " - " + field.izenburuaeu_prod;
@@ -194,7 +200,7 @@
                     $("#cmbKontzeptua").empty();
                     if (locale === "es") {
                         $("#cmbKontzeptua").append($("<option></option>").attr("value", -1).text("Selecciona"));
-                    } else{
+                    } else {
                         $("#cmbKontzeptua").append($("<option></option>").attr("value", -1).text("Aukeratu"));
                     }
 
@@ -207,16 +213,16 @@
                     $.each(azpiatalak, function (i, field2) {
 
                         if (locale === "es") {
-                            var txt ="";
-                            if ( field2.izenburuaes_prod.length > 200 ) {
+                            var txt = "";
+                            if (field2.izenburuaes_prod.length > 200) {
                                 txt = field2.kodea_prod + " - " + field2.izenburuaes_prod.substr(0, 200);
                             } else {
                                 txt = field2.kodea_prod + " - " + field2.izenburuaes_prod;
                             }
                             $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
                         } else {
-                            var txt ="";
-                            if ( field2.izenburuaeu_prod.length > 200 ) {
+                            var txt = "";
+                            if (field2.izenburuaeu_prod.length > 200) {
                                 txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod.substr(0, 200);
                             } else {
                                 txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod;
@@ -237,7 +243,8 @@
                 $('#result').empty();
                 $('#result').append(ekarriHtml('eu', miid));
                 Prism.highlightElement($('#result')[0]);
-                $('#divResult').show("slow" );
+                $('#divResult').show("slow");
+                eginAdibidea('eu', miid);
             });
 
             $('#btnErdara').on('click', function () {
@@ -245,57 +252,132 @@
                 $('#result').empty();
                 $('#result').append(ekarriHtml('es', miid));
                 Prism.highlightElement($('#result')[0]);
-                $('#divResult').show("slow" );
+                $('#divResult').show("slow");
+                eginAdibidea('es', miid);
             });
 
         });
 
+
+        function eginAdibidea($locale, $id) {
+            $('#emaitza').empty();
+            var url = "http://www.pasaia.eus/zzoo/api/zerga/" + $id + ".json"
+
+            if ($locale === "eu") {
+
+                $('#emaitza').append(
+                    `<p>Emaitza</p>
+                    <div>
+                        <table class="table table-bordered table-condensed" id="kostuTaula">
+                        <thead>
+                            <tr>
+                                <th>Deskribapena</th>
+                                <th>kopurua</th>
+                                <th>unitatea</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>`
+                );
+
+                $.getJSON(url, function (data) {
+                    var kontzeptuak = data.kontzeptuak;
+                    $.each(kontzeptuak, function (i, item) {
+                        var $tr = $('<tr>').append(
+                            $('<td>').text(item.kontzeptuaeu_prod),
+                            $('<td>').text(item.kopurua_prod),
+                            $('<td>').text(item.unitatea_prod)
+                        ).appendTo('#kostuTaula');
+                    });
+
+
+                });
+            } else {
+
+                $('#emaitza').append(
+                    `<p>Resultado</p>
+                    <div>
+                        <table class="table table-bordered table-condensed" id="kostuTaula">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Unidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>`
+                );
+
+                $.getJSON(url, function (data) {
+                    var kontzeptuak = data.kontzeptuak;
+                    $.each(kontzeptuak, function (i, item) {
+                        var $tr = $('<tr>').append(
+                            $('<td>').text(item.kontzeptuaes_prod),
+                            $('<td>').text(item.kopurua_prod),
+                            $('<td>').text(item.unitatea_prod)
+                        ).appendTo('#kostuTaula');
+                    });
+
+                });
+            }
+        }
+
         function ekarriHtml($locale, $apId) {
 
             var miHtml = "" +
-                "&lt;table class=&quot;table table-bordered table-condensed&quot; id=&quot;kostuTaula&quot;&gt;\n" +
-                "\t\t\t\t&lt;thead&gt;\n"+
+                "&lt;table class=&quot;table table-bordered table-condensed&quot; id=&quot;kostuTaula" + $apId + "&quot;&gt;\n" +
+                "\t\t\t\t&lt;thead&gt;\n" +
                 "\t\t\t\t\t&lt;tr&gt;\n";
-            if ($locale==="eu") {
+            if ($locale === "eu") {
                 miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;Deskribapena&lt;/th&gt;\n";
-            }
-
-            miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;kopurua&lt;/th&gt;\n"+
-                "\t\t\t\t\t\t&lt;th&gt;unitatea&lt;/th&gt;\n";
-            if ($locale==="es") {
+                miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;kopurua&lt;/th&gt;\n" +
+                    "\t\t\t\t\t\t&lt;th&gt;unitatea&lt;/th&gt;\n";
+            } else {
                 miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;Descripci&oacute;n&lt;/th&gt;\n";
+                miHtml = miHtml + "\t\t\t\t\t\t&lt;th&gt;Cantidad&lt;/th&gt;\n" +
+                    "\t\t\t\t\t\t&lt;th&gt;Unidad&lt;/th&gt;\n";
             }
 
-            miHtml = miHtml + "\t\t\t\t\t&lt;/tr&gt;\n"+
-                "\t\t\t\t&lt;/thead&gt;\n"+
-                "\t\t\t\t&lt;tbody&gt;\n"+
-                "\t\t\t\t\t&lt;tr&gt;\n"+
-                "\t\t\t\t\t&lt;/tr&gt;\n"+
-                "\t\t\t\t&lt;/tbody&gt;\n"+
-                "\t\t\t&lt;/table&gt;\n"+
-                "\n"+
-                "\n"+
-                "\t\t\t&lt;script   src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;   integrity=&quot;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&quot;   crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;\n"+
-                "\t\t\t&lt;script language=&quot;javascript&quot;&gt;\n"+
-                "\t\t\t\t$(document).ready(function() {\n"+
-                "\t\t\t\t\tvar url = &quot;http://miranda.sare.gipuzkoa.net/zergaordenantzak.dev/app_dev.php/api/azpiatalas/"+ $apId +".json&quot;;\n"+
-                "\t\t\t\t\t$.getJSON(url, function(data) {\n"+
-                "\t\t\t\t\t\tvar kontzeptuak = data.kontzeptuak;\n"+
-                "\t\t\t\t\t\t$.each( kontzeptuak, function( i, item ) {\n"+
+            miHtml = miHtml + "\t\t\t\t\t&lt;/tr&gt;\n" +
+                "\t\t\t\t&lt;/thead&gt;\n" +
+                "\t\t\t\t&lt;tbody&gt;\n" +
+                "\t\t\t\t\t&lt;tr&gt;\n" +
+                "\t\t\t\t\t&lt;/tr&gt;\n" +
+                "\t\t\t\t&lt;/tbody&gt;\n" +
+                "\t\t\t&lt;/table&gt;\n" +
+                "\n" +
+                "\n" +
+                "\t\t\t&lt;script   src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;   integrity=&quot;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&quot;   crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;\n" +
+                "\t\t\t&lt;script language=&quot;javascript&quot;&gt;\n" +
+                "\t\t\t\t$(document).ready(function() {\n" +
+                "\t\t\t\t\tvar url = &quot;http://www.pasaia.eus/zzoo/api/zerga/" + $apId + ".json&quot;;\n" +
+                "\t\t\t\t\t$.getJSON(url, function(data) {\n" +
+                "\t\t\t\t\t\tvar kontzeptuak = data.kontzeptuak;\n" +
+                "\t\t\t\t\t\t$.each( kontzeptuak, function( i, item ) {\n" +
                 "\t\t\t\t\t\t\tvar $tr = $('&lt;tr&gt;').append(\n";
-            if ($locale==="eu") {
+            if ($locale === "eu") {
                 miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaeu_prod),\n";
+                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n" +ª
+                    "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod)\n";
+            } else {
+                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaes_prod),\n";
+                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n" +
+                    "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod)\n";
             }
 
-            miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n"+
-                "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod),\n";
-            if ($locale==="es") {
-                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaes_prod)\n";
-            }
-
-            miHtml = miHtml + "\t\t\t\t\t\t).appendTo('#kostuTaula');\n"+
-                "\t\t\t\t\t});\n"+
-                "\t\t\t\t});\n"+
+            miHtml = miHtml + "\t\t\t\t\t\t\t).appendTo('#kostuTaula"+$apId+"');\n" +
+                "\t\t\t\t\t\t});\n" +
+                "\t\t\t\t\t});\n" +
+                "\t\t\t\t});\n" +
                 "\t\t\t&lt;/script&gt;";
 
             return miHtml;
