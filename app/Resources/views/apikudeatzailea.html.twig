@@ -215,19 +215,21 @@
                         if (locale === "es") {
                             var txt = "";
                             if (field2.izenburuaes_prod.length > 200) {
-                                txt = field2.kodea_prod + " - " + field2.izenburuaes_prod.substr(0, 200);
+                                txt = field2.kodea_prod + " - " + (field2.izenburuaes_prod.substr(0, 200)).replace("<br>","");
                             } else {
-                                txt = field2.kodea_prod + " - " + field2.izenburuaes_prod;
+                                txt = field2.kodea_prod + " - " + (field2.izenburuaes_prod).replace("<br>","");
                             }
-                            $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
+                            var sartu = $("<option></option>").attr("value", field2.id).attr("data-eu",field2.izenburuaeu_prod).attr("data-es",field2.izenburuaes_prod).text(txt);
+                            $("#cmbKontzeptua").append(sartu);
                         } else {
                             var txt = "";
                             if (field2.izenburuaeu_prod.length > 200) {
-                                txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod.substr(0, 200);
+                                txt = field2.kodea_prod + " - " + (field2.izenburuaeu_prod.substr(0, 200)).replace("<br>","");
                             } else {
-                                txt = field2.kodea_prod + " - " + field2.izenburuaeu_prod;
+                                txt = field2.kodea_prod + " - " + (field2.izenburuaeu_prod).replace("<br>","");
                             }
-                            $("#cmbKontzeptua").append($("<option></option>").attr("value", field2.id).text(txt));
+                            var sartu = $("<option></option>").attr("value", field2.id).attr("data-eu",field2.izenburuaeu_prod).attr("data-es",field2.izenburuaes_prod).text(txt);
+                            $("#cmbKontzeptua").append(sartu);
                         }
                     });
                 });
@@ -240,33 +242,36 @@
 
             $('#btnEuskera').on('click', function () {
                 var miid = $('#cmbKontzeptua').val();
+                var mitext = $('select[name=cmbKontzeptua] option:selected').data("eu");
                 $('#result').empty();
-                $('#result').append(ekarriHtml('eu', miid));
+                $('#result').append(ekarriHtml('eu', miid, mitext));
                 Prism.highlightElement($('#result')[0]);
                 $('#divResult').show("slow");
-                eginAdibidea('eu', miid);
+                eginAdibidea('eu', miid,mitext);
             });
 
             $('#btnErdara').on('click', function () {
                 var miid = $('#cmbKontzeptua').val();
+//                var mitext = $('#cmbKontzeptua').text();
+                var mitext = $('select[name=cmbKontzeptua] option:selected').data("es");
                 $('#result').empty();
-                $('#result').append(ekarriHtml('es', miid));
+                $('#result').append(ekarriHtml('es', miid, mitext));
                 Prism.highlightElement($('#result')[0]);
                 $('#divResult').show("slow");
-                eginAdibidea('es', miid);
+                eginAdibidea('es', miid,mitext);
             });
 
         });
 
 
-        function eginAdibidea($locale, $id) {
+        function eginAdibidea($locale, $id, $mitext) {
             $('#emaitza').empty();
-            var url = "http://www.pasaia.eus/zzoo/api/zerga/" + $id + ".json"
+            var url = "http://www.pasaia.eus/zzoo/api/zerga/" + $id + ".json";
 
             if ($locale === "eu") {
 
                 $('#emaitza').append(
-                    `<p>Emaitza</p>
+                    `<h3>` + $mitext + `</h3>
                     <div>
                         <table class="table table-bordered table-condensed" id="kostuTaula">
                         <thead>
@@ -287,10 +292,20 @@
                 $.getJSON(url, function (data) {
                     var kontzeptuak = data.kontzeptuak;
                     $.each(kontzeptuak, function (i, item) {
+
+                        if ( "baldintza" in item ) {
+                            var td1 = (item.kontzeptuaeu_prod + " (" + item.baldintza.baldintzaeu + ")").replace ("<br>","");
+                        } else {
+                            var td1 = (item.kontzeptuaeu_prod ).replace ("<br>","");
+                        }
+
+                        var td2 = (item.kopurua_prod).replace ("<br>","");
+                        var td3 = (item.unitatea_prod).replace("<br>", "");
+
                         var $tr = $('<tr>').append(
-                            $('<td>').text(item.kontzeptuaeu_prod),
-                            $('<td>').text(item.kopurua_prod),
-                            $('<td>').text(item.unitatea_prod)
+                            $('<td>').text(td1),
+                            $('<td>').text(td2),
+                            $('<td>').text(td3)
                         ).appendTo('#kostuTaula');
                     });
 
@@ -299,7 +314,7 @@
             } else {
 
                 $('#emaitza').append(
-                    `<p>Resultado</p>
+                    `<h3>` + $mitext + `</h3>
                     <div>
                         <table class="table table-bordered table-condensed" id="kostuTaula">
                         <thead>
@@ -320,10 +335,18 @@
                 $.getJSON(url, function (data) {
                     var kontzeptuak = data.kontzeptuak;
                     $.each(kontzeptuak, function (i, item) {
+                        if ( "baldintza" in item ) {
+                            var td1 = (item.kontzeptuaes_prod + " (" + item.baldintza.baldintzaes + ")").replace ("<br>","");
+                        } else {
+                            var td1 = (item.kontzeptuaeu_prod ).replace ("<br>","");
+                        }
+                        var td2 = (item.kopurua_prod).replace ("<br>","");
+                        var td3 = (item.unitatea_prod).replace("<br>", "");
+
                         var $tr = $('<tr>').append(
-                            $('<td>').text(item.kontzeptuaes_prod),
-                            $('<td>').text(item.kopurua_prod),
-                            $('<td>').text(item.unitatea_prod)
+                            $('<td>').text(td1),
+                            $('<td>').text(td2),
+                            $('<td>').text(td3)
                         ).appendTo('#kostuTaula');
                     });
 
@@ -331,10 +354,11 @@
             }
         }
 
-        function ekarriHtml($locale, $apId) {
+        function ekarriHtml($locale, $apId, mitext) {
 
             var miHtml = "" +
-                "&lt;table class=&quot;table table-bordered table-condensed&quot; id=&quot;kostuTaula" + $apId + "&quot;&gt;\n" +
+                "\t&lt;h3&gt;" + mitext + "&lt;/h3&gt;\n" +
+                "\t\t&lt;table class=&quot;table table-bordered table-condensed&quot; id=&quot;kostuTaula" + $apId + "&quot;&gt;\n" +
                 "\t\t\t\t&lt;thead&gt;\n" +
                 "\t\t\t\t\t&lt;tr&gt;\n";
             if ($locale === "eu") {
@@ -363,18 +387,22 @@
                 "\t\t\t\t\t$.getJSON(url, function(data) {\n" +
                 "\t\t\t\t\t\tvar kontzeptuak = data.kontzeptuak;\n" +
                 "\t\t\t\t\t\t$.each( kontzeptuak, function( i, item ) {\n" +
-                "\t\t\t\t\t\t\tvar $tr = $('&lt;tr&gt;').append(\n";
-            if ($locale === "eu") {
-                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaeu_prod),\n";
-                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n" +
-                    "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod)\n";
+                "\t\t\t\t\t\t\tif ( &quot;baldintza&quot; in item ) {\n";
+            if ($locale === "es") {
+                miHtml = miHtml + "\t\t\t\t\t\t\t\tvar td1 = (item.kontzeptuaes_prod + &quot; (&quot; + item.baldintza.baldintzaes + &quot;)&quot;).replace (&quot;&lt;br&gt;&quot;,&quot;&quot;);\n";
             } else {
-                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kontzeptuaes_prod),\n";
-                miHtml = miHtml + "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.kopurua_prod),\n" +
-                    "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(item.unitatea_prod)\n";
+                miHtml = miHtml + "\t\t\t\t\t\t\t\tvar td1 = (item.kontzeptuaeu_prod + &quot; (&quot; + item.baldintza.baldintzaeu + &quot;)&quot;).replace (&quot;&lt;br&gt;&quot;,&quot;&quot;);\n";
             }
-
-            miHtml = miHtml + "\t\t\t\t\t\t\t).appendTo('#kostuTaula"+$apId+"');\n" +
+            miHtml = miHtml + "\t\t\t\t\t\t\t} else {\n" +
+                "\t\t\t\t\t\t\t\tvar td1 = (item.kontzeptuaeu_prod ).replace (&quot;&lt;br&gt;&quot;,&quot;&quot;);\n" +
+                "\t\t\t\t\t\t\t}\n" +
+                "\t\t\t\t\t\t\tvar td2 = (item.kopurua_prod).replace (&quot;&lt;br&gt;&quot;,&quot;&quot;);\n" +
+                "\t\t\t\t\t\t\tvar td3 = (item.unitatea_prod).replace (&quot;&lt;br&gt;&quot;,&quot;&quot;);\n" +
+                "\t\t\t\t\t\t\tvar $tr = $('&lt;tr&gt;').append(\n" +
+                "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(td1),\n" +
+                "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(td2),\n" +
+                "\t\t\t\t\t\t\t\t$('&lt;td&gt;').text(td3)\n" +
+                "\t\t\t\t\t\t\t).appendTo('#kostuTaula" + $apId + "');\n" +
                 "\t\t\t\t\t\t});\n" +
                 "\t\t\t\t\t});\n" +
                 "\t\t\t\t});\n" +
