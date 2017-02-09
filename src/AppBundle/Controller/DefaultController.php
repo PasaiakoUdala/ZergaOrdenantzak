@@ -31,7 +31,7 @@ class DefaultController extends Controller
     public function apikudeatzaileaAction()
     {
         return $this->render('apikudeatzailea.html.twig', array(
-            'udala' => $this->getUser()->getUdala()->getId()
+            'udala' => $this->getUser()->getUdala()
         ));
     }
 
