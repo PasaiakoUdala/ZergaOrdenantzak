@@ -465,7 +465,7 @@ $(document).ready(function() {
 
                 if ( colap === 1) {
                     btnEzkutu = `onClick="javascript:MostrarOcultar('text_eus');" class="botoiaCollapse"`;
-                    divEzkutu = `class="cp_oculta" id="text_eus"`;
+                    divEzkutu = `class="cp_oculta cp_oculta`+ $id + `" id="text_eus"`;
                 }
 
                 var textua = `<h3 ` + btnEzkutu + `>` + $mitext + `</h3>
@@ -515,7 +515,7 @@ $(document).ready(function() {
 
                 if ( colap === 1) {
                     btnEzkutu = `onClick="javascript:MostrarOcultar('text_es');" class="botoiaCollapse"`;
-                    divEzkutu = `class="cp_oculta" id="text_es"`;
+                    divEzkutu = `class="cp_oculta cp_oculta` + $id +`" id="text_es"`;
                 }
 
                 var textua = `<h3 ` + btnEzkutu + `>` + $mitext + `</h3>
@@ -588,9 +588,9 @@ $(document).ready(function() {
             if ( colap === 1 ) {
                 nireH3 = "&#x3C;h3 id=&#x22;nireH3" + $apId + "&#x22; onclick=&#x22;javascript:MostrarOcultar(&#x27;text_eus" + $apId + "&#x27;);&#x22; class=&#x22;botoiaCollapse&#x22;&#x3E;&#x3C;/h3&#x3E;";
                 if ( $locale === "eu" ) {
-                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_eus" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
+                    nireDiv = "&#x3C;div class=&#x22;cp_oculta" + $apId + "&#x22; id=&#x22;text_eus" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
                 } else {
-                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_es" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
+                    nireDiv = "&#x3C;div class=&#x22;cp_oculta" + $apId + "&#x22; id=&#x22;text_es" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
                 }
             }
 
@@ -615,7 +615,7 @@ $(document).ready(function() {
 &#x3C;script src=&#x22;https://code.jquery.com/jquery-1.12.4.min.js&#x22; integrity=&#x22;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;&#x3C;/script&#x3E;
 &#x3C;script language=&#x22;javascript&#x22;&#x3E;
 &#x9;$(document).ready(function() {
-&#x9;&#x9;$(&#x27;.cp_oculta&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);
+&#x9;&#x9;$(&#x27;.cp_oculta` + $apId + `&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);
 &#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/` + $apId + `.json&#x22;;
 &#x9;&#x9;$.getJSON(url, function(data) {
 &#x9;&#x9;$(&#x27;#nireH3` + $apId + `&#x27;).text ((data.` + nireIzen + `).replace(&#x22;&#x3C;br&#x3E;&#x22;,&#x22;&#x22;).replace(&#x22;&#x26;nbsp;&#x22;,&#x22; &#x22;));
