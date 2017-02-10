@@ -23,7 +23,7 @@
         <tr>
             <th>{{ "Onartze data" | trans }}</th>
             <th>{{ "G.A.O. Argitaratze Data" | trans }}</th>
-            <th>{{ " GAO: Behin betiko onarpena"|trans }}</th>
+            <th>{{ "gao.b.b"|trans }}</th>
             <th>{{ "Aldaketak" | trans }}</th>
             <th>{{ "Fitxategia"| trans }}</th>
             <th></th>
@@ -37,7 +37,13 @@
                 <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}
                     {% if historikoa.bogargitaratzedatatestua %}{{ " Zuzenketak: " ~ historikoa.bogargitaratzedatatestua }}{% endif %}
                 </td>
-                <td>{{ historikoa.aldaketakeu |raw }}</td>
+                <td>
+                    {% if app.request.locale == "eu" %}
+                        {{ historikoa.aldaketakeu |raw }}
+                    {% else %}
+                        {{ historikoa.aldaketakes |raw }}
+                    {% endif %}
+                </td>
                 {% if app.user.udala %}
                     <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
                 {% else %}
