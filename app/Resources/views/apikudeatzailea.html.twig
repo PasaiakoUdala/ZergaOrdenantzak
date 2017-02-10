@@ -586,11 +586,11 @@ $(document).ready(function() {
 
 
             if ( colap === 1 ) {
-                nireH3 = "&#x3C;h3 id=&#x22;nireH3&#x22; onclick=&#x22;javascript:MostrarOcultar(&#x27;text_eus&#x27;);&#x22; class=&#x22;botoiaCollapse&#x22;&#x3E;&#x3C;/h3&#x3E;";
+                nireH3 = "&#x3C;h3 id=&#x22;nireH3&#x22; onclick=&#x22;javascript:MostrarOcultar(&#x27;text_eus" + $apId + "&#x27;);&#x22; class=&#x22;botoiaCollapse&#x22;&#x3E;&#x3C;/h3&#x3E;";
                 if ( $locale === "eu" ) {
-                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_eus&#x22; style=&#x22;display: block;&#x22;&#x3E;";
+                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_eus" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
                 } else {
-                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_es&#x22; style=&#x22;display: block;&#x22;&#x3E;";
+                    nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_es" + $apId + "&#x22; style=&#x22;display: block;&#x22;&#x3E;";
                 }
             }
 
@@ -618,7 +618,7 @@ $(document).ready(function() {
 &#x9;&#x9;$(&#x27;.cp_oculta&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);
 &#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/` + $apId + `.json&#x22;;
 &#x9;&#x9;$.getJSON(url, function(data) {
-&#x9;&#x9;$(&#x27;#nireH3&#x27;).text (data.` + nireIzen + `);
+&#x9;&#x9;$(&#x27;#nireH3&#x27;).text ((data.` + nireIzen + `).replace(&#x22;&#x3C;br&#x3E;&#x22;,&#x22;&#x22;).replace(&#x22;&#x26;nbsp;&#x22;,&#x22; &#x22;));
 &#x9;&#x9;&#x9;var kontzeptuak = data.kontzeptuak;
 &#x9;&#x9;&#x9;$.each(kontzeptuak, function(i, item) {
 &#x9;&#x9;&#x9;&#x9;if (&#x22;baldintza&#x22; in item) {
@@ -638,7 +638,7 @@ $(document).ready(function() {
 &#x9;});
 
 function MostrarOcultar(capa, enlace) {
-    $(&#x27;.cp_oculta&#x27;).toggle();
+  $(&#x27;#&#x27;+capa).toggle();
 }
 
 &#x3C;/script&#x3E;
