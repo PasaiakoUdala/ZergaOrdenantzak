@@ -25,7 +25,6 @@ Ezabatu: Eliminar
 'Aldaketak ezeztatu': 'Deshacer los cambios'
 'Udalbatzarrararen data': 'Fecha Pleno Municipal'
 'GAO: Hasierako onarpena': 'BOG: Aprobación inicial'
-'GAO: Behin betiko onarpena': 'BOG: Aprobación definitiva'
 'Indarreko data': 'Fecha en vigor'
 Gorde: Guardar
 Ezeztatu: Cancelar
@@ -52,4 +51,10 @@ message.admin: '  Configuración'
 message.form.allData: 'Todos los campos son necesarios'
 Ordenantza: Ordenanza
 Atala: Tributo
-zerga: Hecho imponible
+zerga: 'Hecho imponible'
+Multzokatzea: Agrupar
+Kopiatu: Copiar
+Kopiatua!: Copiado!
+'Erabili Ctrl + C kopiatzeko': '  Utiliza Ctrl + C para copiar'
+'gao.b.b': ' BOG: Aprobación definitiva'
+'Akats zuzenketak (testua)': '  Corrección de errores (testo)'

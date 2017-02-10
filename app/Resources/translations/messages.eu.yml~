@@ -56,4 +56,5 @@ message.admin: '  Konfigurazioa'
 'Ordenantza Berria': '  Ordenantza Berria'
 'Historikoa ikusi': '  Historikoa ikusi'
 message.form.allData: 'Beharrezkoa da datu guztiak zehaztea.'
-Atala: __Atala
+Atala: Tributua
+zerga: Zerga-egitatea
