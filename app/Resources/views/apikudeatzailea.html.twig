@@ -108,16 +108,21 @@
 
                 </div>
                 <div class="row">
+                    <div class="btn-group">
+                        <label class="checkbox-inline"><input type="checkbox" id="chkCollapse" name="chkCollapsable" value="{{ "Multzokatzea" | trans }}"> {{ "Multzokatzea" | trans }}</label>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                </div>
+                <div class="row">
                     <div class="btn-group" role="group" aria-label="...">
                         <button id="btnEuskera" type="button" class="btn btn-default">Euskeraz</button>
                         <button id="btnErdara" type="button" class="btn btn-default">Erdaraz</button>
-                        &nbsp;&nbsp;&nbsp;<label class="checkbox-inline"><input type="checkbox" id="chkCollapse" name="chkCollapsable" value="{{ "Multzokatzea" | trans }}"> {{ "Multzokatzea" | trans }}</label>
                     </div>
                 </div>
                 <div class="row">&nbsp;</div>
                 <div class="row">&nbsp;</div>
                 <div id="divResult" class="row" style="display: none;">
-                    <pre>
+                    <pre id="nireKodea" class="copytoclipboard">
                         <code id="result" class="language-html">
                         </code>
                     </pre>
@@ -272,6 +277,7 @@ $(document).ready(function() {
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/app/js/clipboard.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/prism.js') }}"></script>
     <script type="text/javascript">
 
@@ -285,11 +291,16 @@ $(document).ready(function() {
             }
         }
 
-
         $(function () {
             //kargatu ordenantzak API bidez
             $('#nireloader').addClass('loading');
             var param = "{{ zzoo_aplikazioaren_API_url }}";
+            // **************************************************
+            // **************************************************
+            // DEBUG ONLY!!!
+            param = "http://zzoo.dev/app_dev.php/api";
+            // **************************************************
+            // **************************************************
             var udala = "{{ udala.kodea }}";
             var url = param + "/ordenantzakbykodea/" + udala + ".json";
             var locale = "{{ app.request.getLocale() }}";
@@ -437,6 +448,12 @@ $(document).ready(function() {
         function eginAdibidea($locale, $id, $mitext) {
             $('#emaitza').empty();
             var url = "http://www.pasaia.eus/zzoo/api/zerga/" + $id + ".json";
+            // **************************************************
+            // **************************************************
+            // DEBUG ONLY!!!
+            var url = "http://zzoo.dev/app_dev.php/api/zerga/" + $id + ".json";
+            // **************************************************
+            // **************************************************
             var colap =0;
             if($("#chkCollapse").is(':checked')) {
                 colap = 1;
@@ -457,8 +474,8 @@ $(document).ready(function() {
                                     <thead>
                                         <tr>
                                             <th>Deskribapena</th>
-                                            <th>kopurua</th>
-                                            <th>unitatea</th>
+                                            <th>Kopurua</th>
+                                            <th>Unitatea</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -506,9 +523,9 @@ $(document).ready(function() {
                                     <table class="table table-bordered table-condensed" id="kostuTaula">
                                     <thead>
                                         <tr>
-                                            <th>Deskribapena</th>
-                                            <th>kopurua</th>
-                                            <th>unitatea</th>
+                                            <th>Descripción</th>
+                                            <th>Cantidad</th>
+                                            <th>Unidad</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -548,11 +565,28 @@ $(document).ready(function() {
                 colap = 1;
             }
 
-            var nireH3 = "&#x3C;h3&#x3E;undefined&#x3C;/h3&#x3E;";
+            var nireH3 = "&#x3C;h3 id=&#x22;nireH3&#x22; &#x3E;&#x3C;/h3&#x3E;";
             var nireDiv = "&#x3C;div&#x3E;";
+            var nireDesk = "Deskribapena";
+            var nireKop = "Kopurua";
+            var nireUni = "Salneurria";
+            var nireKontzep = "kontzeptuaeu_prod";
+            var nireBaldin = "baldintzaeu";
+            var nireIzen = "izenburuaeu_prod";
+
+            if ( $locale === "es") {
+                nireDesk = "Descripci&#xF3;n";
+                nireKop = "Cantidad";
+                nireUni = "Unidad";
+                nireKontzep = "kontzeptuaes_prod";
+                nireBaldin = "baldintzaes";
+                nireIzen = "izenburuaes_prod";
+            }
+
+
 
             if ( colap === 1 ) {
-                nireH3 = "&#x3C;h3 onclick=&#x22;javascript:MostrarOcultar(&#x27;text_eus&#x27;);&#x22; class=&#x22;botoiaCollapse&#x22;&#x3E;undefined&#x3C;/h3&#x3E;";
+                nireH3 = "&#x3C;h3 id=&#x22;nireH3&#x22; onclick=&#x22;javascript:MostrarOcultar(&#x27;text_eus&#x27;);&#x22; class=&#x22;botoiaCollapse&#x22;&#x3E;&#x3C;/h3&#x3E;";
                 if ( $locale === "eu" ) {
                     nireDiv = "&#x3C;div class=&#x22;cp_oculta&#x22; id=&#x22;text_eus&#x22; style=&#x22;display: block;&#x22;&#x3E;";
                 } else {
@@ -566,9 +600,9 @@ $(document).ready(function() {
 &#x9;&#x3C;table class=&#x22;table table-bordered table-condensed&#x22; id=&#x22;kostuTaulanull&#x22;&#x3E;
 &#x9;&#x9;&#x3C;thead&#x3E;
 &#x9;&#x9;&#x9;&#x3C;tr&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;Descripci&#xF3;n&#x3C;/th&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;Cantidad&#x3C;/th&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;Unidad&#x3C;/th&#x3E;
+&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireDesk + `&#x3C;/th&#x3E;
+&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireKop + `&#x3C;/th&#x3E;
+&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireUni +`&#x3C;/th&#x3E;
 &#x9;&#x9;&#x9;&#x3C;/tr&#x3E;
 &#x9;&#x9;&#x3C;/thead&#x3E;
 &#x9;&#x9;&#x3C;tbody&#x3E;
@@ -581,14 +615,16 @@ $(document).ready(function() {
 &#x3C;script src=&#x22;https://code.jquery.com/jquery-1.12.4.min.js&#x22; integrity=&#x22;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;&#x3C;/script&#x3E;
 &#x3C;script language=&#x22;javascript&#x22;&#x3E;
 &#x9;$(document).ready(function() {
-&#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/null.json&#x22;;
+&#x9;&#x9;$(&#x27;.cp_oculta&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);
+&#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/` + $apId + `.json&#x22;;
 &#x9;&#x9;$.getJSON(url, function(data) {
+&#x9;&#x9;$(&#x27;#nireH3&#x27;).text (data.` + nireIzen + `);
 &#x9;&#x9;&#x9;var kontzeptuak = data.kontzeptuak;
 &#x9;&#x9;&#x9;$.each(kontzeptuak, function(i, item) {
 &#x9;&#x9;&#x9;&#x9;if (&#x22;baldintza&#x22; in item) {
-&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.kontzeptuaes_prod + &#x22; (&#x22; + item.baldintza.baldintzaes + &#x22;)&#x22;).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
+&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.` + nireKontzep + ` + &#x22; (&#x22; + item.baldintza.` + nireBaldin +` + &#x22;)&#x22;).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
 &#x9;&#x9;&#x9;&#x9;} else {
-&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.kontzeptuaeu_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
+&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.` + nireKontzep + `).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
 &#x9;&#x9;&#x9;&#x9;}
 &#x9;&#x9;&#x9;&#x9;var td2 = (item.kopurua_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
 &#x9;&#x9;&#x9;&#x9;var td3 = (item.unitatea_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
@@ -600,12 +636,47 @@ $(document).ready(function() {
 &#x9;&#x9;&#x9;});
 &#x9;&#x9;});
 &#x9;});
+
+function MostrarOcultar(capa, enlace) {
+    $(&#x27;.cp_oculta&#x27;).toggle();
+}
+
 &#x3C;/script&#x3E;
 `;
             return miHtml;
 
         }
 
+    </script>
+    <script>
+        /* Prism copy to clipbaord for all pre with copytoclipboard class */
+        $('pre.copytoclipboard').each(function () {
+            $this = $(this);
+            $button = $('<button>{{ "Kopiatu" | trans }}</button>');
+            $this.wrap('<div/>').removeClass('copytoclipboard');
+            $wrapper = $this.parent();
+            $wrapper.addClass('copytoclipboard-wrapper').css({position: 'relative'})
+            $button.css({position: 'absolute', top: 10, right: 10}).appendTo($wrapper).addClass('copytoclipboard btn btn-default');
+            /* */
+            var copyCode = new Clipboard('button.copytoclipboard', {
+                target: function (trigger) {
+                    return trigger.previousElementSibling;
+                }
+            });
+            copyCode.on('success', function (event) {
+                event.clearSelection();
+                event.trigger.textContent = '{{ "Kopiatua!" | trans }}';
+                window.setTimeout(function () {
+                    event.trigger.textContent = '{{ "Kopiatu" | trans }}';
+                }, 2000);
+            });
+            copyCode.on('error', function (event) {
+                event.trigger.textContent = '{{ "Erabili Ctrl + C kopiatzeko" | trans }}';
+                window.setTimeout(function () {
+                    event.trigger.textContent = '{{ "Kopiatu" | trans }}';
+                }, 2000);
+            });
+        });
     </script>
 
 {% endblock %}
