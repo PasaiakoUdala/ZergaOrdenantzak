@@ -135,13 +135,16 @@
 
             <div role="tabpanel" class="tab-pane" id="profile"><!-- Tab Ordenantza -->
                 <div class="row">&nbsp;</div>
-
+                <div class="row">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button id="btnOrdenantzaEuskera" type="button" class="btn btn-default">Euskeraz</button>
+                        <button id="btnOrdenantzaErdara" type="button" class="btn btn-default">Erdaraz</button>
+                    </div>
+                </div>
                 <div id="divApiOrdenantza" class="row">
 
                     <pre>
-                        <code id="result" class="language-html">
-&#x3C;div class=&#x22;portlet-msg-info&#x22;&#x3E;&#x3C;strong&#x3E;Oharra: Informazio honek ez du balio juridikorik, bakarrik ematen da herritarrak jakinaren gainean egon daitezen&#x3C;/strong&#x3E;&#x3C;/div&#x3E;
-
+                        <code id="ordenatzaEuskeraz" class="language-html" style="display: none;">
 &#x3C;p&#x3E;&#x26;nbsp;&#x3C;/p&#x3E;
 &#x3C;style type=&#x22;text/css&#x22;&#x3E;.aui .RWD .journal-content-article ul&#x3E;li:before, .aui .RWD .portlet-blogs .entry-body ul&#x3E;li:before {
 content:none !important;
@@ -204,7 +207,7 @@ $(document).ready(function() {
                         var $tr = $(&#x27;&#x3C;tr&#x3E;&#x27;).append(
                             $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kontzeptuaeu_prod + &#x27;(&#x27; + baldintza.baldintzaeu + &#x27;)&#x27;),
                             $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kopurua_prod),
-                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.unitatea_prod + &#x27;(&#x27; + baldintza.baldintzaes + &#x27;)&#x27;)
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.unitatea_prod + &#x27;(&#x27; + baldintza.baldintzaeu + &#x27;)&#x27;)
                         ).appendTo(&#x27;#kostuTaula&#x27;);
                     }
 
@@ -242,6 +245,125 @@ $(document).ready(function() {
                             &#x27;       &#x3C;ul class=&#x22;besteul&#x22; &#x3E;&#x27; +
                             &#x27;           &#x3C;li class=&#x22;barnebane&#x22;&#x3E;&#x27; +
                             &#x27;               &#x3C;a class=&#x22;btntaula&#x22;   data-toggle=&#x22;tooltip&#x22; data-container=&#x22;body&#x22;  data-placement=&#x22;top&#x22; title=&#x22;Egin klik hemen kostu taula ikusteko&#x22; data-id=&#x22;&#x27;+azpiatala.id+&#x27;&#x22; href=&#x22;javascript:void(0);&#x22;&#x3E;&#x27; + azpiatala.kodea_prod + &#x27; &#x27; + azpiatala.izenburuaeu_prod +&#x27;&#x3C;/a&#x3E;&#x27; +
+                            &#x27;           &#x3C;/li&#x3E;&#x27; +
+                            &#x27;       &#x3C;/ul&#x3E;&#x27; +
+                            &#x27;   &#x3C;/li&#x3E;&#x27; +
+                            &#x27;&#x3C;/ul&#x3E;&#x3C;/li&#x3E;&#x27;
+                        );
+                    });
+
+                });
+
+            });
+            $(&#x27;#ulzzoo&#x27;).append( items.join(&#x27;&#x27;) );
+  $(&#x27;[data-toggle=&#x22;tooltip&#x22;]&#x27;).tooltip();
+        });
+
+    });
+
+&#x3C;/script&#x3E;
+                        </code>
+                        <code id="ordenatzaErderaz" class="language-html" style="display: none;">
+&#x3C;p&#x3E;&#x26;nbsp;&#x3C;/p&#x3E;
+&#x3C;style type=&#x22;text/css&#x22;&#x3E;.aui .RWD .journal-content-article ul&#x3E;li:before, .aui .RWD .portlet-blogs .entry-body ul&#x3E;li:before {
+content:none !important;
+}
+ul#ulzzoo {
+   margin-left:14px !important;
+}
+&#x3C;/style&#x3E;
+&#x3C;ul id=&#x22;ulzzoo&#x22;&#x3E;
+&#x3C;/ul&#x3E;
+
+&#x3C;div class=&#x22;modal fade&#x22; id=&#x22;nireModal&#x22; role=&#x22;dialog&#x22; tabindex=&#x22;-1&#x22;&#x3E;
+&#x3C;div class=&#x22;modal-dialog modal-lg&#x22; role=&#x22;document&#x22;&#x3E;
+&#x3C;div class=&#x22;modal-content&#x22;&#x3E;
+&#x3C;div class=&#x22;modal-header&#x22;&#x3E;&#x3C;button aria-label=&#x22;Close&#x22; class=&#x22;close&#x22; data-dismiss=&#x22;modal&#x22; type=&#x22;button&#x22;&#x3E;&#x3C;span aria-hidden=&#x22;true&#x22;&#x3E;&#xD7;&#x3C;/span&#x3E;&#x3C;/button&#x3E;
+
+&#x3C;h4 class=&#x22;modal-title&#x22; id=&#x22;modalTitle&#x22;&#x3E;&#x26;nbsp;&#x3C;/h4&#x3E;
+&#x3C;/div&#x3E;
+
+&#x3C;div class=&#x22;modal-body&#x22; id=&#x22;modalContent&#x22;&#x3E;&#x26;nbsp;&#x3C;/div&#x3E;
+
+&#x3C;div class=&#x22;modal-footer&#x22;&#x3E;&#x3C;button class=&#x22;btn btn-primary&#x22; data-dismiss=&#x22;modal&#x22; type=&#x22;button&#x22;&#x3E;Cerrar&#x3C;/button&#x3E;&#x3C;/div&#x3E;
+&#x3C;/div&#x3E;
+&#x3C;/div&#x3E;
+&#x3C;!-- /.modal-content --&#x3E;&#x3C;/div&#x3E;
+&#x3C;!-- /.modal-dialog --&#x3E;&#x3C;!-- /.modal --&#x3E;
+&#x3C;script src=&#x22;https://code.jquery.com/jquery-1.12.4.min.js&#x22; integrity=&#x22;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;&#x3C;/script&#x3E;
+&#x3C;script type=&#x22;text/javascript&#x22;&#x3E;
+
+
+$(document).ready(function() {
+        $(&#x27;[data-toggle=&#x22;tooltip&#x22;]&#x27;).tooltip()
+        var items = [];
+        var url = &#x22;http://www.pasaia.eus/zzoo/api/ordenantzakbykodea/{{ udala.kodea }}.json&#x22;;
+
+        var bootstrap_enabled = (typeof $().modal == &#x27;function&#x27;);
+        $(&#x27;body&#x27;).on(&#x27;click&#x27;, &#x27;a.btntaula&#x27;, function () {
+
+            var miid = $(this).data(&#x27;id&#x27;);
+            var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/&#x22; + miid + &#x22;.json&#x22;;
+            var nModal = $(&#x27;#nireModal&#x27;);
+            $(&#x27;#modalContent&#x27;).empty();
+            $.getJSON(url, function(data) {
+
+                $(&#x27;#modalTitle&#x27;).html(data.izenburuaes_prod);
+                $(&#x27;#modalContent&#x27;).html(&#x22;&#x3C;table id=&#x27;kostuTaula&#x27; class=&#x27;table table-bordered table-hover&#x27;&#x3E;&#x3C;/table&#x3E;&#x22;);
+
+                var kontzeptuak = data.kontzeptuak;
+
+                $.each( kontzeptuak, function( i, item ) {
+                    var baldintza = item.baldintza;
+
+                    if (!baldintza) {
+                        var $tr = $(&#x27;&#x3C;tr&#x3E;&#x27;).append(
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kontzeptuaes_prod),
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kopurua_prod),
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.unitatea_prod)
+                        ).appendTo(&#x27;#kostuTaula&#x27;);
+                    } else {
+                        var $tr = $(&#x27;&#x3C;tr&#x3E;&#x27;).append(
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kontzeptuaes_prod + &#x27;(&#x27; + baldintza.baldintzaes + &#x27;)&#x27;),
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.kopurua_prod),
+                            $(&#x27;&#x3C;td&#x3E;&#x27;).text(item.unitatea_prod + &#x27;(&#x27; + baldintza.baldintzaes + &#x27;)&#x27;)
+                        ).appendTo(&#x27;#kostuTaula&#x27;);
+                    }
+
+                });
+
+            });
+
+            $(&#x27;#nireModal&#x27;).modal()
+
+            //$(&#x22;#modalButton&#x22;).click();
+
+
+        });
+
+        $.getJSON(url, function(data) {
+            $.each( data, function( i, ordenantza ) {
+
+                items.push(&#x27;&#x3C;li class=&#x22;kaixoiker&#x22;&#x3E;&#x3C;a data-toggle=&#x22;tooltip&#x22; data-container=&#x22;body&#x22; data-placement=&#x22;top&#x22; title=&#x22;Egin klik hemen ordenantzaren textua ikusteko&#x22; target=&#x22;_blank&#x22;  href=&#x22;http://www.pasaia.eus/zzoo/ordenantza/&#x27; + ordenantza.id + &#x27;&#x22;&#x3E;&#x27; + ordenantza.kodea_prod + &#x27; - &#x27; + ordenantza.izenburuaeu_prod      +&#x27;&#x3C;/a&#x3E;&#x3C;/li&#x3E;&#x27;);
+                var atalak = ordenantza.atalak;
+                $.each( atalak, function( i1, atala ) {
+                    if (atala.izenburuaes_prod !== &#x22;&#x22;){
+                        if ( ( &#x27;kodea_prod&#x27; in atala ) &#x26;&#x26; ( &#x27;izenburuaes_prod&#x27; in atala ) ) {
+                            items.push(
+                                &#x27;&#x3C;li&#x3E;&#x3C;ul class=&#x22;nirul&#x22;&#x3E;&#x3C;li class=&#x22;nireli&#x22;&#x3E;&#x3C;a target=&#x22;_blank&#x22;  href=&#x22;http://www.pasaia.eus/zzoo/ordenantza/&#x27; + ordenantza.id   + &#x27;&#x22;&#x3E;&#x27; + atala.kodea_prod + &#x27; - &#x27; +  atala.izenburuaeu_prod +&#x27;&#x3C;/a&#x3E;&#x3C;/li&#x3E;&#x3C;/ul&#x3E;&#x3C;/li&#x3E;&#x27;
+                            );
+                        }
+                    }
+
+                    var azpiatalak = atala.azpiatalak;
+                    $.each( azpiatalak, function( i2, azpiatala ) {
+
+                        items.push(
+                            &#x27;&#x3C;li&#x3E;&#x3C;ul class=&#x22;barneul&#x22; style=&#x22;padding-left: 20px !important;&#x22;&#x3E;&#x27; +
+                            &#x27;   &#x3C;li class=&#x22;aupahi&#x22; style=&#x22;list-style:none;&#x22;&#x3E;&#x27; +
+                            &#x27;       &#x3C;ul class=&#x22;besteul&#x22; &#x3E;&#x27; +
+                            &#x27;           &#x3C;li class=&#x22;barnebane&#x22;&#x3E;&#x27; +
+                            &#x27;               &#x3C;a class=&#x22;btntaula&#x22;   data-toggle=&#x22;tooltip&#x22; data-container=&#x22;body&#x22;  data-placement=&#x22;top&#x22; title=&#x22;Egin klik hemen kostu taula ikusteko&#x22; data-id=&#x22;&#x27;+azpiatala.id+&#x27;&#x22; href=&#x22;javascript:void(0);&#x22;&#x3E;&#x27; + azpiatala.kodea_prod + &#x27; &#x27; + azpiatala.izenburuaes_prod +&#x27;&#x3C;/a&#x3E;&#x27; +
                             &#x27;           &#x3C;/li&#x3E;&#x27; +
                             &#x27;       &#x3C;/ul&#x3E;&#x27; +
                             &#x27;   &#x3C;/li&#x3E;&#x27; +
@@ -370,7 +492,6 @@ $(document).ready(function() {
                 });
             });
 
-
             // Kontzeptua
             $('#cmbAtala').on('change', function () {
 
@@ -442,6 +563,14 @@ $(document).ready(function() {
                 eginAdibidea('es', miid, mitext);
             });
 
+            $('#btnOrdenantzaEuskera').on('click', function () {
+                $('#ordenatzaErderaz').hide();
+                $('#ordenatzaEuskeraz').show();
+            });
+            $('#btnOrdenantzaErdara').on('click', function () {
+                $('#ordenatzaEuskeraz').hide();
+                $('#ordenatzaErderaz').show();
+            });
         });
 
 
