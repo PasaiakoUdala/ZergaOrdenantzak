@@ -48,6 +48,11 @@
                                 <a href="#" onclick="ezabatu({{ user.id }});" ><i class="fa fa-trash text-danger"></i></a>
                                 {{ form_end(deleteforms[user.id]) }}</li>
                         {% endif %}
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
+                            <li>
+                                <a href="{{ path('admin_ordenantza_index', { _switch_user: user.username }) }}"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </td>
             </tr>
