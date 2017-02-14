@@ -46,7 +46,7 @@
 <body data-spy="scroll" data-target="#navbar-example">
 
 <div id="navbar-example">
-    <nav class="navbar navbar-inverse navbar-fixed-top marginBottom-0" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top marginBottom-0 {% if is_granted('ROLE_PREVIOUS_ADMIN') %} inpersonalizatua {% endif %}" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                 <span class="sr-only">Toggle</span>
@@ -78,8 +78,14 @@
                         </ul>
                     </li>
                     <li>&nbsp;</li>
+                    <li>
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <li class="list-inline"><a href="{{ path('users_index', {'_switch_user': '_exit'}) }}">Modu arruntera itzuli</a></li>
+                        {% endif %}
+                    </li>
                 </ul>
                 <span>&nbsp;</span>
+
             {% endblock %}
 
         </div><!-- /.navbar-collapse -->

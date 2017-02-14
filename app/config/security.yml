@@ -26,6 +26,9 @@ security:
                 path:   /logout
                 target: /login
             anonymous:    true
+            switch_user:
+                provider:   fos_userbundle
+                role: ROLE_SUPER_ADMIN
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
