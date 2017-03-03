@@ -61,7 +61,7 @@
 
     <ul class="list-inline">
         <li>
-            <input class="btn btn-primary" type="submit" value="{{ "Gorde" | trans }}" />
+            <input class="btn btn-primary kargatzen" type="submit" value="{{ "Gorde" | trans }}"/>
         </li>
         <li>
             <a href="{{ path('admin_historikoa_index') }}">Itzuli zerrendara</a>
@@ -72,5 +72,32 @@
     {{ form_end(form) }}
 
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+
+        $(document).ajaxStart(function () {
+            $('#loading').show();
+        }).ajaxStop(function () {
+            $('#loading').hide();
+        });
+
+        $(document).ready(function () {
+
+            $('.kargatzen').on('click', function () {
+
+                var dialog = bootbox.dialog({
+                    message: '<p class="text-center">Itxaron apur bat PDF fitxategia sortzen den bitartean... </p>',
+                    closeButton: false
+                });
+
+
+            });
+
+        });
+    </script>
 {% endblock %}
 

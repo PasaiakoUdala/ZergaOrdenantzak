@@ -77,121 +77,7 @@ class HistorikoaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAll();
-
-        /** @var  $ordenantza \AppBundle\Entity\Ordenantza */
-        foreach ($ordenantzas as $ordenantza)
-        {
-            $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
-
-            /* Begiratu ezabatze marka duen, baldin badu ezabatu */
-            if ( $ordenantza->getEzabatu() == 1 ){
-                $em->remove( $ordenantza );
-            } else {
-
-                /* Historikora pasa, hau da prod eremuetara */
-
-                $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
-                $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
-                $ordenantza->setKodeaProd( $ordenantza->getKodea() );
-                $em->persist( $ordenantza );
-
-                foreach ( $ordenantza->getParrafoak() as $p) {
-                    /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
-                    $p->setOrdenaProd( $p->getOrdena() );
-                    $p->setTestuaesProd( $p->getTestuaes() );
-                    $p->setTestuaeuProd( $p->getTestuaeu() );
-                    $em->persist( $p );
-                }
-
-                foreach ( $ordenantza->getAtalak() as $atala  ) {
-
-                    if ( $atala->getEzabatu() == 1 ) {
-                        $em->remove( $atala );
-                        $em->persist( $atala );
-                    } else {
-                        $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
-                        $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
-                        $atala->setKodeaProd( $atala->getKodea() );
-                        $atala->setUtsaProd( $atala->getUtsa() );
-                        $em->persist( $atala );
-
-                        /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
-                        foreach ($atala->getParrafoak() as $atalaparrafoa ) {
-                            if ($atalaparrafoa->getEzabatu()==1){
-                                $em->remove( $atalaparrafoa );
-                                $em->persist( $atalaparrafoa );
-                            } else {
-                                $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
-                                $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
-                                $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
-                                $em->persist( $atalaparrafoa );
-                            }
-                        }
-
-                        /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
-                        foreach ($atala->getAzpiatalak() as $azpiatala) {
-                            if ($azpiatala->getEzabatu()==1){
-                                $em->remove( $azpiatala );
-                                $em->persist( $azpiatala );
-                            } else {
-                                $azpiatala->setKodeaProd( $azpiatala->getKodea() );
-                                $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
-                                $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
-                                $em->persist( $azpiatala );
-
-                                foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
-
-                                    if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
-                                        $em->remove( $azpiatalaparrafoa );
-                                        $em->persist( $azpiatalaparrafoa );
-                                    } else {
-                                        $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
-                                        $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
-                                        $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
-                                        $em->persist( $azpiatalaparrafoa );
-                                    }
-                                }
-
-
-                                foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
-
-                                    if ( $kontzeptua->getEzabatu() == 1 ) {
-                                        $em->remove( $kontzeptua );
-                                        $em->persist( $kontzeptua );
-                                    } else {
-                                        $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
-                                        $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
-                                        $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
-                                        $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
-                                        $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
-                                        $em->persist( $kontzeptua );
-                                    }
-                                }
-
-                                foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa){
-
-                                    if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
-                                        $em->remove( $azpiatalaparrafoa );
-                                        $em->persist( $azpiatalaparrafoa );
-                                    } else {
-                                        $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
-                                        $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
-                                        $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
-                                        $em->persist( $azpiatalaparrafoa );
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            $em->flush();
-
-        }
-
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAllOrderByKodea();
 
         $historikoa = new Historikoa();
         $form = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
@@ -199,6 +85,119 @@ class HistorikoaController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var  $ordenantza \AppBundle\Entity\Ordenantza */
+            foreach ($ordenantzas as $ordenantza)
+            {
+                $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+
+                /* Begiratu ezabatze marka duen, baldin badu ezabatu */
+                if ( $ordenantza->getEzabatu() == 1 ){
+                    $em->remove( $ordenantza );
+                } else {
+
+                    /* Historikora pasa, hau da prod eremuetara */
+
+                    $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
+                    $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
+                    $ordenantza->setKodeaProd( $ordenantza->getKodea() );
+                    $em->persist( $ordenantza );
+
+                    foreach ( $ordenantza->getParrafoak() as $p) {
+                        /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
+                        $p->setOrdenaProd( $p->getOrdena() );
+                        $p->setTestuaesProd( $p->getTestuaes() );
+                        $p->setTestuaeuProd( $p->getTestuaeu() );
+                        $em->persist( $p );
+                    }
+
+                    foreach ( $ordenantza->getAtalak() as $atala  ) {
+
+                        if ( $atala->getEzabatu() == 1 ) {
+                            $em->remove( $atala );
+                            $em->persist( $atala );
+                        } else {
+                            $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
+                            $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
+                            $atala->setKodeaProd( $atala->getKodea() );
+                            $atala->setUtsaProd( $atala->getUtsa() );
+                            $em->persist( $atala );
+
+                            /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
+                            foreach ($atala->getParrafoak() as $atalaparrafoa ) {
+                                if ($atalaparrafoa->getEzabatu()==1){
+                                    $em->remove( $atalaparrafoa );
+                                    $em->persist( $atalaparrafoa );
+                                } else {
+                                    $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
+                                    $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
+                                    $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
+                                    $em->persist( $atalaparrafoa );
+                                }
+                            }
+
+                            /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
+                            foreach ($atala->getAzpiatalak() as $azpiatala) {
+                                if ($azpiatala->getEzabatu()==1){
+                                    $em->remove( $azpiatala );
+                                    $em->persist( $azpiatala );
+                                } else {
+                                    $azpiatala->setKodeaProd( $azpiatala->getKodea() );
+                                    $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
+                                    $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
+                                    $em->persist( $azpiatala );
+
+                                    foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
+
+                                        if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
+                                            $em->remove( $azpiatalaparrafoa );
+                                            $em->persist( $azpiatalaparrafoa );
+                                        } else {
+                                            $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
+                                            $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
+                                            $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
+                                            $em->persist( $azpiatalaparrafoa );
+                                        }
+                                    }
+
+
+                                    foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+
+                                        if ( $kontzeptua->getEzabatu() == 1 ) {
+                                            $em->remove( $kontzeptua );
+                                            $em->persist( $kontzeptua );
+                                        } else {
+                                            $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
+                                            $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
+                                            $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
+                                            $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
+                                            $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
+                                            $em->persist( $kontzeptua );
+                                        }
+                                    }
+
+                                    foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa){
+
+                                        if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
+                                            $em->remove( $azpiatalaparrafoa );
+                                            $em->persist( $azpiatalaparrafoa );
+                                        } else {
+                                            $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
+                                            $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
+                                            $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
+                                            $em->persist( $azpiatalaparrafoa );
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $em->flush();
+
+            }
 
             /* PDF Fitxategia sortuko dugu*/
             /* @var MyCustomClass $pdf */
