@@ -24,8 +24,8 @@ use Pagerfanta\Adapter\ArrayAdapter;
  *
  * @Route("/{_locale}/admin/historikoa")
  */
-class HistorikoaController extends Controller
-{
+class HistorikoaController extends Controller {
+
     /**
      * Lists all Historikoa entities.
      *
@@ -37,33 +37,34 @@ class HistorikoaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $historikoas =  $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
+        $historikoas = $em->createQuery("SELECT h FROM AppBundle:Historikoa h order by h.id DESC")->getResult();
 
         $deleteForms = array();
 
-        foreach ($historikoas as $entity) {
-            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity)->createView();
+        foreach ($historikoas as $entity)
+        {
+            $deleteForms[ $entity->getId() ] = $this->createDeleteForm($entity)->createView();
         }
 
         $adapter = new ArrayAdapter($historikoas);
         $pagerfanta = new Pagerfanta($adapter);
 
-        try {
+        try
+        {
             $entities = $pagerfanta
                 ->setMaxPerPage(5)
                 ->setCurrentPage($page)
-                ->getCurrentPageResults()
-            ;
-        } catch ( NotValidCurrentPageException $e) {
+                ->getCurrentPageResults();
+        } catch (NotValidCurrentPageException $e)
+        {
             throw $this->createNotFoundException("Orria ez da existitzen");
         }
-
 
 
         return $this->render('historikoa/index.html.twig', array(
             'historikoas' => $entities,
             'deleteForms' => $deleteForms,
-            'pager' => $pagerfanta,
+            'pager'       => $pagerfanta,
         ));
     }
 
@@ -84,108 +85,130 @@ class HistorikoaController extends Controller
         $form->getData()->setUdala($this->getUser()->getUdala());
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
 
             /** @var  $ordenantza \AppBundle\Entity\Ordenantza */
             foreach ($ordenantzas as $ordenantza)
             {
-                $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea() );
+                $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea());
 
                 /* Begiratu ezabatze marka duen, baldin badu ezabatu */
-                if ( $ordenantza->getEzabatu() == 1 ){
-                    $em->remove( $ordenantza );
-                } else {
+                if ($ordenantza->getEzabatu() == 1)
+                {
+                    $em->remove($ordenantza);
+                } else
+                {
 
                     /* Historikora pasa, hau da prod eremuetara */
 
-                    $ordenantza->setIzenburuaesProd( $ordenantza->getIzenburuaes() );
-                    $ordenantza->setIzenburuaeuProd( $ordenantza->getIzenburuaeu() );
-                    $ordenantza->setKodeaProd( $ordenantza->getKodea() );
-                    $em->persist( $ordenantza );
+                    $ordenantza->setIzenburuaesProd($ordenantza->getIzenburuaes());
+                    $ordenantza->setIzenburuaeuProd($ordenantza->getIzenburuaeu());
+                    $ordenantza->setKodeaProd($ordenantza->getKodea());
+                    $em->persist($ordenantza);
 
-                    foreach ( $ordenantza->getParrafoak() as $p) {
+                    foreach ($ordenantza->getParrafoak() as $p)
+                    {
                         /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
-                        $p->setOrdenaProd( $p->getOrdena() );
-                        $p->setTestuaesProd( $p->getTestuaes() );
-                        $p->setTestuaeuProd( $p->getTestuaeu() );
-                        $em->persist( $p );
+                        $p->setOrdenaProd($p->getOrdena());
+                        $p->setTestuaesProd($p->getTestuaes());
+                        $p->setTestuaeuProd($p->getTestuaeu());
+                        $em->persist($p);
                     }
 
-                    foreach ( $ordenantza->getAtalak() as $atala  ) {
+                    foreach ($ordenantza->getAtalak() as $atala)
+                    {
 
-                        if ( $atala->getEzabatu() == 1 ) {
-                            $em->remove( $atala );
-                            $em->persist( $atala );
-                        } else {
-                            $atala->setIzenburuaeuProd( $atala->getIzenburuaeu() );
-                            $atala->setIzenburuaesProd( $atala->getIzenburuaes() );
-                            $atala->setKodeaProd( $atala->getKodea() );
-                            $atala->setUtsaProd( $atala->getUtsa() );
-                            $em->persist( $atala );
+                        if ($atala->getEzabatu() == 1)
+                        {
+                            $em->remove($atala);
+                            $em->persist($atala);
+                        } else
+                        {
+                            $atala->setIzenburuaeuProd($atala->getIzenburuaeu());
+                            $atala->setIzenburuaesProd($atala->getIzenburuaes());
+                            $atala->setKodeaProd($atala->getKodea());
+                            $atala->setUtsaProd($atala->getUtsa());
+                            $em->persist($atala);
 
                             /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
-                            foreach ($atala->getParrafoak() as $atalaparrafoa ) {
-                                if ($atalaparrafoa->getEzabatu()==1){
-                                    $em->remove( $atalaparrafoa );
-                                    $em->persist( $atalaparrafoa );
-                                } else {
-                                    $atalaparrafoa->setOrdenaProd( $atalaparrafoa->getOrdena() );
-                                    $atalaparrafoa->setTestuaesProd( $atalaparrafoa->getTestuaes() );
-                                    $atalaparrafoa->setTestuaeuProd( $atalaparrafoa->getTestuaeu() );
-                                    $em->persist( $atalaparrafoa );
+                            foreach ($atala->getParrafoak() as $atalaparrafoa)
+                            {
+                                if ($atalaparrafoa->getEzabatu() == 1)
+                                {
+                                    $em->remove($atalaparrafoa);
+                                    $em->persist($atalaparrafoa);
+                                } else
+                                {
+                                    $atalaparrafoa->setOrdenaProd($atalaparrafoa->getOrdena());
+                                    $atalaparrafoa->setTestuaesProd($atalaparrafoa->getTestuaes());
+                                    $atalaparrafoa->setTestuaeuProd($atalaparrafoa->getTestuaeu());
+                                    $em->persist($atalaparrafoa);
                                 }
                             }
 
                             /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
-                            foreach ($atala->getAzpiatalak() as $azpiatala) {
-                                if ($azpiatala->getEzabatu()==1){
-                                    $em->remove( $azpiatala );
-                                    $em->persist( $azpiatala );
-                                } else {
-                                    $azpiatala->setKodeaProd( $azpiatala->getKodea() );
-                                    $azpiatala->setIzenburuaesProd( $azpiatala->getIzenburuaes() );
-                                    $azpiatala->setIzenburuaeuProd( $azpiatala->getIzenburuaeu() );
-                                    $em->persist( $azpiatala );
+                            foreach ($atala->getAzpiatalak() as $azpiatala)
+                            {
+                                if ($azpiatala->getEzabatu() == 1)
+                                {
+                                    $em->remove($azpiatala);
+                                    $em->persist($azpiatala);
+                                } else
+                                {
+                                    $azpiatala->setKodeaProd($azpiatala->getKodea());
+                                    $azpiatala->setIzenburuaesProd($azpiatala->getIzenburuaes());
+                                    $azpiatala->setIzenburuaeuProd($azpiatala->getIzenburuaeu());
+                                    $em->persist($azpiatala);
 
-                                    foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa){
+                                    foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa)
+                                    {
 
-                                        if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
-                                            $em->remove( $azpiatalaparrafoa );
-                                            $em->persist( $azpiatalaparrafoa );
-                                        } else {
-                                            $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
-                                            $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
-                                            $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
-                                            $em->persist( $azpiatalaparrafoa );
+                                        if ($azpiatalaparrafoa->getEzabatu() == 1)
+                                        {
+                                            $em->remove($azpiatalaparrafoa);
+                                            $em->persist($azpiatalaparrafoa);
+                                        } else
+                                        {
+                                            $azpiatalaparrafoa->setTestuaesProd($azpiatalaparrafoa->getTestuaes());
+                                            $azpiatalaparrafoa->setTestuaeuProd($azpiatalaparrafoa->getTestuaeu());
+                                            $azpiatalaparrafoa->setOrdenaProd($azpiatalaparrafoa->getOrdena());
+                                            $em->persist($azpiatalaparrafoa);
                                         }
                                     }
 
 
-                                    foreach ($azpiatala->getKontzeptuak() as $kontzeptua){
+                                    foreach ($azpiatala->getKontzeptuak() as $kontzeptua)
+                                    {
 
-                                        if ( $kontzeptua->getEzabatu() == 1 ) {
-                                            $em->remove( $kontzeptua );
-                                            $em->persist( $kontzeptua );
-                                        } else {
-                                            $kontzeptua->setKodeaProd( $kontzeptua->getKodea() );
-                                            $kontzeptua->setKontzeptuaesProd( $kontzeptua->getKontzeptuaes() );
-                                            $kontzeptua->setKontzeptuaeuProd( $kontzeptua->getKontzeptuaeu() );
-                                            $kontzeptua->setKopuruaProd( $kontzeptua->getKopurua() );
-                                            $kontzeptua->setUnitateaProd( $kontzeptua->getUnitatea() );
-                                            $em->persist( $kontzeptua );
+                                        if ($kontzeptua->getEzabatu() == 1)
+                                        {
+                                            $em->remove($kontzeptua);
+                                            $em->persist($kontzeptua);
+                                        } else
+                                        {
+                                            $kontzeptua->setKodeaProd($kontzeptua->getKodea());
+                                            $kontzeptua->setKontzeptuaesProd($kontzeptua->getKontzeptuaes());
+                                            $kontzeptua->setKontzeptuaeuProd($kontzeptua->getKontzeptuaeu());
+                                            $kontzeptua->setKopuruaProd($kontzeptua->getKopurua());
+                                            $kontzeptua->setUnitateaProd($kontzeptua->getUnitatea());
+                                            $em->persist($kontzeptua);
                                         }
                                     }
 
-                                    foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa){
+                                    foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa)
+                                    {
 
-                                        if ( $azpiatalaparrafoa->getEzabatu() == 1 ) {
-                                            $em->remove( $azpiatalaparrafoa );
-                                            $em->persist( $azpiatalaparrafoa );
-                                        } else {
-                                            $azpiatalaparrafoa->setTestuaesProd( $azpiatalaparrafoa->getTestuaes() );
-                                            $azpiatalaparrafoa->setTestuaeuProd( $azpiatalaparrafoa->getTestuaeu() );
-                                            $azpiatalaparrafoa->setOrdenaProd( $azpiatalaparrafoa->getOrdena() );
-                                            $em->persist( $azpiatalaparrafoa );
+                                        if ($azpiatalaparrafoa->getEzabatu() == 1)
+                                        {
+                                            $em->remove($azpiatalaparrafoa);
+                                            $em->persist($azpiatalaparrafoa);
+                                        } else
+                                        {
+                                            $azpiatalaparrafoa->setTestuaesProd($azpiatalaparrafoa->getTestuaes());
+                                            $azpiatalaparrafoa->setTestuaeuProd($azpiatalaparrafoa->getTestuaeu());
+                                            $azpiatalaparrafoa->setOrdenaProd($azpiatalaparrafoa->getOrdena());
+                                            $em->persist($azpiatalaparrafoa);
                                         }
                                     }
 
@@ -207,19 +230,19 @@ class HistorikoaController extends Controller
 
 
             $pdf->SetAuthor($this->getUser()->getUdala());
-            $pdf->SetTitle($this->getUser()->getUdala()."-Zerga Ordenantzak");
+            $pdf->SetTitle($this->getUser()->getUdala() . "-Zerga Ordenantzak");
 
             $pdf->setFontSubsetting(true);
             $pdf->SetFont('helvetica', '', 11, '', true);
 
-            $pdf->setHeaderData('',0,'','',array(0,0,0), array(255,255,255) );
+            $pdf->setHeaderData('', 0, '', '', array(0, 0, 0), array(255, 255, 255));
 
             $pdf->AddPage();
 
-            $eguna=date("Y-m-d_His");
-            $filename = $this->getFilename( $this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-".$eguna );
+            $eguna = date("Y-m-d_His");
+            $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-" . $eguna);
 
-            $azala = $this->render('ordenantza/azala.html.twig',array('eguna'=>date("Y"),'udala'=>$this->getUser()->getUdala()));
+            $azala = $this->render('ordenantza/azala.html.twig', array('eguna' => date("Y"), 'udala' => $this->getUser()->getUdala()));
             $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
             $pdf->AddPage();
@@ -232,10 +255,9 @@ class HistorikoaController extends Controller
             }
 
 
+            $pdf->Output($filename . ".pdf", 'F'); // This will output the PDF as a response directly
 
-            $pdf->Output($filename.".pdf",'F'); // This will output the PDF as a response directly
-
-            $historikoa->setFitxategia("ZergaOrdenantzak-".$eguna.".pdf");
+            $historikoa->setFitxategia("ZergaOrdenantzak-" . $eguna . ".pdf");
             $em->persist($historikoa);
             $em->flush();
 
@@ -244,7 +266,7 @@ class HistorikoaController extends Controller
 
         return $this->render('historikoa/new.html.twig', array(
             'historikoa' => $historikoa,
-            'form' => $form->createView(),
+            'form'       => $form->createView(),
         ));
     }
 
@@ -259,7 +281,7 @@ class HistorikoaController extends Controller
         $deleteForm = $this->createDeleteForm($historikoa);
 
         return $this->render('historikoa/show.html.twig', array(
-            'historikoa' => $historikoa,
+            'historikoa'  => $historikoa,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -276,7 +298,8 @@ class HistorikoaController extends Controller
         $editForm = $this->createForm('AppBundle\Form\HistorikoaType', $historikoa);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->persist($historikoa);
             $em->flush();
@@ -285,8 +308,8 @@ class HistorikoaController extends Controller
         }
 
         return $this->render('historikoa/edit.html.twig', array(
-            'historikoa' => $historikoa,
-            'edit_form' => $editForm->createView(),
+            'historikoa'  => $historikoa,
+            'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -302,7 +325,8 @@ class HistorikoaController extends Controller
         $form = $this->createDeleteForm($historikoa);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->remove($historikoa);
             $em->flush();
@@ -323,8 +347,7 @@ class HistorikoaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_historikoa_delete', array('id' => $historikoa->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     private function getFilename($udala, $ordenantzaKodea)
@@ -333,15 +356,18 @@ class HistorikoaController extends Controller
 
         $base = $this->get('kernel')->getRootDir() . '/../web/doc/';
 
-        try {
-            if ( $fs->exists($base . $udala) == false ) {
-                $fs->mkdir($base .$udala);
+        try
+        {
+            if ($fs->exists($base . $udala) == false)
+            {
+                $fs->mkdir($base . $udala);
             }
-        } catch (IOExceptionInterface $e) {
-            echo "Arazoa bat egon da karpeta sortzerakoan ".$e->getPath();
+        } catch (IOExceptionInterface $e)
+        {
+            echo "Arazoa bat egon da karpeta sortzerakoan " . $e->getPath();
         }
 
-        return $base.$udala."/".$ordenantzaKodea;
+        return $base . $udala . "/" . $ordenantzaKodea;
 
     }
 }
