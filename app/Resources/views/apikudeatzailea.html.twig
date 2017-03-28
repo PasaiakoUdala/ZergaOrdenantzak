@@ -469,18 +469,23 @@ $(document).ready(function() {
                     $.each(atalak, function (i, field) {
                         if (locale === "es") {
                             var txt = "";
-                            if (field.izenburuaes_prod.length > 200) {
-                                txt = field.kodea_prod + " - " + field.izenburuaes_prod.substr(0, 200);
-                            } else {
-                                txt = field.kodea_prod + " - " + field.izenburuaes_prod;
+                            if ('izenburuaes_prod' in field) {
+                                if (field.izenburuaes_prod.length > 200) {
+                                    txt = field.kodea_prod + " - " + field.izenburuaes_prod.substr(0, 200);
+                                } else {
+                                    txt = field.kodea_prod + " - " + field.izenburuaes_prod;
+                                }
                             }
+
                             $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
                         } else {
                             var txt = "";
-                            if (field.izenburuaes_prod.length > 200) {
-                                txt = field.kodea_prod + " - " + field.izenburuaeu_prod.substr(0, 200);
-                            } else {
-                                txt = field.kodea_prod + " - " + field.izenburuaeu_prod;
+                            if ('izenburuaes_prod' in field) {
+                                if (field.izenburuaeu_prod.length > 200) {
+                                    txt = field.kodea_prod + " - " + field.izenburuaeu_prod.substr(0, 200);
+                                } else {
+                                    txt = field.kodea_prod + " - " + field.izenburuaeu_prod;
+                                }
                             }
                             $("#cmbAtala").append($("<option></option>").attr("value", field.id).text(txt));
                         }
@@ -593,26 +598,26 @@ $(document).ready(function() {
                 var divEzkutu ="";
 
                 if ( colap === 1) {
-                    btnEzkutu = `onClick="javascript:MostrarOcultar('text_eus');" class="botoiaCollapse"`;
-                    divEzkutu = `class="cp_oculta cp_oculta`+ $id + `" id="text_eus"`;
+                    btnEzkutu = 'onClick="javascript:MostrarOcultar(\'text_eus\');" class="botoiaCollapse"';
+                    divEzkutu = 'class="cp_oculta cp_oculta'+ $id + '" id="text_eus"';
                 }
 
-                var textua = `<h3 ` + btnEzkutu + `>` + $mitext + `</h3>
-                                <div ` + divEzkutu + `>
-                                    <table class="table table-bordered table-condensed" id="kostuTaula">
-                                    <thead>
-                                        <tr>
-                                            <th>Deskribapena</th>
-                                            <th>Kopurua</th>
-                                            <th>Unitatea</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-                                </div>`;
+                var textua = '<h3 ' + btnEzkutu + '>' + $mitext + '</h3>'+
+                                '<div ' + divEzkutu + '>'+
+                                    '<table class="table table-bordered table-condensed" id="kostuTaula">'+
+                                    '<thead>'+
+                                        '<tr>'+
+                                        '    <th>Deskribapena</th>'+
+                                        '    <th>Kopurua</th>'+
+                                        '    <th>Unitatea</th>'+
+                                        '</tr>'+
+                                    '</thead>'+
+                                    '<tbody>'+
+                                       '<tr>'+
+                                        '</tr>'+
+                                    '</tbody>'+
+                                    '</table>'+
+                                '</div>';
                 $('#emaitza').append(textua);
 
                 $.getJSON(url, function (data) {
@@ -643,26 +648,26 @@ $(document).ready(function() {
                 var divEzkutu ="";
 
                 if ( colap === 1) {
-                    btnEzkutu = `onClick="javascript:MostrarOcultar('text_es');" class="botoiaCollapse"`;
-                    divEzkutu = `class="cp_oculta cp_oculta` + $id +`" id="text_es"`;
+                    btnEzkutu = 'onClick="javascript:MostrarOcultar(\'text_es\');" class="botoiaCollapse"';
+                    divEzkutu = 'class="cp_oculta cp_oculta' + $id +'" id="text_es"';
                 }
 
-                var textua = `<h3 ` + btnEzkutu + `>` + $mitext + `</h3>
-                                <div ` + divEzkutu + `>
-                                    <table class="table table-bordered table-condensed" id="kostuTaula">
-                                    <thead>
-                                        <tr>
-                                            <th>Descripción</th>
-                                            <th>Cantidad</th>
-                                            <th>Unidad</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-                                </div>`;
+                var textua = '<h3 ' + btnEzkutu + '>' + $mitext + '</h3>'+
+                             '   <div ' + divEzkutu + '>'+
+                             '       <table class="table table-bordered table-condensed" id="kostuTaula">'+
+                             '       <thead>'+
+                             '           <tr>'+
+                             '               <th>Descripción</th>'+
+                             '               <th>Cantidad</th>'+
+                             '               <th>Unidad</th>'+
+                             '           </tr>'+
+                             '       </thead>'+
+                             '       <tbody>'+
+                             '           <tr>'+
+                             '           </tr>'+
+                             '       </tbody>'+
+                             '       </table>'+
+                             '   </div>';
 
                 $('#emaitza').append(textua);
 
@@ -722,55 +727,54 @@ $(document).ready(function() {
                 }
             }
 
-            var miHtml =`
-` + nireH3 + `
-` + nireDiv + `
-&#x9;&#x3C;table class=&#x22;table table-bordered table-condensed&#x22; id=&#x22;kostuTaula` + $apId +`&#x22;&#x3E;
-&#x9;&#x9;&#x3C;thead&#x3E;
-&#x9;&#x9;&#x9;&#x3C;tr&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireDesk + `&#x3C;/th&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireKop + `&#x3C;/th&#x3E;
-&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;` + nireUni +`&#x3C;/th&#x3E;
-&#x9;&#x9;&#x9;&#x3C;/tr&#x3E;
-&#x9;&#x9;&#x3C;/thead&#x3E;
-&#x9;&#x9;&#x3C;tbody&#x3E;
-&#x9;&#x9;&#x9;&#x3C;tr&#x3E;
-&#x9;&#x9;&#x9;&#x3C;/tr&#x3E;
-&#x9;&#x9;&#x3C;/tbody&#x3E;
-&#x9;&#x3C;/table&#x3E;
-&#x3C;/div&#x3E;
+            var miHtml =''+
+nireH3 + '\n' +
+nireDiv + '\n' +
+'&#x9;&#x3C;table class=&#x22;table table-bordered table-condensed&#x22; id=&#x22;kostuTaula' + $apId +'&#x22;&#x3E;'+'\n' +
+'&#x9;&#x9;&#x3C;thead&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x3C;tr&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;' + nireDesk + '&#x3C;/th&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;' + nireKop + '&#x3C;/th&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x3C;th&#x3E;' + nireUni +'&#x3C;/th&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x3C;/tr&#x3E;'+'\n' +
+'&#x9;&#x9;&#x3C;/thead&#x3E;'+'\n' +
+'&#x9;&#x9;&#x3C;tbody&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x3C;tr&#x3E;'+'\n' +
+'&#x9;&#x9;&#x9;&#x3C;/tr&#x3E;'+'\n' +
+'&#x9;&#x9;&#x3C;/tbody&#x3E;'+'\n' +
+'&#x9;&#x3C;/table&#x3E;'+'\n' +
+'&#x3C;/div&#x3E;'+'\n' +
 
-&#x3C;script src=&#x22;https://code.jquery.com/jquery-1.12.4.min.js&#x22; integrity=&#x22;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;&#x3C;/script&#x3E;
-&#x3C;script language=&#x22;javascript&#x22;&#x3E;
-&#x9;$(document).ready(function() {
-&#x9;&#x9;$(&#x27;.cp_oculta` + $apId + `&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);
-&#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/` + $apId + `.json&#x22;;
-&#x9;&#x9;$.getJSON(url, function(data) {
-&#x9;&#x9;$(&#x27;#nireH3` + $apId + `&#x27;).text ((data.` + nireIzen + `).replace(&#x22;&#x3C;br&#x3E;&#x22;,&#x22;&#x22;).replace(&#x22;&#x26;nbsp;&#x22;,&#x22; &#x22;));
-&#x9;&#x9;&#x9;var kontzeptuak = data.kontzeptuak;
-&#x9;&#x9;&#x9;$.each(kontzeptuak, function(i, item) {
-&#x9;&#x9;&#x9;&#x9;if (&#x22;baldintza&#x22; in item) {
-&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.` + nireKontzep + ` + &#x22; (&#x22; + item.baldintza.` + nireBaldin +` + &#x22;)&#x22;).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
-&#x9;&#x9;&#x9;&#x9;} else {
-&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.` + nireKontzep + `).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
-&#x9;&#x9;&#x9;&#x9;}
-&#x9;&#x9;&#x9;&#x9;var td2 = (item.kopurua_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
-&#x9;&#x9;&#x9;&#x9;var td3 = (item.unitatea_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);
-&#x9;&#x9;&#x9;&#x9;var $tr = $(&#x27;&#x3C;tr&#x3E;&#x27;).append(
-&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td1),
-&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td2),
-&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td3)
-&#x9;&#x9;&#x9;&#x9;).appendTo(&#x27;#kostuTaula` + $apId + `&#x27;);
-&#x9;&#x9;&#x9;});
-&#x9;&#x9;});
-&#x9;});
+'&#x3C;script src=&#x22;https://code.jquery.com/jquery-1.12.4.min.js&#x22; integrity=&#x22;sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=&#x22; crossorigin=&#x22;anonymous&#x22;&#x3E;&#x3C;/script&#x3E;'+'\n' +
+'&#x3C;script language=&#x22;javascript&#x22;&#x3E;'+'\n' +
+'&#x9;$(document).ready(function() {'+'\n' +
+'&#x9;&#x9;$(&#x27;.cp_oculta' + $apId + '&#x27;).css(&#x27;display&#x27;,&#x27;none&#x27;);'+'\n' +
+'&#x9;&#x9;var url = &#x22;http://www.pasaia.eus/zzoo/api/zerga/' + $apId + '.json&#x22;;'+'\n' +
+'&#x9;&#x9;$.getJSON(url, function(data) {'+'\n' +
+'&#x9;&#x9;$(&#x27;#nireH3' + $apId + '&#x27;).text ((data.' + nireIzen + ').replace(&#x22;&#x3C;br&#x3E;&#x22;,&#x22;&#x22;).replace(&#x22;&#x26;nbsp;&#x22;,&#x22; &#x22;));'+'\n' +
+'&#x9;&#x9;&#x9;var kontzeptuak = data.kontzeptuak;'+'\n' +
+'&#x9;&#x9;&#x9;$.each(kontzeptuak, function(i, item) {'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;if (&#x22;baldintza&#x22; in item) {'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.' + nireKontzep + ' + &#x22; (&#x22; + item.baldintza.' + nireBaldin +' + &#x22;)&#x22;).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;} else {'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x9;var td1 = (item.' + nireKontzep + ').replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;}'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;var td2 = (item.kopurua_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;var td3 = (item.unitatea_prod).replace(&#x22;&#x3C;br&#x3E;&#x22;, &#x22;&#x22;);'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;var $tr = $(&#x27;&#x3C;tr&#x3E;&#x27;).append('+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td1),'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td2),'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;&#x9;$(&#x27;&#x3C;td&#x3E;&#x27;).text(td3)'+'\n' +
+'&#x9;&#x9;&#x9;&#x9;).appendTo(&#x27;#kostuTaula' + $apId + '&#x27;);'+'\n' +
+'&#x9;&#x9;&#x9;});'+'\n' +
+'&#x9;&#x9;});'+'\n' +
+'&#x9;});'+'\n' +
 
-function MostrarOcultar(capa, enlace) {
-  $(&#x27;#&#x27;+capa).toggle();
-}
+'function MostrarOcultar(capa, enlace) {'+'\n' +
+'  $(&#x27;#&#x27;+capa).toggle();'+'\n' +
+'}'+'\n' +
 
-&#x3C;/script&#x3E;
-`;
+'&#x3C;/script&#x3E;';
             return miHtml;
 
         }
