@@ -3,6 +3,11 @@ Zerga Ordenantzak
 
 Zerga ordenantzak kudeatzeko aplikazioa.
 
+Ikus demo bideo bat:
+
+[![Zerga Ordenantzak aplikazioaren demo bideo bat](http://img.youtube.com/vi/S0CYmc0vyvs/0.jpg)](http://www.youtube.com/watch?v=S0CYmc0vyvs "Zerga Ordenantzak aplikazioaren demo bideo bat")
+
+
 ####Requirements
 
     PHP needs to be a minimum version of PHP 5.5.9
