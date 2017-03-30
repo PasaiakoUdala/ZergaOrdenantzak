@@ -5,7 +5,7 @@ Zerga ordenantzak kudeatzeko aplikazioa.
 
 Ikus demo bideo bat:
 
-[![Zerga Ordenantzak aplikazioaren demo bideo bat](http://img.youtube.com/vi/S0CYmc0vyvs/0.jpg)](http://www.youtube.com/watch?v=S0CYmc0vyvs "Zerga Ordenantzak aplikazioaren demo bideo bat")
+[![Zerga Ordenantzak aplikazioaren demo bideo bat](http://img.youtube.com/vi/qcIS4Z_TRFc/0.jpg)](http://www.youtube.com/watch?v=qcIS4Z_TRFc "Zerga Ordenantzak aplikazioaren demo bideo bat")
 
 
 ####Requirements
