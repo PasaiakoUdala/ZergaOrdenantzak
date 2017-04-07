@@ -257,7 +257,7 @@
         <div class="row">&nbsp;</div>
 
         {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu!= 1 %}
-            <table class="table table-hover table-responsive table-bordered">
+            <table class="table table-hover table-responsive table-bordered" id="azpiatalataula{{ azpiatala.id }}">
                 <th class="row-fluid col-xs-6" id="{{ atala.kodea ~ azpiatala.kodea }}">
                     <button type="button" class="close btnEzabatuAzpiAtala btnZuzendu" data-miid="{{ azpiatala.id }}"
                             aria-label="Close"><span aria-hidden="true">×</span>
