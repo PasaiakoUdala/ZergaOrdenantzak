@@ -53,9 +53,21 @@
     <div class="row">
         <p>Erabili ondoko formularioa beste leku batean erabiltzeko kodea eskuratzeko: Liferay, Hemendik, Wordpress,
             etc...</p>
-        <p>Oharra: Wordpress-en kasurako beharrezkoa da Don’t Muck My Markup bezalako plugin bat instalatua izatea eta
-            argitaratuko
-            den orri horretarako gaitua izatea.</p>
+        {#<p>Oharra: Wordpress-en kasurako beharrezkoa da Don’t Muck My Markup bezalako plugin bat instalatua izatea eta#}
+            {#argitaratuko#}
+            {#den orri horretarako gaitua izatea.</p>#}
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">OHARRAK</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li>jQuery liburutegia eta Bootstrap liburutegiak beharrezkoak dira (CSS + JS)</li>
+                    <li>Wordpress-en kasurako beharrezkoa da Don’t Muck My Markup bezalako plugin bat instalatua izatea eta argitaratuko den orri horretarako gaitua izatea.</li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div class="row">&nbsp;</div>
@@ -171,7 +183,7 @@ ul#ulzzoo {
 &lt;/div&gt;
 &lt;!-- /.modal-content --&gt;&lt;/div&gt;
 &lt;!-- /.modal-dialog --&gt;&lt;!-- /.modal --&gt;
-&lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt;
+&lt;!-- &lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt; -->
 &lt;script type="text/javascript"&gt;
 
 
@@ -190,10 +202,18 @@ $(document).ready(function() {
             $.getJSON(url, function(data) {
 
                 $('#modalTitle').html(data.izenburuaeu_prod);
-                $('#modalContent').html("&lt;table id='kostuTaula' class='table table-bordered table-hover'&gt;&lt;/table&gt;");
+                $('#modalContent').html("&lt;p id='parrafoaurretik'&gt;&lt;/p&gt;&lt;table id='kostuTaula' class='table table-bordered table-hover'&gt;&lt;/table&gt;&lt;p id='parrafoondoren'&gt;&lt;/p&gt;");
+
+                var pAurretik = data.parrafoak;
+                if ( pAurretik.length &gt; 0 ) {
+                    $.each( pAurretik, function( i, item ) {
+                        $('#parrafoaurretik').append(
+                          item.testuaeu_prod
+                        );
+                    });
+                }
 
                 var kontzeptuak = data.kontzeptuak;
-
                 $.each( kontzeptuak, function( i, item ) {
                     var baldintza = item.baldintza;
 
@@ -210,8 +230,16 @@ $(document).ready(function() {
                             $('&lt;td&gt;').text(item.unitatea_prod + '(' + baldintza.baldintzaeu + ')')
                         ).appendTo('#kostuTaula');
                     }
-
                 });
+
+                var pOndoren = data.parrafoakondoren;
+                if ( pOndoren.length &gt; 0 ) {
+                    $.each( pOndoren, function( i, item ) {
+                        $('#parrafoondoren').append(
+                          item.testuaeu_prod
+                        );
+                    });
+                }
 
             });
 
@@ -290,7 +318,7 @@ ul#ulzzoo {
 &lt;/div&gt;
 &lt;!-- /.modal-content --&gt;&lt;/div&gt;
 &lt;!-- /.modal-dialog --&gt;&lt;!-- /.modal --&gt;
-&lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt;
+&lt;!-- &lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt;--&gt;
 &lt;script type="text/javascript"&gt;
 
 
@@ -309,10 +337,18 @@ $(document).ready(function() {
             $.getJSON(url, function(data) {
 
                 $('#modalTitle').html(data.izenburuaes_prod);
-                $('#modalContent').html("&lt;table id='kostuTaula' class='table table-bordered table-hover'&gt;&lt;/table&gt;");
+                $('#modalContent').html("&lt;p id='parrafoaurretik'&gt;&lt;/p&gt;&lt;table id='kostuTaula' class='table table-bordered table-hover'&gt;&lt;/table&gt;&lt;p id='parrafoondoren'&gt;&lt;/p&gt;");
+
+                var pAurretik = data.parrafoak;
+                if ( pAurretik.length &gt; 0 ) {
+                    $.each( pAurretik, function( i, item ) {
+                        $('#parrafoaurretik').append(
+                          item.testuaes_prod
+                        );
+                    });
+                }
 
                 var kontzeptuak = data.kontzeptuak;
-
                 $.each( kontzeptuak, function( i, item ) {
                     var baldintza = item.baldintza;
 
@@ -329,8 +365,16 @@ $(document).ready(function() {
                             $('&lt;td&gt;').text(item.unitatea_prod + '(' + baldintza.baldintzaes + ')')
                         ).appendTo('#kostuTaula');
                     }
-
                 });
+                var pOndoren = data.parrafoakondoren;
+                if ( pOndoren.length &gt; 0 ) {
+                    $.each( pOndoren, function( i, item ) {
+                        console.log(item);
+                        $('#parrafoondoren').append(
+                          item.testuaes_prod
+                        );
+                    });
+                }
 
             });
 
