@@ -39,13 +39,15 @@
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
 
-
+            $ezabatu = ["<br>","&lt;br&gt;","<br \/>", "<br\/>", "&nbsp;","&amp;nbsp;","&amp"];
             switch ( $name ) {
                 case "izenburuaeu":
-                    $ordenantza->setIzenburuaeu( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $ordenantza->setIzenburuaeu( $testua );
                     break;
                 case "izenburuaes":
-                    $ordenantza->setIzenburuaes( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $ordenantza->setIzenburuaes( $testua );
                     break;
                 case "testuaeu":
                     $ordenantza->setTestuaeu( $value );
@@ -54,7 +56,7 @@
                     $ordenantza->setTestuaes( $value );
                     break;
                 case "kodea":
-                    $ordenantza->setKodea( $value );
+                    $ordenantza->setKodea( str_replace($ezabatu, "", $value) );
                     break;
             }
 
@@ -116,16 +118,19 @@
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
 
+            $ezabatu = ["<br>","&lt;br&gt;","<br \/>", "<br\/>", "&nbsp;","&amp;nbsp;","&amp"];
 
             switch ( $name ) {
                 case "kodea":
                     $atala->setKodea( $value );
                     break;
                 case "izenburuaeu":
-                    $atala->setIzenburuaeu( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $atala->setIzenburuaeu( $testua );
                     break;
                 case "izenburuaes":
-                    $atala->setIzenburuaes( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $atala->setIzenburuaes( $testua );
                     break;
             }
 
@@ -189,13 +194,16 @@
             $name = $request->request->get( 'name' );
             $value = $request->request->get( 'value' );
 
+            $ezabatu = ["<br>","&lt;br&gt;","<br \/>", "<br\/>", "&nbsp;","&amp;nbsp;","&amp"];
 
             switch ( $name ) {
                 case "izenburuaeu":
-                    $azpiatala->setIzenburuaeu( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $azpiatala->setIzenburuaeu( $testua );
                     break;
                 case "izenburuaes":
-                    $azpiatala->setIzenburuaes( $value );
+                    $testua = str_replace($ezabatu, "", $value);
+                    $azpiatala->setIzenburuaes( $testua );
                     break;
                 case "kodea":
                     $azpiatala->setKodea( $value );
@@ -588,7 +596,7 @@
             } else {
 
                 $string = (string)$form->getErrors( true, false );
-                dump( $form->getErrors( true, false ) );
+                //dump( $form->getErrors( true, false ) );
             }
 
             return $this->redirectToRoute( 'admin_ordenantza_index' );
