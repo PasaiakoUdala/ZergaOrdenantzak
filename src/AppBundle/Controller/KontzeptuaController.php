@@ -70,7 +70,8 @@
                 $em->flush();
 //                return $this->redirectToRoute('araudia_edit', array('id' => $kontzeptua->getId()));
 
-                return $this->redirectToRoute('admin_ordenantza_show', array('id' => $ordenantzaid));
+                //return $this->redirectToRoute('admin_ordenantza_show', array('id' => $ordenantzaid));
+                return $this->redirect( $request->headers->get( 'referer' ) . '#kontzeptua'.$kontzeptua->getId());
             }
             return $this->render('kontzeptua/edit.html.twig', array(
                 'kontzeptua' => $kontzeptua,
