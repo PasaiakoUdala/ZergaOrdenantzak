@@ -394,6 +394,9 @@
          *
          * @Route("/{id}/erakutsi", name="admin_ordenantza_show")
          * @Method("GET")
+         * @param Ordenantza $ordenantza
+         *
+         * @return Response
          */
         public function showAction ( Ordenantza $ordenantza )
         {
