@@ -34,7 +34,6 @@
                     'multiple' => true,
                     'choices'  => array(
                         'Admin' => 'ROLE_ADMIN',
-                        'Kudeaketa' => 'ROLE_KUDEAKETA',
                         'Erabiltzailea' => 'ROLE_USER'
                     ),
                 ))
