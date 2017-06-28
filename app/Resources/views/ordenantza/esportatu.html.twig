@@ -78,7 +78,7 @@
 
                                                 <tr valign="top">
                                                     <td width="40%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.2cm; padding-left: 0.2cm; padding-right: 0.2cm">
-                                                        <p align="left">{{ k.kontzeptuaeu }}</p>
+                                                        <p align="left">{{ k.kontzeptuaeu }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu }} ){% endif %}</p>
                                                     </td>
                                                     <td width="10%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.2cm; padding-left: 0.2cm; padding-right: 0.2cm">
                                                         <p align="left">{{ k.kopurua }}</p>
@@ -87,7 +87,7 @@
                                                         <p align="left">{{ k.unitatea }}</p>
                                                     </td>
                                                     <td width="10%" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; padding-top: 0cm; padding-bottom: 0.2cm; padding-left: 0.2cm; padding-right: 0.2cm">
-                                                        <p align="left">{{ k.kontzeptuaes }}</p>
+                                                        <p align="left">{{ k.kontzeptuaes }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaes }} ){% endif %}</p>
                                                     </td>
                                                 </tr>
                                             {% endfor %}
