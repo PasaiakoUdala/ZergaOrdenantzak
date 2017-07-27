@@ -37,6 +37,7 @@
                 <td>{% if historikoa.bogargitaratzedata %}{{ historikoa.bogargitaratzedata|date('Y/m/d') }}{% endif %}
                     {% if historikoa.bogargitaratzedatatestua %}{{ " Zuzenketak: " ~ historikoa.bogargitaratzedatatestua }}{% endif %}
                 </td>
+                <td>{% if historikoa.bogbehinbetikodata %}{{ historikoa.bogbehinbetikodata|date('Y/m/d') }}{% endif %}</td>
                 <td>
                     {% if app.request.locale == "eu" %}
                         {{ historikoa.aldaketakeu |raw }}
