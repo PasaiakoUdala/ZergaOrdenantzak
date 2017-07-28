@@ -8,8 +8,8 @@
     </thead>
     <tbody>
         <tr>
-            <th align="center" style="background-color: #C6C6C6"><h2>{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaeu }}</h2></th>
-            <th align="center" style="background-color: #C0C0C0"><h2>{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaes }}</h2></th>
+            <th align="center" style="background-color: #C6C6C6"><h2>{{ ordenantza.kodea|raw ~ ".-" ~ ordenantza.izenburuaeu|raw }}</h2></th>
+            <th align="center" style="background-color: #C0C0C0"><h2>{{ ordenantza.kodea|raw ~ ".-" ~ ordenantza.izenburuaes|raw }}</h2></th>
         </tr>
         {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
         <tr>
@@ -20,8 +20,8 @@
         {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
         {% if atala.utsa != 1 %}
             <tr>
-                <td><h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.- {{ atala.izenburuaeu }}</h3></td>
-                <td><h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.- {{ atala.izenburuaes }}</h3></td>
+                <td><h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea|raw }}.{{ atala.kodea|raw }}.- {{ atala.izenburuaeu|raw }}</h3></td>
+                <td><h3 align="center" style="background-color: #E5E5E5">{{ atala.ordenantza.kodea|raw }}.{{ atala.kodea|raw }}.- {{ atala.izenburuaes|raw }}</h3></td>
             </tr>
             {% for p in atala.parrafoak  if p.ezabatu!= 1 %}
                 <tr>
@@ -38,8 +38,8 @@
                         <table border="1" cellpadding="2">
                             <thead>
                             <tr>
-                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.atala.ordenantza.kodea }}.{{ azpiatala.atala.kodea }}.{{ azpiatala.kodea }} - {{ azpiatala.izenburuaeu }}</h4></th>
-                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.atala.ordenantza.kodea }}.{{ azpiatala.atala.kodea }}.{{ azpiatala.kodea }} - {{ azpiatala.izenburuaes }}</h4></th>
+                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.atala.ordenantza.kodea|raw }}.{{ azpiatala.atala.kodea|raw }}.{{ azpiatala.kodea|raw }} - {{ azpiatala.izenburuaeu|raw }}</h4></th>
+                                <th colspan="3" style="width:50%;background-color: #f2f2f2;font-size: small;"><h4>{{ azpiatala.atala.ordenantza.kodea|raw }}.{{ azpiatala.atala.kodea|raw }}.{{ azpiatala.kodea|raw }} - {{ azpiatala.izenburuaes|raw }}</h4></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -51,10 +51,10 @@
                             {% endfor %}
                             {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                                 <tr>
-                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaeu }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu }} ){% endif %}</td>
-                                    <td width="16%" colspan="2" style="font-size: small;">{{ k.kopurua }}
-                                        {{ k.unitatea }}</td>
-                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu }} ){% endif %}</td>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaeu }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu|raw }} ){% endif %}</td>
+                                    <td width="16%" colspan="2" style="font-size: small;">{{ k.kopurua|raw }}
+                                        {{ k.unitatea|raw }}</td>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu|raw }} ){% endif %}</td>
                                 </tr>
                             {% endfor %}
                             {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
