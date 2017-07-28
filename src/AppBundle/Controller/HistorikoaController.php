@@ -73,6 +73,9 @@ class HistorikoaController extends Controller {
      *
      * @Route("/new", name="admin_historikoa_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -123,7 +126,8 @@ class HistorikoaController extends Controller {
                         {
                             $em->remove($atala);
                             $em->persist($atala);
-                        } else
+                        }
+                        else
                         {
                             $atala->setIzenburuaeuProd($atala->getIzenburuaeu());
                             $atala->setIzenburuaesProd($atala->getIzenburuaes());
@@ -223,7 +227,7 @@ class HistorikoaController extends Controller {
             }
 
             /* PDF Fitxategia sortuko dugu*/
-            /* @var MyCustomClass $pdf */
+            /** @var \TCPDF $pdf */
             $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
             $pdf->footerTitle = $form["indarreandata"]->getData()->format('Y/m/d');;
@@ -243,6 +247,7 @@ class HistorikoaController extends Controller {
             $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-" . $eguna);
 
             $azala = $this->render('ordenantza/azala.html.twig', array('eguna' => date("Y"), 'udala' => $this->getUser()->getUdala()));
+
             $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 
             $pdf->AddPage();

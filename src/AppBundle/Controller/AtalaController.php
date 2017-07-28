@@ -17,7 +17,6 @@ use AppBundle\Form\AtalaType;
  */
 class AtalaController extends Controller
 {
-
     /**
      * Creates a new Atala entity.
      *
