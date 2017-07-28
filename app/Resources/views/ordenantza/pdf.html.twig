@@ -51,10 +51,10 @@
                             {% endfor %}
                             {% for k in azpiatala.kontzeptuak  if k.ezabatu!= 1 %}
                                 <tr>
-                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaeu }}</td>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaeu }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu }} ){% endif %}</td>
                                     <td width="16%" colspan="2" style="font-size: small;">{{ k.kopurua }}
                                         {{ k.unitatea }}</td>
-                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}</td>
+                                    <td width="42%" colspan="2" style="font-size: small;">{{ k.kontzeptuaes }}{% if k.baldintza %} ( {{ k.baldintza.baldintzaeu }} ){% endif %}</td>
                                 </tr>
                             {% endfor %}
                             {% for p in azpiatala.parrafoakondoren  if p.ezabatu!= 1 %}
