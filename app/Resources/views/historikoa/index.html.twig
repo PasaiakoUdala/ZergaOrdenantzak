@@ -46,7 +46,7 @@
                     {% endif %}
                 </td>
                 {% if app.user.udala %}
-                    <td><a href="{{ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
+                    <td><a href="{{  app.request.getBaseURL() ~ "/doc/" ~ app.user.udala.kodea ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
                 {% else %}
                     <td>Udal kodea?</td>
                 {% endif %}
