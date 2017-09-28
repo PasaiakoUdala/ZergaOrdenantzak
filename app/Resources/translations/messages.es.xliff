@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="2">
                 <source>G.A.O. Argitaratze Data</source>
-                <target>Fecha publicación B.O.G.</target>
+                <target>Fecha publicación en B.O.</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>Aldaketak</source>
@@ -56,7 +56,7 @@
             </trans-unit>
             <trans-unit id="14">
                 <source>B.O.G. argitaratze data</source>
-                <target>Fecha publicación B.O.G.</target>
+                <target>Fecha publicación en el boletín oficial</target>
             </trans-unit>
             <trans-unit id="15">
                 <source>Indarrean data</source>
@@ -99,11 +99,11 @@
                 <target>Obtener Odt</target>
             </trans-unit>
             <trans-unit id="25">
-                <source>B.O.G. esteka eskaraz</source>
+                <source>G.A.O. esteka eskaraz</source>
                 <target>B.O.G. esteka eskaraz</target>
             </trans-unit>
             <trans-unit id="26">
-                <source>B.O.G. esteka erdaraz</source>
+                <source>G.A.O. esteka erdaraz</source>
                 <target>B.O.G. esteka erdaraz</target>
             </trans-unit>
         </body>

@@ -36,7 +36,7 @@
                         {{ historikoa.aldaketakes |raw}}
                     {% endif %}
                 </td>
-                <td><a href="{{ "/doc/" ~ udala ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
+                <td><a href="{{ app.request.getBaseURL() ~ "/doc/" ~ udala ~ "/" ~ historikoa.fitxategia }}">PDF</a></td>
             </tr>
         {% endfor %}
         </tbody>
