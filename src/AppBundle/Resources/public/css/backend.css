@@ -193,3 +193,9 @@ h4  {
 .btnsubmenu:hover {
     border: 1px solid #8c8c8c;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
