@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="2">
                 <source>G.A.O. Argitaratze Data</source>
-                <target>G.A.O. Argitaratze Data</target>
+                <target>Argitaratze Data aldizkari ofizialean</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>Aldaketak</source>
@@ -95,12 +95,12 @@
                 <target>Indarrean data</target>
             </trans-unit>
             <trans-unit id="24">
-                <source>B.O.G. esteka eskaraz</source>
-                <target>B.O.G. esteka eskaraz</target>
+                <source>G.A.O. esteka eskaraz</source>
+                <target>B.O. esteka eskaraz</target>
             </trans-unit>
             <trans-unit id="25">
-                <source>B.O.G. esteka erdaraz</source>
-                <target>B.O.G. esteka erdaraz</target>
+                <source>G.A.O. esteka erdaraz</source>
+                <target>B.O. esteka erdaraz</target>
             </trans-unit>
             <trans-unit id="26">
                 <source>Aldaketak euskaraz</source>
