@@ -123,8 +123,18 @@
                                                         <tr>
                                                             <td>{% if  app.request.locale == "eu"%}
                                                                     {{ k.kontzeptuaeu }}
+                                                                    {% if k.baldintza is defined %}
+                                                                        {% if k.baldintza.baldintzaeu is defined %}
+                                                                            ({{ k.baldintza.baldintzaeu }})
+                                                                        {% endif %}
+                                                                    {% endif %}
                                                                 {% else %}
                                                                     {{ k.kontzeptuaes }}
+                                                                    {% if k.baldintza is defined %}
+                                                                        {% if k.baldintza.baldintzaeu is defined %}
+                                                                            ({{ k.baldintza.baldintzaes }})
+                                                                        {% endif %}
+                                                                    {% endif %}
                                                                 {% endif %}
                                                             </td>
                                                             <td>{{ k.kopurua }}</td>
