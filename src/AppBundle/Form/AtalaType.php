@@ -19,6 +19,7 @@ class AtalaType extends AbstractType
             ->add('kodea')
             ->add('izenburuaeu')
             ->add('izenburuaes')
+            ->add('utsa')
 
 //            ->add('izenburuaeu',CKEditorType::class, array(
 //                'config_name' => 'my_config_1',
@@ -30,7 +31,7 @@ class AtalaType extends AbstractType
             ->add('udala')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
