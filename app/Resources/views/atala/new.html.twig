@@ -12,12 +12,21 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                         <div class="form-group  field-text">
-                            {{ form_label(form.kodea, 'Kodea', { 'label_attr': {'class': 'control-label'} }) }}
+                            {{ form_label(form.kodea, 'kodea', { 'label_attr': {'class': 'control-label'} }) }}
                             {{ form_errors(form.kodea) }}
                             {{ form_widget(form.kodea, {'attr': {'class': 'form-control'}}) }}
                         </div>
-                        <div class="col-md-4"></div>
                     </div>
+                    <div class="col-md-2"></div>
+                  <div class="col-md-2">
+                    <div class="form-group  field-text">
+                      {{ form_label(form.utsa, 'Atal hutsa', { 'label_attr': {'class': 'control-label'} }) }}
+                      {{ form_errors(form.utsa) }}
+                      {{ form_widget(form.utsa, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group  field-text">
                             {{ form_label(form.izenburuaeu, 'Izenburua', { 'label_attr': {'class': 'control-label'} }) }}
