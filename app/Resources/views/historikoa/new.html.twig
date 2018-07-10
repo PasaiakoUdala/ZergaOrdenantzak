@@ -1,103 +1,148 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Historiko berria</h1>
+  <h1>Historiko berria</h1>
 
-    {{ form_start(form) }}
-    
-    <div class="row">
-        <div class="form-group  field-text col-sm-3">
-            {{ form_label(form.onartzedata, 'Udalbatzarrararen data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-            {{ form_errors(form.onartzedata) }}
-            {{ form_widget(form.onartzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
-        </div>
+  {{ form_start(form, {'attr': {'id': 'frm_historikoa_new'}}) }}
 
-        <div class="form-group field-text col-sm-3">
-            {{ form_label(form.bogargitaratzedata, 'GAO: Hasierako onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-            {{ form_errors(form.bogargitaratzedata) }}
-            {{ form_widget(form.bogargitaratzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
-        </div>
-
-        <div class="form-group field-text col-sm-3">
-            {{ form_label(form.bogbehinbetikodata, 'GAO: Behin betiko onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-            {{ form_errors(form.bogbehinbetikodata) }}
-            {{ form_widget(form.bogbehinbetikodata, {'attr': {'class': 'form-control js-datepicker'}}) }}
-            {{ form_label(form.bogargitaratzedatatestua, 'Akats zuzenketak (testua)'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-            {{ form_errors(form.bogargitaratzedatatestua) }}
-            {{ form_widget(form.bogargitaratzedatatestua, {'attr': {'class': 'form-control'}}) }}
-        </div>
-
-        <div class="form-group field-text col-sm-3">
-            {{ form_label(form.indarreandata, 'Indarreko data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-            {{ form_errors(form.indarreandata) }}
-            {{ form_widget(form.indarreandata, {'attr': {'class': 'form-control js-datepicker'}}) }}
-        </div>
-
+  <div class="row">
+    <div class="form-group  field-text col-sm-3">
+      {{ form_label(form.onartzedata, 'Udalbatzarrararen data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+      {{ form_errors(form.onartzedata) }}
+      {{ form_widget(form.onartzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
     </div>
 
-    <div class="form-group  field-text">
-        {{ form_label(form.bogestekaeu, 'G.A.O. esteka eskaraz'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-        {{ form_errors(form.bogestekaeu) }}
-        {{ form_widget(form.bogestekaeu, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group field-text col-sm-3">
+      {{ form_label(form.bogargitaratzedata, 'GAO: Hasierako onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+      {{ form_errors(form.bogargitaratzedata) }}
+      {{ form_widget(form.bogargitaratzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
     </div>
 
-    <div class="form-group  field-text">
-        {{ form_label(form.bogestekaes, 'G.A.O. esteka erdaraz'|trans, { 'label_attr': {'class': 'control-label'} }) }}
-        {{ form_errors(form.bogestekaes) }}
-        {{ form_widget(form.bogestekaes, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group field-text col-sm-3">
+      {{ form_label(form.bogbehinbetikodata, 'GAO: Behin betiko onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+      {{ form_errors(form.bogbehinbetikodata) }}
+      {{ form_widget(form.bogbehinbetikodata, {'attr': {'class': 'form-control js-datepicker'}}) }}
+      {{ form_label(form.bogargitaratzedatatestua, 'Akats zuzenketak (testua)'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+      {{ form_errors(form.bogargitaratzedatatestua) }}
+      {{ form_widget(form.bogargitaratzedatatestua, {'attr': {'class': 'form-control'}}) }}
     </div>
 
-    <div class="form-group  field-text">
-        {{ form_label(form.aldaketakeu, 'Aldaketak euskaraz', { 'label_attr': {'class': 'control-label'} }) }}
-        {{ form_errors(form.aldaketakeu) }}
-        {{ form_widget(form.aldaketakeu, {'attr': {'class': 'form-control'}}) }}
+    <div class="form-group field-text col-sm-3">
+      {{ form_label(form.indarreandata, 'Indarreko data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+      {{ form_errors(form.indarreandata) }}
+      {{ form_widget(form.indarreandata, {'attr': {'class': 'form-control js-datepicker'}}) }}
     </div>
 
-    <div class="form-group  field-text">
-        {{ form_label(form.aldaketakes, 'Aldaketak erdaraz', { 'label_attr': {'class': 'control-label'} }) }}
-        {{ form_errors(form.aldaketakes) }}
-        {{ form_widget(form.aldaketakes, {'attr': {'class': 'form-control'}}) }}
-    </div>
+  </div>
 
-    <ul class="list-inline">
-        <li>
-            <input class="btn btn-primary kargatzen" type="submit" value="{{ "Gorde" | trans }}"/>
-        </li>
-        <li>
-            <a href="{{ path('admin_historikoa_index') }}">Itzuli zerrendara</a>
-        </li>
-    </ul>
+  <div class="form-group  field-text">
+    {{ form_label(form.bogestekaeu, 'G.A.O. esteka eskaraz'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+    {{ form_errors(form.bogestekaeu) }}
+    {{ form_widget(form.bogestekaeu, {'attr': {'class': 'form-control'}}) }}
+  </div>
+
+  <div class="form-group  field-text">
+    {{ form_label(form.bogestekaes, 'G.A.O. esteka erdaraz'|trans, { 'label_attr': {'class': 'control-label'} }) }}
+    {{ form_errors(form.bogestekaes) }}
+    {{ form_widget(form.bogestekaes, {'attr': {'class': 'form-control'}}) }}
+  </div>
+
+  <div class="form-group  field-text">
+    {{ form_label(form.aldaketakeu, 'Aldaketak euskaraz', { 'label_attr': {'class': 'control-label'} }) }}
+    {{ form_errors(form.aldaketakeu) }}
+    {{ form_widget(form.aldaketakeu, {'attr': {'class': 'form-control'}}) }}
+  </div>
+
+  <div class="form-group  field-text">
+    {{ form_label(form.aldaketakes, 'Aldaketak erdaraz', { 'label_attr': {'class': 'control-label'} }) }}
+    {{ form_errors(form.aldaketakes) }}
+    {{ form_widget(form.aldaketakes, {'attr': {'class': 'form-control'}}) }}
+  </div>
+
+  <ul class="list-inline">
+    <li>
+      <input class="btn btn-primary kargatzen" type="button" value="{{ "Gorde" | trans }}" />
+    </li>
+    <li>
+      <a href="{{ path('admin_historikoa_index') }}">Itzuli zerrendara</a>
+    </li>
+  </ul>
 
 
-    {{ form_end(form) }}
+  {{ form_end(form) }}
 
 
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
+  {{ parent() }}
 
-    <script>
+  <script>
 
-        $(document).ajaxStart(function () {
-            $('#loading').show();
-        }).ajaxStop(function () {
-            $('#loading').hide();
-        });
+    $(document).ajaxStart(function () {
+      $("#loading").show();
+    }).ajaxStop(function () {
+      $("#loading").hide();
+    });
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $('.kargatzen').on('click', function () {
+      $(".kargatzen").on("click", function () {
 
-                var dialog = bootbox.dialog({
-                    message: '<p class="text-center">Itxaron apur bat PDF fitxategia sortzen den bitartean... </p>',
-                    closeButton: false
-                });
+        var valid = true;
 
+        // Udalbatzarrararen data
+        if ( $('#historikoa_onartzedata').val().length === 0 ) {
+          valid = false;
+          bootbox.alert({
+            message: "Udaltzabarren datak ezin dut hutsik egon",
+            size: 'small'
+          });
+          return;
+        }
 
-            });
+        // B.O. Hasierako onarpena
+        if ( $('#historikoa_bogargitaratzedata').val().length === 0 ) {
+          valid = false;
+          bootbox.alert({
+            message: "B.O. Hasierako onarpena datak ezin dut hutsik egon",
+            size: 'small'
+          });
+          return;
+        }
 
-        });
-    </script>
+        // B.O. Behin betiko onarpena
+        if ( $('#historikoa_bogbehinbetikodata').val().length === 0 ) {
+          valid = false;
+          bootbox.alert({
+            message: "B.O. Behin betiko onarpena datak ezin dut hutsik egon",
+            size: 'small'
+          });
+          return;
+        }
+
+        // Indarreko data
+        if ( $('#historikoa_indarreandata').val().length === 0 ) {
+          valid = false;
+          bootbox.alert({
+            message: "Indarreko datak ezin dut hutsik egon",
+            size: 'small'
+          });
+          return;
+        }
+
+        if (valid === true ) {
+          bootbox.dialog({
+            message: "<p class=\"text-center\">Itxaron apur bat PDF fitxategia sortzen den bitartean... </p>",
+            closeButton: false
+          });
+
+          $("#frm_historikoa_new").submit();
+        }
+
+      });
+
+    });
+  </script>
 {% endblock %}
 
