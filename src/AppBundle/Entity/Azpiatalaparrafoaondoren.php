@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Azpiatalaparrafoaondoren
@@ -91,6 +92,22 @@ class Azpiatalaparrafoaondoren
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+  /**
+   * @var string $createdBy
+   *
+   * @Gedmo\Blameable(on="create")
+   * @ORM\Column
+   */
+  private $createdBy;
+
+  /**
+   * @var string $updatedBy
+   *
+   * @Gedmo\Blameable(on="update")
+   * @ORM\Column
+   */
+  private $updatedBy;
 
     /**
      * ************************************************************************************************************************************************************************
@@ -407,5 +424,53 @@ class Azpiatalaparrafoaondoren
     public function getUdala()
     {
         return $this->udala;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param string $createdBy
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param string $updatedBy
+     *
+     * @return Azpiatalaparrafoaondoren
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return string
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 }

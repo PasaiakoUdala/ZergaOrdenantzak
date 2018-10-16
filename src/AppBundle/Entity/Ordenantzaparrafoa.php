@@ -87,6 +87,21 @@ class Ordenantzaparrafoa
      */
     private $updatedAt;
 
+  /**
+   * @var string $createdBy
+   *
+   * @Gedmo\Blameable(on="create")
+   * @ORM\Column
+   */
+  private $createdBy;
+
+  /**
+   * @var string $updatedBy
+   *
+   * @Gedmo\Blameable(on="update")
+   * @ORM\Column
+   */
+  private $updatedBy;
     /**
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
@@ -402,5 +417,53 @@ class Ordenantzaparrafoa
     public function getEzabatu()
     {
         return $this->ezabatu;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param string $createdBy
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param string $updatedBy
+     *
+     * @return Ordenantzaparrafoa
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return string
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 }

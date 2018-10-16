@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Eremua
@@ -44,7 +45,21 @@ class Eremua
      */
     private $etiketaes;
 
+  /**
+   * @var string $createdBy
+   *
+   * @Gedmo\Blameable(on="create")
+   * @ORM\Column
+   */
+  private $createdBy;
 
+  /**
+   * @var string $updatedBy
+   *
+   * @Gedmo\Blameable(on="update")
+   * @ORM\Column
+   */
+  private $updatedBy;
 
     /**
      * ************************************************************************************************************************************************************************
@@ -250,5 +265,53 @@ class Eremua
     public function getUdala()
     {
         return $this->udala;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param string $createdBy
+     *
+     * @return Eremua
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param string $updatedBy
+     *
+     * @return Eremua
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return string
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 }

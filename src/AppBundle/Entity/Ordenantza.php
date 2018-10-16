@@ -77,13 +77,13 @@ class Ordenantza
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="created_at", type="datetime", nullable=false)
+   * @ORM\Column(name="created_at", type="datetime", nullable=true)
    */
   private $createdAt;
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+   * @ORM\Column(name="updated_at", type="datetime", nullable=true)
    */
   private $updatedAt;
 
@@ -91,6 +91,22 @@ class Ordenantza
    * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
    */
   private $deletedAt;
+
+  /**
+   * @var string $createdBy
+   *
+   * @Gedmo\Blameable(on="create")
+   * @ORM\Column
+   */
+  private $createdBy;
+
+  /**
+   * @var string $updatedBy
+   *
+   * @Gedmo\Blameable(on="update")
+   * @ORM\Column
+   */
+  private $updatedBy;
 
   /**
    * ************************************************************************************************************************************************************************
@@ -141,323 +157,232 @@ class Ordenantza
    */
 
 
-  /**
-   * Get kodea
-   *
-   * @return string
-   */
-  public function getKodea()
-  {
-    return $this->kodea;
-  }
 
-  /**
-   * Set kodea
-   *
-   * @param string $kodea
-   *
-   * @return Ordenantza
-   */
-  public function setKodea($kodea)
-  {
-    $this->kodea = $kodea;
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-    return $this;
-  }
+    /**
+     * Set kodea
+     *
+     * @param string $kodea
+     *
+     * @return Ordenantza
+     */
+    public function setKodea($kodea)
+    {
+        $this->kodea = $kodea;
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+        return $this;
+    }
 
-  /**
-   * Get izenburuaeu
-   *
-   * @return string
-   */
-  public function getIzenburuaeu()
-  {
-    return $this->izenburuaeu;
-  }
+    /**
+     * Get kodea
+     *
+     * @return string
+     */
+    public function getKodea()
+    {
+        return $this->kodea;
+    }
 
-  /**
-   * Set izenburuaeu
-   *
-   * @param string $izenburuaeu
-   *
-   * @return Ordenantza
-   */
-  public function setIzenburuaeu($izenburuaeu)
-  {
-    $this->izenburuaeu = $izenburuaeu;
+    /**
+     * Set kodeaProd
+     *
+     * @param string $kodeaProd
+     *
+     * @return Ordenantza
+     */
+    public function setKodeaProd($kodeaProd)
+    {
+        $this->kodea_prod = $kodeaProd;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get izenburuaes
-   *
-   * @return string
-   */
-  public function getIzenburuaes()
-  {
-    return $this->izenburuaes;
-  }
+    /**
+     * Get kodeaProd
+     *
+     * @return string
+     */
+    public function getKodeaProd()
+    {
+        return $this->kodea_prod;
+    }
 
-  /**
-   * Set izenburuaes
-   *
-   * @param string $izenburuaes
-   *
-   * @return Ordenantza
-   */
-  public function setIzenburuaes($izenburuaes)
-  {
-    $this->izenburuaes = $izenburuaes;
+    /**
+     * Set izenburuaeu
+     *
+     * @param string $izenburuaeu
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaeu($izenburuaeu)
+    {
+        $this->izenburuaeu = $izenburuaeu;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get createdAt
-   *
-   * @return \DateTime
-   */
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
+    /**
+     * Get izenburuaeu
+     *
+     * @return string
+     */
+    public function getIzenburuaeu()
+    {
+        return $this->izenburuaeu;
+    }
 
-  /**
-   * Set createdAt
-   *
-   * @param \DateTime $createdAt
-   *
-   * @return Ordenantza
-   */
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
+    /**
+     * Set izenburuaeuProd
+     *
+     * @param string $izenburuaeuProd
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaeuProd($izenburuaeuProd)
+    {
+        $this->izenburuaeu_prod = $izenburuaeuProd;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get updatedAt
-   *
-   * @return \DateTime
-   */
-  public function getUpdatedAt()
-  {
-    return $this->updatedAt;
-  }
+    /**
+     * Get izenburuaeuProd
+     *
+     * @return string
+     */
+    public function getIzenburuaeuProd()
+    {
+        return $this->izenburuaeu_prod;
+    }
 
-  /**
-   * Set updatedAt
-   *
-   * @param \DateTime $updatedAt
-   *
-   * @return Ordenantza
-   */
-  public function setUpdatedAt($updatedAt)
-  {
-    $this->updatedAt = $updatedAt;
+    /**
+     * Set izenburuaes
+     *
+     * @param string $izenburuaes
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaes($izenburuaes)
+    {
+        $this->izenburuaes = $izenburuaes;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Add parrafoak
-   *
-   * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
-   *
-   * @return Ordenantza
-   */
-  public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
-  {
-    $this->parrafoak[] = $parrafoak;
+    /**
+     * Get izenburuaes
+     *
+     * @return string
+     */
+    public function getIzenburuaes()
+    {
+        return $this->izenburuaes;
+    }
 
-    return $this;
-  }
+    /**
+     * Set izenburuaesProd
+     *
+     * @param string $izenburuaesProd
+     *
+     * @return Ordenantza
+     */
+    public function setIzenburuaesProd($izenburuaesProd)
+    {
+        $this->izenburuaes_prod = $izenburuaesProd;
 
-  /**
-   * Remove parrafoak
-   *
-   * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
-   */
-  public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
-  {
-    $this->parrafoak->removeElement($parrafoak);
-  }
+        return $this;
+    }
 
-  /**
-   * Get parrafoak
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getParrafoak()
-  {
-    return $this->parrafoak;
-  }
+    /**
+     * Get izenburuaesProd
+     *
+     * @return string
+     */
+    public function getIzenburuaesProd()
+    {
+        return $this->izenburuaes_prod;
+    }
 
-  /**
-   * Add atalak
-   *
-   * @param \AppBundle\Entity\Atala $atalak
-   *
-   * @return Ordenantza
-   */
-  public function addAtalak(\AppBundle\Entity\Atala $atalak)
-  {
-    $this->atalak[] = $atalak;
+    /**
+     * Set ezabatu
+     *
+     * @param boolean $ezabatu
+     *
+     * @return Ordenantza
+     */
+    public function setEzabatu($ezabatu)
+    {
+        $this->ezabatu = $ezabatu;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove atalak
-   *
-   * @param \AppBundle\Entity\Atala $atalak
-   */
-  public function removeAtalak(\AppBundle\Entity\Atala $atalak)
-  {
-    $this->atalak->removeElement($atalak);
-  }
+    /**
+     * Get ezabatu
+     *
+     * @return boolean
+     */
+    public function getEzabatu()
+    {
+        return $this->ezabatu;
+    }
 
-  /**
-   * Get atalak
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getAtalak()
-  {
-    return $this->atalak;
-  }
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Ordenantza
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
 
-  /**
-   * Get udala
-   *
-   * @return \AppBundle\Entity\Udala
-   */
-  public function getUdala()
-  {
-    return $this->udala;
-  }
+        return $this;
+    }
 
-  /**
-   * Set udala
-   *
-   * @param \AppBundle\Entity\Udala $udala
-   *
-   * @return Ordenantza
-   */
-  public function setUdala(\AppBundle\Entity\Udala $udala = null)
-  {
-    $this->udala = $udala;
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
-    return $this;
-  }
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Ordenantza
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
-  /**
-   * Get kodeaProd
-   *
-   * @return string
-   */
-  public function getKodeaProd()
-  {
-    return $this->kodea_prod;
-  }
+        return $this;
+    }
 
-  /**
-   * Set kodeaProd
-   *
-   * @param string $kodeaProd
-   *
-   * @return Ordenantza
-   */
-  public function setKodeaProd($kodeaProd)
-  {
-    $this->kodea_prod = $kodeaProd;
-
-    return $this;
-  }
-
-  /**
-   * Get izenburuaeuProd
-   *
-   * @return string
-   */
-  public function getIzenburuaeuProd()
-  {
-    return $this->izenburuaeu_prod;
-  }
-
-  /**
-   * Set izenburuaeuProd
-   *
-   * @param string $izenburuaeuProd
-   *
-   * @return Ordenantza
-   */
-  public function setIzenburuaeuProd($izenburuaeuProd)
-  {
-    $this->izenburuaeu_prod = $izenburuaeuProd;
-
-    return $this;
-  }
-
-  /**
-   * Get izenburuaesProd
-   *
-   * @return string
-   */
-  public function getIzenburuaesProd()
-  {
-    return $this->izenburuaes_prod;
-  }
-
-  /**
-   * Set izenburuaesProd
-   *
-   * @param string $izenburuaesProd
-   *
-   * @return Ordenantza
-   */
-  public function setIzenburuaesProd($izenburuaesProd)
-  {
-    $this->izenburuaes_prod = $izenburuaesProd;
-
-    return $this;
-  }
-
-  /**
-   * Get ezabatu
-   *
-   * @return boolean
-   */
-  public function getEzabatu()
-  {
-    return $this->ezabatu;
-  }
-
-  /**
-   * Set ezabatu
-   *
-   * @param boolean $ezabatu
-   *
-   * @return Ordenantza
-   */
-  public function setEzabatu($ezabatu)
-  {
-    $this->ezabatu = $ezabatu;
-
-    return $this;
-  }
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
     /**
      * Set deletedAt
@@ -481,5 +406,145 @@ class Ordenantza
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param string $createdBy
+     *
+     * @return Ordenantza
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param string $updatedBy
+     *
+     * @return Ordenantza
+     */
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return string
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * Set udala
+     *
+     * @param \AppBundle\Entity\Udala $udala
+     *
+     * @return Ordenantza
+     */
+    public function setUdala(\AppBundle\Entity\Udala $udala = null)
+    {
+        $this->udala = $udala;
+
+        return $this;
+    }
+
+    /**
+     * Get udala
+     *
+     * @return \AppBundle\Entity\Udala
+     */
+    public function getUdala()
+    {
+        return $this->udala;
+    }
+
+    /**
+     * Add parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     *
+     * @return Ordenantza
+     */
+    public function addParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak[] = $parrafoak;
+
+        return $this;
+    }
+
+    /**
+     * Remove parrafoak
+     *
+     * @param \AppBundle\Entity\Ordenantzaparrafoa $parrafoak
+     */
+    public function removeParrafoak(\AppBundle\Entity\Ordenantzaparrafoa $parrafoak)
+    {
+        $this->parrafoak->removeElement($parrafoak);
+    }
+
+    /**
+     * Get parrafoak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParrafoak()
+    {
+        return $this->parrafoak;
+    }
+
+    /**
+     * Add atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     *
+     * @return Ordenantza
+     */
+    public function addAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak[] = $atalak;
+
+        return $this;
+    }
+
+    /**
+     * Remove atalak
+     *
+     * @param \AppBundle\Entity\Atala $atalak
+     */
+    public function removeAtalak(\AppBundle\Entity\Atala $atalak)
+    {
+        $this->atalak->removeElement($atalak);
+    }
+
+    /**
+     * Get atalak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAtalak()
+    {
+        return $this->atalak;
     }
 }
