@@ -152,7 +152,11 @@ class Azpiatala
 
     public function __toString()
     {
-        return $this->getIzenburuaeu();
+        if ($this->getIzenburuaeu() == NULL ) {
+            return "";
+        } else {
+            return $this->getIzenburuaeu();
+        }
     }
 
     /**

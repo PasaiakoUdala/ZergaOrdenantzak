@@ -4,13 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Annotation\UdalaEgiaztatu;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Historikoa
  *
  * @ORM\Table(name="historikoa")
  * @ORM\Entity
  * @UdalaEgiaztatu(userFieldName="udala_id")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Historikoa
 {
@@ -109,6 +110,12 @@ class Historikoa
     private $updatedAt;
 
     /**
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
+
+  /**
      * ************************************************************************************************************************************************************************
      * ************************************************************************************************************************************************************************
      * ***** ERLAZIOAK
@@ -121,7 +128,7 @@ class Historikoa
      * @ORM\ManyToOne(targetEntity="Udala")
      */
     private $udala;
-    
+
     public function __construct()
     {
         $this->createdAt = New \DateTime();
@@ -463,5 +470,29 @@ class Historikoa
     public function getBogargitaratzedatatestua()
     {
         return $this->bogargitaratzedatatestua;
+    }
+
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     *
+     * @return Historikoa
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get deletedAt
+     *
+     * @return \DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 }
