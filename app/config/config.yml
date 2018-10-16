@@ -69,6 +69,9 @@ doctrine:
             udala_filter:
                 class:   AppBundle\Filter\UdalaFilter
                 enabled: true
+            softdeleteable:
+              class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+              enabled: true
 
 
 # Swiftmailer Configuration
@@ -94,9 +97,11 @@ assetic:
             jar: '%kernel.root_dir%/bin/yuicompressor.jar'
 
 stof_doctrine_extensions:
+    default_locale: es_ES
     orm:
         default:
             sortable: true
+            softdeleteable: true
 
 braincrafted_bootstrap:
     output_dir:
