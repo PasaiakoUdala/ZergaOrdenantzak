@@ -110,10 +110,18 @@
             $form = $this->createDeleteForm( $kontzeptua );
             $form->handleRequest( $request );
 
-            if ( $form->isSubmitted() && $form->isValid() ) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->remove( $kontzeptua );
-                $em->flush();
+                /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+                bestela marka ezarri */
+                if ( $kontzeptua->getEzabatu() === 1 ) {
+                    $em->remove($kontzeptua);
+                } else {
+                    $kontzeptua->setEzabatu( 1 );
+                  $em->persist( $kontzeptua );
+                }
+
+              $em->flush();
             }
 
             return $this->redirect( $request->headers->get( 'referer' ) );

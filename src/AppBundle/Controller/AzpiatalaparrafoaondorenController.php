@@ -119,8 +119,16 @@ class AzpiatalaparrafoaondorenController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($azpiatalaparrafoaondoren);
-            $em->flush($azpiatalaparrafoaondoren);
+            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+                bestela marka ezarri */
+            if ( $azpiatalaparrafoaondoren->getEzabatu() === 1 ) {
+                $em->remove($azpiatalaparrafoaondoren);
+            } else {
+                $azpiatalaparrafoaondoren->setEzabatu( 1 );
+                $em->persist( $azpiatalaparrafoaondoren );
+            }
+
+            $em->flush();
         }
 
         return $this->redirect( $request->headers->get( 'referer' ) );

@@ -7,6 +7,7 @@ use AppBundle\Entity\Atalaparrafoa;
 use AppBundle\Entity\Azpiatala;
 use AppBundle\Entity\Azpiatalaparrafoa;
 use AppBundle\Entity\Kontzeptua;
+use AppBundle\Entity\Ordenantzaparrafoa;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -110,19 +111,25 @@ class HistorikoaController extends Controller {
                     $ordenantza->setKodeaProd($ordenantza->getKodea());
                     $em->persist($ordenantza);
 
-                    foreach ($ordenantza->getParrafoak() as $p)
+                    /** @var Ordenantzaparrafoa $p */
+                  foreach ($ordenantza->getParrafoak() as $p)
                     {
-                        /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
-                        $p->setOrdenaProd($p->getOrdena());
-                        $p->setTestuaesProd($p->getTestuaes());
-                        $p->setTestuaeuProd($p->getTestuaeu());
+                        if ($p->getEzabatu() === 1) {
+                          $em->remove($p);
+                        } else {
+                          /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
+                          $p->setOrdenaProd($p->getOrdena());
+                          $p->setTestuaesProd($p->getTestuaes());
+                          $p->setTestuaeuProd($p->getTestuaeu());
+                        }
+
                         $em->persist($p);
                     }
 
                     foreach ($ordenantza->getAtalak() as $atala)
                     {
 
-                        if ($atala->getEzabatu() == 1)
+                        if ($atala->getEzabatu() === 1)
                         {
                             $em->remove($atala);
                             $em->persist($atala);
@@ -138,7 +145,7 @@ class HistorikoaController extends Controller {
                             /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
                             foreach ($atala->getParrafoak() as $atalaparrafoa)
                             {
-                                if ($atalaparrafoa->getEzabatu() == 1)
+                                if ($atalaparrafoa->getEzabatu() === 1)
                                 {
                                     $em->remove($atalaparrafoa);
                                     $em->persist($atalaparrafoa);
@@ -154,7 +161,7 @@ class HistorikoaController extends Controller {
                             /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
                             foreach ($atala->getAzpiatalak() as $azpiatala)
                             {
-                                if ($azpiatala->getEzabatu() == 1)
+                                if ($azpiatala->getEzabatu() === 1)
                                 {
                                     $em->remove($azpiatala);
                                     $em->persist($azpiatala);
@@ -168,7 +175,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa)
                                     {
 
-                                        if ($azpiatalaparrafoa->getEzabatu() == 1)
+                                        if ($azpiatalaparrafoa->getEzabatu() === 1)
                                         {
                                             $em->remove($azpiatalaparrafoa);
                                             $em->persist($azpiatalaparrafoa);
@@ -185,7 +192,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getKontzeptuak() as $kontzeptua)
                                     {
 
-                                        if ($kontzeptua->getEzabatu() == 1)
+                                        if ($kontzeptua->getEzabatu() === 1)
                                         {
                                             $em->remove($kontzeptua);
                                             $em->persist($kontzeptua);
@@ -203,7 +210,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa)
                                     {
 
-                                        if ($azpiatalaparrafoa->getEzabatu() == 1)
+                                        if ($azpiatalaparrafoa->getEzabatu() === 1)
                                         {
                                             $em->remove($azpiatalaparrafoa);
                                             $em->persist($azpiatalaparrafoa);

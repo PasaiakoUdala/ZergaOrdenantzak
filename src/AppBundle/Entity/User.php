@@ -23,7 +23,7 @@
 
         /**
          * @var string
-         * @ORM\Column(name="hizkuntza", type="string", length=10, nullable=true)
+         * @ORM\Column(name="hizkuntza", type="string", length=15, nullable=true)
          */
         private $hizkuntza;
 

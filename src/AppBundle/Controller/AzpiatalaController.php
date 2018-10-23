@@ -79,7 +79,15 @@ class AzpiatalaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($azpiatala);
+            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+            bestela marka ezarri */
+            if ( $azpiatala->getEzabatu() === 1 ) {
+              $em->remove($azpiatala);
+            } else {
+              $azpiatala->setEzabatu( 1 );
+              $em->persist( $azpiatala );
+            }
+
             $em->flush();
         }
 

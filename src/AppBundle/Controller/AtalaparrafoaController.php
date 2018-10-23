@@ -114,7 +114,15 @@ class AtalaparrafoaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($atalaparrafoa);
+            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+            bestela marka ezarri */
+            if ($atalaparrafoa->getEzabatu() === 1) {
+              $em->remove($atalaparrafoa);
+            } else {
+              $atalaparrafoa->setEzabatu(1);
+              $em->persist($atalaparrafoa);
+            }
+
             $em->flush();
         }
 
