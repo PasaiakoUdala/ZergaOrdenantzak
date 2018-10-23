@@ -106,9 +106,17 @@
             $form = $this->createDeleteForm( $azpiatalaparrafoa );
             $form->handleRequest( $request );
 
-            if ( $form->isSubmitted() && $form->isValid() ) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $em->remove( $azpiatalaparrafoa );
+                /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
+                bestela marka ezarri */
+                if ( $azpiatalaparrafoa->getEzabatu() === 1 ) {
+                    $em->remove($azpiatalaparrafoa);
+                } else {
+                    $azpiatalaparrafoa->setEzabatu( 1 );
+                    $em->persist( $azpiatalaparrafoa );
+                }
+
                 $em->flush();
             }
 

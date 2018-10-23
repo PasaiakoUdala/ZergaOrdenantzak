@@ -9,19 +9,20 @@
     <div class="form-group  field-text col-sm-3">
       {{ form_label(form.onartzedata, 'Udalbatzarrararen data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
       {{ form_errors(form.onartzedata) }}
-      {{ form_widget(form.onartzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
+      {{ form_widget(form.onartzedata, {'attr': {'class': 'form-control js-datepicker', 'autocomplete': 'off'} }) }}
+
     </div>
 
     <div class="form-group field-text col-sm-3">
       {{ form_label(form.bogargitaratzedata, 'GAO: Hasierako onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
       {{ form_errors(form.bogargitaratzedata) }}
-      {{ form_widget(form.bogargitaratzedata, {'attr': {'class': 'form-control js-datepicker'}}) }}
+      {{ form_widget(form.bogargitaratzedata, {'attr': {'class': 'form-control js-datepicker', 'autocomplete': 'off'} }) }}
     </div>
 
     <div class="form-group field-text col-sm-3">
       {{ form_label(form.bogbehinbetikodata, 'GAO: Behin betiko onarpena'|trans, { 'label_attr': {'class': 'control-label'} }) }}
       {{ form_errors(form.bogbehinbetikodata) }}
-      {{ form_widget(form.bogbehinbetikodata, {'attr': {'class': 'form-control js-datepicker'}}) }}
+      {{ form_widget(form.bogbehinbetikodata, {'attr': {'class': 'form-control js-datepicker', 'autocomplete': 'off'} }) }}
       {{ form_label(form.bogargitaratzedatatestua, 'Akats zuzenketak (testua)'|trans, { 'label_attr': {'class': 'control-label'} }) }}
       {{ form_errors(form.bogargitaratzedatatestua) }}
       {{ form_widget(form.bogargitaratzedatatestua, {'attr': {'class': 'form-control'}}) }}
@@ -30,7 +31,7 @@
     <div class="form-group field-text col-sm-3">
       {{ form_label(form.indarreandata, 'Indarreko data'|trans, { 'label_attr': {'class': 'control-label'} }) }}
       {{ form_errors(form.indarreandata) }}
-      {{ form_widget(form.indarreandata, {'attr': {'class': 'form-control js-datepicker'}}) }}
+      {{ form_widget(form.indarreandata, {'attr': {'class': 'form-control js-datepicker', 'autocomplete': 'off'} }) }}
     </div>
 
   </div>
