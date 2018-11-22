@@ -1,5 +1,5 @@
 'Onartze data': 'Onartze data'
-'G.A.O. Argitaratze Data': 'B.O Argitaratze Data'
+'G.A.O. Argitaratze Data': 'Argitaratze Data aldizkari ofizialean'
 Aldaketak: Aldaketak
 Fitxategia: Fitxategia
 Historikoa: Historikoa
@@ -19,7 +19,7 @@ Kopurua: Kopurua
 Unitatea: Unitatea
 Itxi: Itxi
 'Onartze Data': 'Onartze Data'
-'B.O.G. argitaratze data': 'B.O. argitaratze data'
+'B.O.G. argitaratze data': 'B.O.G. argitaratze data'
 'Indarrean data': 'Indarrean data'
 'B.O.G. esteka eskaraz': 'B.O. esteka eskaraz'
 'B.O.G. esteka erdaraz': 'B.O. esteka erdaraz'
@@ -32,7 +32,7 @@ Ezabatu: Ezabatu
 'Udalbatzarrararen data': 'Udalbatzarrararen data'
 'GAO: Hasierako onarpena': 'B.O. Hasierako onarpena'
 'GAO: Behin betiko onarpena': 'B.O. Behin betiko onarpena'
-'gao.b.b': 'B.O. Behin betiko onarpena'
+gao.b.b: 'B.O. Behin betiko onarpena'
 'Indarreko data': 'Indarreko data'
 Gorde: Gorde
 Ezeztatu: Ezeztatu
@@ -64,3 +64,8 @@ Kopiatu: Kopiatu
 Kopiatua!: Kopiatua!
 'Erabili Ctrl + C kopiatzeko': '  Erabili Ctrl + C kopiatzeko'
 'Akats zuzenketak (testua)': '  Akats zuzenketak (testua)'
+'G.A.O. esteka eskaraz': 'B.O. esteka eskaraz'
+'G.A.O. esteka erdaraz': 'B.O. esteka erdaraz'
+Euskaraz: Euskaraz
+Erdaraz: Gazteleraz
+'Bi hizkuntzetan': 'Bi hizkuntzetan'
