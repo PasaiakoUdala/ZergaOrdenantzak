@@ -1,5 +1,5 @@
 'Onartze data': 'Fecha aceptación'
-'G.A.O. Argitaratze Data': 'Fecha publicación B.O.'
+'G.A.O. Argitaratze Data': 'Fecha publicación en B.O.'
 Aldaketak: Cambios
 Fitxategia: Fichero
 Historikoa: Historico
@@ -11,10 +11,10 @@ Unitatea: Unidad
 'Ordenantza ikusi': 'Ver ordenanza'
 Itxi: Cerrar
 'Onartze Data': 'Fecha aceptación'
-'B.O.G. argitaratze data': 'Fecha publicación en el B.O.'
+'B.O.G. argitaratze data': 'Fecha publicación en el boletín oficial'
 'Indarrean data': 'Fecha Vigor'
-'B.O.G. esteka eskaraz': 'Enlace al B.O. en euskera'
-'B.O.G. esteka erdaraz': 'Enlace al B.O. en castellano'
+'B.O.G. esteka eskaraz': 'Url B.O.G. euskera'
+'B.O.G. esteka erdaraz': 'Url B.O.G. castellano'
 'Aldaketak euskaraz': 'Cambios en euskera'
 'Aldaketak erdaraz': 'Cambios en castellano'
 'Kodea:': 'Código:'
@@ -56,6 +56,11 @@ Multzokatzea: Agrupar
 Kopiatu: Copiar
 Kopiatua!: Copiado!
 'Erabili Ctrl + C kopiatzeko': '  Utiliza Ctrl + C para copiar'
-'gao.b.b': 'B.O.: Aprobación definitiva'
+gao.b.b: 'B.O.: Aprobación definitiva'
 'GAO: Behin betiko onarpena': 'B.O.: Aprobación definitiva'
 'Akats zuzenketak (testua)': '  Corrección de errores (texto)'
+'G.A.O. esteka eskaraz': 'B.O.G. esteka eskaraz'
+'G.A.O. esteka erdaraz': 'B.O.G. esteka erdaraz'
+Euskaraz: Euskera
+Erdaraz: Castellano
+'Bi hizkuntzetan': '2 idiomas'

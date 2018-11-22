@@ -1,5 +1,5 @@
 'Onartze data': 'Fecha aceptación'
-'G.A.O. Argitaratze Data': 'Fecha publicación B.O.G.'
+'G.A.O. Argitaratze Data': 'Fecha publicación B.O.'
 Aldaketak: Cambios
 Fitxategia: Fichero
 Historikoa: Historico
@@ -11,10 +11,10 @@ Unitatea: Unidad
 'Ordenantza ikusi': 'Ver ordenanza'
 Itxi: Cerrar
 'Onartze Data': 'Fecha aceptación'
-'B.O.G. argitaratze data': 'Fecha publicación B.O.G.'
+'B.O.G. argitaratze data': 'Fecha publicación en el B.O.'
 'Indarrean data': 'Fecha Vigor'
-'B.O.G. esteka eskaraz': 'B.O.G. esteka eskaraz'
-'B.O.G. esteka erdaraz': 'B.O.G. esteka erdaraz'
+'B.O.G. esteka eskaraz': 'Enlace al B.O. en euskera'
+'B.O.G. esteka erdaraz': 'Enlace al B.O. en castellano'
 'Aldaketak euskaraz': 'Cambios en euskera'
 'Aldaketak erdaraz': 'Cambios en castellano'
 'Kodea:': 'Código:'
@@ -24,7 +24,7 @@ Itxi: Cerrar
 Ezabatu: Eliminar
 'Aldaketak ezeztatu': 'Deshacer los cambios'
 'Udalbatzarrararen data': 'Fecha Pleno Municipal'
-'GAO: Hasierako onarpena': 'BOG: Aprobación inicial'
+'GAO: Hasierako onarpena': 'B.O.: Aprobacion Inicial'
 'Indarreko data': 'Fecha en vigor'
 Gorde: Guardar
 Ezeztatu: Cancelar
@@ -51,4 +51,11 @@ message.admin: '  Configuración'
 message.form.allData: 'Todos los campos son necesarios'
 Ordenantza: Ordenanza
 Atala: Tributo
-zerga: Hecho imponible
+zerga: 'Hecho imponible'
+Multzokatzea: Agrupar
+Kopiatu: Copiar
+Kopiatua!: Copiado!
+'Erabili Ctrl + C kopiatzeko': '  Utiliza Ctrl + C para copiar'
+'gao.b.b': 'B.O.: Aprobación definitiva'
+'GAO: Behin betiko onarpena': 'B.O.: Aprobación definitiva'
+'Akats zuzenketak (testua)': '  Corrección de errores (texto)'

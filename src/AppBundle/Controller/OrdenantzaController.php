@@ -656,7 +656,7 @@
                 )
             );
 
-            $filename = "doc/export_".date( "Y_m_d_His" ).".odt";
+            $filename = "doc/ZergaOrdentza-bi".date( "Y_m_d_His" ).".odt";
 
             file_put_contents( $filename, $nireordenantza->getContent() );
 
@@ -677,6 +677,89 @@
             return $response;
 
         }
+
+      /**
+       * @Route("/htmles", name="admin_ordenantza_html_es")
+       * @Method("GET")
+       */
+      public function htmlActionEs ()
+      {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAllOrderByKodea();
+
+        $nireordenantza = $this->render(
+//        return $this->render(
+          'ordenantza/webes.html.twig',
+          array (
+            'ordenantzas' => $ordenantzas,
+            'eguna'       => date( "Y" ),
+            'udala'       => $this->getUser()->getUdala(),
+          )
+        );
+
+        $filename = "doc/ZergaOrdentza-es_".date( "Y_m_d_His" ).".odt";
+
+        file_put_contents( $filename, $nireordenantza->getContent() );
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $response->headers->set( 'Cache-Control', 'private' );
+        $response->headers->set( 'Content-type', mime_content_type( $filename ) );
+        $response->headers->set( 'Content-Disposition', 'attachment; filename="'.basename( $filename ).'";' );
+        $response->headers->set( 'Content-length', filesize( $filename ) );
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent( file_get_contents( $filename ) );
+
+        return $response;
+
+      }
+
+      /**
+       * @Route("/htmleu", name="admin_ordenantza_html_eu")
+       * @Method("GET")
+       */
+      public function htmlActionEu ()
+      {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findAllOrderByKodea();
+
+        $nireordenantza = $this->render(
+//        return $this->render(
+          'ordenantza/webeu.html.twig',
+          array (
+            'ordenantzas' => $ordenantzas,
+            'eguna'       => date( "Y" ),
+            'udala'       => $this->getUser()->getUdala(),
+          )
+        );
+
+        $filename = "doc/ZergaOrdentza-eu_".date( "Y_m_d_His" ).".odt";
+
+
+        file_put_contents( $filename, $nireordenantza->getContent() );
+
+        // Generate response
+        $response = new Response();
+
+        // Set headers
+        $response->headers->set( 'Cache-Control', 'private' );
+        $response->headers->set( 'Content-type', mime_content_type( $filename ) );
+        $response->headers->set( 'Content-Disposition', 'attachment; filename="'.basename( $filename ).'";' );
+        $response->headers->set( 'Content-length', filesize( $filename ) );
+
+        // Send headers before outputting anything
+        $response->sendHeaders();
+
+        $response->setContent( file_get_contents( $filename ) );
+
+        return $response;
+
+      }
 
         /**
          * @Route("/esportatu/{id}", name="admin_ordenantza_esportatu")
