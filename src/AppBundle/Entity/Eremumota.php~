@@ -13,30 +13,37 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
-class Eremumota
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+class Eremumota {
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="motaeu", type="text", length=65535, nullable=true)
-     */
-    private $motaeu;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="bigint", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="motaes", type="text", length=65535, nullable=true)
-     */
-    private $motaes;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="origenid", type="bigint", nullable=true)
+   */
+  private $origenid;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="motaeu", type="text", length=65535, nullable=true)
+   */
+  private $motaeu;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="motaes", type="text", length=65535, nullable=true)
+   */
+  private $motaes;
 
   /**
    * @var string $createdBy
@@ -54,164 +61,164 @@ class Eremumota
    */
   private $updatedBy;
 
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
-    /**
-     * @var Udala
-     * @ORM\ManyToOne(targetEntity="Udala")
-     */
-    private $udala;
-    
-    public function __construct()
-    {
-    }
+  /**
+   * @var Udala
+   * @ORM\ManyToOne(targetEntity="Udala")
+   */
+  private $udala;
 
-    public function __toString()
-    {
-        return $this->getMotaeu();
-    }
+  public function __construct()
+  {
+  }
 
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
+  public function __toString()
+  {
+    return $this->getMotaeu();
+  }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
-    /**
-     * Set motaeu
-     *
-     * @param string $motaeu
-     *
-     * @return Eremumota
-     */
-    public function setMotaeu($motaeu)
-    {
-        $this->motaeu = $motaeu;
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-        return $this;
-    }
+  /**
+   * Set motaeu
+   *
+   * @param string $motaeu
+   *
+   * @return Eremumota
+   */
+  public function setMotaeu($motaeu)
+  {
+    $this->motaeu = $motaeu;
 
-    /**
-     * Get motaeu
-     *
-     * @return string
-     */
-    public function getMotaeu()
-    {
-        return $this->motaeu;
-    }
+    return $this;
+  }
 
-    /**
-     * Set motaes
-     *
-     * @param string $motaes
-     *
-     * @return Eremumota
-     */
-    public function setMotaes($motaes)
-    {
-        $this->motaes = $motaes;
+  /**
+   * Get motaeu
+   *
+   * @return string
+   */
+  public function getMotaeu()
+  {
+    return $this->motaeu;
+  }
 
-        return $this;
-    }
+  /**
+   * Set motaes
+   *
+   * @param string $motaes
+   *
+   * @return Eremumota
+   */
+  public function setMotaes($motaes)
+  {
+    $this->motaes = $motaes;
 
-    /**
-     * Get motaes
-     *
-     * @return string
-     */
-    public function getMotaes()
-    {
-        return $this->motaes;
-    }
+    return $this;
+  }
 
-    /**
-     * Set udala
-     *
-     * @param \AppBundle\Entity\Udala $udala
-     *
-     * @return Eremumota
-     */
-    public function setUdala(\AppBundle\Entity\Udala $udala = null)
-    {
-        $this->udala = $udala;
+  /**
+   * Get motaes
+   *
+   * @return string
+   */
+  public function getMotaes()
+  {
+    return $this->motaes;
+  }
 
-        return $this;
-    }
+  /**
+   * Set udala
+   *
+   * @param \AppBundle\Entity\Udala $udala
+   *
+   * @return Eremumota
+   */
+  public function setUdala(\AppBundle\Entity\Udala $udala = null)
+  {
+    $this->udala = $udala;
 
-    /**
-     * Get udala
-     *
-     * @return \AppBundle\Entity\Udala
-     */
-    public function getUdala()
-    {
-        return $this->udala;
-    }
+    return $this;
+  }
 
-    /**
-     * Set createdBy
-     *
-     * @param string $createdBy
-     *
-     * @return Eremumota
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
+  /**
+   * Get udala
+   *
+   * @return \AppBundle\Entity\Udala
+   */
+  public function getUdala()
+  {
+    return $this->udala;
+  }
 
-        return $this;
-    }
+  /**
+   * Set createdBy
+   *
+   * @param string $createdBy
+   *
+   * @return Eremumota
+   */
+  public function setCreatedBy($createdBy)
+  {
+    $this->createdBy = $createdBy;
 
-    /**
-     * Get createdBy
-     *
-     * @return string
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
+    return $this;
+  }
 
-    /**
-     * Set updatedBy
-     *
-     * @param string $updatedBy
-     *
-     * @return Eremumota
-     */
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
+  /**
+   * Get createdBy
+   *
+   * @return string
+   */
+  public function getCreatedBy()
+  {
+    return $this->createdBy;
+  }
 
-        return $this;
-    }
+  /**
+   * Set updatedBy
+   *
+   * @param string $updatedBy
+   *
+   * @return Eremumota
+   */
+  public function setUpdatedBy($updatedBy)
+  {
+    $this->updatedBy = $updatedBy;
 
-    /**
-     * Get updatedBy
-     *
-     * @return string
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
+    return $this;
+  }
+
+  /**
+   * Get updatedBy
+   *
+   * @return string
+   */
+  public function getUpdatedBy()
+  {
+    return $this->updatedBy;
+  }
 }

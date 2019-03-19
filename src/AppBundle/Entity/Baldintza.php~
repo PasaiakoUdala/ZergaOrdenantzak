@@ -13,30 +13,37 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
-class Baldintza
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+class Baldintza {
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="baldintzaeu", type="text", length=65535, nullable=true)
-     */
-    private $baldintzaeu;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="bigint", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="baldintzaes", type="text", length=65535, nullable=true)
-     */
-    private $baldintzaes;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="origenid", type="bigint", nullable=true)
+   */
+  private $origenid;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="baldintzaeu", type="text", length=65535, nullable=true)
+   */
+  private $baldintzaeu;
+
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="baldintzaes", type="text", length=65535, nullable=true)
+   */
+  private $baldintzaes;
 
   /**
    * @var string $createdBy
@@ -54,163 +61,163 @@ class Baldintza
    */
   private $updatedBy;
 
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
-    
-    /**
-     * @var Udala
-     * @ORM\ManyToOne(targetEntity="Udala")
-     */
-    private $udala;
-    
-    public function __construct()
-    {
-    }
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
-    public function __toString()
-    {
-        return $this->getBaldintzaeu();
-    }
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
+  /**
+   * @var Udala
+   * @ORM\ManyToOne(targetEntity="Udala")
+   */
+  private $udala;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  public function __construct()
+  {
+  }
 
-    /**
-     * Set baldintzaeu
-     *
-     * @param string $baldintzaeu
-     *
-     * @return Baldintza
-     */
-    public function setBaldintzaeu($baldintzaeu)
-    {
-        $this->baldintzaeu = $baldintzaeu;
+  public function __toString()
+  {
+    return $this->getBaldintzaeu();
+  }
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
-        return $this;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * Get baldintzaeu
-     *
-     * @return string
-     */
-    public function getBaldintzaeu()
-    {
-        return $this->baldintzaeu;
-    }
+  /**
+   * Set baldintzaeu
+   *
+   * @param string $baldintzaeu
+   *
+   * @return Baldintza
+   */
+  public function setBaldintzaeu($baldintzaeu)
+  {
+    $this->baldintzaeu = $baldintzaeu;
 
-    /**
-     * Set baldintzaes
-     *
-     * @param string $baldintzaes
-     *
-     * @return Baldintza
-     */
-    public function setBaldintzaes($baldintzaes)
-    {
-        $this->baldintzaes = $baldintzaes;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Get baldintzaeu
+   *
+   * @return string
+   */
+  public function getBaldintzaeu()
+  {
+    return $this->baldintzaeu;
+  }
 
-    /**
-     * Get baldintzaes
-     *
-     * @return string
-     */
-    public function getBaldintzaes()
-    {
-        return $this->baldintzaes;
-    }
+  /**
+   * Set baldintzaes
+   *
+   * @param string $baldintzaes
+   *
+   * @return Baldintza
+   */
+  public function setBaldintzaes($baldintzaes)
+  {
+    $this->baldintzaes = $baldintzaes;
 
-    /**
-     * Set udala
-     *
-     * @param \AppBundle\Entity\Udala $udala
-     *
-     * @return Baldintza
-     */
-    public function setUdala(\AppBundle\Entity\Udala $udala = null)
-    {
-        $this->udala = $udala;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Get baldintzaes
+   *
+   * @return string
+   */
+  public function getBaldintzaes()
+  {
+    return $this->baldintzaes;
+  }
 
-    /**
-     * Get udala
-     *
-     * @return \AppBundle\Entity\Udala
-     */
-    public function getUdala()
-    {
-        return $this->udala;
-    }
+  /**
+   * Set udala
+   *
+   * @param \AppBundle\Entity\Udala $udala
+   *
+   * @return Baldintza
+   */
+  public function setUdala(\AppBundle\Entity\Udala $udala = null)
+  {
+    $this->udala = $udala;
 
-    /**
-     * Set createdBy
-     *
-     * @param string $createdBy
-     *
-     * @return Baldintza
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Get udala
+   *
+   * @return \AppBundle\Entity\Udala
+   */
+  public function getUdala()
+  {
+    return $this->udala;
+  }
 
-    /**
-     * Get createdBy
-     *
-     * @return string
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
+  /**
+   * Set createdBy
+   *
+   * @param string $createdBy
+   *
+   * @return Baldintza
+   */
+  public function setCreatedBy($createdBy)
+  {
+    $this->createdBy = $createdBy;
 
-    /**
-     * Set updatedBy
-     *
-     * @param string $updatedBy
-     *
-     * @return Baldintza
-     */
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
+    return $this;
+  }
 
-        return $this;
-    }
+  /**
+   * Get createdBy
+   *
+   * @return string
+   */
+  public function getCreatedBy()
+  {
+    return $this->createdBy;
+  }
 
-    /**
-     * Get updatedBy
-     *
-     * @return string
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
+  /**
+   * Set updatedBy
+   *
+   * @param string $updatedBy
+   *
+   * @return Baldintza
+   */
+  public function setUpdatedBy($updatedBy)
+  {
+    $this->updatedBy = $updatedBy;
+
+    return $this;
+  }
+
+  /**
+   * Get updatedBy
+   *
+   * @return string
+   */
+  public function getUpdatedBy()
+  {
+    return $this->updatedBy;
+  }
 }

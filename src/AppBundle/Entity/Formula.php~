@@ -12,300 +12,307 @@ use AppBundle\Annotation\UdalaEgiaztatu;
  * @ORM\Entity
  * @UdalaEgiaztatu(userFieldName="udala_id")
  */
-class Formula
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+class Formula {
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
-     */
-    private $izenburuaeu;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="bigint", nullable=false)
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="IDENTITY")
+   */
+  private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
-     */
-    private $izenburuaes;
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="origenid", type="bigint", nullable=true)
+   */
+  private $origenid;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="kodeajs", type="text", length=65535, nullable=true)
-     */
-    private $kodeajs;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="izenburuaeu", type="text", length=65535, nullable=true)
+   */
+  private $izenburuaeu;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="emaitzahtml", type="text", length=65535, nullable=true)
-     */
-    private $emaitzahtml;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="izenburuaes", type="text", length=65535, nullable=true)
+   */
+  private $izenburuaes;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     */
-    private $createdAt;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="kodeajs", type="text", length=65535, nullable=true)
+   */
+  private $kodeajs;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     */
-    private $updatedAt;
+  /**
+   * @var string
+   *
+   * @ORM\Column(name="emaitzahtml", type="text", length=65535, nullable=true)
+   */
+  private $emaitzahtml;
 
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="created_at", type="datetime", nullable=false)
+   */
+  private $createdAt;
 
-    /**
-     * @var \Atala
-     *
-     * @ORM\ManyToOne(targetEntity="Atala")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
-     * })
-     */
-    private $atala;
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+   */
+  private $updatedAt;
 
-    /**
-     * @var Udala
-     * @ORM\ManyToOne(targetEntity="Udala")
-     */
-    private $udala;
-    
-    public function __construct()
-    {
-    }
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
-    public function __toString()
-    {
-        return $this->getIzenburuaeu();
-    }
+  /**
+   * @var \Atala
+   *
+   * @ORM\ManyToOne(targetEntity="Atala")
+   * @ORM\JoinColumns({
+   *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
+   * })
+   */
+  private $atala;
 
-    /**
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     * ***** ERLAZIOAK
-     * ************************************************************************************************************************************************************************
-     * ************************************************************************************************************************************************************************
-     */
+  /**
+   * @var Udala
+   * @ORM\ManyToOne(targetEntity="Udala")
+   */
+  private $udala;
+
+  public function __construct()
+  {
+  }
+
+  public function __toString()
+  {
+    return $this->getIzenburuaeu();
+  }
+
+  /**
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   * ***** ERLAZIOAK
+   * ************************************************************************************************************************************************************************
+   * ************************************************************************************************************************************************************************
+   */
 
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * Set izenburuaeu
-     *
-     * @param string $izenburuaeu
-     *
-     * @return Formula
-     */
-    public function setIzenburuaeu($izenburuaeu)
-    {
-        $this->izenburuaeu = $izenburuaeu;
+  /**
+   * Set izenburuaeu
+   *
+   * @param string $izenburuaeu
+   *
+   * @return Formula
+   */
+  public function setIzenburuaeu($izenburuaeu)
+  {
+    $this->izenburuaeu = $izenburuaeu;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get izenburuaeu
-     *
-     * @return string
-     */
-    public function getIzenburuaeu()
-    {
-        return $this->izenburuaeu;
-    }
+  /**
+   * Get izenburuaeu
+   *
+   * @return string
+   */
+  public function getIzenburuaeu()
+  {
+    return $this->izenburuaeu;
+  }
 
-    /**
-     * Set izenburuaes
-     *
-     * @param string $izenburuaes
-     *
-     * @return Formula
-     */
-    public function setIzenburuaes($izenburuaes)
-    {
-        $this->izenburuaes = $izenburuaes;
+  /**
+   * Set izenburuaes
+   *
+   * @param string $izenburuaes
+   *
+   * @return Formula
+   */
+  public function setIzenburuaes($izenburuaes)
+  {
+    $this->izenburuaes = $izenburuaes;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get izenburuaes
-     *
-     * @return string
-     */
-    public function getIzenburuaes()
-    {
-        return $this->izenburuaes;
-    }
+  /**
+   * Get izenburuaes
+   *
+   * @return string
+   */
+  public function getIzenburuaes()
+  {
+    return $this->izenburuaes;
+  }
 
-    /**
-     * Set kodeajs
-     *
-     * @param string $kodeajs
-     *
-     * @return Formula
-     */
-    public function setKodeajs($kodeajs)
-    {
-        $this->kodeajs = $kodeajs;
+  /**
+   * Set kodeajs
+   *
+   * @param string $kodeajs
+   *
+   * @return Formula
+   */
+  public function setKodeajs($kodeajs)
+  {
+    $this->kodeajs = $kodeajs;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get kodeajs
-     *
-     * @return string
-     */
-    public function getKodeajs()
-    {
-        return $this->kodeajs;
-    }
+  /**
+   * Get kodeajs
+   *
+   * @return string
+   */
+  public function getKodeajs()
+  {
+    return $this->kodeajs;
+  }
 
-    /**
-     * Set emaitzahtml
-     *
-     * @param string $emaitzahtml
-     *
-     * @return Formula
-     */
-    public function setEmaitzahtml($emaitzahtml)
-    {
-        $this->emaitzahtml = $emaitzahtml;
+  /**
+   * Set emaitzahtml
+   *
+   * @param string $emaitzahtml
+   *
+   * @return Formula
+   */
+  public function setEmaitzahtml($emaitzahtml)
+  {
+    $this->emaitzahtml = $emaitzahtml;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get emaitzahtml
-     *
-     * @return string
-     */
-    public function getEmaitzahtml()
-    {
-        return $this->emaitzahtml;
-    }
+  /**
+   * Get emaitzahtml
+   *
+   * @return string
+   */
+  public function getEmaitzahtml()
+  {
+    return $this->emaitzahtml;
+  }
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Formula
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
+  /**
+   * Set createdAt
+   *
+   * @param \DateTime $createdAt
+   *
+   * @return Formula
+   */
+  public function setCreatedAt($createdAt)
+  {
+    $this->createdAt = $createdAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
+  /**
+   * Get createdAt
+   *
+   * @return \DateTime
+   */
+  public function getCreatedAt()
+  {
+    return $this->createdAt;
+  }
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Formula
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+  /**
+   * Set updatedAt
+   *
+   * @param \DateTime $updatedAt
+   *
+   * @return Formula
+   */
+  public function setUpdatedAt($updatedAt)
+  {
+    $this->updatedAt = $updatedAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
+  /**
+   * Get updatedAt
+   *
+   * @return \DateTime
+   */
+  public function getUpdatedAt()
+  {
+    return $this->updatedAt;
+  }
 
-    /**
-     * Set atala
-     *
-     * @param \AppBundle\Entity\Atala $atala
-     *
-     * @return Formula
-     */
-    public function setAtala(\AppBundle\Entity\Atala $atala = null)
-    {
-        $this->atala = $atala;
+  /**
+   * Set atala
+   *
+   * @param \AppBundle\Entity\Atala $atala
+   *
+   * @return Formula
+   */
+  public function setAtala(\AppBundle\Entity\Atala $atala = null)
+  {
+    $this->atala = $atala;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get atala
-     *
-     * @return \AppBundle\Entity\Atala
-     */
-    public function getAtala()
-    {
-        return $this->atala;
-    }
+  /**
+   * Get atala
+   *
+   * @return \AppBundle\Entity\Atala
+   */
+  public function getAtala()
+  {
+    return $this->atala;
+  }
 
-    /**
-     * Set udala
-     *
-     * @param \AppBundle\Entity\Udala $udala
-     *
-     * @return Formula
-     */
-    public function setUdala(\AppBundle\Entity\Udala $udala = null)
-    {
-        $this->udala = $udala;
+  /**
+   * Set udala
+   *
+   * @param \AppBundle\Entity\Udala $udala
+   *
+   * @return Formula
+   */
+  public function setUdala(\AppBundle\Entity\Udala $udala = null)
+  {
+    $this->udala = $udala;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get udala
-     *
-     * @return \AppBundle\Entity\Udala
-     */
-    public function getUdala()
-    {
-        return $this->udala;
-    }
+  /**
+   * Get udala
+   *
+   * @return \AppBundle\Entity\Udala
+   */
+  public function getUdala()
+  {
+    return $this->udala;
+  }
 }
