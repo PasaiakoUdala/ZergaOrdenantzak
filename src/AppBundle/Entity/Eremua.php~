@@ -56,7 +56,7 @@ class Eremua {
    * @var string $createdBy
    *
    * @Gedmo\Blameable(on="create")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $createdBy;
 
@@ -64,7 +64,7 @@ class Eremua {
    * @var string $updatedBy
    *
    * @Gedmo\Blameable(on="update")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $updatedBy;
 
@@ -321,4 +321,28 @@ class Eremua {
   {
     return $this->updatedBy;
   }
+
+    /**
+     * Set origenid
+     *
+     * @param integer $origenid
+     *
+     * @return Eremua
+     */
+    public function setOrigenid($origenid)
+    {
+        $this->origenid = $origenid;
+
+        return $this;
+    }
+
+    /**
+     * Get origenid
+     *
+     * @return integer
+     */
+    public function getOrigenid()
+    {
+        return $this->origenid;
+    }
 }

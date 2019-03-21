@@ -169,7 +169,7 @@ class Kontzeptua {
    *
    * @ORM\ManyToOne(targetEntity="Baldintza", fetch="EAGER")
    * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="baldintza_id", referencedColumnName="id")
+   *   @ORM\JoinColumn(name="baldintza_id", referencedColumnName="id", onDelete="SET NULL")
    * })
    */
   private $baldintza;

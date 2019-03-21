@@ -141,8 +141,6 @@ class Atala {
    */
 
   /**
-   * @var \Ordenantza
-   *
    * @ORM\ManyToOne(targetEntity="Ordenantza",inversedBy="atalak")
    * @ORM\JoinColumns({
    *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id")
@@ -151,14 +149,12 @@ class Atala {
   private $ordenantza;
 
   /**
-   * @var Atalaparrafoa
    * @ORM\OneToMany(targetEntity="Atalaparrafoa", mappedBy="atala", cascade={"remove"})
    * @ORM\OrderBy({"ordena" = "ASC"})
    */
   protected $parrafoak;
 
   /**
-   * @var Azpiatala
    * @Expose
    * @ORM\OrderBy({"kodea" = "ASC"})
    * @ORM\OneToMany(targetEntity="Azpiatala", mappedBy="atala", cascade={"remove"})
@@ -166,7 +162,6 @@ class Atala {
   protected $azpiatalak;
 
   /**
-   * @var Udala
    * @ORM\ManyToOne(targetEntity="Udala")
    */
   private $udala;

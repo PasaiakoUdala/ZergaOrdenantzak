@@ -7,6 +7,7 @@ use AppBundle\Entity\Eremua;
 use AppBundle\Entity\Eremumota;
 use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Kontzeptumota;
+use AppBundle\Entity\Ordenantza;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -164,10 +165,11 @@ class CopyCommand extends ContainerAwareCommand {
     $output->write('Kontzeptu motak kopiatzen ');
     $oriKontzeptuMota = $em->getRepository('AppBundle:Kontzeptumota')->findBy(array('udala' => $oriUdala->getId()));
 
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
-    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptumota','km')->where('km.udala = :udalaID');
-    $qb->setParameter('udalaID', $desUdala);
-    $qb->getQuery()->execute();
+    /** Ez ditugu ezabatzen ze errorea emateu */
+//    /** @var \Doctrine\ORM\QueryBuilder $qb */
+//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptumota','km')->where('km.udala = :udalaID');
+//    $qb->setParameter('udalaID', $desUdala);
+//    $qb->getQuery()->execute();
     /** @var Kontzeptumota $km */
     foreach ($oriKontzeptuMota as $km) {
       $kontzeptumota = new Kontzeptumota();
@@ -189,6 +191,7 @@ class CopyCommand extends ContainerAwareCommand {
     /*******************************************************************************************************************************************************/
     $output->write('Kontzeptua kopiatzen ');
     $oriKontzeptua = $em->getRepository('AppBundle:Kontzeptua')->findBy(array('udala' => $oriUdala->getId()));
+
 
     /** @var \Doctrine\ORM\QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptua','k')->where('k.udala = :udalaID');
@@ -233,6 +236,37 @@ class CopyCommand extends ContainerAwareCommand {
       $kontzeptua->setUnitateaProd($k->getUnitateaProd());
 
       $em->persist($kontzeptua);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** ORDENANTZA ******************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Ordenantzak kopiatzen ');
+    $oriOrdenantza= $em->getRepository('AppBundle:Ordenantza')->findBy(array('udala' => $oriUdala->getId()));
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Ordenantza','o')->where('o.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Ordenantza $o */
+    foreach ($oriOrdenantza as $o) {
+      $ordenantza = new Ordenantza();
+      $ordenantza->setEzabatu($o->getEzabatu());
+      $ordenantza->setIzenburuaes($o->getIzenburuaes());
+      $ordenantza->setIzenburuaesProd($o->getIzenburuaesProd());
+      $ordenantza->setIzenburuaeu($o->getIzenburuaeu());
+      $ordenantza->setIzenburuaeuProd($o->getIzenburuaeuProd());
+      $ordenantza->setKodea($o->getKodea());
+      $ordenantza->setKodeaProd($o->getKodeaProd());
+      $ordenantza->setOrigenid($o->getId());
+      $ordenantza->setUdala($desUdala);
+      $em->persist($ordenantza);
     }
     $output->write('OK.');
     $output->writeln('');

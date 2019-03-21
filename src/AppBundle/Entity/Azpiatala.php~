@@ -106,7 +106,7 @@ class Azpiatala {
    * @var string $createdBy
    *
    * @Gedmo\Blameable(on="create")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $createdBy;
 
@@ -114,7 +114,7 @@ class Azpiatala {
    * @var string $updatedBy
    *
    * @Gedmo\Blameable(on="update")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $updatedBy;
 
@@ -615,4 +615,28 @@ class Azpiatala {
   {
     return $this->updatedBy;
   }
+
+    /**
+     * Set origenid
+     *
+     * @param integer $origenid
+     *
+     * @return Azpiatala
+     */
+    public function setOrigenid($origenid)
+    {
+        $this->origenid = $origenid;
+
+        return $this;
+    }
+
+    /**
+     * Get origenid
+     *
+     * @return integer
+     */
+    public function getOrigenid()
+    {
+        return $this->origenid;
+    }
 }

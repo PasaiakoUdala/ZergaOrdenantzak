@@ -68,6 +68,12 @@ class Baldintza {
    * ************************************************************************************************************************************************************************
    * ************************************************************************************************************************************************************************
    */
+//
+//  /**
+//   * @ORM\OneToMany(targetEntity="AppBundle\Entity\Kontzeptua", mappedBy="baldintza", cascade={"remove"}, orphanRemoval=true)
+//   * @ORM\OrderBy({"ordena" = "ASC"})
+//   */
+//  protected $kontzeptuak;
 
   /**
    * @var Udala
@@ -243,5 +249,39 @@ class Baldintza {
     public function getOrigenid()
     {
         return $this->origenid;
+    }
+
+    /**
+     * Add kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     *
+     * @return Baldintza
+     */
+    public function addKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak[] = $kontzeptuak;
+
+        return $this;
+    }
+
+    /**
+     * Remove kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     */
+    public function removeKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak->removeElement($kontzeptuak);
+    }
+
+    /**
+     * Get kontzeptuak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKontzeptuak()
+    {
+        return $this->kontzeptuak;
     }
 }
