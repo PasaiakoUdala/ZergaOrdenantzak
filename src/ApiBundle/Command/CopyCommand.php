@@ -2,12 +2,19 @@
 
 namespace ApiBundle\Command;
 
+use AppBundle\Entity\Atala;
+use AppBundle\Entity\Atalaparrafoa;
+use AppBundle\Entity\Azpiatala;
+use AppBundle\Entity\Azpiatalaparrafoa;
+use AppBundle\Entity\Azpiatalaparrafoaondoren;
 use AppBundle\Entity\Baldintza;
 use AppBundle\Entity\Eremua;
 use AppBundle\Entity\Eremumota;
+use AppBundle\Entity\Historikoa;
 use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Kontzeptumota;
 use AppBundle\Entity\Ordenantza;
+use AppBundle\Entity\Ordenantzaparrafoa;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -249,10 +256,11 @@ class CopyCommand extends ContainerAwareCommand {
     $output->write('Ordenantzak kopiatzen ');
     $oriOrdenantza= $em->getRepository('AppBundle:Ordenantza')->findBy(array('udala' => $oriUdala->getId()));
 
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
-    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Ordenantza','o')->where('o.udala = :udalaID');
-    $qb->setParameter('udalaID', $desUdala);
-    $qb->getQuery()->execute();
+    // TODO
+//    /** @var \Doctrine\ORM\QueryBuilder $qb */
+//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Ordenantza','o')->where('o.udala = :udalaID');
+//    $qb->setParameter('udalaID', $desUdala);
+//    $qb->getQuery()->execute();
 
     /** @var Ordenantza $o */
     foreach ($oriOrdenantza as $o) {
@@ -267,6 +275,285 @@ class CopyCommand extends ContainerAwareCommand {
       $ordenantza->setOrigenid($o->getId());
       $ordenantza->setUdala($desUdala);
       $em->persist($ordenantza);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** ORDENANTZA PARRAFOA********************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Ordenantzen parrafoak kopiatzen ');
+    $oriOrdenantzaParrafoa = $em->getRepository('AppBundle:Ordenantzaparrafoa')->findBy(array('udala' => $oriUdala->getId()));
+
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Ordenantzaparrafoa','op')->where('op.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Ordenantzaparrafoa $op */
+    foreach ($oriOrdenantzaParrafoa as $op) {
+      $ordenantzaParrafoa = new Ordenantzaparrafoa();
+      $ordenantzaParrafoa->setUdala($desUdala);
+      $ordenantzaParrafoa->setOrigenid($op->getId());
+      $ordenantzaParrafoa->setEzabatu($op->getEzabatu());
+      $ordenantzaParrafoa->setOrdena($op->getOrdena());
+      /** @var Ordenantza $_ordenantza */
+      $_ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneBy(
+        array(
+          'origenid' => $op->getOrdenantza()->getId(),
+        )
+      );
+      $ordenantzaParrafoa->setOrdenantza($_ordenantza);
+      $ordenantzaParrafoa->setOrdena($op->getOrdena());
+      $ordenantzaParrafoa->setOrdenaProd($op->getOrdenaProd());
+      $ordenantzaParrafoa->setTestuaes($op->getTestuaes());
+      $ordenantzaParrafoa->setTestuaesProd($op->getTestuaesProd());
+      $ordenantzaParrafoa->setTestuaeu($op->getTestuaeu());
+      $ordenantzaParrafoa->setTestuaeuProd($op->getTestuaeuProd());
+      $em->persist($ordenantzaParrafoa);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** ATALA *********************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Atalak kopiatzen ');
+    $oriAtalak = $em->getRepository('AppBundle:Atala')->findBy(array('udala' => $oriUdala->getId()));
+
+//  TODO
+//    /** @var \Doctrine\ORM\QueryBuilder $qb */
+//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Atala','a')->where('a.udala = :udalaID');
+//    $qb->setParameter('udalaID', $desUdala);
+//    $qb->getQuery()->execute();
+
+    /** @var Atala $a */
+    foreach ($oriAtalak as $a) {
+      $atala = new Atala();
+      /** @var Ordenantza $_ordenantza */
+      $_ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneBy(
+        array(
+          'origenid' => $a->getOrdenantza()->getId(),
+        )
+      );
+      $atala->setOrdenantza($_ordenantza);
+      $atala->setEzabatu($a->getEzabatu());
+      $atala->setOrigenid($a->getId());
+      $atala->setUdala($desUdala);
+      $atala->setKodeaProd($a->getKodeaProd());
+      $atala->setKodea($a->getKodea());
+      $atala->setIzenburuaeuProd($a->getIzenburuaeuProd());
+      $atala->setIzenburuaeu($a->getIzenburuaeu());
+      $atala->setIzenburuaesProd($a->getIzenburuaesProd());
+      $atala->setIzenburuaes($a->getIzenburuaes());
+      $atala->setUtsa($a->getUtsa());
+      $atala->setUtsaProd($a->getUtsaProd());
+      $em->persist($atala);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** ATALA PARRAFOA ************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Atal parrafoak kopiatzen ');
+    $oriAtalParrafoa = $em->getRepository('AppBundle:Atalaparrafoa')->findBy(array('udala' => $oriUdala->getId()));
+
+
+    // TODO
+//    /** @var \Doctrine\ORM\QueryBuilder $qb */
+//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Atalaparrafoa','a')->where('a.udala = :udalaID');
+//    $qb->setParameter('udalaID', $desUdala);
+//    $qb->getQuery()->execute();
+
+    /** @var Atalaparrafoa $ap */
+    foreach ($oriAtalParrafoa as $ap) {
+      $atalaParrafoa = new Atalaparrafoa();
+      $atalaParrafoa->setUdala($desUdala);
+      $atalaParrafoa->setOrigenid($ap->getId());
+      $atalaParrafoa->setEzabatu($ap->getEzabatu());
+      $atalaParrafoa->setTestuaeuProd($ap->getTestuaeuProd());
+      $atalaParrafoa->setTestuaeu($ap->getTestuaeu());
+      $atalaParrafoa->setTestuaesProd($ap->getTestuaesProd());
+      $atalaParrafoa->setTestuaes($ap->getTestuaes());
+      $atalaParrafoa->setOrdenaProd($ap->getOrdenaProd());
+      $atalaParrafoa->setOrdena($ap->getOrdena());
+      /** @var Atala $_atala */
+      $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
+        array(
+          'origenid' => $a->getOrdenantza()->getId(),
+        )
+      );
+      $atalaParrafoa->setAtala($_atala);
+      $em->persist($atalaParrafoa);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** AZPI ATALA ************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Azpi atal kopiatzen ');
+    $oriAzpiAtala = $em->getRepository('AppBundle:Azpiatala')->findBy(array('udala' => $oriUdala->getId()));
+
+
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatala','a')->where('a.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Azpiatala $aa */
+    foreach ($oriAzpiAtala as $aa) {
+      $azpiatala = new Azpiatala();
+      /** @var Atala $_atala */
+      $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
+        array(
+          'origenid' => $a->getOrdenantza()->getId(),
+        )
+      );
+      $azpiatala->setAtala($_atala);
+      $azpiatala->setEzabatu($aa->getEzabatu());
+      $azpiatala->setOrigenid($aa->getOrigenid());
+      $azpiatala->setUdala($desUdala);
+      $azpiatala->setIzenburuaes($aa->getIzenburuaes());
+      $azpiatala->setIzenburuaesProd($aa->getIzenburuaesProd());
+      $azpiatala->setIzenburuaeu($aa->getIzenburuaeu());
+      $azpiatala->setIzenburuaeuProd($aa->getIzenburuaeuProd());
+      $azpiatala->setKodea($aa->getKodea());
+      $azpiatala->setKodeaProd($aa->getKodeaProd());
+      $em->persist($azpiatala);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** AZPI ATALA PARRAFOA *******************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Azpi atala parrafoak kopiatzen ');
+    $oriAzpiAtalaParrafoa = $em->getRepository('AppBundle:Azpiatalaparrafoa')->findBy(array('udala' => $oriUdala->getId()));
+
+
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatalaparrafoa','a')->where('a.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Azpiatalaparrafoa $aap */
+    foreach ($oriAzpiAtalaParrafoa as $aap) {
+      $azpiAtalaParrafoa = new Azpiatalaparrafoa();
+      $azpiAtalaParrafoa->setUdala($desUdala);
+      $azpiAtalaParrafoa->setOrigenid($aap->getId());
+      $azpiAtalaParrafoa->setEzabatu($aap->getEzabatu());
+      $azpiAtalaParrafoa->setOrdena($aap->getOrdena());
+      $azpiAtalaParrafoa->setOrdenaProd($aap->getOrdenaProd());
+      $azpiAtalaParrafoa->setTestuaes($aap->getTestuaes());
+      $azpiAtalaParrafoa->setTestuaesProd($aap->getTestuaesProd());
+      $azpiAtalaParrafoa->setTestuaeu($aap->getTestuaeu());
+      $azpiAtalaParrafoa->setTestuaeuProd($aap->getTestuaeuProd());
+
+      $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
+        array(
+          'origenid' => $a->getOrdenantza()->getId(),
+        )
+      );
+      $azpiAtalaParrafoa->setAzpiatala($_azpiatala);
+      $em->persist($azpiAtalaParrafoa);
+
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** AZPI ATALA PARRAFOA ONDOREN ***********************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Azpi atala parrafoak (ondoren) kopiatzen ');
+    $oriAzpiAtalaParrafoaOndoren = $em->getRepository('AppBundle:Azpiatalaparrafoa')->findBy(array('udala' => $oriUdala->getId()));
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatalaparrafoa','a')->where('a.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Azpiatalaparrafoaondoren $aapo */
+    foreach ($oriAzpiAtalaParrafoaOndoren as $aapo) {
+      $azpiAtalaParrafoaondoren = new Azpiatalaparrafoaondoren();
+      /** @var Azpiatala $_azpiatala */
+      $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
+        array(
+          'origenid' => $a->getOrdenantza()->getId(),
+        )
+      );
+      $azpiAtalaParrafoaondoren->setAzpiatala($_azpiatala);
+      $azpiAtalaParrafoaondoren->setTestuaeuProd($aapo->getTestuaeuProd());
+      $azpiAtalaParrafoaondoren->setTestuaeu($aapo->getTestuaeu());
+      $azpiAtalaParrafoaondoren->setTestuaesProd($aapo->getTestuaesProd());
+      $azpiAtalaParrafoaondoren->setTestuaes($aapo->getTestuaes());
+      $azpiAtalaParrafoaondoren->setOrdenaProd($aapo->getOrdenaProd());
+      $azpiAtalaParrafoaondoren->setOrdena($aapo->getOrdena());
+      $azpiAtalaParrafoaondoren->setEzabatu($aapo->getEzabatu());
+      $azpiAtalaParrafoaondoren->setOrigenid($aapo->getId());
+
+      $em->persist($azpiAtalaParrafoaondoren);
+
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** HISTORIKOA  ***************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Historikoa kopiatzen ');
+    $oriHistorikoa = $em->getRepository('AppBundle:Historikoa')->findBy(array('udala' => $oriUdala->getId()));
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+
+    /** @var Historikoa $h */
+    foreach ($oriHistorikoa as $h) {
+      $his = new Historikoa();
+      $his->setOrigenid($h->getId());
+      $his->setUdala($desUdala);
+      $his->setAldaketakes($h->getAldaketakes());
+      $his->setAldaketakeu($h->getAldaketakeu());
+      $his->setBogargitaratzedata($h->getBogargitaratzedata());
+      $his->setBogargitaratzedatatestua($h->getBogargitaratzedatatestua());
+      $his->setBogbehinbetikodata($h->getBogbehinbetikodata());
+      $his->setBogestekaes($h->getBogestekaes());
+      $his->setBogestekaeu($h->getBogestekaeu());
+      $his->setFitxategia($h->getFitxategia());
+      $his->setIndarreandata($h->getIndarreandata());
+      $his->setOnartzedata($h->getOnartzedata());
+      $em->persist($his);
     }
     $output->write('OK.');
     $output->writeln('');
