@@ -49,7 +49,7 @@ class Baldintza {
    * @var string $createdBy
    *
    * @Gedmo\Blameable(on="create")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $createdBy;
 
@@ -57,7 +57,7 @@ class Baldintza {
    * @var string $updatedBy
    *
    * @Gedmo\Blameable(on="update")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $updatedBy;
 
@@ -68,6 +68,12 @@ class Baldintza {
    * ************************************************************************************************************************************************************************
    * ************************************************************************************************************************************************************************
    */
+//
+//  /**
+//   * @ORM\OneToMany(targetEntity="AppBundle\Entity\Kontzeptua", mappedBy="baldintza", cascade={"remove"}, orphanRemoval=true)
+//   * @ORM\OrderBy({"ordena" = "ASC"})
+//   */
+//  protected $kontzeptuak;
 
   /**
    * @var Udala
@@ -220,4 +226,62 @@ class Baldintza {
   {
     return $this->updatedBy;
   }
+
+    /**
+     * Set origenid
+     *
+     * @param integer $origenid
+     *
+     * @return Baldintza
+     */
+    public function setOrigenid($origenid)
+    {
+        $this->origenid = $origenid;
+
+        return $this;
+    }
+
+    /**
+     * Get origenid
+     *
+     * @return integer
+     */
+    public function getOrigenid()
+    {
+        return $this->origenid;
+    }
+
+    /**
+     * Add kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     *
+     * @return Baldintza
+     */
+    public function addKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak[] = $kontzeptuak;
+
+        return $this;
+    }
+
+    /**
+     * Remove kontzeptuak
+     *
+     * @param \AppBundle\Entity\Kontzeptua $kontzeptuak
+     */
+    public function removeKontzeptuak(\AppBundle\Entity\Kontzeptua $kontzeptuak)
+    {
+        $this->kontzeptuak->removeElement($kontzeptuak);
+    }
+
+    /**
+     * Get kontzeptuak
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getKontzeptuak()
+    {
+        return $this->kontzeptuak;
+    }
 }

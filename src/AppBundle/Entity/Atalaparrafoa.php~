@@ -98,7 +98,7 @@ class Atalaparrafoa {
    * @var string $createdBy
    *
    * @Gedmo\Blameable(on="create")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $createdBy;
 
@@ -106,7 +106,7 @@ class Atalaparrafoa {
    * @var string $updatedBy
    *
    * @Gedmo\Blameable(on="update")
-   * @ORM\Column
+   * @ORM\Column(nullable=true)
    */
   private $updatedBy;
 
@@ -498,4 +498,28 @@ class Atalaparrafoa {
   {
     return $this->updatedBy;
   }
+
+    /**
+     * Set origenid
+     *
+     * @param integer $origenid
+     *
+     * @return Atalaparrafoa
+     */
+    public function setOrigenid($origenid)
+    {
+        $this->origenid = $origenid;
+
+        return $this;
+    }
+
+    /**
+     * Get origenid
+     *
+     * @return integer
+     */
+    public function getOrigenid()
+    {
+        return $this->origenid;
+    }
 }
