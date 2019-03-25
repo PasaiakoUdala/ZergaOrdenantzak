@@ -191,62 +191,7 @@ class CopyCommand extends ContainerAwareCommand {
     $em->flush();
 
 
-    /*******************************************************************************************************************************************************/
-    /*******************************************************************************************************************************************************/
-    /*** KONTZEPTUA ******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************************/
-    /*******************************************************************************************************************************************************/
-    $output->write('Kontzeptua kopiatzen ');
-    $oriKontzeptua = $em->getRepository('AppBundle:Kontzeptua')->findBy(array('udala' => $oriUdala->getId()));
 
-
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
-    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptua','k')->where('k.udala = :udalaID');
-    $qb->setParameter('udalaID', $desUdala);
-    $qb->getQuery()->execute();
-    /** @var Kontzeptua $k */
-    foreach ($oriKontzeptua as $k) {
-      $kontzeptua = new Kontzeptua();
-      $kontzeptua->setUdala($desUdala);
-      $kontzeptua->setOrigenid($k->getId());
-      if ($k->getBaldintza()) {
-        /** @var Baldintza $_baldintza */
-        $_baldintza = $em->getRepository('AppBundle:Baldintza')->findOneBy(
-          array(
-            'origenid' => $k->getBaldintza()->getId(),
-          )
-        );
-        $kontzeptua->setBaldintza($_baldintza);
-      }
-      $kontzeptua->setEzabatu($k->getEzabatu());
-      $kontzeptua->setKodea($k->getKodea());
-      // TODO: gehitu azpiatala Kontzeptuetan
-      //$kontzeptua->setAzpiatala();
-      $kontzeptua->setKodeaProd($k->getKodeaProd());
-      $kontzeptua->setKodea($k->getKodea());
-      $kontzeptua->setKontzeptuaes($k->getKontzeptuaes());
-      $kontzeptua->setKontzeptuaesProd($k->getKontzeptuaesProd());
-      $kontzeptua->setKontzeptuaeu($k->getKontzeptuaeu());
-      $kontzeptua->setKontzeptuaeuProd($k->getKontzeptuaeuProd());
-      if ($k->getKontzeptumota()) {
-        /** @var Kontzeptumota $_kontzeptu_mota */
-        $_kontzeptu_mota = $em->getRepository('AppBundle:Kontzeptumota')->findOneBy(
-          array(
-            'origenid' => $k->getKontzeptumota()->getId(),
-          )
-        );
-        $kontzeptua->setKontzeptumota($_kontzeptu_mota);
-      }
-      $kontzeptua->setKopurua($k->getKopurua());
-      $kontzeptua->setKopuruaProd($k->getKopuruaProd());
-      $kontzeptua->setUnitatea($k->getUnitatea());
-      $kontzeptua->setUnitateaProd($k->getUnitateaProd());
-
-      $em->persist($kontzeptua);
-    }
-    $output->write('OK.');
-    $output->writeln('');
-    $em->flush();
 
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
@@ -472,13 +417,16 @@ class CopyCommand extends ContainerAwareCommand {
       $azpiAtalaParrafoa->setTestuaesProd($aap->getTestuaesProd());
       $azpiAtalaParrafoa->setTestuaeu($aap->getTestuaeu());
       $azpiAtalaParrafoa->setTestuaeuProd($aap->getTestuaeuProd());
-      /** @var Azpiatala $_azpiatala */
-      $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
-        array(
-          'origenid' => $aap->getAzpiatala()->getId(),
-        )
-      );
-      $azpiAtalaParrafoa->setAzpiatala($_azpiatala);
+      if ($aap->getAzpiatala()) {
+        /** @var Azpiatala $_azpiatala */
+        $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
+          array(
+            'origenid' => $aap->getAzpiatala()->getId(),
+          )
+        );
+        $azpiAtalaParrafoa->setAzpiatala($_azpiatala);
+      }
+
       $em->persist($azpiAtalaParrafoa);
 
     }
@@ -502,13 +450,15 @@ class CopyCommand extends ContainerAwareCommand {
     /** @var Azpiatalaparrafoaondoren $aapo */
     foreach ($oriAzpiAtalaParrafoaOndoren as $aapo) {
       $azpiAtalaParrafoaondoren = new Azpiatalaparrafoaondoren();
-      /** @var Azpiatala $_azpiatala */
-      $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
-        array(
-          'origenid' => $aapo->getAzpiatala()->getId(),
-        )
-      );
-      $azpiAtalaParrafoaondoren->setAzpiatala($_azpiatala);
+      if ($aapo->getAzpiatala()) {
+        /** @var Azpiatala $_azpiatala */
+        $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
+          array(
+            'origenid' => $aapo->getAzpiatala()->getId(),
+          )
+        );
+        $azpiAtalaParrafoaondoren->setAzpiatala($_azpiatala);
+      }
       $azpiAtalaParrafoaondoren->setTestuaeuProd($aapo->getTestuaeuProd());
       $azpiAtalaParrafoaondoren->setTestuaeu($aapo->getTestuaeu());
       $azpiAtalaParrafoaondoren->setTestuaesProd($aapo->getTestuaesProd());
@@ -555,6 +505,71 @@ class CopyCommand extends ContainerAwareCommand {
       $his->setIndarreandata($h->getIndarreandata());
       $his->setOnartzedata($h->getOnartzedata());
       $em->persist($his);
+    }
+    $output->write('OK.');
+    $output->writeln('');
+    $em->flush();
+
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*** KONTZEPTUA ******************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    /*******************************************************************************************************************************************************/
+    $output->write('Kontzeptua kopiatzen ');
+    $oriKontzeptua = $em->getRepository('AppBundle:Kontzeptua')->findBy(array('udala' => $oriUdala->getId()));
+
+
+    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptua','k')->where('k.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+    /** @var Kontzeptua $k */
+    foreach ($oriKontzeptua as $k) {
+      $kontzeptua = new Kontzeptua();
+      $kontzeptua->setUdala($desUdala);
+      $kontzeptua->setOrigenid($k->getId());
+      if ($k->getBaldintza()) {
+        /** @var Baldintza $_baldintza */
+        $_baldintza = $em->getRepository('AppBundle:Baldintza')->findOneBy(
+          array(
+            'origenid' => $k->getBaldintza()->getId(),
+          )
+        );
+        $kontzeptua->setBaldintza($_baldintza);
+      }
+      $kontzeptua->setEzabatu($k->getEzabatu());
+//      $kontzeptua->setKodea($k->getKodea());
+//      if ($k->getAzpiatala()) {
+//        /** @var Azpiatala $_azpiatala */
+//        $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
+//          array(
+//            'origenid' => $k->getAzpiatala()->getId(),
+//          )
+//        );
+//        $kontzeptua->setAzpiatala($_azpiatala);
+//      }
+
+      $kontzeptua->setKodeaProd($k->getKodeaProd());
+      $kontzeptua->setKodea($k->getKodea());
+      $kontzeptua->setKontzeptuaes($k->getKontzeptuaes());
+      $kontzeptua->setKontzeptuaesProd($k->getKontzeptuaesProd());
+      $kontzeptua->setKontzeptuaeu($k->getKontzeptuaeu());
+      $kontzeptua->setKontzeptuaeuProd($k->getKontzeptuaeuProd());
+      if ($k->getKontzeptumota()) {
+        /** @var Kontzeptumota $_kontzeptu_mota */
+        $_kontzeptu_mota = $em->getRepository('AppBundle:Kontzeptumota')->findOneBy(
+          array(
+            'origenid' => $k->getKontzeptumota()->getId(),
+          )
+        );
+        $kontzeptua->setKontzeptumota($_kontzeptu_mota);
+      }
+      $kontzeptua->setKopurua($k->getKopurua());
+      $kontzeptua->setKopuruaProd($k->getKopuruaProd());
+      $kontzeptua->setUnitatea($k->getUnitatea());
+      $kontzeptua->setUnitateaProd($k->getUnitateaProd());
+
+      $em->persist($kontzeptua);
     }
     $output->write('OK.');
     $output->writeln('');
