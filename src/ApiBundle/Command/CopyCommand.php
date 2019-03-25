@@ -321,6 +321,7 @@ class CopyCommand extends ContainerAwareCommand {
     $output->writeln('');
     $em->flush();
 
+
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*** ATALA *********************************************************************************************************************************************/
@@ -393,7 +394,7 @@ class CopyCommand extends ContainerAwareCommand {
       /** @var Atala $_atala */
       $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
         array(
-          'origenid' => $a->getOrdenantza()->getId(),
+          'origenid' => $ap->getAtala()->getId(),
         )
       );
       $atalaParrafoa->setAtala($_atala);
@@ -425,12 +426,12 @@ class CopyCommand extends ContainerAwareCommand {
       /** @var Atala $_atala */
       $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
         array(
-          'origenid' => $a->getOrdenantza()->getId(),
+          'origenid' => $aa->getAtala()->getId(),
         )
       );
       $azpiatala->setAtala($_atala);
       $azpiatala->setEzabatu($aa->getEzabatu());
-      $azpiatala->setOrigenid($aa->getOrigenid());
+      $azpiatala->setOrigenid($aa->getId());
       $azpiatala->setUdala($desUdala);
       $azpiatala->setIzenburuaes($aa->getIzenburuaes());
       $azpiatala->setIzenburuaesProd($aa->getIzenburuaesProd());
@@ -471,10 +472,10 @@ class CopyCommand extends ContainerAwareCommand {
       $azpiAtalaParrafoa->setTestuaesProd($aap->getTestuaesProd());
       $azpiAtalaParrafoa->setTestuaeu($aap->getTestuaeu());
       $azpiAtalaParrafoa->setTestuaeuProd($aap->getTestuaeuProd());
-
+      /** @var Azpiatala $_azpiatala */
       $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
         array(
-          'origenid' => $a->getOrdenantza()->getId(),
+          'origenid' => $aap->getAzpiatala()->getId(),
         )
       );
       $azpiAtalaParrafoa->setAzpiatala($_azpiatala);
@@ -504,7 +505,7 @@ class CopyCommand extends ContainerAwareCommand {
       /** @var Azpiatala $_azpiatala */
       $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
         array(
-          'origenid' => $a->getOrdenantza()->getId(),
+          'origenid' => $aapo->getAzpiatala()->getId(),
         )
       );
       $azpiAtalaParrafoaondoren->setAzpiatala($_azpiatala);
