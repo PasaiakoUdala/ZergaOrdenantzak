@@ -122,7 +122,7 @@ class Ordenantzaparrafoa {
    *
    * @ORM\ManyToOne(targetEntity="Ordenantza", inversedBy="parrafoak")
    * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id")
+   *   @ORM\JoinColumn(name="ordenantza_id", referencedColumnName="id", onDelete="SET NULL")
    * })
    */
   private $ordenantza;

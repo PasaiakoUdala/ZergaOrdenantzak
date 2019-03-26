@@ -179,7 +179,7 @@ class Kontzeptua {
    *
    * @ORM\ManyToOne(targetEntity="Kontzeptumota")
    * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="kontzeptumota_id", referencedColumnName="id")
+   *   @ORM\JoinColumn(name="kontzeptumota_id", referencedColumnName="id", onDelete="SET NULL")
    * })
    */
   private $kontzeptumota;

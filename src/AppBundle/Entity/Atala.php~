@@ -149,7 +149,7 @@ class Atala {
   private $ordenantza;
 
   /**
-   * @ORM\OneToMany(targetEntity="Atalaparrafoa", mappedBy="atala", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Atalaparrafoa", mappedBy="atala", cascade={"remove", "persist"})
    * @ORM\OrderBy({"ordena" = "ASC"})
    */
   protected $parrafoak;
@@ -157,7 +157,7 @@ class Atala {
   /**
    * @Expose
    * @ORM\OrderBy({"kodea" = "ASC"})
-   * @ORM\OneToMany(targetEntity="Azpiatala", mappedBy="atala", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Azpiatala", mappedBy="atala", cascade={"remove", "persist"})
    */
   protected $azpiatalak;
 

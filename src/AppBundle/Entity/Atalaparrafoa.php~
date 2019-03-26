@@ -123,7 +123,7 @@ class Atalaparrafoa {
    *
    * @ORM\ManyToOne(targetEntity="Atala",inversedBy="parrafoak")
    * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
+   *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id", onDelete="SET NULL")
    * })
    */
   private $atala;
