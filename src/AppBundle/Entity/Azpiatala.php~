@@ -131,14 +131,14 @@ class Azpiatala {
    *
    * @ORM\ManyToOne(targetEntity="Atala",inversedBy="azpiatalak")
    * @ORM\JoinColumns({
-   *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id")
+   *   @ORM\JoinColumn(name="atala_id", referencedColumnName="id", onDelete="SET NULL")
    * })
    */
   private $atala;
 
   /**
    * @var Azpiatalaparrafoa
-   * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Azpiatalaparrafoa", mappedBy="azpiatala", cascade={"remove", "persist"})
    * @Expose()
    * @ORM\OrderBy({"ordena" = "ASC"})
    */
@@ -146,7 +146,7 @@ class Azpiatala {
 
   /**
    * @var Azpiatalaparrafoaondoren
-   * @ORM\OneToMany(targetEntity="Azpiatalaparrafoaondoren", mappedBy="azpiatala", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Azpiatalaparrafoaondoren", mappedBy="azpiatala", cascade={"remove", "persist"})
    * @Expose()
    * @ORM\OrderBy({"ordena" = "ASC"})
    */

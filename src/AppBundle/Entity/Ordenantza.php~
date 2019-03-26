@@ -132,7 +132,7 @@ class Ordenantza {
 
   /**
    * @var Ordenantza
-   * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Ordenantzaparrafoa", mappedBy="ordenantza", cascade={"remove", "persist"})
    * @ORM\OrderBy({"ordena" = "ASC"})
    */
   protected $parrafoak;
@@ -140,7 +140,7 @@ class Ordenantza {
    * @var Atala
    * @Expose
    * @ORM\OrderBy({"kodea" = "ASC"})
-   * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove"})
+   * @ORM\OneToMany(targetEntity="Atala", mappedBy="ordenantza", cascade={"remove", "persist"})
    */
   protected $atalak;
 
