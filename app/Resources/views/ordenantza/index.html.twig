@@ -94,6 +94,10 @@
                             </span>
                         </li>
                         {% for azpiatala in atala.azpiatalak if azpiatala.kontzeptuak | length > 0 %}
+                          {% if azpiatala.ezabatu == 1 %}
+                          {% else %}
+
+
                             <li role="presentation" class="liSubMenu">
                                 <a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
                                     {% if  app.request.locale == "eu"%}
@@ -158,6 +162,7 @@
                                         </div>
                                     </div>
                                 </div>
+                          {% endif %}
                         {% endfor %}
                     {% endfor %}
                 </ul>
