@@ -232,42 +232,42 @@ class HistorikoaController extends Controller {
                 $em->flush();
 
             }
-
+          $eguna = date("Y-m-d_His");
             /* PDF Fitxategia sortuko dugu*/
             /** @var \TCPDF $pdf */
-            $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-            $pdf->footerTitle = $form["indarreandata"]->getData()->format('Y/m/d');;
-
-
-            $pdf->SetAuthor($this->getUser()->getUdala());
-            $pdf->SetTitle($this->getUser()->getUdala() . "-Zerga Ordenantzak");
-
-            $pdf->setFontSubsetting(true);
-            $pdf->SetFont('helvetica', '', 11, '', true);
-
-            $pdf->setHeaderData('', 0, '', '', array(0, 0, 0), array(255, 255, 255));
-
-            $pdf->AddPage();
-
-            $eguna = date("Y-m-d_His");
-            $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-" . $eguna);
-
-            $azala = $this->render('ordenantza/azala.html.twig', array('eguna' => date("Y"), 'udala' => $this->getUser()->getUdala()));
-
-            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-
-            $pdf->AddPage();
-
-            foreach ($ordenantzas as $ordenantza)
-            {
-                $mihtml = $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
-                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-                $pdf->AddPage();
-            }
-
-
-            $pdf->Output($filename . ".pdf", 'F'); // This will output the PDF as a response directly
+//            $pdf = $this->get("white_october.tcpdf")->create('vertical', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+//
+//            $pdf->footerTitle = $form["indarreandata"]->getData()->format('Y/m/d');;
+//
+//
+//            $pdf->SetAuthor($this->getUser()->getUdala());
+//            $pdf->SetTitle($this->getUser()->getUdala() . "-Zerga Ordenantzak");
+//
+//            $pdf->setFontSubsetting(true);
+//            $pdf->SetFont('helvetica', '', 11, '', true);
+//
+//            $pdf->setHeaderData('', 0, '', '', array(0, 0, 0), array(255, 255, 255));
+//
+//            $pdf->AddPage();
+//
+//
+//            $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), "ZergaOrdenantzak-" . $eguna);
+//
+//            $azala = $this->render('ordenantza/azala.html.twig', array('eguna' => date("Y"), 'udala' => $this->getUser()->getUdala()));
+//
+//            $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $azala->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+//
+//            $pdf->AddPage();
+//
+//            foreach ($ordenantzas as $ordenantza)
+//            {
+//                $mihtml = $this->render('ordenantza/pdf.html.twig', array('ordenantza' => $ordenantza));
+//                $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $mihtml->getContent(), $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+//                $pdf->AddPage();
+//            }
+//
+//
+//            $pdf->Output($filename . ".pdf", 'F'); // This will output the PDF as a response directly
 
             $historikoa->setFitxategia("ZergaOrdenantzak-" . $eguna . ".pdf");
             $em->persist($historikoa);
