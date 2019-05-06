@@ -1,206 +1,209 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <style>
-        @media screen and (min-width: 768px) {
-            .modal-lg{
-                width:900px;
-            }
+  {{ parent() }}
+  <style>
+    @media screen and (min-width: 768px) {
+      .modal-lg {
+        width: 900px;
+      }
 
-            .modal-sm{
-                width:300px;
-            }
-        }
-    </style>
+      .modal-sm {
+        width: 300px;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block navright %}
-    <ul class="nav navbar-nav navbar-right">
+  <ul class="nav navbar-nav navbar-right">
 
-        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "message.admin" | trans }}<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
-                    <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza" |trans }}</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="{{ path('api_kudeatzailea') }}">{{ "Api kudeatzailea" |trans }}</a></li>
-                </ul>
-            </li>
-        {% endif %}
-
-        <li><a href="{{ path('admin_ordenantza_new') }}">{{ "Ordenantza Berria" | trans }}</a></li>
-
-        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "Odt-a eskuratu" | trans }}<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="{{ path('admin_ordenantza_html_eu') }}" > {{ "Euskaraz" | trans }}</a></li>
-            <li><a href="{{ path('admin_ordenantza_html_es') }}" > {{ "Erdaraz" | trans }}</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="{{ path('admin_ordenantza_html') }}">{{ "Bi hizkuntzetan" |trans }}</a></li>
-          </ul>
-        </li>
-        <li><a class="kargatzen"  href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
-        <li><a href="{{ path('admin_historikoa_index') }}">{{ "Historikoa ikusi" | trans }}</a></li>
-
-
-
-        <li>&nbsp;</li>
-        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
-        <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}">EU</a></li>
-        <li>&nbsp;</li>
-        <li>
-        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-            <li class="list-inline"><a href="{{ path('users_index', {'_switch_user': '_exit'}) }}">Modu arruntera itzuli</a></li>
-        {% endif %}
-        </li>
+    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "message.admin" | trans }}<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ path('udala_index') }}" class="fa fa-university"> Udalak</a></li>
+          <li><a href="{{ path('users_index') }}" class="fa fa-bars"> Erabiltzaileak</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza" |trans }}</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="{{ path('api_kudeatzailea') }}">{{ "Api kudeatzailea" |trans }}</a></li>
         </ul>
-    </ul>
+      </li>
+    {% endif %}
+
+    <li><a href="{{ path('admin_ordenantza_new') }}">{{ "Ordenantza Berria" | trans }}</a></li>
+
+    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "Odt-a eskuratu" | trans }}<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="{{ path('admin_ordenantza_html_eu') }}"> {{ "Euskaraz" | trans }}</a></li>
+        <li><a href="{{ path('admin_ordenantza_html_es') }}"> {{ "Erdaraz" | trans }}</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{{ path('admin_ordenantza_html') }}">{{ "Bi hizkuntzetan" |trans }}</a></li>
+      </ul>
+    </li>
+    <li><a class="kargatzen" href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
+    <li><a href="{{ path('admin_historikoa_index') }}">{{ "Historikoa ikusi" | trans }}</a></li>
+
+
+    <li>&nbsp;</li>
+    <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">ES</a></li>
+    <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'})) }}">EU</a></li>
+    <li>&nbsp;</li>
+    <li>
+      {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+    <li class="list-inline"><a href="{{ path('users_index', {'_switch_user': '_exit'}) }}">Modu arruntera itzuli</a></li>
+    {% endif %}
+    </li>
+  </ul>
+  </ul>
 {% endblock %}
 
 {% block body %}
-    <div class="containermenua">
-        {% for ordenantza in ordenantzas %}
-            {% if is_granted("ROLE_SUPER_ADMIN") %}
-                <span>{{ ordenantza.udala }}</span>
+  <div class="containermenua">
+    {% for ordenantza in ordenantzas %}
+      {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <span>{{ ordenantza.udala }}</span>
+      {% endif %}
+
+      <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
+        <ul class="list-inline">
+          <li class="litext">
+            {% if  app.request.locale == "eu" %}
+              {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
+            {% else %}
+              {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
             {% endif %}
+          </li>
+          <li class="pull-right">
+            <span class="btnsubmenu glyphicon glyphicon-plus" data-divazpiatalak="{{ loop.index }}" data-ordenantzaid="{{ ordenantza.id }}"></span>
+          </li>
+        </ul>
+      </a>
 
-            <a href="{{ path('admin_ordenantza_show', {'id': ordenantza.id}) }}" class="menuordenantza">
-                <ul class="list-inline">
-                    <li class="litext">
-                        {% if  app.request.locale == "eu"%}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaeu |raw|escape }}
-                        {% else %}
-                            {{ ordenantza.kodea }} - {{ ordenantza.izenburuaes |raw|escape }}
-                        {% endif %}
-                    </li>
-                    <li class="pull-right">
-                        <span class="btnsubmenu glyphicon glyphicon-plus" data-divazpiatalak="{{ loop.index }}" data-ordenantzaid="{{ ordenantza.id }}"></span>
-                    </li>
-                </ul>
-            </a>
-
-            <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
-                <ul class="nav nav-pills nav-stacked">
-                    {% for atala in ordenantza.atalak if atala.azpiatalak | length > 0 %}
-                        <li>
+      <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
+        <ul class="nav nav-pills nav-stacked">
+          {% for atala in ordenantza.atalak if atala.azpiatalak | length > 0 %}
+            {% set lehena = false %} {# honekin tituloa behar denean agertzen dela aseguratzen gara. #}
+            {% for azpiatala in atala.azpiatalak if azpiatala.kontzeptuak | length > 0 %}
+              {% if azpiatala.ezabatu == 1 %}
+              {% else %}
+                {% if lehena == false %}
+                  <li>
                             <span class="label label-primary">
-                                {% if  app.request.locale == "eu"%}
-                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}
+                                {% if  app.request.locale == "eu" %}
+                                  {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaeu }}
                                 {% else %}
-                                    {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}
+                                  {{ atala.ordenantza.kodea }}-{{ atala.kodea }}.{{ atala.izenburuaes }}
                                 {% endif %}
                             </span>
-                        </li>
-                        {% for azpiatala in atala.azpiatalak if azpiatala.kontzeptuak | length > 0 %}
-                          {% if azpiatala.ezabatu == 1 %}
+                    {% set lehena = true %}
+                  </li>
+
+                {% endif %}
+
+                <li role="presentation" class="liSubMenu">
+                  <a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
+                    {% if  app.request.locale == "eu" %}
+                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                    {% else %}
+                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                    {% endif %}
+                  </a>
+                </li>
+                {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
+                <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                          {% if  app.request.locale == "eu" %}
+                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
                           {% else %}
-
-
-                            <li role="presentation" class="liSubMenu">
-                                <a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
-                                    {% if  app.request.locale == "eu"%}
-                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
-                                    {% else %}
-                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
-                                    {% endif %}
-                                </a>
-                                </li>
-                            {#<a class="list-group-item" href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">{{ azpiatala.izenburuaeu }}</a>#}
-                                <div class="modal fade" id="myModal{{ azpiatala.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel">
-                                                    {% if  app.request.locale == "eu"%}
-                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
-                                                    {% else %}
-                                                        {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
-                                                    {% endif %}
-                                                </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <table class="table table-bordered table-condensed table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>{{ "Kontzeptua" | trans }}</th>
-                                                        <th>{{ "Kopurua" | trans }}</th>
-                                                        <th>{{ "Unitatea" |trans }}</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {% for k in azpiatala.kontzeptuak %}
-                                                        <tr>
-                                                            <td>{% if  app.request.locale == "eu"%}
-                                                                    {{ k.kontzeptuaeu }}
-                                                                    {% if k.baldintza is defined %}
-                                                                        {% if k.baldintza.baldintzaeu is defined %}
-                                                                            ({{ k.baldintza.baldintzaeu }})
-                                                                        {% endif %}
-                                                                    {% endif %}
-                                                                {% else %}
-                                                                    {{ k.kontzeptuaes }}
-                                                                    {% if k.baldintza is defined %}
-                                                                        {% if k.baldintza.baldintzaeu is defined %}
-                                                                            ({{ k.baldintza.baldintzaes }})
-                                                                        {% endif %}
-                                                                    {% endif %}
-                                                                {% endif %}
-                                                            </td>
-                                                            <td>{{ k.kopurua }}</td>
-                                                            <td>{{ k.unitatea }}</td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Itxi" | trans }}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
                           {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
+                        </h4>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-bordered table-condensed table-hover">
+                          <thead>
+                          <tr>
+                            <th>{{ "Kontzeptua" | trans }}</th>
+                            <th>{{ "Kopurua" | trans }}</th>
+                            <th>{{ "Unitatea" |trans }}</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {% for k in azpiatala.kontzeptuak %}
+                            <tr>
+                              <td>{% if  app.request.locale == "eu" %}
+                                  {{ k.kontzeptuaeu }}
+                                  {% if k.baldintza is defined %}
+                                    {% if k.baldintza.baldintzaeu is defined %}
+                                      ({{ k.baldintza.baldintzaeu }})
+                                    {% endif %}
+                                  {% endif %}
+                                {% else %}
+                                  {{ k.kontzeptuaes }}
+                                  {% if k.baldintza is defined %}
+                                    {% if k.baldintza.baldintzaeu is defined %}
+                                      ({{ k.baldintza.baldintzaes }})
+                                    {% endif %}
+                                  {% endif %}
+                                {% endif %}
+                              </td>
+                              <td>{{ k.kopurua }}</td>
+                              <td>{{ k.unitatea }}</td>
+                            </tr>
+                          {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ "Itxi" | trans }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
 
-        {% endfor %}
-    </div>
+    {% endfor %}
+  </div>
 
 
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
+  {{ parent() }}
 
-    <script>
+  <script>
 
-        $(document).ajaxStart(function(){
-            $('#loading').show();
-        }).ajaxStop(function(){
-            $('#loading').hide();
-        });
+    $(document).ajaxStart(function () {
+      $("#loading").show();
+    }).ajaxStop(function () {
+      $("#loading").hide();
+    });
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            $('.btnsubmenu').on("click", function (e) {
-                e.preventDefault();
-                var index = $(this).data('divazpiatalak');
-                var divSub = ".subAzpiatalak" + index;
-                $(divSub).toggle( "slow" );
-                if ( $(this).hasClass('glyphicon-minus')==true ) {
-                    $(this).removeClass('glyphicon-minus');
-                    $(this).addClass('glyphicon-plus')
-                } else {
-                    $(this).removeClass('glyphicon-plus');
-                    $(this).addClass('glyphicon-minus')
-                }
+      $(".btnsubmenu").on("click", function ( e ) {
+        e.preventDefault();
+        var index = $(this).data("divazpiatalak");
+        var divSub = ".subAzpiatalak" + index;
+        $(divSub).toggle("slow");
+        if ( $(this).hasClass("glyphicon-minus") == true ) {
+          $(this).removeClass("glyphicon-minus");
+          $(this).addClass("glyphicon-plus");
+        } else {
+          $(this).removeClass("glyphicon-plus");
+          $(this).addClass("glyphicon-minus");
+        }
 
-            });
-        });
-    </script>
+      });
+    });
+  </script>
 {% endblock %}
