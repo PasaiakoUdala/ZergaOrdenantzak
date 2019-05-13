@@ -15,6 +15,7 @@ use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Kontzeptumota;
 use AppBundle\Entity\Ordenantza;
 use AppBundle\Entity\Ordenantzaparrafoa;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -256,7 +257,7 @@ class CopyCommand extends ContainerAwareCommand {
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     $output->write('-- Helmugako udaleko Ordenantzen parrafoak ezabatzen...');
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    /** @var QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Ordenantzaparrafoa','op')->where('op.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
@@ -298,7 +299,7 @@ class CopyCommand extends ContainerAwareCommand {
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     $output->write('-- Helmugako udaleko Atalak ezabatzen...');
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    /** @var QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Atala','a')->where('a.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
@@ -419,11 +420,11 @@ class CopyCommand extends ContainerAwareCommand {
 
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
-    /*** AZPI ATALA PARRAFOA *******************************************************************************************************************************/
+    /*** AZPIATALA PARRAFOA  *******************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     $output->write('-- Helmugako udaleko Azpi Atal parrafoak datuak ezabatzen...');
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    /** @var QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatalaparrafoa','a')->where('a.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
@@ -462,20 +463,21 @@ class CopyCommand extends ContainerAwareCommand {
 
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
-    /*** AZPI ATALA PARRAFOA ONDOREN ***********************************************************************************************************************/
+    /*** AZPIATALA PARRAFOA ONDOREN ************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     $output->write('-- Helmugako udaleko Azpi Atal parrafoak (ondoren) datuak ezabatzen...');
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
-    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatalaparrafoa','a')->where('a.udala = :udalaID');
+    /** @var QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Azpiatalaparrafoaondoren','a')->where('a.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
     $output->writeln('OK');
     $output->write('++ Azpi atala parrafoak (ondoren) kopiatzen...');
-    $oriAzpiAtalaParrafoaOndoren = $em->getRepository('AppBundle:Azpiatalaparrafoa')->findBy(array('udala' => $oriUdala->getId()));
+    $oriAzpiAtalaParrafoaOndoren = $em->getRepository('AppBundle:Azpiatalaparrafoaondoren')->findBy(array('udala' => $oriUdala->getId()));
     /** @var Azpiatalaparrafoaondoren $aapo */
     foreach ($oriAzpiAtalaParrafoaOndoren as $aapo) {
       $azpiAtalaParrafoaondoren = new Azpiatalaparrafoaondoren();
+      $azpiAtalaParrafoaondoren->setUdala($desUdala);
       if ($aapo->getAzpiatala()) {
         /** @var Azpiatala $_azpiatala */
         $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
@@ -503,40 +505,6 @@ class CopyCommand extends ContainerAwareCommand {
     $em->flush();
 
 
-//    /*******************************************************************************************************************************************************/
-//    /*******************************************************************************************************************************************************/
-//    /*** AZPIATALA vs KONTZEPTUA ***************************************************************************************************************************/
-//    /*******************************************************************************************************************************************************/
-//    /*******************************************************************************************************************************************************/
-//    $output->write('-- Azpiatalak eta kontzeptuak batzen...');
-//    $oriAzpiAtala = $em->getRepository('AppBundle:Azpiatala')->findBy(array('udala' => $oriUdala->getId()));
-//
-//    $output->writeln('---');
-//    $output->writeln('--');
-//    $output->writeln('-');
-//
-//    /** @var Azpiatala $aa */
-//    foreach ($oriAzpiAtala as $aa) {
-//      $output->writeln($aa->getIzenburuaes());
-//      /** @var Kontzeptua $ko */
-//      foreach ($aa->getKontzeptuak() as $ko) {
-//        /** @var Kontzeptua $_kostua */
-//        $_kostua = $em->getRepository('AppBundle:Kontzeptua')->findOneBy(
-//          array(
-//            'origenid' => $ko->getId(),
-//          )
-//        );
-//        $aa->addKontzeptuak($_kostua);
-//        $em->persist($aa);
-//        $em->flush();
-//      }
-//
-//    }
-//    $output->write('OK.');
-//    $output->writeln('');
-//    $output->writeln('');
-
-
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*** KONTZEPTUA ******************************************************************************************************************************************/
@@ -552,7 +520,7 @@ class CopyCommand extends ContainerAwareCommand {
     $output->writeln('Ok');
     $output->write('++ Kontzeptuak kopiatzen... ');
     $oriKontzeptua = $em->getRepository('AppBundle:Kontzeptua')->findBy(array('udala' => $oriUdala->getId()));
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    /** @var QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Kontzeptua','k')->where('k.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
@@ -615,7 +583,7 @@ class CopyCommand extends ContainerAwareCommand {
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     $output->write('-- Helmugako udaleko Historikoa ezabatzen...');
-    /** @var \Doctrine\ORM\QueryBuilder $qb */
+    /** @var QueryBuilder $qb */
     $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
     $qb->setParameter('udalaID', $desUdala);
     $qb->getQuery()->execute();
