@@ -592,12 +592,12 @@ class CopyCommand extends ContainerAwareCommand {
     /*** HISTORIKOA  ***************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
-//    $output->write('-- Helmugako udaleko Historikoa ezabatzen...');
-//    /** @var QueryBuilder $qb */
-//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
-//    $qb->setParameter('udalaID', $desUdala);
-//    $qb->getQuery()->execute();
-//    $output->writeln('Ok');
+    $output->write('-- Helmugako udaleko Historikoa ezabatzen...');
+    /** @var QueryBuilder $qb */
+    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
+    $qb->setParameter('udalaID', $desUdala);
+    $qb->getQuery()->execute();
+    $output->writeln('Ok');
 //    $output->write('++ Historikoa kopiatzen...');
 //    $oriHistorikoa = $em->getRepository('AppBundle:Historikoa')->findBy(array('udala' => $oriUdala->getId()));
 //    /** @var Historikoa $h */
@@ -622,6 +622,7 @@ class CopyCommand extends ContainerAwareCommand {
 //    $output->writeln('');
 //    $em->flush();
 
-
+    $output->writeln('');
+    $output->writeln('Prozesua ongi amaitu da.');
   }
 }
