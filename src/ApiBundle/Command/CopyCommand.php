@@ -168,7 +168,12 @@ class CopyCommand extends ContainerAwareCommand {
       $eremua->setUdala($desUdala);
       $eremua->setOrigenid($e->getId());
       /** @var Eremumota $_eremu_mota */
-      $_eremu_mota = $em->getRepository('AppBundle:Eremumota')->findOneBy(array('origenid' => $e->getEremumota()->getId()));
+      $_eremu_mota = $em->getRepository('AppBundle:Eremumota')->findOneBy(
+        array(
+          'origenid' => $e->getEremumota()->getId(),
+          'udala' => $desUdala
+        )
+      );
       $eremua->setEremumota($_eremu_mota);
       $eremua->setEtiketaes($e->getEtiketaes());
       $eremua->setEtiketaeu($e->getEtiketaeu());
@@ -276,6 +281,7 @@ class CopyCommand extends ContainerAwareCommand {
       $_ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneBy(
         array(
           'origenid' => $op->getOrdenantza()->getId(),
+          'udala' => $desUdala
         )
       );
       $ordenantzaParrafoa->setOrdenantza($_ordenantza);
@@ -313,6 +319,7 @@ class CopyCommand extends ContainerAwareCommand {
       $_ordenantza = $em->getRepository('AppBundle:Ordenantza')->findOneBy(
         array(
           'origenid' => $a->getOrdenantza()->getId(),
+          'udala' => $desUdala
         )
       );
       $atala->setOrdenantza($_ordenantza);
@@ -366,6 +373,7 @@ class CopyCommand extends ContainerAwareCommand {
       $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
         array(
           'origenid' => $ap->getAtala()->getId(),
+          'udala' => $desUdala
         )
       );
       $atalaParrafoa->setAtala($_atala);
@@ -399,6 +407,7 @@ class CopyCommand extends ContainerAwareCommand {
       $_atala = $em->getRepository('AppBundle:Atala')->findOneBy(
         array(
           'origenid' => $aa->getAtala()->getId(),
+          'udala' => $desUdala
         )
       );
       $azpiatala->setAtala($_atala);
@@ -448,6 +457,7 @@ class CopyCommand extends ContainerAwareCommand {
         $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
           array(
             'origenid' => $aap->getAzpiatala()->getId(),
+            'udala' => $desUdala
           )
         );
         $azpiAtalaParrafoa->setAzpiatala($_azpiatala);
@@ -483,6 +493,7 @@ class CopyCommand extends ContainerAwareCommand {
         $_azpiatala = $em->getRepository('AppBundle:Azpiatala')->findOneBy(
           array(
             'origenid' => $aapo->getAzpiatala()->getId(),
+            'udala' => $desUdala
           )
         );
         $azpiAtalaParrafoaondoren->setAzpiatala($_azpiatala);
@@ -495,9 +506,7 @@ class CopyCommand extends ContainerAwareCommand {
       $azpiAtalaParrafoaondoren->setOrdena($aapo->getOrdena());
       $azpiAtalaParrafoaondoren->setEzabatu($aapo->getEzabatu());
       $azpiAtalaParrafoaondoren->setOrigenid($aapo->getId());
-
       $em->persist($azpiAtalaParrafoaondoren);
-
     }
     $output->write('OK.');
     $output->writeln('');
@@ -534,6 +543,7 @@ class CopyCommand extends ContainerAwareCommand {
         $_baldintza = $em->getRepository('AppBundle:Baldintza')->findOneBy(
           array(
             'origenid' => $k->getBaldintza()->getId(),
+            'udala' => $desUdala
           )
         );
         $kontzeptua->setBaldintza($_baldintza);
@@ -551,6 +561,7 @@ class CopyCommand extends ContainerAwareCommand {
         $_kontzeptu_mota = $em->getRepository('AppBundle:Kontzeptumota')->findOneBy(
           array(
             'origenid' => $k->getKontzeptumota()->getId(),
+            'udala' => $desUdala
           )
         );
         $kontzeptua->setKontzeptumota($_kontzeptu_mota);
@@ -569,7 +580,6 @@ class CopyCommand extends ContainerAwareCommand {
       $kontzeptua->setKopuruaProd($k->getKopuruaProd());
       $kontzeptua->setUnitatea($k->getUnitatea());
       $kontzeptua->setUnitateaProd($k->getUnitateaProd());
-
       $em->persist($kontzeptua);
     }
     $output->write('OK.');
@@ -582,35 +592,35 @@ class CopyCommand extends ContainerAwareCommand {
     /*** HISTORIKOA  ***************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
     /*******************************************************************************************************************************************************/
-    $output->write('-- Helmugako udaleko Historikoa ezabatzen...');
-    /** @var QueryBuilder $qb */
-    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
-    $qb->setParameter('udalaID', $desUdala);
-    $qb->getQuery()->execute();
-    $output->writeln('Ok');
-    $output->write('++ Historikoa kopiatzen...');
-    $oriHistorikoa = $em->getRepository('AppBundle:Historikoa')->findBy(array('udala' => $oriUdala->getId()));
-    /** @var Historikoa $h */
-    foreach ($oriHistorikoa as $h) {
-      $his = new Historikoa();
-      $his->setOrigenid($h->getId());
-      $his->setUdala($desUdala);
-      $his->setAldaketakes($h->getAldaketakes());
-      $his->setAldaketakeu($h->getAldaketakeu());
-      $his->setBogargitaratzedata($h->getBogargitaratzedata());
-      $his->setBogargitaratzedatatestua($h->getBogargitaratzedatatestua());
-      $his->setBogbehinbetikodata($h->getBogbehinbetikodata());
-      $his->setBogestekaes($h->getBogestekaes());
-      $his->setBogestekaeu($h->getBogestekaeu());
-      $his->setFitxategia($h->getFitxategia());
-      $his->setIndarreandata($h->getIndarreandata());
-      $his->setOnartzedata($h->getOnartzedata());
-      $em->persist($his);
-    }
-    $output->write('OK.');
-    $output->writeln('');
-    $output->writeln('');
-    $em->flush();
+//    $output->write('-- Helmugako udaleko Historikoa ezabatzen...');
+//    /** @var QueryBuilder $qb */
+//    $qb = $em->createQueryBuilder()->delete()->from('AppBundle:Historikoa','a')->where('a.udala = :udalaID');
+//    $qb->setParameter('udalaID', $desUdala);
+//    $qb->getQuery()->execute();
+//    $output->writeln('Ok');
+//    $output->write('++ Historikoa kopiatzen...');
+//    $oriHistorikoa = $em->getRepository('AppBundle:Historikoa')->findBy(array('udala' => $oriUdala->getId()));
+//    /** @var Historikoa $h */
+//    foreach ($oriHistorikoa as $h) {
+//      $his = new Historikoa();
+//      $his->setOrigenid($h->getId());
+//      $his->setUdala($desUdala);
+//      $his->setAldaketakes($h->getAldaketakes());
+//      $his->setAldaketakeu($h->getAldaketakeu());
+//      $his->setBogargitaratzedata($h->getBogargitaratzedata());
+//      $his->setBogargitaratzedatatestua($h->getBogargitaratzedatatestua());
+//      $his->setBogbehinbetikodata($h->getBogbehinbetikodata());
+//      $his->setBogestekaes($h->getBogestekaes());
+//      $his->setBogestekaeu($h->getBogestekaeu());
+//      $his->setFitxategia($h->getFitxategia());
+//      $his->setIndarreandata($h->getIndarreandata());
+//      $his->setOnartzedata($h->getOnartzedata());
+//      $em->persist($his);
+//    }
+//    $output->write('OK.');
+//    $output->writeln('');
+//    $output->writeln('');
+//    $em->flush();
 
 
   }
