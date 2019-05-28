@@ -39,8 +39,8 @@
                 {% if atala.utsa != 1 and atala.azpiatalak | length >0 %}
                     <li class="dropdown dropdown-submenu ">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false"
-                           onclick="clickMe(this);">{{ atala.kodea }}
-                            - {{ atala.izenburuaeu | capitalize | truncate(50, true, '...') }}</a>
+                           onclick="clickMe(this);">{{ atala.kodea |trim }}
+                            - {{ atala.izenburuaeu | trim | capitalize | truncate(50, true, '...') }}</a>
                         <ul class="dropdown-menu scrollable-menu">
                             {% for azpiatala in atala.azpiatalak  if azpiatala.ezabatu != 1 %}
                                 <li class="dropdown dropdown-submenu">
@@ -80,8 +80,7 @@
                 {% else %}
                     <li class="dropdown dropdown-submenu">
                         <a href="#{{ atala.kodea }}" class="dropdown-toggle" data-toggle="dropdown" data-clicked="false"
-                           onclick="clickMe(this);">{{ atala.kodea }}
-                            - {{ atala.izenburuaeu|capitalize | truncate(50, true, '...') }}</a>
+                           onclick="clickMe(this);" data-atalaid="{{ atala.id }}">{{ atala.kodea | trim ~ '-' ~ atala.izenburuaeu | trim | capitalize | truncate(50, true, '...') }}</a>
                         <ul class="dropdown-menu">
                             <li><a href="#" class="btnAzpiAtalBerria" data-atalaid="{{ atala.id }}"><span
                                             class="glyphicon glyphicon-plus"></span>{{ "message.azpiatala.berria" | trans }}
