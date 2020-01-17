@@ -14,6 +14,20 @@
     class OrdenantzaRepository extends EntityRepository
     {
 
+        public function getGuztiak() {
+            $em = $this->getEntityManager();
+            $dql = $em->createQueryBuilder()
+                ->select('o, a, az, k')
+                ->from('AppBundle:Ordenantza', 'o')
+                ->leftJoin('o.atalak', 'a')
+                ->leftJoin('a.azpiatalak','az')
+                ->leftJoin('az.kontzeptuak', 'k')
+                ->orderBy('o.kodea', 'ASC')
+            ;
+
+            return $dql->getQuery()->getResult();
+        }
+
         public function getOrdenantzabat ( $id )
         {
             $em = $this->getEntityManager();

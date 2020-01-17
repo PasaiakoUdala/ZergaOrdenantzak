@@ -140,6 +140,12 @@ fos_user:
     from_email:
       address: "iibarguren@pasaia.net"
       sender_name: "Iker Ibarguren"
+    profile:
+        form:
+            validation_groups:  [Default] # Here you can also add your own groups if you have extra validation
+    registration:
+        form:
+            validation_groups:  [Default] # Here you can also add your own groups if you have extra validation
 
 fos_rest:
     disable_csrf_role: ROLE_API
