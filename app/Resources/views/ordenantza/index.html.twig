@@ -82,7 +82,8 @@
 
       <div class="subAzpiatalak{{ loop.index }}" style="display: none;">
         <ul class="nav nav-pills nav-stacked">
-          {% for atala in ordenantza.atalak if atala.azpiatalak | length > 0 %}
+          {% for atala in ordenantza.atalak if atala.azpiatalak | length > 0 and atala.ezabatu != 1 %}
+
             {% set lehena = false %} {# honekin tituloa behar denean agertzen dela aseguratzen gara. #}
             {% for azpiatala in atala.azpiatalak if azpiatala.kontzeptuak | length > 0 %}
               {% if azpiatala.ezabatu == 1 %}
