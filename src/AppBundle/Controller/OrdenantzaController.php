@@ -349,7 +349,8 @@
         {
             $em = $this->getDoctrine()->getManager();
 
-            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findBy( array (), array ( 'kodea' => 'ASC' ) );
+//            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->findBy( array (), array ( 'kodea' => 'ASC' ) );
+            $ordenantzas = $em->getRepository( 'AppBundle:Ordenantza' )->getGuztiak();
 
             return $this->render(
                 'ordenantza/index.html.twig',
