@@ -34,21 +34,21 @@
 //            $urlOsoa= $request->getSession()->get( '_security.main.target_path' );
             $query_str = parse_url($request->getUri(),PHP_URL_QUERY );
             $urlOsoa=$request->getUri();
+            $urlOsoa2=$request->getSchemeAndHttpHost().$_SERVER['REQUEST_URI'];
 
 
-
-            if (( $query_str != null )&&($this->container->getParameter('izfe_login_path')!='')) 
+            if (( $query_str != null )&&($this->container->getParameter('izfe_login_path')!=''))
             {
                 parse_str( $query_str, $query_params );
                 /* GET kodea*/
-                if ( $query_str != null ) 
+                if ( $query_str != null )
                 {
                     $NA=$query_params["DNI"];
                     $udala=$query_params["AYUN"];
                     $hizkuntza=$query_params["IDIOMA"];
                     $fitxategia=$query_params["ficheroAuten"];
 
-                    if ($this->izfelogin ($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)==1)
+                    if ($this->izfelogin ($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa, $urlOsoa2)==1)
                     {
                         return $this->redirectToRoute( 'admin_ordenantza_index', array('_locale' => strtolower($hizkuntza)) );
                     }
@@ -126,22 +126,26 @@
             return $this->render( 'FOSUserBundle:Security:login.html.twig', $data );
         }
 
-        private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa)
+        private function izfelogin($NA,$udala,$hizkuntza,$fitxategia,$urlOsoa, $urlOsoa2)
         {
 
             /* fitxategia ez bada existitzen login orrira berbideratu */
             if (file_exists ($this->container->getParameter('izfe_login_path').'/'.$fitxategia))
             {
-                $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"r");
+                $fitx = fopen($this->container->getParameter('izfe_login_path').'/'.$fitxategia,"rb");
                 $lerro = fgets($fitx);
+                $lerro = str_replace(array("\r", "\n"), '', $lerro);
                 fclose( $fitx );
 
                 /* fitxategiaren edukia eta url-a berdinak diren konparatu*/
-                if ($lerro == $urlOsoa)
+                if (($lerro == $urlOsoa)||($lerro==$urlOsoa2))
                 {
                     $userManager = $this->container->get('fos_user.user_manager');
-                    $user = $userManager->findUserByUsername($NA);
-
+//                    $user = $userManager->findUserByUsername($NA);
+                    $user = $userManager->findUserBy([
+                                                         'username' => $NA,
+                                                         'udala'    => $udala
+                                                     ]);
                     $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
                     $this->get('security.token_storage')->setToken($token);
                     $this->get('session')->set('_security_main', serialize($token));
