@@ -3,9 +3,8 @@ services:
     mariadb:
         image: mariadb:10.5.3
         container_name: zergaordenantzak-mariadb
-        working_dir: /application
         volumes:
-            - .:/usr/src/app
+            - mariadb_zzoo:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=pasaia
             - MYSQL_DATABASE=zzoo
@@ -13,8 +12,11 @@ services:
             - MYSQL_PASSWORD=pasaia
         ports:
             - "3306:3306"
+        networks:
+            - zzoo
 
     php:
+        container_name: zergaordenantzak-php
         env_file: ./.env
         build:
             context: .
@@ -33,8 +35,11 @@ services:
             - APP_ENV=dev
             - PHP_IDE_CONFIG=serverName=zergaordenantzak.test
             - XDEBUG_CONFIG=remote_host=192.168.2.8
+        networks:
+            - zzoo
 
     nginx:
+        container_name: zergaordenantzak-nginx
         image: nginx:1.15.3-alpine
         restart: always
         volumes:
@@ -44,3 +49,12 @@ services:
             - php
         ports:
             - 80:80
+        networks:
+            - zzoo
+
+volumes:
+    mariadb_zzoo:
+
+networks:
+  zzoo:
+      driver: bridge
