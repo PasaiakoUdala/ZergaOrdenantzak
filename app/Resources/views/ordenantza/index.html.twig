@@ -106,9 +106,9 @@
                 <li role="presentation" class="liSubMenu">
                   <a href="#" data-toggle="modal" data-target="#myModal{{ azpiatala.id }}">
                     {% if  app.request.locale == "eu" %}
-                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu | replace ({'<br>': '', '<span>':'','</span>':'','<div>':'','</div':''}) }}
                     {% else %}
-                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                      {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes | replace ({'<br>': '', '<span>':'','</span>':'','<div>':'','</div':''}) }}
                     {% endif %}
                   </a>
                 </li>
@@ -120,9 +120,9 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">
                           {% if  app.request.locale == "eu" %}
-                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu }}
+                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaeu | replace ({'<br>': '', '<span>':'','</span>':'','<div>':'','</div':''}) }}
                           {% else %}
-                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes }}
+                            {{ azpiatala.kodea }}.{{ azpiatala.izenburuaes | replace ({'<br>': '', '<span>':'','</span>':'','<div>':'','</div':''}) }}
                           {% endif %}
                         </h4>
                       </div>
