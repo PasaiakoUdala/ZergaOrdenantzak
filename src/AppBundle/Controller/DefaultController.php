@@ -36,6 +36,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/historikoa/api", name="api_historikoa")
+     * @Method("GET")
+     */
+    public function apihistorikoaAction()
+    {
+        return $this->render('apihistorikoa.html.twig', array(
+            'udala' => $this->getUser()->getUdala()
+        ));
+    }
+
+    /**
      * Finds and displays a Ordenantza entity.
      *
      * @Route("/admin/exportatu/{id}", name="exportatu")
@@ -151,9 +162,9 @@ class DefaultController extends Controller
         $xmlWriter->save('doc/' . $filename . '.pdf');
 
 
-        
-        
-        
+
+
+
         return new Response("<a href=\"http://zergaordenantzak.dev/doc/helloWorld.odt\">hemen</a>");
 
     }
@@ -181,7 +192,7 @@ class DefaultController extends Controller
         }
 
         return $this->redirectToRoute($route, array('_locale' => $newLocale));
-        
+
     }
 
     function xmlEntities($str)
