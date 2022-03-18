@@ -1,0 +1,231 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/app/css/prism.css') }}" rel="stylesheet" media="screen">
+    <style>
+        .loading {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, .8) url({{ asset('bundles/app/img/page-loader.gif') }}) 50% 50% no-repeat !important;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        body.loading .modal {
+            display: block;
+        }
+
+        .select2-container--bootstrap .select2-dropdown {
+            margin-top: 18px !important;
+        }
+        .botoiaCollapse {
+            cursor: pointer; cursor: hand;
+        }
+    </style>
+{% endblock %}
+
+{% block navright %}
+    <ul class="nav navbar-nav navbar-right">
+        {% if  app.request.locale == "eu" %}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Zerga zerrenda</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/espanol.png') }}"
+                                                              alt="Castellano"> Castellano</a></li>
+        {% else %}
+            <li><a href="{{ path('admin_ordenantza_index') }}">Listado ordenanzas</a></li>
+            <li><a href="{{ path('hizkuntza_aldatu') }}"><img src="{{ asset('bundles/app/img/euskara.png') }}"
+                                                              alt="Euskaraz"> Euskara</a></li>
+        {% endif %}
+        <li>&nbsp;</li>
+    </ul>
+{% endblock %}
+
+{% block body_tag %}
+<body data-spy="scroll" data-target="#navbar-example" class="container-fluid">
+{% endblock %}
+
+{% block body %}
+    <div id="nireloader" class=""></div>
+    <div class="row">
+        <div class="btn-group" role="group" aria-label="...">
+            <button id="btnHistorikoaEuskera" type="button" class="btn btn-default">Euskeraz</button>
+            <button id="btnHistorikoaErdara" type="button" class="btn btn-default">Erdaraz</button>
+        </div>
+    </div>
+
+    <div class="row">&nbsp;</div>
+
+    <div class="row kodeaEuskara" style="display: none">
+        <p>Kopiatu eta pegatu ondoko kodea</p>
+        <p>Sortu taula bat horrela:</p>
+        <pre>
+            &lt;table class="table table-striped table-hover"&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;Onartze data&lt;/th&gt;
+                        &lt;th&gt;Adizkari ofizialean&lt;/th&gt;
+                        &lt;th&gt;Behin betiko onarpena&lt;/th&gt;
+                        &lt;th&gt;Aldaketak&lt;/th&gt;
+                        &lt;th&gt;Fitxategia&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody id="tbodyHistorikoa"&gt;
+
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        </pre>
+        <p>Kopiatu kode hay javascript fitxategian</p>
+        <pre id="kodeaEuskara">
+            $(function () {
+                $('#nireloader').addClass('loading');
+                var param = "{{ zzoo_aplikazioaren_API_url }}";
+                var udala = "{{ udala.kodea }}";
+                var url = param + "/historikoa/" + udala + ".json";
+
+                var jqxhr = $.getJSON(url, function (response) {
+                    $.each(response, function(i, item) {
+                        var pdf = '/doc/' + udala + item.fitxategia;
+                        var trPdf = "<a href='" + pdf + "'>PDF</a>";
+                        var $tr = $('<tr>').append(
+                            $('<td>').text((item.onartzedata).split('T')[0]),
+                            $('<td>').text((item.bogargitaratzedata).split('T')[0]),
+                            $('<td>').text((item.indarreandata).split('T')[0]),
+                            $('<td>').html(item.aldaketakes),
+                            $('<td>').html(trPdf)
+                        ).appendTo('#tbodyHistorikoa');
+                    });
+                });
+
+                jqxhr.complete(function () {
+                    $('#nireloader').removeClass('loading');
+                });
+            });
+        </pre>
+    </div>
+
+    <div class="row kodeaErdara" style="display: none">
+        <p>Kopiatu eta pegatu ondoko kodea</p>
+        <pre id="kodeaEuskara">
+            $(function () {
+                $('#nireloader').addClass('loading');
+                var param = "{{ zzoo_aplikazioaren_API_url }}";
+                var udala = "{{ udala.kodea }}";
+                var url = param + "/historikoa/" + udala + ".json";
+
+                var jqxhr = $.getJSON(url, function (response) {
+                    $.each(response, function(i, item) {
+                        var pdf = '/doc/' + udala + item.fitxategia;
+                        var trPdf = "<a href='" + pdf + "'>PDF</a>";
+                        var $tr = $('<tr>').append(
+                            $('<td>').text((item.onartzedata).split('T')[0]),
+                            $('<td>').text((item.bogargitaratzedata).split('T')[0]),
+                            $('<td>').text((item.indarreandata).split('T')[0]),
+                            $('<td>').html(item.aldaketakes),
+                            $('<td>').html(trPdf)
+                        ).appendTo('#tbodyHistorikoa');
+                    });
+                });
+
+                jqxhr.complete(function () {
+                    $('#nireloader').removeClass('loading');
+                });
+            });
+        </pre>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Adibidea:</p>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Onartze data</th>
+                        <th>Adizkari ofizialean</th>
+                        <th>Behin betiko onarpena</th>
+                        <th>Aldaketak</th>
+                        <th>Fitxategia</th>
+                    </tr>
+                </thead>
+                <tbody id="tbodyHistorikoaDemo">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript">
+
+    $(function () {
+
+        $('#btnHistorikoaEuskera').on('click', function () {
+            $('.kodeaEuskara').toggle()
+            $('.kodeaErdara').hide()
+            $('#tbodyHistorikoa').empty()
+            $('#nireloader').addClass('loading');
+            var param = "{{ zzoo_aplikazioaren_API_url }}";
+            var udala = "{{ udala.kodea }}";
+            var url = param + "/historikoa/" + udala + ".json";
+
+            var jqxhr = $.getJSON(url, function (response) {
+                console.log(response)
+                $.each(response, function(i, item) {
+                    var pdf = '/doc/' + udala + item.fitxategia;
+                    var trPdf = "<a href='" + pdf + "'>PDF</a>";
+                    var $tr = $('<tr>').append(
+                        $('<td>').text((item.onartzedata).split('T')[0]),
+                        $('<td>').text((item.bogargitaratzedata).split('T')[0]),
+                        $('<td>').text((item.indarreandata).split('T')[0]),
+                        $('<td>').html(item.aldaketakeu),
+                        $('<td>').html(trPdf)
+                    ).appendTo('#tbodyHistorikoaDemo');
+                });
+            });
+
+            jqxhr.complete(function () {
+                $('#nireloader').removeClass('loading');
+            });
+        });
+
+        $('#btnHistorikoaErdara').on('click', function () {
+            $('.kodeaErdara').toggle()
+            $('.kodeaEuskara').hide()
+            $('#tbodyHistorikoa').empty()
+            $('#nireloader').addClass('loading');
+            var param = "{{ zzoo_aplikazioaren_API_url }}";
+            var udala = "{{ udala.kodea }}";
+            var url = param + "/historikoa/" + udala + ".json";
+
+            var jqxhr = $.getJSON(url, function (response) {
+                console.log(response)
+                $.each(response, function(i, item) {
+                    var pdf = '/doc/' + udala + item.fitxategia;
+                    console.log(pdf)
+                    var trPdf = "<a href='" + pdf + "'>PDF</a>";
+                    var $tr = $('<tr>').append(
+                        $('<td>').text((item.onartzedata).split('T')[0]),
+                        $('<td>').text((item.bogargitaratzedata).split('T')[0]),
+                        $('<td>').text((item.indarreandata).split('T')[0]),
+                        $('<td>').html(item.aldaketakes),
+                        $('<td>').html(trPdf)
+                    ).appendTo('#tbodyHistorikoaDemo');
+                });
+            });
+
+            jqxhr.complete(function () {
+                $('#nireloader').removeClass('loading');
+            });
+        });
+
+    });
+</script>
+{% endblock %}

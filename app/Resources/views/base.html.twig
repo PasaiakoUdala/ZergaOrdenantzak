@@ -43,9 +43,9 @@
         </style>
     {% endblock %}
 </head>
-
+{% block body_tag %}
 <body data-spy="scroll" data-target="#navbar-example">
-
+{% endblock %}
 <div id="navbar-example">
     <nav class="navbar navbar-inverse navbar-fixed-top marginBottom-0 {% if is_granted('ROLE_PREVIOUS_ADMIN') %} inpersonalizatua {% endif %}" role="navigation">
         <div class="navbar-header">
@@ -75,7 +75,6 @@
                         <ul class="dropdown-menu" id="menuaAdmin">
                             <li><a href="{{ path('baldintza_index') }}">{{ "Baldintza kudeaketa" |trans }}</a></li>
                             <li role="separator" class="divider"></li>
-
                         </ul>
                     </li>
                     <li>&nbsp;</li>
