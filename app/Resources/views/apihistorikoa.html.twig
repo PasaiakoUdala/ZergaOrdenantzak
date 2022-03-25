@@ -72,7 +72,6 @@
                         &lt;th&gt;Adizkari ofizialean&lt;/th&gt;
                         &lt;th&gt;Behin betiko onarpena&lt;/th&gt;
                         &lt;th&gt;Aldaketak&lt;/th&gt;
-                        &lt;th&gt;Fitxategia&lt;/th&gt;
                     &lt;/tr&gt;
                 &lt;/thead&gt;
                 &lt;tbody id="tbodyHistorikoa"&gt;
@@ -91,13 +90,12 @@
                 var jqxhr = $.getJSON(url, function (response) {
                     $.each(response, function(i, item) {
                         var pdf = '/doc/' + udala + item.fitxategia;
-                        var trPdf = "<a href='" + pdf + "'>PDF</a>";
+                        var trPdf = "<a href='" + pdf + " target='_blank'>PDF</a>";
                         var $tr = $('<tr>').append(
                             $('<td>').text((item.onartzedata).split('T')[0]),
                             $('<td>').text((item.bogargitaratzedata).split('T')[0]),
                             $('<td>').text((item.indarreandata).split('T')[0]),
-                            $('<td>').html(item.aldaketakes),
-                            $('<td>').html(trPdf)
+                            $('<td>').html(item.aldaketakes)
                         ).appendTo('#tbodyHistorikoa');
                     });
                 });
