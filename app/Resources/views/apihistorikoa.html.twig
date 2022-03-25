@@ -72,6 +72,7 @@
                         &lt;th&gt;Adizkari ofizialean&lt;/th&gt;
                         &lt;th&gt;Behin betiko onarpena&lt;/th&gt;
                         &lt;th&gt;Aldaketak&lt;/th&gt;
+                        &lt;th&gt;Fitxategia&lt;/th&gt;
                     &lt;/tr&gt;
                 &lt;/thead&gt;
                 &lt;tbody id="tbodyHistorikoa"&gt;
@@ -81,6 +82,8 @@
         </pre>
         <p>Kopiatu kode hay javascript fitxategian</p>
         <pre id="kodeaEuskara">
+            &lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript"&gt;
             $(function () {
                 $('#nireloader').addClass('loading');
                 var param = "{{ zzoo_aplikazioaren_API_url }}";
@@ -89,13 +92,13 @@
 
                 var jqxhr = $.getJSON(url, function (response) {
                     $.each(response, function(i, item) {
-                        var pdf = '/doc/' + udala + item.fitxategia;
-                        var trPdf = "<a href='" + pdf + " target='_blank'>PDF</a>";
-                        var $tr = $('<tr>').append(
-                            $('<td>').text((item.onartzedata).split('T')[0]),
-                            $('<td>').text((item.bogargitaratzedata).split('T')[0]),
-                            $('<td>').text((item.indarreandata).split('T')[0]),
-                            $('<td>').html(item.aldaketakes)
+                        var pdf = 'http://zergaordenantzak.sare.gipuzkoa.net/doc/' + udala + '/' + item.fitxategia;
+                        var trPdf = "&lt;a href='" + pdf + "' target='_blank'>PDF&lt;/a&gt;";
+                        var $tr = $('&lt;tr&gt;').append(
+                            $('&lt;td&gt;').text((item.onartzedata).split('T')[0]),
+                            $('&lt;td&gt;').text((item.bogargitaratzedata).split('T')[0]),
+                            $('&lt;td&gt;').text((item.indarreandata).split('T')[0]),
+                            $('&lt;td&gt;').html(item.aldaketakeu)
                         ).appendTo('#tbodyHistorikoa');
                     });
                 });
@@ -104,12 +107,15 @@
                     $('#nireloader').removeClass('loading');
                 });
             });
+            &lt;/script&gt;
         </pre>
     </div>
 
     <div class="row kodeaErdara" style="display: none">
         <p>Kopiatu eta pegatu ondoko kodea</p>
         <pre id="kodeaEuskara">
+            &lt;script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript"&gt;
             $(function () {
                 $('#nireloader').addClass('loading');
                 var param = "{{ zzoo_aplikazioaren_API_url }}";
@@ -118,14 +124,13 @@
 
                 var jqxhr = $.getJSON(url, function (response) {
                     $.each(response, function(i, item) {
-                        var pdf = '/doc/' + udala + item.fitxategia;
-                        var trPdf = "<a href='" + pdf + "'>PDF</a>";
-                        var $tr = $('<tr>').append(
-                            $('<td>').text((item.onartzedata).split('T')[0]),
-                            $('<td>').text((item.bogargitaratzedata).split('T')[0]),
-                            $('<td>').text((item.indarreandata).split('T')[0]),
-                            $('<td>').html(item.aldaketakes),
-                            $('<td>').html(trPdf)
+                        var pdf = 'http://zergaordenantzak.sare.gipuzkoa.net/doc/' + udala + '/' + item.fitxategia;
+                        var trPdf = "&lt;a href='" + pdf + "' target='_blank'>PDF&lt;/a&gt;";
+                        var $tr = $('&lt;tr&gt;').append(
+                            $('&lt;td&gt;').text((item.onartzedata).split('T')[0]),
+                            $('&lt;td&gt;').text((item.bogargitaratzedata).split('T')[0]),
+                            $('&lt;td&gt;').text((item.indarreandata).split('T')[0]),
+                            $('&lt;td&gt;').html(item.aldaketakes)
                         ).appendTo('#tbodyHistorikoa');
                     });
                 });
@@ -134,6 +139,7 @@
                     $('#nireloader').removeClass('loading');
                 });
             });
+            &lt;/script&gt;
         </pre>
     </div>
 

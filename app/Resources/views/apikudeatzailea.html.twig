@@ -255,40 +255,40 @@ $(document).ready(function() {
 
                 items.push('&lt;li class="kaixoiker"&gt;&lt;a data-toggle="tooltip" data-container="body" data-placement="top" title="Egin klik hemen ordenantzaren textua ikusteko" target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id + '"&gt;' + ordenantza.kodea_prod + ' - ' + ordenantza.izenburuaeu_prod      +'&lt;/a&gt;&lt;/li&gt;');
                 var atalak = ordenantza.atalak;
-                $.each( atalak, function( i1, atala ) {
-                    if (atala.izenburuaeu_prod !== ""){
-                        if ( ( 'kodea_prod' in atala ) &amp;&amp; ( 'izenburuaeu_prod' in atala ) ) {
-                            items.push(
-                                '&lt;li&gt;&lt;ul class="nirul"&gt;&lt;li class="nireli"&gt;&lt;a target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id   + '#' + ordenantza.id + '-' + atala.id +'"&gt;' + atala.kodea_prod + ' - ' +  atala.izenburuaeu_prod +'&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;'
-                            );
+                if (atalak !== undefined){
+                    $.each( atalak, function( i1, atala ) {
+                        if (atala.izenburuaeu_prod !== ""){
+                            if ( ( 'kodea_prod' in atala ) &amp;&amp; ( 'izenburuaeu_prod' in atala ) ) {
+                                items.push(
+                                    '&lt;li&gt;&lt;ul class="nirul"&gt;&lt;li class="nireli"&gt;&lt;a target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id   + '#' + ordenantza.id + '-' + atala.id +'"&gt;' + atala.kodea_prod + ' - ' +  atala.izenburuaeu_prod +'&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;'
+                                );
+                            }
                         }
-                    }
 
-                    var azpiatalak = atala.azpiatalak;
-                    $.each( azpiatalak, function( i2, azpiatala ) {
+                        var azpiatalak = atala.azpiatalak;
+                        if (azpiatalak !== undefined){
+                            $.each( azpiatalak, function( i2, azpiatala ) {
 
-                        items.push(
-                            '&lt;li&gt;&lt;ul class="barneul" style="padding-left: 20px !important;"&gt;' +
-                            '   &lt;li class="aupahi" style="list-style:none;"&gt;' +
-                            '       &lt;ul class="besteul" &gt;' +
-                            '           &lt;li class="barnebane"&gt;' +
-                            '               &lt;a class="btntaula"   data-toggle="tooltip" data-container="body"  data-placement="top" title="Egin klik hemen kostu taula ikusteko" data-id="'+azpiatala.id+'" href="javascript:void(0);"&gt;' + azpiatala.kodea_prod + ' ' + azpiatala.izenburuaeu_prod +'&lt;/a&gt;' +
-                            '           &lt;/li&gt;' +
-                            '       &lt;/ul&gt;' +
-                            '   &lt;/li&gt;' +
-                            '&lt;/ul&gt;&lt;/li&gt;'
-                        );
+                                items.push(
+                                    '&lt;li&gt;&lt;ul class="barneul" style="padding-left: 20px !important;"&gt;' +
+                                    '   &lt;li class="aupahi" style="list-style:none;"&gt;' +
+                                    '       &lt;ul class="besteul" &gt;' +
+                                    '           &lt;li class="barnebane"&gt;' +
+                                    '               &lt;a class="btntaula"   data-toggle="tooltip" data-container="body"  data-placement="top" title="Egin klik hemen kostu taula ikusteko" data-id="'+azpiatala.id+'" href="javascript:void(0);"&gt;' + azpiatala.kodea_prod + ' ' + azpiatala.izenburuaeu_prod +'&lt;/a&gt;' +
+                                    '           &lt;/li&gt;' +
+                                    '       &lt;/ul&gt;' +
+                                    '   &lt;/li&gt;' +
+                                    '&lt;/ul&gt;&lt;/li&gt;'
+                                );
+                            });
+                        }
                     });
-
-                });
-
+                }
             });
             $('#ulzzoo').append( items.join('') );
-  $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
         });
-
     });
-
 &lt;/script&gt;
 </code>
 {#***********************************************************************************************************#}
@@ -391,33 +391,34 @@ $(document).ready(function() {
 
                 items.push('&lt;li class="kaixoiker"&gt;&lt;a data-toggle="tooltip" data-container="body" data-placement="top" title="Haz click aquí para ver el texto de la ordenanza" target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id + '"&gt;' + ordenantza.kodea_prod + ' - ' + ordenantza.izenburuaes_prod      +'&lt;/a&gt;&lt;/li&gt;');
                 var atalak = ordenantza.atalak;
-                $.each( atalak, function( i1, atala ) {
-                    if (atala.izenburuaes_prod !== ""){
-                        if ( ( 'kodea_prod' in atala ) &amp;&amp; ( 'izenburuaes_prod' in atala ) ) {
-                            items.push(
-                                '&lt;li&gt;&lt;ul class="nirul"&gt;&lt;li class="nireli"&gt;&lt;a target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id   + '#' + ordenantza.id + '-' + atala.id +'"&gt;' + atala.kodea_prod + ' - ' +  atala.izenburuaes_prod +'&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;'
-                            );
+                if (atalak !== undefined){
+                    $.each( atalak, function( i1, atala ) {
+                        if (atala.izenburuaes_prod !== ""){
+                            if ( ( 'kodea_prod' in atala ) &amp;&amp; ( 'izenburuaes_prod' in atala ) ) {
+                                items.push(
+                                    '&lt;li&gt;&lt;ul class="nirul"&gt;&lt;li class="nireli"&gt;&lt;a target="_blank"  href="https://www.pasaia.eus/zzoo/ordenantza/' + ordenantza.id   + '#' + ordenantza.id + '-' + atala.id +'"&gt;' + atala.kodea_prod + ' - ' +  atala.izenburuaes_prod +'&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;'
+                                );
+                            }
                         }
-                    }
 
-                    var azpiatalak = atala.azpiatalak;
-                    $.each( azpiatalak, function( i2, azpiatala ) {
-
-                        items.push(
-                            '&lt;li&gt;&lt;ul class="barneul" style="padding-left: 20px !important;"&gt;' +
-                            '   &lt;li class="aupahi" style="list-style:none;"&gt;' +
-                            '       &lt;ul class="besteul" &gt;' +
-                            '           &lt;li class="barnebane"&gt;' +
-                            '               &lt;a class="btntaula"   data-toggle="tooltip" data-container="body"  data-placement="top" title="Haz click aqui para ver la tabla de costes" data-id="'+azpiatala.id+'" href="javascript:void(0);"&gt;' + azpiatala.kodea_prod + ' ' + azpiatala.izenburuaes_prod +'&lt;/a&gt;' +
-                            '           &lt;/li&gt;' +
-                            '       &lt;/ul&gt;' +
-                            '   &lt;/li&gt;' +
-                            '&lt;/ul&gt;&lt;/li&gt;'
-                        );
+                        var azpiatalak = atala.azpiatalak;
+                        if (azpiatalak !== undefined){
+                            $.each( azpiatalak, function( i2, azpiatala ) {
+                                items.push(
+                                    '&lt;li&gt;&lt;ul class="barneul" style="padding-left: 20px !important;"&gt;' +
+                                    '   &lt;li class="aupahi" style="list-style:none;"&gt;' +
+                                    '       &lt;ul class="besteul" &gt;' +
+                                    '           &lt;li class="barnebane"&gt;' +
+                                    '               &lt;a class="btntaula"   data-toggle="tooltip" data-container="body"  data-placement="top" title="Haz click aqui para ver la tabla de costes" data-id="'+azpiatala.id+'" href="javascript:void(0);"&gt;' + azpiatala.kodea_prod + ' ' + azpiatala.izenburuaes_prod +'&lt;/a&gt;' +
+                                    '           &lt;/li&gt;' +
+                                    '       &lt;/ul&gt;' +
+                                    '   &lt;/li&gt;' +
+                                    '&lt;/ul&gt;&lt;/li&gt;'
+                                );
+                            });
+                        }
                     });
-
-                });
-
+                }
             });
             $('#ulzzoo').append( items.join('') );
   $('[data-toggle="tooltip"]').tooltip();
