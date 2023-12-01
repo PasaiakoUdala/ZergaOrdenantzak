@@ -31,7 +31,7 @@ class AzpiatalaController extends Controller
         $azpiatala = new Azpiatala();
         $azpiatala->setAtala( $atala );
         $azpiatala->setUdala( $this->getUser()->getUdala() );
-        
+
         $form = $this->createForm('AppBundle\Form\AzpiatalaType', $azpiatala);
         $form->handleRequest($request);
 
@@ -79,8 +79,7 @@ class AzpiatalaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu
-            bestela marka ezarri */
+            /* Begiratu ezabatze marka duen (dev) baldin badu, ezabatu bestela marka ezarri */
             if ( $azpiatala->getEzabatu() === 1 ) {
               $em->remove($azpiatala);
             } else {
