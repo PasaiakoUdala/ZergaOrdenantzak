@@ -98,7 +98,7 @@ class HistorikoaController extends Controller {
                 $filename = $this->getFilename($this->getUser()->getUdala()->getKodea(), $ordenantza->getKodea());
 
                 /* Begiratu ezabatze marka duen, baldin badu ezabatu */
-                if ($ordenantza->getEzabatu() === 1)
+                if ($ordenantza->getEzabatu() === true)
                 {
                     $em->remove($ordenantza);
                 } else
@@ -114,7 +114,7 @@ class HistorikoaController extends Controller {
                     /** @var Ordenantzaparrafoa $p */
                   foreach ($ordenantza->getParrafoak() as $p)
                     {
-                        if ($p->getEzabatu() === 1) {
+                        if ($p->getEzabatu() === true) {
                           $em->remove($p);
                         } else {
                           /** @var $p \AppBundle\Entity\Ordenantzaparrafoa */
@@ -129,7 +129,7 @@ class HistorikoaController extends Controller {
                     foreach ($ordenantza->getAtalak() as $atala)
                     {
 
-                        if ($atala->getEzabatu() === 1)
+                        if ($atala->getEzabatu() === true)
                         {
                             $em->remove($atala);
 //                            $em->persist($atala);
@@ -145,7 +145,7 @@ class HistorikoaController extends Controller {
                             /** @var  $atalaparrafoa \AppBundle\Entity\Atalaparrafoa */
                             foreach ($atala->getParrafoak() as $atalaparrafoa)
                             {
-                                if ($atalaparrafoa->getEzabatu() === 1)
+                                if ($atalaparrafoa->getEzabatu() === true)
                                 {
                                     $em->remove($atalaparrafoa);
 //                                    $em->persist($atalaparrafoa);
@@ -161,7 +161,7 @@ class HistorikoaController extends Controller {
                             /** @var  $azpiatala \AppBundle\Entity\Azpiatala */
                             foreach ($atala->getAzpiatalak() as $azpiatala)
                             {
-                                if ($azpiatala->getEzabatu() === 1)
+                                if ($azpiatala->getEzabatu() === true)
                                 {
                                     $em->remove($azpiatala);
 //                                    $em->persist($azpiatala);
@@ -175,7 +175,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa)
                                     {
 
-                                        if ($azpiatalaparrafoa->getEzabatu() === 1)
+                                        if ($azpiatalaparrafoa->getEzabatu() === true)
                                         {
                                             $em->remove($azpiatalaparrafoa);
 //                                            $em->persist($azpiatalaparrafoa);
@@ -192,7 +192,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getKontzeptuak() as $kontzeptua)
                                     {
 
-                                        if ($kontzeptua->getEzabatu() === 1)
+                                        if ($kontzeptua->getEzabatu() === true)
                                         {
                                             $em->remove($kontzeptua);
 //                                            $em->persist($kontzeptua);
@@ -210,7 +210,7 @@ class HistorikoaController extends Controller {
                                     foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoa)
                                     {
 
-                                        if ($azpiatalaparrafoa->getEzabatu() === 1)
+                                        if ($azpiatalaparrafoa->getEzabatu() === true)
                                         {
                                             $em->remove($azpiatalaparrafoa);
 //                                            $em->persist($azpiatalaparrafoa);
