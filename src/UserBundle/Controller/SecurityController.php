@@ -30,11 +30,13 @@
             /***
              * IZFE-rako login da ?
              * Baldin eta parametroa badu bai
+             * Adibidea: https://zergaordenantzak.test/app_dev.php/login?DNI=72470919&AYUN=064&IDIOMA=eu&ficheroAuten=froga.txt
              ***/
 //            $query_str = parse_url( $request->getSession()->get( '_security.main.target_path' ), PHP_URL_QUERY );
 //            $urlOsoa= $request->getSession()->get( '_security.main.target_path' );
             $query_str = parse_url($request->getUri(),PHP_URL_QUERY );
-            $urlOsoa=$request->getUri();
+//            $urlOsoa=$request->getUri();
+            $urlOsoa= 'https://' . $request->getHost() . $request->getRequestUri();
             $urlOsoa2=$request->getSchemeAndHttpHost().$_SERVER['REQUEST_URI'];
 
 
