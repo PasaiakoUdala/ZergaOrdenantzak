@@ -24,7 +24,7 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=5.6.4",
         "symfony/symfony": "3.0.*",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
@@ -44,7 +44,7 @@
         "jms/serializer-bundle": "^1.1",
         "nelmio/api-doc-bundle": "^2.12",
         "fortawesome/font-awesome": "~4.0",
-        "phpoffice/phpword": "^0.12.1",
+        "phpoffice/phpword": "^0.18.3",
         "tecnickcom/tcpdf": "^6.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "guzzlehttp/guzzle": "^6.2",
@@ -82,7 +82,7 @@
     },
     "config": {
         "platform": {
-            "php": "5.5.9"
+            "php": "5.6.4"
         }
     },
     "extra": {
