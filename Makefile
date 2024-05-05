@@ -30,7 +30,7 @@ down:
 	docker compose down
 
 ssh:
-	docker compose exec app zsh
+	docker compose exec app bash
 
 drop:
 	docker compose exec app php bin/console doctrine:database:drop --force
