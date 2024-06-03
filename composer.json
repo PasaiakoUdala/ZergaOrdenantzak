@@ -54,7 +54,9 @@
         "stof/doctrine-extensions-bundle": "^1.2",
         "white-october/pagerfanta-bundle": "^1.0",
         "mbence/opentbs-bundle": "^1.9",
-        "nelmio/cors-bundle": "^1.4"
+        "nelmio/cors-bundle": "^1.4",
+      "ext-dom": "*",
+      "ext-libxml": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

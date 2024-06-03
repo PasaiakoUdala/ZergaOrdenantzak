@@ -7,6 +7,8 @@ use AppBundle\Entity\Historikoa;
 use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Ordenantzaparrafoa;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use DOMDocument;
+use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\PhpWord;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -689,8 +691,8 @@ class OrdenantzaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAllOrderByKodea();
 
-        $nireordenantza = $this->render(
-//        return $this->render(
+//        $nireordenantza = $this->render(
+        return $this->render(
             'ordenantza/webes.html.twig',
             array(
                 'ordenantzas' => $ordenantzas,
@@ -766,75 +768,57 @@ class OrdenantzaController extends Controller
     /**
      * @Route("/odteu", name="admin_ordenantza_odt_eu")
      * @Method("GET")
+     * @throws Exception
      */
     public function odtActionEu()
     {
         $em = $this->getDoctrine()->getManager();
         $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAllOrderByKodea();
-        $nireordenantza = $this->render(
-            'ordenantza/webeu.html.twig',
-            array(
-                'ordenantzas' => $ordenantzas,
-                'eguna' => date("Y"),
-                'udala' => $this->getUser()->getUdala(),
-            )
-        );
-
-
-        // Creating the new document...
-        $phpWord = new PhpWord();
-
-        $html = $this->render(
-            'ordenantza/webeu.html.twig',
-            array(
-                'ordenantzas' => $ordenantzas,
-                'eguna' => date("Y"),
-                'udala' => $this->getUser()->getUdala(),
-            )
-        );
-
 
 
         // Creating the new document...
 //        $phpWord = new PhpWord();
+
+//        return $this->render(
+//            'ordenantza/odteu.html.twig',
+//            array(
+//                'ordenantzas' => $ordenantzas,
+//                'eguna' => date("Y"),
+//                'udala' => $this->getUser()->getUdala(),
+//            )
+//        );
+
 //        $phpWord->addParagraphStyle('Heading2', ['alignment' => 'center']);
 
-        $section = $phpWord->addSection();
-//        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html, false, false);
+//        $section = $phpWord->addSection();
+//        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $nireordenantza->getContent(), false, false);
 
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $languageEs = new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::ES_ES);
+        $phpWord->getSettings()->setThemeFontLang($languageEs);
+        $phpWord->addTitleStyle(1, ['bold' => true], ['spaceAfter' => 240]);
+        $phpWord->addTitleStyle(2, ['bold' => true], ['spaceAfter' => 240]);
 
-// In section
-        $textbox = $section->addTextBox(
-            [
-                'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER,
-                'width' => 400,
-                'height' => 150,
-                'borderSize' => 1,
-                'borderColor' => '#FF0000',
-            ]
-        );
-        $textbox->addText('Text box content in section.');
-        $textbox->addText('Another line.');
-        $cell = $textbox->addTable()->addRow()->addCell();
-        $cell->addText('Table inside textbox');
+        foreach ($ordenantzas as $ordenantza) {
+            $section = $phpWord->addSection();
+            $titulua =  $ordenantza->getKodea() . " " . $ordenantza->getIzenburuaeu();
+            $section->addTitle($titulua, 2);
 
-// Inside table
-        $section->addTextBreak(2);
-        $cell = $section->addTable()->addRow()->addCell(300);
-        $textbox = $cell->addTextBox(['borderSize' => 1, 'borderColor' => '#0000FF', 'innerMargin' => 100]);
-        $textbox->addText('Textbox inside table');
+            /** @var Ordenantzaparrafoa $parrafoa */
+            foreach ($ordenantza->getParrafoak() as $parrafoa) {
+                if ( $parrafoa->getEzabatu() !== 1 ) {
+                    $cleanHTML = $parrafoa->getTestuaeu();
+//                    $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
+//                    $cleanHTML= strip_tags($cleanHTML, $allowed_tags );
+                    $cleanHTML = str_replace("\t", "", $cleanHTML);
+                    $cleanHTML = str_replace("\n", "<br/>", $cleanHTML);
+                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
+                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                }
 
-// Inside header with textrun
-        $header = $section->addHeader();
-        $textbox = $header->addTextBox(['width' => 600, 'borderSize' => 1, 'borderColor' => '#00FF00']);
-        $textrun = $textbox->addTextRun();
-        $textrun->addText('TextBox in header. TextBox can contain a TextRun ');
-        $textrun->addText('with bold text', ['bold' => true]);
-        $textrun->addText(', ');
-        $textrun->addLink('https://github.com/PHPOffice/PHPWord', 'PHPWord on GitHub');
-        $textrun->addText(', and image ');
-//        $textrun->addImage('resources/_earth.jpg', ['width' => 18, 'height' => 18]);
-        $textrun->addText('.');
+            }
+        }
+
 
 
 
