@@ -3,13 +3,23 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Atala;
+use AppBundle\Entity\Atalaparrafoa;
+use AppBundle\Entity\Azpiatala;
+use AppBundle\Entity\Azpiatalaparrafoa;
+use AppBundle\Entity\Azpiatalaparrafoaondoren;
 use AppBundle\Entity\Historikoa;
 use AppBundle\Entity\Kontzeptua;
 use AppBundle\Entity\Ordenantzaparrafoa;
+use AppBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use DOMDocument;
+use HTMLPurifier;
+use InvalidArgumentException;
 use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\SimpleType\Jc;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,6 +30,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 /**
@@ -765,6 +776,346 @@ class OrdenantzaController extends Controller
 
     }
 
+    private function baseDoc($lang='eu', $prod=0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAllOrderByKodea();
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
+
+        $phpWordConfig = $phpWord->getDocInfo();
+        $phpWordConfig->setCreator($user->getUsername());
+        $phpWordConfig->setCompany($user->getUdala());
+        $phpWordConfig->setTitle($user->getUdala() . ": Zerga Ordenantzak." );
+        $phpWordConfig->setLastModifiedBy($user->getUsername());
+        $phpWordConfig->setCreated(time());
+        $phpWordConfig->setModified(time());
+        $phpWordConfig->setSubject("Zerga Ordenantzak");
+        $phpWordConfig->setKeywords("zerga ordenantzak, ordenanzas fiscales");
+
+        $languageEs = new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::ES_ES);
+        $phpWord->getSettings()->setThemeFontLang($languageEs);
+
+        $phpWord->addTitleStyle(1, ['bold' => true], ['spaceAfter' => 240]);
+        $phpWord->addTitleStyle(2, ['bold' => true], ['spaceAfter' => 180]);
+        $phpWord->addTitleStyle(3, ['bold' => true], ['spaceAfter' => 140]);
+
+        foreach ($ordenantzas as $ordenantza) {
+            $section = $phpWord->addSection();
+            if ($lang === "es") {
+                if ($prod === 1) {
+                    $titulua =  $ordenantza->getKodeaProd() . " " . $ordenantza->getIzenburuaesProd();
+                } else {
+                    $titulua =  $ordenantza->getKodea() . " " . $ordenantza->getIzenburuaes();
+                }
+            } else {
+                if ($prod === 1) {
+                    $titulua =  $ordenantza->getKodeaProd() . " " . $ordenantza->getIzenburuaeuProd();
+                } else {
+                    $titulua =  $ordenantza->getKodea() . " " . $ordenantza->getIzenburuaeu();
+                }
+            }
+
+            $section->addTitle($titulua, 2);
+
+            /** @var Ordenantzaparrafoa $parrafoa */
+            foreach ($ordenantza->getParrafoak() as $parrafoa) {
+                if ( $parrafoa->getEzabatu() !== 1 ) {
+                    if ($lang === "es") {
+                        if ($prod === 1) {
+                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaesProd());
+                        } else {
+                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaes());
+                        }
+                    } else {
+                        if ($prod===1) {
+                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeuProd());
+                        } else {
+                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeu());
+                        }
+                    }
+
+                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, "<br/>");
+                }
+            }
+            /** @var Atala $atala */
+            foreach ($ordenantza->getAtalak() as $atala) {
+                if ( $atala->getEzabatu() !== 1 ) {
+                    if ( $atala->getUtsa() !== 1) {
+                        if ( $lang === "es") {
+                            if ( $prod === 1 ) {
+                                if ($atala->getIzenburuaesProd() !== "") {
+                                    $html ="<h3>". $atala->getOrdenantza()->getKodeaProd().'.'.$atala->getKodeaProd().'.-'.$atala->getIzenburuaesProd(). "</h3>";
+                                    $cleanHTML = $this->getCleanHTML($html);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                }
+                            } else {
+                                if ($atala->getIzenburuaes() !== "") {
+                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaes(). "</h3>";
+                                    $cleanHTML = $this->getCleanHTML($html);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                }
+                            }
+                        }
+                        if ( $lang === "eu") {
+                            if ( $prod === 1 ) {
+                                if ($atala->getIzenburuaeuProd() !== "") {
+                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
+                                    $cleanHTML = $this->getCleanHTML($html);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                }
+                            } else {
+                                if ($atala->getIzenburuaeu() !== "") {
+                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
+                                    $cleanHTML = $this->getCleanHTML($html);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                }
+                            }
+                        }
+
+                        /** @var Atalaparrafoa $atalaparraofoa */
+                        foreach ($atala->getParrafoak() as $atalaparraofoa) {
+                            if ( $atalaparraofoa->getEzabatu() !== 1 ) {
+                                if ($lang === "es") {
+                                    if ( $prod === 1) {
+                                        $html = $atalaparraofoa->getTestuaesProd();
+                                    } else {
+                                        $html = $atalaparraofoa->getTestuaes();
+                                    }
+                                } else {
+                                    if ($prod===1) {
+                                        $html = $atalaparraofoa->getTestuaeuProd();
+                                    } else {
+                                        $html = $atalaparraofoa->getTestuaeu();
+                                    }
+                                }
+
+                                $cleanHTML = $this->getCleanHTML($html);
+                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                            }
+                        }
+                    }
+                }
+
+                /** @var Azpiatala $azpiatala */
+                foreach ($atala->getAzpiatalak() as $azpiatala) {
+                    if ( $azpiatala->getEzabatu() !== 1) {
+                        if ($lang === "es") {
+                            if ($prod === 1) {
+                                $html ="<h3>". $azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaesProd(). "</h3>";
+                            } else {
+                                $html ="<h3>". $azpiatala->getKodea().'.'.$azpiatala->getIzenburuaes(). "</h3>";
+                            }
+
+                        } else {
+                            if ( $prod===1) {
+                                $html ="<h3>". $azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaeuProd(). "</h3>";
+                            } else {
+                                $html ="<h3>". $azpiatala->getKodea().'.'.$azpiatala->getIzenburuaeu(). "</h3>";
+                            }
+                        }
+
+                        $cleanHTML = $this->getCleanHTML($html);
+                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+
+                        /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
+                        foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
+                            if ( $azpiatalaparrafoa->getEzabatu() !== 1 ) {
+                                if ($lang==="es") {
+                                    if ($prod===1) {
+                                        $html = $azpiatalaparrafoa->getTestuaesProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoa->getTestuaes();
+                                    }
+                                } else {
+                                    if ($prod===1) {
+                                        $html = $azpiatalaparrafoa->getTestuaeuProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoa->getTestuaeu();
+                                    }
+                                }
+                                $cleanHTML = $this->getCleanHTML($html);
+                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                            }
+                        }
+
+                        $estiloTabla = [
+                            "borderColor" => "8bc34a",
+                            "alignment" => Jc::CENTER,
+                            "borderSize" => 5,
+                        ];
+
+                        $table_style = new \PhpOffice\PhpWord\Style\Table;
+                        $table_style->setUnit(\PhpOffice\PhpWord\SimpleType\TblWidth::PERCENT);
+                        $table_style->setWidth(100 * 50);
+                        $table_style->setBorderColor("cccccc");
+                        $table_style->setBorderSize(5);
+                        $table_style->setAlignment(Jc::START);
+
+                        $phpWord->addTableStyle("estilo1", $estiloTabla);
+
+                        $tabla = $section->addTable("estilo1");
+
+                        /** @var Kontzeptua $kontzeptua */
+                        foreach ( $azpiatala->getKontzeptuak() as $index => $kontzeptua ) {
+                            if ($lang === "es") {
+                                if ( $prod === 1 ) {
+                                    if (($index === 0) && ($kontzeptua->getKontzeptuaesProd()!=="")) {
+                                        $tabla->addRow();
+                                        $zeldath1 = $tabla->addCell();
+                                        $zeldath1->addText("");
+                                        $zeldath2 = $tabla->addCell();
+                                        $zeldath2->addText($kontzeptua->getUnitatea());
+                                    }
+                                } else {
+                                    if (($index === 0) && ($kontzeptua->getKontzeptuaes()!=="")) {
+                                        $tabla->addRow();
+                                        $zeldath1 = $tabla->addCell();
+                                        $zeldath1->addText("");
+                                        $zeldath2 = $tabla->addCell();
+                                        $zeldath2->addText($kontzeptua->getUnitatea());
+                                    }
+                                }
+                            } else {
+                                if ($prod===1) {
+                                    if (($index === 0) && ($kontzeptua->getKontzeptuaeuProd()!=="")) {
+                                        $tabla->addRow();
+                                        $zeldath1 = $tabla->addCell();
+                                        $zeldath1->addText("");
+                                        $zeldath2 = $tabla->addCell();
+                                        $zeldath2->addText($kontzeptua->getUnitatea());
+                                    }
+                                } else {
+                                    if (($index === 0) && ($kontzeptua->getKontzeptuaeu()!=="")) {
+                                        $tabla->addRow();
+                                        $zeldath1 = $tabla->addCell();
+                                        $zeldath1->addText("");
+                                        $zeldath2 = $tabla->addCell();
+                                        $zeldath2->addText($kontzeptua->getUnitatea());
+                                    }
+                                }
+                            }
+
+                            if ( $kontzeptua->getEzabatu() !== 1 ) {
+                                $tabla->addRow();
+                                $zelda1 = $tabla->addCell();
+                                if ($lang === "es") {
+                                    if ($prod === 1) {
+                                        $testua1 = $kontzeptua->getKontzeptuaesProd();
+                                    } else {
+                                        $testua1 = $kontzeptua->getKontzeptuaes();
+                                    }
+                                } else {
+                                    if ($prod===1) {
+                                        $testua1 = $kontzeptua->getKontzeptuaeuProd();
+                                    } else {
+                                        $testua1 = $kontzeptua->getKontzeptuaeu();
+                                    }
+                                }
+                                if ( $kontzeptua->getBaldintza() ) {
+                                    if ($lang === "es") {
+                                        $testua1 .= "(" . $kontzeptua->getBaldintza()->getBaldintzaes() . ")";
+                                    } else {
+                                        $testua1 .= "(" . $kontzeptua->getBaldintza()->getBaldintzaeu() . ")";
+                                    }
+
+                                }
+                                $cleanTestua1 = $this->getCleanHTML($testua1);
+                                $cleanTestua1 = $this->getCleanHTML($cleanTestua1);
+                                $zelda1->addText($cleanTestua1);
+
+                                $zelda2 = $tabla->addCell();
+                                $testua2 = $kontzeptua->getKopurua();
+
+                                $cleanTestua2 = $this->getCleanHTML($testua2);
+                                $cleanTestua2 = $this->getCleanHTML($cleanTestua2);
+                                $zelda2->addText($cleanTestua2);
+                            }
+                        }
+                        $section->addTextBreak(1);
+
+
+                        /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
+                        foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoaondoren) {
+                            if ( $azpiatalaparrafoaondoren->getEzabatu() !== 1 ) {
+                                if ($lang==="es") {
+                                    if ($prod === 1) {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaesProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaes();
+                                    }
+                                } else {
+                                    if ($prod===1) {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaeu();
+                                    }
+                                }
+                                $cleanHTML = $this->getCleanHTML($html);
+                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return $phpWord;
+    }
+
+    /**
+     * @Route("/fitxategia/{lang}/{prod}/{type}", name="admin_fitxategia")
+     * @Method("GET")
+     * @throws Exception
+     */
+    public function fitxategiaAction($lang = 'eu', $prod = "0", $type = 'odt' )
+    {
+        $allowedLangs = ['es', 'eu'];
+        if (!in_array($lang, $allowedLangs, true)) {
+            throw new InvalidArgumentException("$lang ez da baliozko hizkuntza. Soilik 'es' eta 'eu' onartzen dira.");
+        }
+
+        $allowedTypes = ['odt', 'docx'];
+        if (!in_array($type, $allowedTypes, true)) {
+            throw new InvalidArgumentException("$type ez da onartutako formatua. Soilik 'odt' eta 'docx' onartzen dira.");
+        }
+
+        $phpWord = $this->baseDoc('eu', 0);
+
+        if ($prod === "1") {
+            $filename = "ZergaOrdentza-" . $lang .'-prod-' . date("Y_m_d_His") . '.' . $type;
+        } else {
+            $filename = "ZergaOrdentza-" . $lang .'-' . date("Y_m_d_His") . '.' . $type;
+        }
+
+        // Zerbitzarian gorde
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        // $objWriter->save("doc/".$filename);
+
+        // DOWNLOAD
+        $temp_file = tempnam(sys_get_temp_dir(), $filename);
+        if ($type === 'odt') {
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        } else {
+            $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        }
+        $objWriter->save($temp_file);
+
+        $response = new BinaryFileResponse($temp_file);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
+    }
+
+
     /**
      * @Route("/odteu", name="admin_ordenantza_odt_eu")
      * @Method("GET")
@@ -772,69 +1123,109 @@ class OrdenantzaController extends Controller
      */
     public function odtActionEu()
     {
-        $em = $this->getDoctrine()->getManager();
-        $ordenantzas = $em->getRepository('AppBundle:Ordenantza')->findAllOrderByKodea();
+        $phpWord = $this->baseDoc('eu', 0);
+        $filename = "ZergaOrdentza-eu_" . date("Y_m_d_His") . ".odt";
 
+        // Zerbitzarian gorde
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        // $objWriter->save("doc/".$filename);
 
-        // Creating the new document...
-//        $phpWord = new PhpWord();
+        // DOWNLOAD
+        $temp_file = tempnam(sys_get_temp_dir(), $filename);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        $objWriter->save($temp_file);
 
-//        return $this->render(
-//            'ordenantza/odteu.html.twig',
-//            array(
-//                'ordenantzas' => $ordenantzas,
-//                'eguna' => date("Y"),
-//                'udala' => $this->getUser()->getUdala(),
-//            )
-//        );
+        $response = new BinaryFileResponse($temp_file);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
 
-//        $phpWord->addParagraphStyle('Heading2', ['alignment' => 'center']);
+        return $response;
+    }
 
-//        $section = $phpWord->addSection();
-//        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $nireordenantza->getContent(), false, false);
-
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        $languageEs = new \PhpOffice\PhpWord\Style\Language(\PhpOffice\PhpWord\Style\Language::ES_ES);
-        $phpWord->getSettings()->setThemeFontLang($languageEs);
-        $phpWord->addTitleStyle(1, ['bold' => true], ['spaceAfter' => 240]);
-        $phpWord->addTitleStyle(2, ['bold' => true], ['spaceAfter' => 240]);
-
-        foreach ($ordenantzas as $ordenantza) {
-            $section = $phpWord->addSection();
-            $titulua =  $ordenantza->getKodea() . " " . $ordenantza->getIzenburuaeu();
-            $section->addTitle($titulua, 2);
-
-            /** @var Ordenantzaparrafoa $parrafoa */
-            foreach ($ordenantza->getParrafoak() as $parrafoa) {
-                if ( $parrafoa->getEzabatu() !== 1 ) {
-                    $cleanHTML = $parrafoa->getTestuaeu();
-//                    $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
-//                    $cleanHTML= strip_tags($cleanHTML, $allowed_tags );
-                    $cleanHTML = str_replace("\t", "", $cleanHTML);
-                    $cleanHTML = str_replace("\n", "<br/>", $cleanHTML);
-                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
-                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                }
-
-            }
-        }
-
-
-
-
-        // Saving the document as OOXML file...
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save('helloWorld.docx');
+    /**
+     * @Route("/odteuprod", name="admin_ordenantza_odt_eu_prod")
+     * @Method("GET")
+     * @throws Exception
+     */
+    public function odtActionEuProd()
+    {
+        $phpWord = $this->baseDoc('eu', 1);
+        $filename = "ZergaOrdentza-eu_prod_" . date("Y_m_d_His") . ".odt";
 
         // Saving the document as ODF file...
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        // $objWriter->save("doc/".$filename);
+
+        // DOWNLOAD
+        $temp_file = tempnam(sys_get_temp_dir(), $filename);
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
-        $objWriter->save('helloWorld.odt');
+        $objWriter->save($temp_file);
 
-        // Saving the document as HTML file...
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
-        $objWriter->save('helloWorld.html');
+        $response = new BinaryFileResponse($temp_file);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
 
-        return new Response("OK");
+        return $response;
+    }
+
+    /**
+     * @Route("/docxeu", name="admin_ordenantza_docx_eu")
+     * @Method("GET")
+     * @throws Exception
+     */
+    public function docxActionEu()
+    {
+        $phpWord = $this->baseDoc('eu', 0);
+        $filename = "ZergaOrdentza-eu_" . date("Y_m_d_His") . ".docx";
+
+        // Zerbitzarian gorde
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        // $objWriter->save("doc/".$filename);
+
+        // DOWNLOAD
+        $temp_file = tempnam(sys_get_temp_dir(), $filename);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($temp_file);
+
+        $response = new BinaryFileResponse($temp_file);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
+    }
+
+    /**
+     * @Route("/odteuprod", name="admin_ordenantza_docx_eu_prod")
+     * @Method("GET")
+     * @throws Exception
+     */
+    public function docxActionEuProd()
+    {
+        $phpWord = $this->baseDoc('eu', 1);
+        $filename = "ZergaOrdentza-eu_prod_" . date("Y_m_d_His") . ".docx";
+
+        // Zerbitzarian gorde
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        // $objWriter->save("doc/".$filename);
+
+        // DOWNLOAD
+        $temp_file = tempnam(sys_get_temp_dir(), $filename);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($temp_file);
+
+        $response = new BinaryFileResponse($temp_file);
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            $filename
+        );
+
+        return $response;
     }
 
     /**
@@ -891,6 +1282,32 @@ class OrdenantzaController extends Controller
                 'id' => $ordenantza->getId(),
             )
         );
+    }
+
+    /**
+     * @param $cleanHTML
+     * @return string
+     */
+    public function getCleanHTML($cleanHTML)
+    {
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
+
+        $purifier = new HTMLPurifier($config);
+
+        $cleanHTML = $purifier->purify($cleanHTML);
+        $cleanHTML = str_replace("\t", "", $cleanHTML);
+        $cleanHTML = str_replace("\n", "", $cleanHTML);
+        $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
+        // $cleanHTML = str_replace("&nbsp;", "", $cleanHTML);
+        $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
+        $cleanHTML = strip_tags($cleanHTML, $allowed_tags);
+        $cleanHTML = str_replace("<br>", "<br/>", $cleanHTML);
+//        $cleanHTML = str_replace("&", "&amp;", $cleanHTML);
+
+        //                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
+        return $cleanHTML;
     }
 
 }

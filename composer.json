@@ -24,6 +24,9 @@
         }
     ],
     "require": {
+        "ext-dom": "*",
+        "ext-fileinfo": "*",
+        "ext-libxml": "*",
         "php": ">=5.6.4",
         "symfony/symfony": "3.0.*",
         "doctrine/orm": "^2.5",
@@ -55,8 +58,8 @@
         "white-october/pagerfanta-bundle": "^1.0",
         "mbence/opentbs-bundle": "^1.9",
         "nelmio/cors-bundle": "^1.4",
-      "ext-dom": "*",
-      "ext-libxml": "*"
+        "ezyang/htmlpurifier": "^4.17"
+
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
