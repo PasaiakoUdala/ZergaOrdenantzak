@@ -851,13 +851,13 @@ class OrdenantzaController extends Controller
                                 if ($atala->getIzenburuaesProd() !== "") {
                                     $html ="<h3>". $atala->getOrdenantza()->getKodeaProd().'.'.$atala->getKodeaProd().'.-'.$atala->getIzenburuaesProd(). "</h3>";
                                     $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                 }
                             } else {
                                 if ($atala->getIzenburuaes() !== "") {
                                     $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaes(). "</h3>";
                                     $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                 }
                             }
                         }
@@ -866,13 +866,13 @@ class OrdenantzaController extends Controller
                                 if ($atala->getIzenburuaeuProd() !== "") {
                                     $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
                                     $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                 }
                             } else {
                                 if ($atala->getIzenburuaeu() !== "") {
                                     $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
                                     $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                 }
                             }
                         }
@@ -1294,9 +1294,9 @@ class OrdenantzaController extends Controller
         $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
         $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
 
-        $purifier = new HTMLPurifier($config);
+        //$purifier = new HTMLPurifier($config);
+        //$cleanHTML = $purifier->purify($cleanHTML);
 
-        $cleanHTML = $purifier->purify($cleanHTML);
         $cleanHTML = str_replace("\t", "", $cleanHTML);
         $cleanHTML = str_replace("\n", "", $cleanHTML);
         $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
@@ -1304,7 +1304,7 @@ class OrdenantzaController extends Controller
         $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
         $cleanHTML = strip_tags($cleanHTML, $allowed_tags);
         $cleanHTML = str_replace("<br>", "<br/>", $cleanHTML);
-//        $cleanHTML = str_replace("&", "&amp;", $cleanHTML);
+        //$cleanHTML = str_replace("&", "&amp;", $cleanHTML);
 
         //                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
         return $cleanHTML;

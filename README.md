@@ -111,3 +111,4 @@ php bin/console fos:user:promote
         CustomLog /var/log/apache2/zergaordenantzak.dev_access.log combined
     </VirtualHost>
 
+Begiratu [doc/install.md](doc/install.md) ohar gehiagorako
