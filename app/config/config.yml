@@ -187,12 +187,12 @@ ivory_ck_editor:
             toolbar: "my_toolbar_2"
             uiColor: "#ffffff"
             # ...
-        my_config_2:
+        my_config_3:
             toolbar: "my_toolbar_1"
             uiColor: "#cccccc"
     toolbars:
         configs:
-            my_toolbar_1: [ [ 'Bold', 'Italic', 'Underline', '-','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ]]
+            my_toolbar_1: [ [ 'Source', 'Bold', 'Italic', 'Underline', '-','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent']]
             my_toolbar_2: [ [ "Source" ], "/", [ "Anchor" ], "/", [ "Maximize" ] ]
 
 white_october_tcpdf:

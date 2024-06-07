@@ -10,11 +10,12 @@
 </div>
 <p style="margin-bottom: 0cm; line-height: 100%; page-break-before: always"></p>
 {% for ordenantza in ordenantzas %}
-<h2 style="text-align: left;">{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaeu |striptags|raw|nl2br}}</h2>
+    <h2 style="text-align: left;">{{ ordenantza.kodea ~ ".-" ~ ordenantza.izenburuaeu |striptags|raw|nl2br}}</h2>
 
-{% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
-    <p style="text-align: left;">{{ p.testuaeu  |striptags|raw | nl2br }}</p>
-{% endfor %}
+    {% for p in ordenantza.parrafoak if p.ezabatu != 1 %}
+    {#    <p style="text-align: left;">{{ p.testuaeu  |striptags|raw | nl2br }}</p>#}
+        <p style="text-align: left;">{{ p.testuaeu  |raw  | nl2br}}</p>
+    {% endfor %}
     {% for atala in ordenantza.atalak if atala.ezabatu!= 1 %}
         {% if atala.utsa != 1 %}
             <h3>{{ atala.ordenantza.kodea }}.{{ atala.kodea }}.- {{ atala.izenburuaeu }}</h3>
