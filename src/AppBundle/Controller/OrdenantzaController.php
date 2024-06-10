@@ -1085,7 +1085,7 @@ class OrdenantzaController extends Controller
             throw new InvalidArgumentException("$type ez da onartutako formatua. Soilik 'odt' eta 'docx' onartzen dira.");
         }
 
-        $phpWord = $this->baseDoc('eu', 0);
+        $phpWord = $this->baseDoc($lang, $prod);
 
         if ($prod === "1") {
             $filename = "ZergaOrdentza-" . $lang .'-prod-' . date("Y_m_d_His") . '.' . $type;
@@ -1114,7 +1114,6 @@ class OrdenantzaController extends Controller
 
         return $response;
     }
-
 
     /**
      * @Route("/odteu", name="admin_ordenantza_odt_eu")
@@ -1290,15 +1289,19 @@ class OrdenantzaController extends Controller
      */
     public function getCleanHTML($cleanHTML)
     {
-        $config = \HTMLPurifier_Config::createDefault();
-        $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
-        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
-
-        //$purifier = new HTMLPurifier($config);
-        //$cleanHTML = $purifier->purify($cleanHTML);
+//        $config = \HTMLPurifier_Config::createDefault();
+//        $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
+//        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
+//        $purifier = new HTMLPurifier($config);
+//        $cleanHTML = $purifier->purify($cleanHTML);
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
-        $cleanHTML = str_replace("\n", "", $cleanHTML);
+//        $cleanHTML = str_replace("\n", "", $cleanHTML);
+        /******* BERRIA ******/
+        $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
+        $cleanHTML = preg_replace('/(<li.*?>.*?)(<ul>.*?<\/ul>)\s?(<\/li>)/i', '$1$3$2', $cleanHTML);
+
+
         $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
         // $cleanHTML = str_replace("&nbsp;", "", $cleanHTML);
         $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
