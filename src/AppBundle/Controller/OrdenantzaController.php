@@ -838,7 +838,7 @@ class OrdenantzaController extends Controller
                     }
 
                     \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, "<br/>");
+                    $section->addTextBreak(1);
                 }
             }
             /** @var Atala $atala */
@@ -952,16 +952,29 @@ class OrdenantzaController extends Controller
                         foreach ($azpiatala->getKontzeptuak() as $k) {
                             if ($k->getEzabatu() !== true) {
                                 $html .= '<tr>';
-                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
-                                if (!empty($k->getBaldintza())) {
-                                    $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
-                                    $html .= ' ( ' . htmlspecialchars($baldintzaeu) . ' )';
+                                if ($lang === "es") {
+                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaes());
+                                    if (!empty($k->getBaldintza())) {
+                                        $baldintzaes = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaes());
+                                        $html .= ' (' . htmlspecialchars($baldintzaes) .')';
+                                    }
+                                    $html .= '</p></td>';
+                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
+                                    $html .= '</td></tr>';
+                                } else {
+                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
+                                    if (!empty($k->getBaldintza())) {
+                                        $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
+                                        $html .= ' (' . htmlspecialchars($baldintzaeu) .')';
+                                    }
+                                    $html .= '</p></td>';
+                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
+                                    $html .= '</td></tr>';
                                 }
-                                $html .= '</p></td>';
-                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
-                                $html .= '</td></tr>';
                             }
                         }
 
