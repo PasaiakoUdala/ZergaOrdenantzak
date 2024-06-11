@@ -312,7 +312,6 @@ class OrdenantzaController extends Controller
         return $response;
     }
 
-
     /**
      * @Route("/eguneratuazpiatalakontzeptuoa/{id}", name="admin_ordenantza_azpiatalakontzeptua_eguneratu")
      * @Method("POST")
@@ -943,122 +942,28 @@ class OrdenantzaController extends Controller
                             }
                         }
 
-                        $estiloTabla = [
-                            "borderColor" => "8bc34a",
-                            "alignment" => Jc::CENTER,
-                            "borderSize" => 5,
-                        ];
+                        $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
 
-                        $table_style = new \PhpOffice\PhpWord\Style\Table;
-                        $table_style->setUnit(\PhpOffice\PhpWord\SimpleType\TblWidth::PERCENT);
-                        $table_style->setWidth(100 * 50);
-                        $table_style->setBorderColor("cccccc");
-                        $table_style->setBorderSize(5);
-                        $table_style->setAlignment(Jc::START);
-
-                        $phpWord->addTableStyle("estilo1", $estiloTabla);
-
-                        $tabla = $section->addTable("estilo1");
-
-                        /** @var Kontzeptua $kontzeptua */
-                        foreach ( $azpiatala->getKontzeptuak() as $index => $kontzeptua ) {
-                            if ($lang === "es") {
-                                if ( $prod === 1 ) {
-                                    if (($index === 0) && ($kontzeptua->getKontzeptuaesProd()!=="")) {
-                                        $tabla->addRow();
-                                        $zeldath1 = $tabla->addCell();
-                                        $zeldath1->addText("");
-                                        $zeldath2 = $tabla->addCell();
-                                        $zeldath2->addText($kontzeptua->getUnitatea());
-                                    }
-                                } else {
-                                    if (($index === 0) && ($kontzeptua->getKontzeptuaes()!=="")) {
-                                        $tabla->addRow();
-                                        $zeldath1 = $tabla->addCell();
-                                        $zeldath1->addText("");
-                                        $zeldath2 = $tabla->addCell();
-                                        $zeldath2->addText($kontzeptua->getUnitatea());
-                                    }
+                        /** @var Kontzeptua $k */
+                        foreach ($azpiatala->getKontzeptuak() as $k) {
+                            if ($k->getEzabatu() != 1) {
+                                $html .= '<tr>';
+                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
+                                if (!empty($k->getBaldintza())) {
+                                    $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
+                                    $html .= ' ( ' . htmlspecialchars($baldintzaeu) . ' )';
                                 }
-                            } else {
-                                if ($prod===1) {
-                                    if (($index === 0) && ($kontzeptua->getKontzeptuaeuProd()!=="")) {
-                                        $tabla->addRow();
-                                        $zeldath1 = $tabla->addCell();
-                                        $zeldath1->addText("");
-                                        $zeldath2 = $tabla->addCell();
-                                        $zeldath2->addText($kontzeptua->getUnitatea());
-                                    }
-                                } else {
-                                    if (($index === 0) && ($kontzeptua->getKontzeptuaeu()!=="")) {
-                                        $tabla->addRow();
-                                        $zeldath1 = $tabla->addCell();
-                                        $zeldath1->addText("");
-                                        $zeldath2 = $tabla->addCell();
-                                        $zeldath2->addText($kontzeptua->getUnitatea());
-                                    }
-                                }
-                            }
-
-                            if ( $kontzeptua->getEzabatu() !== 1 ) {
-                                $tabla->addRow();
-                                $zelda1 = $tabla->addCell();
-                                if ($lang === "es") {
-                                    if ($prod === 1) {
-                                        $testua1 = $kontzeptua->getKontzeptuaesProd();
-                                    } else {
-                                        $testua1 = $kontzeptua->getKontzeptuaes();
-                                    }
-                                } else {
-                                    if ($prod===1) {
-                                        $testua1 = $kontzeptua->getKontzeptuaeuProd();
-                                    } else {
-                                        $testua1 = $kontzeptua->getKontzeptuaeu();
-                                    }
-                                }
-                                if ( $kontzeptua->getBaldintza() ) {
-                                    if ($lang === "es") {
-                                        $testua1 .= "(" . $kontzeptua->getBaldintza()->getBaldintzaes() . ")";
-                                    } else {
-                                        $testua1 .= "(" . $kontzeptua->getBaldintza()->getBaldintzaeu() . ")";
-                                    }
-
-                                }
-                                $cleanTestua1 = $this->getCleanHTML($testua1);
-                                $cleanTestua1 = $this->getCleanHTML($cleanTestua1);
-                                $zelda1->addText($cleanTestua1);
-
-                                $zelda2 = $tabla->addCell();
-                                $testua2 = $kontzeptua->getKopurua();
-
-                                $cleanTestua2 = $this->getCleanHTML($testua2);
-                                $cleanTestua2 = $this->getCleanHTML($cleanTestua2);
-                                $zelda2->addText($cleanTestua2);
+                                $html .= '</p></td>';
+                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
+                                $html .= '</td></tr>';
                             }
                         }
-                        $section->addTextBreak(1);
 
-
-                        /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
-                        foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoaondoren) {
-                            if ( $azpiatalaparrafoaondoren->getEzabatu() !== 1 ) {
-                                if ($lang==="es") {
-                                    if ($prod === 1) {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaesProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaes();
-                                    }
-                                } else {
-                                    if ($prod===1) {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaeu();
-                                    }
-                                }
-                                $cleanHTML = $this->getCleanHTML($html);
-                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                            }
-                        }
+                        $html .= '</table>';
+                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                        $section->addTextBreak(2);
                     }
                 }
 
@@ -1289,11 +1194,11 @@ class OrdenantzaController extends Controller
      */
     public function getCleanHTML($cleanHTML)
     {
-//        $config = \HTMLPurifier_Config::createDefault();
-//        $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
-//        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
-//        $purifier = new HTMLPurifier($config);
-//        $cleanHTML = $purifier->purify($cleanHTML);
+        $config = \HTMLPurifier_Config::createDefault();
+        $config->set('Core.Encoding', 'UTF-8'); // replace with your encoding
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
+        $purifier = new HTMLPurifier($config);
+        $cleanHTML = $purifier->purify($cleanHTML);
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
 //        $cleanHTML = str_replace("\n", "", $cleanHTML);
@@ -1303,6 +1208,7 @@ class OrdenantzaController extends Controller
 
 
         $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
+        $cleanHTML = str_replace("&lt;", "<", $cleanHTML);
         // $cleanHTML = str_replace("&nbsp;", "", $cleanHTML);
         $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
         $cleanHTML = strip_tags($cleanHTML, $allowed_tags);
@@ -1311,6 +1217,27 @@ class OrdenantzaController extends Controller
 
         //                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
         return $cleanHTML;
+    }
+
+    private function getStringFromHtml($html)
+    {
+        // Crea una nueva instancia de DOMDocument
+        $dom = new \DOMDocument();
+
+        // Suprime los errores al cargar HTML mal formado
+        libxml_use_internal_errors(true);
+
+        // Carga el HTML en el objeto DOMDocument
+        $dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
+
+        // Limpia los errores de libxml
+        libxml_clear_errors();
+
+        // Obtiene el texto de todos los nodos del documento
+        $text = $dom->textContent;
+
+        // Elimina espacios en blanco redundantes y retorna el texto limpio
+        return trim(preg_replace('/\s+/', ' ', $text));
     }
 
 }
