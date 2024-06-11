@@ -822,7 +822,7 @@ class OrdenantzaController extends Controller
 
             /** @var Ordenantzaparrafoa $parrafoa */
             foreach ($ordenantza->getParrafoak() as $parrafoa) {
-                if ( $parrafoa->getEzabatu() !== 1 ) {
+                if ( $parrafoa->getEzabatu() !== true ) {
                     if ($lang === "es") {
                         if ($prod === 1) {
                             $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaesProd());
@@ -843,7 +843,7 @@ class OrdenantzaController extends Controller
             }
             /** @var Atala $atala */
             foreach ($ordenantza->getAtalak() as $atala) {
-                if ( $atala->getEzabatu() !== 1 ) {
+                if ( $atala->getEzabatu() !== true ) {
                     if ( $atala->getUtsa() !== 1) {
                         if ( $lang === "es") {
                             if ( $prod === 1 ) {
@@ -878,18 +878,22 @@ class OrdenantzaController extends Controller
 
                         /** @var Atalaparrafoa $atalaparraofoa */
                         foreach ($atala->getParrafoak() as $atalaparraofoa) {
-                            if ( $atalaparraofoa->getEzabatu() !== 1 ) {
+                            if ( $atalaparraofoa->getEzabatu() !== true ) {
                                 if ($lang === "es") {
                                     if ( $prod === 1) {
                                         $html = $atalaparraofoa->getTestuaesProd();
+                                        $html = $this->getCleanHTML($html);
                                     } else {
                                         $html = $atalaparraofoa->getTestuaes();
+                                        $html = $this->getCleanHTML($html);
                                     }
                                 } else {
                                     if ($prod===1) {
                                         $html = $atalaparraofoa->getTestuaeuProd();
+                                        $html = $this->getCleanHTML($html);
                                     } else {
                                         $html = $atalaparraofoa->getTestuaeu();
+                                        $html = $this->getCleanHTML($html);
                                     }
                                 }
 
@@ -902,7 +906,7 @@ class OrdenantzaController extends Controller
 
                 /** @var Azpiatala $azpiatala */
                 foreach ($atala->getAzpiatalak() as $azpiatala) {
-                    if ( $azpiatala->getEzabatu() !== 1) {
+                    if ( $azpiatala->getEzabatu() !== true) {
                         if ($lang === "es") {
                             if ($prod === 1) {
                                 $html ="<h3>". $azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaesProd(). "</h3>";
@@ -923,7 +927,7 @@ class OrdenantzaController extends Controller
 
                         /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
                         foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
-                            if ( $azpiatalaparrafoa->getEzabatu() !== 1 ) {
+                            if ( $azpiatalaparrafoa->getEzabatu() !== true ) {
                                 if ($lang==="es") {
                                     if ($prod===1) {
                                         $html = $azpiatalaparrafoa->getTestuaesProd();
@@ -946,7 +950,7 @@ class OrdenantzaController extends Controller
 
                         /** @var Kontzeptua $k */
                         foreach ($azpiatala->getKontzeptuak() as $k) {
-                            if ($k->getEzabatu() != 1) {
+                            if ($k->getEzabatu() !== true) {
                                 $html .= '<tr>';
                                 $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
                                 $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
