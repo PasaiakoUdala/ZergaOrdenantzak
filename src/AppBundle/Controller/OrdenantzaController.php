@@ -948,33 +948,48 @@ class OrdenantzaController extends Controller
 
                         $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
 
+                        $loopindex = 0;
+                        $oldUnitatea='';
+
                         /** @var Kontzeptua $k */
                         foreach ($azpiatala->getKontzeptuak() as $k) {
                             if ($k->getEzabatu() !== true) {
-                                $html .= '<tr>';
-                                if ($lang === "es") {
+                                if ($loopindex === 0) {
+                                    $html .="<tr>";
                                     $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
+                                    $html .= '</td>';
+                                    $html .= '</tr>';
+                                    $oldUnitatea = $k->getUnitatea();
+                                } elseif ( $k->getUnitatea() !== $oldUnitatea){
+                                    $html .="<tr>";
+                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                    $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
+                                    $html .= '</td>';
+                                    $html .= '</tr>';
+                                    $oldUnitatea = $k->getUnitatea();
+                                }
+                                $loopindex += 1;
+
+                                $html .= '<tr>';
+                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                if ($lang === "es") {
                                     $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaes());
                                     if (!empty($k->getBaldintza())) {
                                         $baldintzaes = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaes());
                                         $html .= ' (' . htmlspecialchars($baldintzaes) .')';
                                     }
-                                    $html .= '</p></td>';
-                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                    $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
-                                    $html .= '</td></tr>';
                                 } else {
-                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
                                     $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
                                     if (!empty($k->getBaldintza())) {
                                         $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
                                         $html .= ' (' . htmlspecialchars($baldintzaeu) .')';
                                     }
-                                    $html .= '</p></td>';
-                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                    $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . ' ' . htmlspecialchars($k->getUnitatea()) . '</p>';
-                                    $html .= '</td></tr>';
                                 }
+                                $html .= '</p></td>';
+                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . '</p>';
+                                $html .= '</td></tr>';
                             }
                         }
 
