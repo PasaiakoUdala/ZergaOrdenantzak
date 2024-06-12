@@ -1240,7 +1240,7 @@ class OrdenantzaController extends Controller
 
 
         $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
-        $cleanHTML = str_replace("&lt;", "<", $cleanHTML);
+        //$cleanHTML = str_replace("&lt;", "<", $cleanHTML);
         // $cleanHTML = str_replace("&nbsp;", "", $cleanHTML);
         $allowed_tags = '<a><b><i><u><em><strong><p><br><ul><ol><li>';
         $cleanHTML = strip_tags($cleanHTML, $allowed_tags);
