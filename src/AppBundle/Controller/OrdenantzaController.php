@@ -910,20 +910,21 @@ class OrdenantzaController extends Controller
                     if ( $azpiatala->getEzabatu() !== true) {
                         if ($lang === "es") {
                             if ($prod === 1) {
-                                $html ="<h3>". $azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaesProd(). "</h3>";
+                                $html =$azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaesProd();
                             } else {
-                                $html ="<h3>". $azpiatala->getKodea().'.'.$azpiatala->getIzenburuaes(). "</h3>";
+                                $html =$azpiatala->getKodea().'.'.$azpiatala->getIzenburuaes();
                             }
 
                         } else {
                             if ( $prod===1) {
-                                $html ="<h3>". $azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaeuProd(). "</h3>";
+                                $html =$azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaeuProd();
                             } else {
-                                $html ="<h3>". $azpiatala->getKodea().'.'.$azpiatala->getIzenburuaeu(). "</h3>";
+                                $html =$azpiatala->getKodea().'.'.$azpiatala->getIzenburuaeu();
                             }
                         }
 
                         $cleanHTML = $this->getCleanHTML($html);
+                        $cleanHTML = str_replace('<br />','',$cleanHTML);
                         //\PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
                         $section->addTitle($cleanHTML, 4);
 
