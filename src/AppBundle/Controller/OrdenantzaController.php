@@ -844,7 +844,7 @@ class OrdenantzaController extends Controller
             /** @var Atala $atala */
             foreach ($ordenantza->getAtalak() as $atala) {
                 if ( $atala->getEzabatu() !== true ) {
-                    if ( $atala->getUtsa() !== 1) {
+                    if ( $atala->getUtsa() !== true) {
                         if ( $lang === "es") {
                             if ( $prod === 1 ) {
                                 if ($atala->getIzenburuaesProd() !== "") {
@@ -1233,7 +1233,7 @@ class OrdenantzaController extends Controller
         $cleanHTML = $purifier->purify($cleanHTML);
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
-//        $cleanHTML = str_replace("\n", "", $cleanHTML);
+        //        $cleanHTML = str_replace("\n", "", $cleanHTML);
         /******* BERRIA ******/
         $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
         $cleanHTML = preg_replace('/(<li.*?>.*?)(<ul>.*?<\/ul>)\s?(<\/li>)/i', '$1$3$2', $cleanHTML);
