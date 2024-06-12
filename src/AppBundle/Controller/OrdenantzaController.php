@@ -801,6 +801,7 @@ class OrdenantzaController extends Controller
         $phpWord->addTitleStyle(1, ['bold' => true], ['spaceAfter' => 240]);
         $phpWord->addTitleStyle(2, ['bold' => true], ['spaceAfter' => 180]);
         $phpWord->addTitleStyle(3, ['bold' => true], ['spaceAfter' => 140]);
+        $phpWord->addTitleStyle(4, ['bold' => true], ['spaceAfter' => 140, 'spaceBefore' => 140]);
 
         foreach ($ordenantzas as $ordenantza) {
             $section = $phpWord->addSection();
@@ -923,7 +924,8 @@ class OrdenantzaController extends Controller
                         }
 
                         $cleanHTML = $this->getCleanHTML($html);
-                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                        //\PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                        $section->addTitle($cleanHTML, 4);
 
                         /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
                         foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
