@@ -996,6 +996,28 @@ class OrdenantzaController extends Controller
                         $html .= '</table>';
                         \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                         $section->addTextBreak(2);
+
+
+                        /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
+                        foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoaondoren) {
+                            if ( $azpiatalaparrafoaondoren->getEzabatu() !== true ) {
+                                if ($lang==="es") {
+                                    if ($prod===1) {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaesProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaes();
+                                    }
+                                } else {
+                                    if ($prod===1) {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
+                                    } else {
+                                        $html = $azpiatalaparrafoaondoren->getTestuaeu();
+                                    }
+                                }
+                                $cleanHTML = $this->getCleanHTML($html);
+                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                            }
+                        }
                     }
                 }
 
