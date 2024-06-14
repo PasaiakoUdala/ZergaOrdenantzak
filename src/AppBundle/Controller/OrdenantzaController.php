@@ -959,6 +959,7 @@ class OrdenantzaController extends Controller
                             if ($k->getEzabatu() !== true) {
                                 if ($loopindex === 0) {
                                     $html .="<tr>";
+                                    $html .= '<td></td>';
                                     $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
                                     $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
                                     $html .= '</td>';
@@ -966,6 +967,7 @@ class OrdenantzaController extends Controller
                                     $oldUnitatea = $k->getUnitatea();
                                 } elseif ( $k->getUnitatea() !== $oldUnitatea){
                                     $html .="<tr>";
+                                    $html .= '<td></td>';
                                     $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
                                     $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
                                     $html .= '</td>';
