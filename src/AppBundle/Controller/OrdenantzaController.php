@@ -910,16 +910,16 @@ class OrdenantzaController extends Controller
                     if ( $azpiatala->getEzabatu() !== true) {
                         if ($lang === "es") {
                             if ($prod === 1) {
-                                $html =$azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaesProd();
+                                $html =$azpiatala->getKodeaProd().'. '.$azpiatala->getIzenburuaesProd();
                             } else {
-                                $html =$azpiatala->getKodea().'.'.$azpiatala->getIzenburuaes();
+                                $html =$azpiatala->getKodea().'. '.$azpiatala->getIzenburuaes();
                             }
 
                         } else {
                             if ( $prod===1) {
-                                $html =$azpiatala->getKodeaProd().'.'.$azpiatala->getIzenburuaeuProd();
+                                $html =$azpiatala->getKodeaProd().'. '.$azpiatala->getIzenburuaeuProd();
                             } else {
-                                $html =$azpiatala->getKodea().'.'.$azpiatala->getIzenburuaeu();
+                                $html =$azpiatala->getKodea().'. '.$azpiatala->getIzenburuaeu();
                             }
                         }
 
