@@ -818,7 +818,6 @@ class OrdenantzaController extends Controller
                     $titulua =  $ordenantza->getKodea() . " " . $ordenantza->getIzenburuaeu();
                 }
             }
-
             $section->addTitle($titulua, 2);
 
             /** @var Ordenantzaparrafoa $parrafoa */
@@ -926,6 +925,8 @@ class OrdenantzaController extends Controller
                         $cleanHTML = $this->getCleanHTML($html);
                         $cleanHTML = str_replace('<br />','',$cleanHTML);
                         //\PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+
+//                        $section->addTitle($cleanHTML, 4);
                         $section->addTitle($cleanHTML, 4);
 
                         /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
@@ -1265,7 +1266,6 @@ class OrdenantzaController extends Controller
         $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
         $cleanHTML = preg_replace('/(<li.*?>.*?)(<ul>.*?<\/ul>)\s?(<\/li>)/i', '$1$3$2', $cleanHTML);
 
-
         $cleanHTML = str_replace("<br><br>", "<br/>", $cleanHTML);
         //$cleanHTML = str_replace("&lt;", "<", $cleanHTML);
         // $cleanHTML = str_replace("&nbsp;", "", $cleanHTML);
@@ -1297,6 +1297,17 @@ class OrdenantzaController extends Controller
 
         // Elimina espacios en blanco redundantes y retorna el texto limpio
         return trim(preg_replace('/\s+/', ' ', $text));
+    }
+
+    private function formatTitulo($titulo) {
+        $titulo = mb_strtolower($titulo, 'UTF-8');
+        $frases = explode('. ', $titulo);
+        foreach ($frases as &$frase) {
+            $frase = preg_replace_callback('/(^[\d\W]*)(\w)(.*)/u', function($matches) {
+                return $matches[1] . mb_strtoupper($matches[2], 'UTF-8') . $matches[3];
+            }, $frase);
+        }
+        return implode('. ', $frases);
     }
 
 }
