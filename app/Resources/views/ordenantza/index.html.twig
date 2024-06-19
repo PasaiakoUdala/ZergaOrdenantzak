@@ -34,7 +34,7 @@
 
     <li><a href="{{ path('admin_ordenantza_new') }}">{{ "Ordenantza Berria" | trans }}</a></li>
 
-    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "Odt-a eskuratu" | trans }}<b class="caret"></b></a>
+    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "Docx eskuratu" | trans }}<b class="caret"></b></a>
       <ul class="dropdown-menu">
 {#        <li><a href="{{ path('admin_ordenantza_html_eu') }}"> {{ "Euskaraz" | trans }}</a></li>#}
 {#        <li><a href="{{ path('admin_ordenantza_html_es') }}"> {{ "Erdaraz" | trans }}</a></li>#}
@@ -53,15 +53,16 @@
 {#        <li role="separator" class="divider"></li>#}
 {#        <li role="separator" class="divider"></li>#}
 {#        <li role="separator" class="divider"></li>#}
-        <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 0, 'type':'docx'}) }}">{{ "Docx - Euskaraz - Lanean" |trans }}</a></li>
-        <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 1, 'type':'docx'}) }}">{{ "Docx - Euskaraz - Produkzioa" |trans }}</a></li>
-        <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 0, 'type':'docx'}) }}">{{ "Docx - Erdaraz - Lanean" |trans }}</a></li>
-        <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 1, 'type':'docx'}) }}">{{ "Docx - Erdaraz - Produkzioa" |trans }}</a></li>
+        <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 0, 'type':'docx'}) }}">{{ "Zirriborroa euskaraz" |trans }}</a></li>
+        <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 0, 'type':'docx'}) }}">{{ "Zirriborroa erdaraz" |trans }}</a></li>
         <li role="separator" class="divider"></li>
-          <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 0, 'type':'odt'}) }}">{{ "Odt - Euskaraz - Lanean" |trans }}</a></li>
-          <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 1, 'type':'odt'}) }}">{{ "Odt - Euskaraz - Produkzioa" |trans }}</a></li>
-          <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 0, 'type':'odt'}) }}">{{ "Odt - Erdaraz - Lanean" |trans }}</a></li>
-          <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 1, 'type':'odt'}) }}">{{ "Odt - Erdaraz - Produkzioa" |trans }}</a></li>
+        <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 1, 'type':'docx'}) }}">{{ "Indarrean euskaraz" |trans }}</a></li>
+        <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 1, 'type':'docx'}) }}">{{ "Indarrean erdaraz" |trans }}</a></li>
+{#        <li role="separator" class="divider"></li>#}
+{#          <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 0, 'type':'odt'}) }}">{{ "Odt - Euskaraz - Lanean" |trans }}</a></li>#}
+{#          <li><a href="{{ path('admin_fitxategia', {'lang':'eu', 'prod': 1, 'type':'odt'}) }}">{{ "Odt - Euskaraz - Produkzioa" |trans }}</a></li>#}
+{#          <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 0, 'type':'odt'}) }}">{{ "Odt - Erdaraz - Lanean" |trans }}</a></li>#}
+{#          <li><a href="{{ path('admin_fitxategia', {'lang':'es', 'prod': 1, 'type':'odt'}) }}">{{ "Odt - Erdaraz - Produkzioa" |trans }}</a></li>#}
       </ul>
     </li>
     <li><a class="kargatzen" href="{{ path('admin_historikoa_new') }}"> {{ "Indarrean jarri" | trans }} <span class="sr-only">(current)</span></a></li>
