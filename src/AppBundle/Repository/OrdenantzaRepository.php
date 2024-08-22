@@ -83,7 +83,17 @@
 
         public function findAllOrderByKodea()
         {
-            return $this->findBy(array(), array('kodea' => 'ASC'));
+            $em = $this->getEntityManager();
+            $dql = $em->createQueryBuilder()
+                ->select('o')
+                ->from('AppBundle:Ordenantza', 'o')
+                ->orderBy('o.kodea', 'ASC')
+//  DEBUG              ->andWhere('o.id = :id')->setParameter(':id', 42)
+
+            ;
+
+            return $dql->getQuery()->getResult();
+
         }
 
     }
