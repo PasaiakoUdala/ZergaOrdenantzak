@@ -841,195 +841,199 @@ class OrdenantzaController extends Controller
                     $section->addTextBreak(1);
                 }
             }
+            $debugCounter = 0;
             /** @var Atala $atala */
             foreach ($ordenantza->getAtalak() as $atala) {
-                if ( $atala->getEzabatu() !== true ) {
-                    if ( $atala->getUtsa() !== true) {
-                        if ( $lang === "es") {
-                            if ( $prod === 1 ) {
-                                if ($atala->getIzenburuaesProd() !== "") {
-                                    $html ="<h3>". $atala->getOrdenantza()->getKodeaProd().'.'.$atala->getKodeaProd().'.-'.$atala->getIzenburuaesProd(). "</h3>";
-                                    $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-                                }
-                            } else {
-                                if ($atala->getIzenburuaes() !== "") {
-                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaes(). "</h3>";
-                                    $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-                                }
-                            }
-                        }
-                        if ( $lang === "eu") {
-                            if ( $prod === 1 ) {
-                                if ($atala->getIzenburuaeuProd() !== "") {
-                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
-                                    $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-                                }
-                            } else {
-                                if ($atala->getIzenburuaeu() !== "") {
-                                    $html ="<h3>". $atala->getOrdenantza()->getKodea().'.'.$atala->getKodea().'.-'.$atala->getIzenburuaeu(). "</h3>";
-                                    $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-                                }
-                            }
-                        }
-
-                        /** @var Atalaparrafoa $atalaparraofoa */
-                        foreach ($atala->getParrafoak() as $atalaparraofoa) {
-                            if ( $atalaparraofoa->getEzabatu() !== true ) {
-                                if ($lang === "es") {
-                                    if ( $prod === 1) {
-                                        $html = $atalaparraofoa->getTestuaesProd();
-                                        $html = $this->getCleanHTML($html);
-                                    } else {
-                                        $html = $atalaparraofoa->getTestuaes();
-                                        $html = $this->getCleanHTML($html);
+                // DEBUG if ( (int)$atala->getId() === 2064) {
+                    if ($atala->getEzabatu() !== true) {
+                        if ($atala->getUtsa() !== true) {
+                            if ($lang === "es") {
+                                if ($prod === 1) {
+                                    if ($atala->getIzenburuaesProd() !== "") {
+                                        $html = "<h3>" . $atala->getOrdenantza()->getKodeaProd() . '.' . $atala->getKodeaProd() . '.-' . $atala->getIzenburuaesProd() . "</h3>";
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                     }
                                 } else {
-                                    if ($prod===1) {
-                                        $html = $atalaparraofoa->getTestuaeuProd();
-                                        $html = $this->getCleanHTML($html);
-                                    } else {
-                                        $html = $atalaparraofoa->getTestuaeu();
-                                        $html = $this->getCleanHTML($html);
+                                    if ($atala->getIzenburuaes() !== "") {
+                                        $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaes() . "</h3>";
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
                                     }
                                 }
+                            }
+                            if ($lang === "eu") {
+                                if ($prod === 1) {
+                                    if ($atala->getIzenburuaeuProd() !== "") {
+                                        $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaeu() . "</h3>";
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                    }
+                                } else {
+                                    if ($atala->getIzenburuaeu() !== "") {
+                                        $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaeu() . "</h3>";
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                    }
+                                }
+                            }
 
-                                $cleanHTML = $this->getCleanHTML($html);
-                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                            /** @var Atalaparrafoa $atalaparraofoa */
+                            foreach ($atala->getParrafoak() as $atalaparraofoa) {
+                                if ($atalaparraofoa->getEzabatu() !== true) {
+                                    if ($lang === "es") {
+                                        if ($prod === 1) {
+                                            $html = $atalaparraofoa->getTestuaesProd();
+                                            $html = $this->getCleanHTML($html);
+                                        } else {
+                                            $html = $atalaparraofoa->getTestuaes();
+                                            $html = $this->getCleanHTML($html);
+                                        }
+                                    } else {
+                                        if ($prod === 1) {
+                                            $html = $atalaparraofoa->getTestuaeuProd();
+                                            $html = $this->getCleanHTML($html);
+                                        } else {
+                                            $html = $atalaparraofoa->getTestuaeu();
+                                            $html = $this->getCleanHTML($html);
+                                        }
+                                    }
+
+                                    $cleanHTML = $this->getCleanHTML($html);
+                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                }
                             }
                         }
                     }
-                }
 
-                /** @var Azpiatala $azpiatala */
-                foreach ($atala->getAzpiatalak() as $azpiatala) {
-                    if ( $azpiatala->getEzabatu() !== true) {
-                        if ($lang === "es") {
-                            if ($prod === 1) {
-                                $html =$azpiatala->getKodeaProd().'. '.$azpiatala->getIzenburuaesProd();
-                            } else {
-                                $html =$azpiatala->getKodea().'. '.$azpiatala->getIzenburuaes();
-                            }
-
-                        } else {
-                            if ( $prod===1) {
-                                $html =$azpiatala->getKodeaProd().'. '.$azpiatala->getIzenburuaeuProd();
-                            } else {
-                                $html =$azpiatala->getKodea().'. '.$azpiatala->getIzenburuaeu();
-                            }
-                        }
-
-                        $cleanHTML = $this->getCleanHTML($html);
-                        $cleanHTML = str_replace('<br />','',$cleanHTML);
-                        //\PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-
-//                        $section->addTitle($cleanHTML, 4);
-                        $section->addTitle($cleanHTML, 4);
-
-                        /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
-                        foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
-                            if ( $azpiatalaparrafoa->getEzabatu() !== true ) {
-                                if ($lang==="es") {
-                                    if ($prod===1) {
-                                        $html = $azpiatalaparrafoa->getTestuaesProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoa->getTestuaes();
-                                    }
-                                } else {
-                                    if ($prod===1) {
-                                        $html = $azpiatalaparrafoa->getTestuaeuProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoa->getTestuaeu();
-                                    }
-                                }
-                                $cleanHTML = $this->getCleanHTML($html);
-                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                            }
-                        }
-
-                        $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
-
-                        $loopindex = 0;
-                        $oldUnitatea='';
-
-                        /** @var Kontzeptua $k */
-                        foreach ($azpiatala->getKontzeptuak() as $k) {
-                            if ($k->getEzabatu() !== true) {
-                                if ($loopindex === 0) {
-                                    $html .="<tr>";
-                                    $html .= '<td></td>';
-                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                    $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
-                                    $html .= '</td>';
-                                    $html .= '</tr>';
-                                    $oldUnitatea = $k->getUnitatea();
-                                } elseif ( $k->getUnitatea() !== $oldUnitatea){
-                                    $html .="<tr>";
-                                    $html .= '<td></td>';
-                                    $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                    $html .= '<p style="text-align: right;">'. htmlspecialchars($k->getUnitatea()) . '</p>';
-                                    $html .= '</td>';
-                                    $html .= '</tr>';
-                                    $oldUnitatea = $k->getUnitatea();
-                                }
-                                $loopindex += 1;
-
-                                $html .= '<tr>';
-                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                    /** @var Azpiatala $azpiatala */
+                    foreach ($atala->getAzpiatalak() as $azpiatala) {
+                        // DEBUG if ( (int)$azpiatala->getId() === 3534) { // if debug
+                            if ($azpiatala->getEzabatu() !== true) {
                                 if ($lang === "es") {
-                                    $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaes());
-                                    if (!empty($k->getBaldintza())) {
-                                        $baldintzaes = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaes());
-                                        $html .= ' (' . htmlspecialchars($baldintzaes) .')';
+                                    if ($prod === 1) {
+                                        $html = $azpiatala->getKodeaProd() . '. ' . $azpiatala->getIzenburuaesProd();
+                                    } else {
+                                        $html = $azpiatala->getKodea() . '. ' . $azpiatala->getIzenburuaes();
                                     }
+
                                 } else {
-                                    $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
-                                    if (!empty($k->getBaldintza())) {
-                                        $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
-                                        $html .= ' (' . htmlspecialchars($baldintzaeu) .')';
+                                    if ($prod === 1) {
+                                        $html = $azpiatala->getKodeaProd() . '. ' . $azpiatala->getIzenburuaeuProd();
+                                    } else {
+                                        $html = $azpiatala->getKodea() . '. ' . $azpiatala->getIzenburuaeu();
                                     }
                                 }
-                                $html .= '</p></td>';
-                                $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
-                                $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . '</p>';
-                                $html .= '</td></tr>';
-                            }
-                        }
 
-                        $html .= '</table>';
-                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
-                        $section->addTextBreak(2);
-
-
-                        /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
-                        foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoaondoren) {
-                            if ( $azpiatalaparrafoaondoren->getEzabatu() !== true ) {
-                                if ($lang==="es") {
-                                    if ($prod===1) {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaesProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaes();
-                                    }
-                                } else {
-                                    if ($prod===1) {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
-                                    } else {
-                                        $html = $azpiatalaparrafoaondoren->getTestuaeu();
-                                    }
-                                }
                                 $cleanHTML = $this->getCleanHTML($html);
-                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                            }
-                        }
-                    }
-                }
+                                $cleanHTML = str_replace('<br />', '', $cleanHTML);
+                                $section->addTitle($cleanHTML, 4);
 
+                                /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
+                                foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
+                                    if ($azpiatalaparrafoa->getEzabatu() !== true) {
+                                        if ($lang === "es") {
+                                            if ($prod === 1) {
+                                                $html = $azpiatalaparrafoa->getTestuaesProd();
+                                            } else {
+                                                $html = $azpiatalaparrafoa->getTestuaes();
+                                            }
+                                        } else {
+                                            if ($prod === 1) {
+                                                $html = $azpiatalaparrafoa->getTestuaeuProd();
+                                            } else {
+                                                $html = $azpiatalaparrafoa->getTestuaeu();
+                                            }
+                                        }
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    }
+                                }
+
+                                $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
+
+                                $loopindex = 0;
+                                $oldUnitatea = '';
+
+                                /** @var Kontzeptua $k */
+                                foreach ($azpiatala->getKontzeptuak() as $k) {
+                                    if ($k->getEzabatu() !== true) {
+                                        if ($loopindex === 0) {
+                                            $html .= "<tr>";
+                                            $html .= '<td></td>';
+                                            $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                            $html .= '<p style="text-align: right;">' . htmlspecialchars($k->getUnitatea()) . '</p>';
+                                            $html .= '</td>';
+                                            $html .= '</tr>';
+                                            $oldUnitatea = $k->getUnitatea();
+                                        } elseif ($k->getUnitatea() !== $oldUnitatea) {
+                                            $html .= "<tr>";
+                                            $html .= '<td></td>';
+                                            $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                            $html .= '<p style="text-align: right;">' . htmlspecialchars($k->getUnitatea()) . '</p>';
+                                            $html .= '</td>';
+                                            $html .= '</tr>';
+                                            $oldUnitatea = $k->getUnitatea();
+                                        }
+                                        $loopindex += 1;
+
+                                        $html .= '<tr>';
+                                        $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                        if ($lang === "es") {
+                                            $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaes());
+                                            if (!empty($k->getBaldintza())) {
+                                                $baldintzaes = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaes());
+                                                $html .= ' (' . htmlspecialchars($baldintzaes) . ')';
+                                            }
+                                        } else {
+                                            $html .= '<p style="text-align: left;">' . htmlspecialchars($k->getKontzeptuaeu());
+                                            if (!empty($k->getBaldintza())) {
+                                                $baldintzaeu = str_replace(['<br>', '<span>', '</span>', '&nbsp;'], ['', '', '', ' '], $k->getBaldintza()->getBaldintzaeu());
+                                                $html .= ' (' . htmlspecialchars($baldintzaeu) . ')';
+                                            }
+                                        }
+                                        $html .= '</p></td>';
+                                        $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
+                                        $html .= '<p style="text-align: right">' . htmlspecialchars($k->getKopurua()) . '</p>';
+                                        $html .= '</td></tr>';
+                                    }
+                                }
+
+                                $html .= '</table>';
+                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                $section->addTextBreak(2);
+
+
+                                /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
+                                foreach ($azpiatala->getParrafoakondoren() as $azpiatalaparrafoaondoren) {
+                                    if ($azpiatalaparrafoaondoren->getEzabatu() !== true) {
+                                        if ($lang === "es") {
+                                            if ($prod === 1) {
+                                                $html = $azpiatalaparrafoaondoren->getTestuaesProd();
+                                            } else {
+                                                $html = $azpiatalaparrafoaondoren->getTestuaes();
+                                            }
+                                        } else {
+                                            if ($prod === 1) {
+                                                $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
+                                            } else {
+                                                $html = $azpiatalaparrafoaondoren->getTestuaeu();
+                                            }
+                                        }
+                                        $cleanHTML = $this->getCleanHTML($html);
+                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    }
+                                }
+                            }
+                        // } // if debug
+                    }
+//                } //if debug
             }
         }
 
+        $this->get('logger')->warn('--------------------------');
+        $this->get('logger')->warn('phpWord Ordenantza sortua.');
+        $this->get('logger')->warn('--------------------------');
         return $phpWord;
     }
 
@@ -1261,6 +1265,7 @@ class OrdenantzaController extends Controller
         $cleanHTML = $purifier->purify($cleanHTML);
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
+        $cleanHTML = str_replace("<a></a>", "", $cleanHTML);
         //        $cleanHTML = str_replace("\n", "", $cleanHTML);
         /******* BERRIA ******/
         $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
