@@ -18,6 +18,7 @@ use HTMLPurifier;
 use InvalidArgumentException;
 use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Shared\Html;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -820,30 +821,41 @@ class OrdenantzaController extends Controller
             }
             $section->addTitle($titulua, 2);
 
+            $debugCounterp = -1;
             /** @var Ordenantzaparrafoa $parrafoa */
             foreach ($ordenantza->getParrafoak() as $parrafoa) {
-                if ( $parrafoa->getEzabatu() !== true ) {
-                    if ($lang === "es") {
-                        if ($prod === 1) {
-                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaesProd());
+                $debugCounterp++;
+//                if ($debugCounterp > 5) { continue; }
+                if ( (int)$ordenantza->getId() > 0) {
+                    if ( $parrafoa->getEzabatu() !== true ) {
+                        if ($lang === "es") {
+                            if ($prod === 1) {
+                                $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaesProd());
+                            } else {
+                                $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaes());
+                            }
                         } else {
-                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaes());
+                            if ($prod===1) {
+                                $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeuProd());
+                            } else {
+                                $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeu());
+                            }
                         }
-                    } else {
-                        if ($prod===1) {
-                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeuProd());
-                        } else {
-                            $cleanHTML = $this->getCleanHTML($parrafoa->getTestuaeu());
-                        }
-                    }
 
-                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
-                    $section->addTextBreak(1);
+                        /**********************************************************************************/
+                        Html::addHtml($section, $cleanHTML);
+                        $section->addTextBreak(1);
+                        /**********************************************************************************/
+                    }
                 }
+
             }
             $debugCounter = 0;
+            $debugCounterA = -1;
             /** @var Atala $atala */
             foreach ($ordenantza->getAtalak() as $atala) {
+                $debugCounterA++;
+                if ($debugCounterA > 0 ) { continue; }
                 // DEBUG if ( (int)$atala->getId() === 2064) {
                     if ($atala->getEzabatu() !== true) {
                         if ($atala->getUtsa() !== true) {
@@ -851,14 +863,18 @@ class OrdenantzaController extends Controller
                                 if ($prod === 1) {
                                     if ($atala->getIzenburuaesProd() !== "") {
                                         $html = "<h3>" . $atala->getOrdenantza()->getKodeaProd() . '.' . $atala->getKodeaProd() . '.-' . $atala->getIzenburuaesProd() . "</h3>";
+                                        /**********************************************************************************/
                                         $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                        Html::addHtml($section, $html);
+                                        /**********************************************************************************/
                                     }
                                 } else {
                                     if ($atala->getIzenburuaes() !== "") {
                                         $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaes() . "</h3>";
+                                        /**********************************************************************************/
                                         $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                        Html::addHtml($section, $cleanHTML);
+                                        /**********************************************************************************/
                                     }
                                 }
                             }
@@ -866,14 +882,18 @@ class OrdenantzaController extends Controller
                                 if ($prod === 1) {
                                     if ($atala->getIzenburuaeuProd() !== "") {
                                         $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaeu() . "</h3>";
+                                        /**********************************************************************************/
                                         $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                        Html::addHtml($section, $cleanHTML);
+                                        /**********************************************************************************/
                                     }
                                 } else {
                                     if ($atala->getIzenburuaeu() !== "") {
                                         $html = "<h3>" . $atala->getOrdenantza()->getKodea() . '.' . $atala->getKodea() . '.-' . $atala->getIzenburuaeu() . "</h3>";
+                                        /**********************************************************************************/
                                         $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+                                        Html::addHtml($section, $cleanHTML);
+                                        /**********************************************************************************/
                                     }
                                 }
                             }
@@ -898,9 +918,10 @@ class OrdenantzaController extends Controller
                                             $html = $this->getCleanHTML($html);
                                         }
                                     }
-
+                                    /**********************************************************************************/
                                     $cleanHTML = $this->getCleanHTML($html);
-                                    \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                    Html::addHtml($section, $cleanHTML);
+                                    /**********************************************************************************/
                                 }
                             }
                         }
@@ -916,39 +937,43 @@ class OrdenantzaController extends Controller
                                     } else {
                                         $html = $azpiatala->getKodea() . '. ' . $azpiatala->getIzenburuaes();
                                     }
-
+                                } else if ($prod === 1) {
+                                    $html = $azpiatala->getKodeaProd() . '. ' . $azpiatala->getIzenburuaeuProd();
                                 } else {
-                                    if ($prod === 1) {
-                                        $html = $azpiatala->getKodeaProd() . '. ' . $azpiatala->getIzenburuaeuProd();
-                                    } else {
-                                        $html = $azpiatala->getKodea() . '. ' . $azpiatala->getIzenburuaeu();
-                                    }
+                                    $html = $azpiatala->getKodea() . '. ' . $azpiatala->getIzenburuaeu();
                                 }
 
                                 $cleanHTML = $this->getCleanHTML($html);
                                 $cleanHTML = str_replace('<br />', '', $cleanHTML);
+                                /**********************************************************************************/
                                 $section->addTitle($cleanHTML, 4);
+                                /**********************************************************************************/
 
-                                /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
-                                foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
-                                    if ($azpiatalaparrafoa->getEzabatu() !== true) {
-                                        if ($lang === "es") {
-                                            if ($prod === 1) {
-                                                $html = $azpiatalaparrafoa->getTestuaesProd();
+                                if ($azpiatala->getId() === "352") { // debug
+                                    /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
+                                    foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
+                                        if ($azpiatalaparrafoa->getEzabatu() !== true) {
+                                            if ($lang === "es") {
+                                                if ($prod === 1) {
+                                                    $html = $azpiatalaparrafoa->getTestuaesProd();
+                                                } else {
+                                                    $html = $azpiatalaparrafoa->getTestuaes();
+                                                }
                                             } else {
-                                                $html = $azpiatalaparrafoa->getTestuaes();
+                                                if ($prod === 1) {
+                                                    $html = $azpiatalaparrafoa->getTestuaeuProd();
+                                                } else {
+                                                    $html = $azpiatalaparrafoa->getTestuaeu();
+                                                }
                                             }
-                                        } else {
-                                            if ($prod === 1) {
-                                                $html = $azpiatalaparrafoa->getTestuaeuProd();
-                                            } else {
-                                                $html = $azpiatalaparrafoa->getTestuaeu();
-                                            }
+                                            /**********************************************************************************/
+                                            $cleanHTML = $this->getCleanHTML($html);
+                                            Html::addHtml($section, $cleanHTML);
+                                            /**********************************************************************************/
                                         }
-                                        $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
                                     }
-                                }
+                                } // debug
+
 
                                 $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
 
@@ -975,7 +1000,7 @@ class OrdenantzaController extends Controller
                                             $html .= '</tr>';
                                             $oldUnitatea = $k->getUnitatea();
                                         }
-                                        $loopindex += 1;
+                                        ++$loopindex;
 
                                         $html .= '<tr>';
                                         $html .= '<td style="padding: 0 0.2cm 0.2cm;">';
@@ -998,10 +1023,12 @@ class OrdenantzaController extends Controller
                                         $html .= '</td></tr>';
                                     }
                                 }
-
                                 $html .= '</table>';
-                                \PhpOffice\PhpWord\Shared\Html::addHtml($section, $html);
+
+                                /**********************************************************************************/
+                                Html::addHtml($section, $html);
                                 $section->addTextBreak(2);
+                                /**********************************************************************************/
 
 
                                 /** @var Azpiatalaparrafoaondoren $azpiatalaparrafoaondoren */
@@ -1020,8 +1047,10 @@ class OrdenantzaController extends Controller
                                                 $html = $azpiatalaparrafoaondoren->getTestuaeu();
                                             }
                                         }
+                                        /**********************************************************************************/
                                         $cleanHTML = $this->getCleanHTML($html);
-                                        \PhpOffice\PhpWord\Shared\Html::addHtml($section, $cleanHTML);
+                                        Html::addHtml($section, $cleanHTML);
+                                        /**********************************************************************************/
                                     }
                                 }
                             }
@@ -1266,7 +1295,7 @@ class OrdenantzaController extends Controller
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
         $cleanHTML = str_replace("<a></a>", "", $cleanHTML);
-        //        $cleanHTML = str_replace("\n", "", $cleanHTML);
+
         /******* BERRIA ******/
         $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
         $cleanHTML = preg_replace('/(<li.*?>.*?)(<ul>.*?<\/ul>)\s?(<\/li>)/i', '$1$3$2', $cleanHTML);
@@ -1279,7 +1308,10 @@ class OrdenantzaController extends Controller
         $cleanHTML = str_replace("<br>", "<br/>", $cleanHTML);
         //$cleanHTML = str_replace("&", "&amp;", $cleanHTML);
 
-        //                    $cleanHTML = str_replace("<br>", "", $cleanHTML);
+        // a etiketak ez badute href, kendu
+        $pattern = '/<a(?!\s*href).*?>.*?<\/a>/i';
+        $cleanHTML = preg_replace($pattern, '', $cleanHTML);
+
         return $cleanHTML;
     }
 
