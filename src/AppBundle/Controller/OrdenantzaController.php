@@ -854,8 +854,8 @@ class OrdenantzaController extends Controller
             $debugCounterA = -1;
             /** @var Atala $atala */
             foreach ($ordenantza->getAtalak() as $atala) {
-                $debugCounterA++;
-                if ($debugCounterA > 0 ) { continue; }
+//                $debugCounterA++;
+//                if ($debugCounterA > 0 ) { continue; }
                 // DEBUG if ( (int)$atala->getId() === 2064) {
                     if ($atala->getEzabatu() !== true) {
                         if ($atala->getUtsa() !== true) {
@@ -949,7 +949,7 @@ class OrdenantzaController extends Controller
                                 $section->addTitle($cleanHTML, 4);
                                 /**********************************************************************************/
 
-                                if ($azpiatala->getId() === "352") { // debug
+//                                if ($azpiatala->getId() === "352") { // debug
                                     /** @var Azpiatalaparrafoa $azpiatalaparrafoa */
                                     foreach ($azpiatala->getParrafoak() as $azpiatalaparrafoa) {
                                         if ($azpiatalaparrafoa->getEzabatu() !== true) {
@@ -972,7 +972,7 @@ class OrdenantzaController extends Controller
                                             /**********************************************************************************/
                                         }
                                     }
-                                } // debug
+//                                } // debug
 
 
                                 $html = '<table style="border: 1px solid black;border-collapse: collapse;">';
