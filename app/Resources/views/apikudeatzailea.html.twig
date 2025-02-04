@@ -164,6 +164,25 @@ content:none !important;
 ul#ulzzoo {
    margin-left:14px !important;
 }
+.modal-dialog {
+    top: 18% !important;
+    max-height: 90vh; /* Limita la altura del modal al 90% del viewport */
+    display: flex;
+    align-items: center; /* Centra verticalmente el modal */
+}
+
+.modal-content {
+    max-height: 80vh; /* Define la altura máxima del contenido del modal */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body {
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: 60vh; /* Ajusta el tamaño del scroll dentro del modal */
+}
 &lt;/style&gt;
 &lt;ul id="ulzzoo"&gt;
 &lt;/ul&gt;
