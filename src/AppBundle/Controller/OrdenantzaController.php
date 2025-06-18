@@ -1038,11 +1038,7 @@ class OrdenantzaController extends Controller
                                             if ($prod === 1) {
                                                 $html = $azpiatalaparrafoaondoren->getTestuaesProd();
                                             } else {
-                                                if ((int)$azpiatalaparrafoaondoren->getId() === 2203) {
-//                                                dump($azpiatalaparrafoaondoren->getId());
-                                                    $html =  $azpiatalaparrafoaondoren->getTestuaes();
-                                                    $html = $this->getCleanHTML($html);
-                                                }
+                                                $html =  $azpiatalaparrafoaondoren->getTestuaes();
                                             }
                                         } else {
                                             if ($prod === 1) {
