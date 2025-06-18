@@ -1038,11 +1038,16 @@ class OrdenantzaController extends Controller
                                             if ($prod === 1) {
                                                 $html = $azpiatalaparrafoaondoren->getTestuaesProd();
                                             } else {
-                                                $html = $azpiatalaparrafoaondoren->getTestuaes();
+                                                if ((int)$azpiatalaparrafoaondoren->getId() === 2203) {
+//                                                dump($azpiatalaparrafoaondoren->getId());
+                                                    $html =  $azpiatalaparrafoaondoren->getTestuaes();
+                                                    $html = $this->getCleanHTML($html);
+                                                }
                                             }
                                         } else {
                                             if ($prod === 1) {
                                                 $html = $azpiatalaparrafoaondoren->getTestuaeuProd();
+
                                             } else {
                                                 $html = $azpiatalaparrafoaondoren->getTestuaeu();
                                             }
@@ -1295,6 +1300,7 @@ class OrdenantzaController extends Controller
 
         $cleanHTML = str_replace("\t", "", $cleanHTML);
         $cleanHTML = str_replace("<a></a>", "", $cleanHTML);
+        $cleanHTML = str_replace("□", "", $cleanHTML);
 
         /******* BERRIA ******/
         $cleanHTML = str_replace(["\r\n", "\n", "\r"], '', $cleanHTML);
