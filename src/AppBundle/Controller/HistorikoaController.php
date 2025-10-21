@@ -131,6 +131,12 @@ class HistorikoaController extends Controller {
 
                         if ($atala->getEzabatu())
                         {
+                            // Delete related formulas first to avoid foreign key constraint violation
+                            $formulas = $em->getRepository('AppBundle:Formula')->findBy(['atala' => $atala]);
+                            foreach ($formulas as $formula) {
+                                $em->remove($formula);
+                            }
+
                             $em->remove($atala);
 //                            $em->persist($atala);
                         }
