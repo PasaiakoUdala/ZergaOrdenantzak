@@ -144,6 +144,7 @@ class Azpiatalaparrafoaondoren {
   {
     $this->createdAt = new \DateTime();
     $this->updatedAt = new \DateTime();
+    $this->ordena = 0;
   }
 
   public function __toString()
