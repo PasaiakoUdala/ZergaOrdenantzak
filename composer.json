@@ -40,6 +40,7 @@
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.4.*",
         "symfony/console": "^6.0",
+        "symfony/dotenv": "6.4.*",
         "symfony/flex": "^1.21",
         "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
@@ -58,7 +59,6 @@
     "require-dev": {
         "rector/rector": "^1.2",
         "symfony/debug-bundle": "6.4.*",
-        "symfony/dotenv": "6.4.*",
         "symfony/maker-bundle": "^1.43",
         "symfony/phpunit-bridge": "6.4.*",
         "symfony/stopwatch": "6.4.*",
