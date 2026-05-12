@@ -35,34 +35,34 @@
         "nelmio/cors-bundle": "*",
         "pagerfanta/twig": "^4.7",
         "phpoffice/phpword": "^0.12.1",
-        "qipsius/tcpdf-bundle": "^2.0",
+        "qipsius/tcpdf-bundle": "^3.0",
         "stof/doctrine-extensions-bundle": "^1.2",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "6.4.*",
+        "symfony/asset": "7.4.*",
         "symfony/console": "^6.0",
-        "symfony/dotenv": "6.4.*",
-        "symfony/flex": "^1.21",
-        "symfony/form": "6.4.*",
-        "symfony/framework-bundle": "6.4.*",
-        "symfony/ldap": "6.4.*",
+        "symfony/dotenv": "7.4.*",
+        "symfony/flex": "2.*",
+        "symfony/form": "7.4.*",
+        "symfony/framework-bundle": "7.4.*",
+        "symfony/ldap": "7.4.*",
         "symfony/monolog-bundle": "^3.10",
         "symfony/polyfill-php72": "^1.10",
         "symfony/stimulus-bundle": "^2.23",
-        "symfony/translation": "6.4.*",
-        "symfony/twig-bundle": "6.4.*",
-        "symfony/validator": "6.4.*",
+        "symfony/translation": "7.4.*",
+        "symfony/twig-bundle": "7.4.*",
+        "symfony/validator": "7.4.*",
         "symfony/webpack-encore-bundle": "^2.2",
-        "symfony/yaml": "6.4.*",
+        "symfony/yaml": "7.4.*",
         "tecnickcom/tcpdf": "^6.8.0",
-        "willdurand/js-translation-bundle": "^6.0"
+        "willdurand/js-translation-bundle": "^8.0"
     },
     "require-dev": {
         "rector/rector": "^1.2",
-        "symfony/debug-bundle": "6.4.*",
+        "symfony/debug-bundle": "7.4.*",
         "symfony/maker-bundle": "^1.43",
-        "symfony/phpunit-bridge": "6.4.*",
-        "symfony/stopwatch": "6.4.*",
-        "symfony/web-profiler-bundle": "6.4.*"
+        "symfony/phpunit-bridge": "7.4.*",
+        "symfony/stopwatch": "7.4.*",
+        "symfony/web-profiler-bundle": "7.4.*"
     },
     "config": {
         "platform": {
@@ -96,7 +96,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.4.*"
+            "require": "7.4.*"
         }
     }
 }

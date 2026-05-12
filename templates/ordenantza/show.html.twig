@@ -125,8 +125,8 @@
             <ul class="dropdown-menu" id="menuaAdmin">
                 <li><a href="{{ path('admin_ordenantza_esportatu', {'id':ordenantza.id}) }}">{{ "Odt-a eskuratu" | trans }}</a></li>
                 <li role="separator" class="divider"></li>
-                <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('build/images/espanol.png') }}" alt="Castellano"> Castellano</a></li>
-                <li class="list-inline"><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'eu'}))}}"><img src="{{ asset('build/images/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
+                <li class="list-inline"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'es'})) }}"><img src="{{ asset('build/images/espanol.png') }}" alt="Castellano"> Castellano</a></li>
+                <li class="list-inline"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'eu'}))}}"><img src="{{ asset('build/images/euskara.png') }}" alt="Euskaraz"> Euskara</a></li>
             </ul>
         </li>
     </ul>

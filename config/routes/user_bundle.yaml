@@ -1,3 +1,4 @@
 user_bundle:
-    resource: '@UserBundle/Resources/config/routes.xml'
-    prefix: '/'
+  resource: '@UserBundle/Controller'
+  type: attribute
+  prefix: '/{_locale}'

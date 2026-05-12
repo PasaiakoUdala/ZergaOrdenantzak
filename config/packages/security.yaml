@@ -48,7 +48,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login$, role: PUBLIC_ACCESS }
+        - { path: ^/(es|eu)?/login$, role: PUBLIC_ACCESS }
 #        - { path: ^/[0-9][0-9][0-9][0-9]?[0-9]?/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/doc/, role: [ROLE_USER] }
         - { path: ^/(eu|es)/, role: [ROLE_ADMIN, ROLE_USER] }

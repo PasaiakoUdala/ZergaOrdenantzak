@@ -68,7 +68,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/ordenantzakbykodea/{kodea}')]
     public function getOrdenantzakbykodea(Request $request, $kodea)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $udala = $this->udalaRepo->findOneBy(['kodea' => $kodea]);
         if ( null === $udala) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -96,7 +96,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/ordenantzakbyid/{udalaid}')]
     public function getOrdenantzakByUdala(Request $request, $udalaid)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $udala = $this->udalaRepo->find($udalaid);
         if ( null === $udala) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -133,7 +133,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/ordenantza/{id}')]
     public function getOrdenantza(Request $request, $id)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $ordenantza = $this->ordenantzaRepo->find($id);
         if ( null === $ordenantza ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -165,7 +165,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/tributuak/{ordenantzaid}')]
     public function getAtalak(Request $request, $ordenantzaid)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $ordenantza = $this->ordenantzaRepo->find($ordenantzaid);
         if ( null === $ordenantza ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -193,7 +193,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/tributua/{id}')]
     public function getAtala(Request $request, $id)
     {
-        $_format = $request->get('_format','json');   
+        $_format = $request->query->get('_format','json');   
         $atala = $this->atalaRepo->find($id);
         if ( null === $atala ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -221,7 +221,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/udalzergak/{udalaid}')]
     public function getAzpiatalakByUdala(Request $request, $udalaid)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $udala = $this->udalaRepo->find($udalaid);
         if ( null === $udala ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -249,7 +249,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/zergak/{tributuaid}')]
     public function getAzpiatalak(Request $request, $tributuaid)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $tributua = $this->atalaRepo->find($tributuaid);
         if ( null === $tributua ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -276,7 +276,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/zerga/{id}')]
     public function getAzpiatala(Request $request, $id)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         $azpiatala = $this->azpiatalaRepo->find($id);
         if ( null === $azpiatala ) {
             return new JsonResponse(null, Response::HTTP_NOT_FOUND);
@@ -302,7 +302,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/kontzeptua/{id}')]
     public function getKontzeptua(Request $request, $id)
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         /** @var Kontzeptua $kontzeptua */
         $kontzeptua = $this->kontzeptuaRepo->find($id);
         if ( null === $kontzeptua ) {
@@ -324,7 +324,7 @@ class ApiController extends AbstractFOSRestController
     #[Get(path: '/exam/{kodea}')]
     public function getExamPrices(Request $request, $kodea, $_format = "json")
     {
-        $_format = $request->get('_format','json');
+        $_format = $request->query->get('_format','json');
         /* 'Tasas según grupo azpiatalaren kodea azterketen prezioak bilatzeko
          * Gero erreziboen aplikazioan helbidea ezartzen da kontzeptu bakoitzeko
          * eta behar den zenbatekoa itzultzen du. Zenbatekoa baino ez du itzultzen.
