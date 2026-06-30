@@ -1,4 +1,3 @@
-{% trans_default_domain 'user_bundle' %}
 <table id="taula" class="table bootstrap-table mt-3"
 {{ stimulus_controller('table', { 
       'url': path('admin_user_index'),
@@ -12,12 +11,13 @@
 >
    <thead>
       <tr>
-         <th data-sortable="true">{{"user.id" | trans | capitalize}}</th>
-         <th data-sortable="true">{{"user.username" | trans | capitalize}}</th>
-         <th data-sortable="true">{{"user.firstName" | trans | capitalize}}</th>
-         <th data-sortable="true">{{"user.email" | trans | capitalize}}</th>
-         <th data-sortable="true">{{"user.roles" | trans | capitalize}}</th>
-         <th data-sortable="true" data-field="options">{{"table.options" | trans | capitalize}}</th>
+         <th data-sortable="true">{{"user.id" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true">{{"user.username" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true">{{"user.firstName" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true">{{"user.email" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true">{{"user.roles" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true">{{"user.activated" | trans({},'user_bundle') | capitalize}}</th>
+         <th data-sortable="true" data-field="options">{{"table.options" | trans({},'user_bundle') | capitalize}}</th>
       </tr>
    </thead>
    <tbody>
@@ -31,13 +31,14 @@
                   {% set rolesCount = user.roles | filter((v,k) => v != 'ROLE_ADIERAZLEAK') | length %}
                   {% if rolesCount > 0 %}
                         {% for role in user.roles | filter((v,k) => v != 'ROLE_ADIERAZLEAK') %}
-                           {{ role | trans | capitalize }} 
+                           {{ role | trans({},'user_bundle') | capitalize }} 
                            {% if loop.index < rolesCount %}|{% endif %}
                         {% endfor %}
                   {% else %}
-                        {{ 'ROLE_ADIERAZLEAK' | trans }}
+                        {{ 'ROLE_ADIERAZLEAK' | trans({},'user_bundle') }}
                   {% endif %}
          </td>
+         <td>{{user.activated ? 'messages.si' | trans : 'messages.no' | trans}}</td>
          <td>
          <a href="{{ path ("admin_user_show",{'id': user.id })}}"
             data-return-url="{{ absolute_url(path(app.request.attributes.get('_route'))) }}" data-action="click->table#onClick" data-pagination="false"

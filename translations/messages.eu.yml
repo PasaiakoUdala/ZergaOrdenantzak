@@ -94,3 +94,5 @@ Akats zuzenketak (testua): 'Akats zuzenketak (testua)'
 "messages.ziurzaude": "EZABATU. Ziur zaude?"
 "messages.eskutatu": "Ez erakutsi publikoari."
 "messages.publikatu": "Argitaratu"
+messages.si: "Bai"
+messages.no: "Ez"
